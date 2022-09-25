@@ -65,8 +65,39 @@ with Python pre-installed.
 
 \wss{Hardware and software}
 
+\newpage
+
 \section{Goals}
+\begin{table}[h!]
+    \centering
+        \begin{tabular}{|p{6cm}|p{6cm}|}
+    		\hline
+    		\textbf{Goal} & \textbf{Importance} \\
+    		\hline
+    		The toolbox will be completely open-source without reliance on the proprietary ArcGIS or subsidiary software. & An open-source toolbox will allow a greater audience to process and use the abundance of GPS data that is collected every day. Additionally, it avoids dependency on the industry standard, proprietary ArcGIS Pro software. \\
+    		\hline
+    		The toolbox will quickly normalize and process common GPS file formats (GPRMC, GPGGA, GPGLL...) into compatible data types. & Similar to its predecessor, this toolbox aims to be highly flexible, allowing for a variety of input formats. Many existing tools are not input agnostic and as such cannot process a variety of data.  \\
+    		\hline
+    		The toolbox supports fast and accurate route choice model estimations. & Route choice model estimations are models of possible routes a traveler may take based on their intermediary GPS information. These models can be used for a variety of applications. Examples include; forecasting traveler behaviour and predicting future traffic conditions on transportation networks. \\
+    		\hline
+    		The toolbox will be able to extract travel episodes, identify stops, intermediary trip information, potential activity locations (PALs), and assign trip purposes to episodes. & Many existing tools are able to extract travel episodes and assign trip purposes. By extending the functionality to include stop identification, PALs, and parse intermediary trip information the toolbox provides much requested functionality for researchers. \\
+    		\hline
+    		The toolbox will be able to process 47.3 million points of GPS data within at most 6000 seconds. & Similar to its predecessor, this toolbox aims to be highly scalable, with the ability to process large amounts of data in a short amount of time. This makes it more viable to use GPS data for applications that require regular processing of data.\\
+    		\hline
+    	\end{tabular}
+		
+\end{table}
 
 \section{Stretch Goals}
+
+\begin{tabular}{|p{6cm}|p{6cm}|}
+    		\hline
+    		\textbf{Goal} & \textbf{Importance} \\
+    		\hline
+    		The toolbox will contain functionality to teach students about data processing methods, and develop intuition for how episodes are categorized. & This will allow the toolbox to be both a data processor as well as a learning tool for those who are new to GPS data analysis.  \\
+    		\hline
+    		The toolbox will provide an interactive GUI with map overlays for episodes and corresponding information. & The toolbox will not only provide graphs based on inputs and desired outputs, but users will be able to interact with the data to help understand where data came from and how it could change in the future.  \\
+    		\hline
+\end{tabular}
 
 \end{document}
