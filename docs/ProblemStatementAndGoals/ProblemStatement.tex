@@ -2,6 +2,7 @@
 
 \usepackage{tabularx}
 \usepackage{booktabs}
+\usepackage{array,multirow}
 
 \title{Problem Statement and Goals\\\progname}
 
@@ -22,7 +23,7 @@
 \toprule
 \textbf{Date} & \textbf{Developer(s)} & \textbf{Change}\\
 \midrule
-Date1 & Name(s) & Description of changes\\
+Sept. 23, 2022 & Nicholas Lobo & Problem Statement\\\\
 Date2 & Name(s) & Description of changes\\
 ... & ... & ...\\
 \bottomrule
@@ -31,17 +32,27 @@ Date2 & Name(s) & Description of changes\\
 
 \section{Problem Statement}
 
-\wss{You should check your problem statement with the
-\href{https://github.com/smiths/capTemplate/blob/main/docs/Checklists/ProbState-Checklist.pdf}
-{problem statement checklist}.}
-\wss{You can change the section headings, as long as you include the required information.}
+
 
 \subsection{Problem}
+With the large usage of global positioning systems, software has been created to help researchers develop tools and methods based off peoples GPS data. 
+One such software is the ArcPro toolbox that can match GPS traces to transportation networks. This software suffers from specific data requirements that limit usability, 
+limited functionality and is not able to handle the use of larger GPS data sets. In order to overcome these weaknesses the ArcPro toolbox must be re-engineered with a focuses 
+on transferability, modularity, and scalability as well as being open source without using any proprietary software. 
 
 \subsection{Inputs and Outputs}
-
-\wss{Characterize the problem in terms of ``high level'' inputs and outputs.  
-Use abstraction so that you can avoid details.}
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|p{6cm}|p{6cm}|}
+    \hline
+    Input & Output  \\
+    \hline
+    \multirow{2}{5cm}{A dataset of latitude and longitude positions and times based on persons typical route during the day} & Identify sections of each travelers day based on the location they are in for some period of time.  \\\cline{2-2} 
+    & Identify the travelers method of transportation they are using during each episode(i.e bus, walking,)  \\\cline{2-2} 
+    & Estimate the possible route a traveler will take\\\cline{2-2} 
+    \hline
+    \end{tabular}
+\end{table}
 
 \subsection{Stakeholders}
 
