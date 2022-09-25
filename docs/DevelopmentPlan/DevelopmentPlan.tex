@@ -105,21 +105,22 @@ The proof of concept demonstration will be providing a summary of the design arc
 %design and architecture to be used 
 %methods of overcoming risks 
 
+\section{Technology}%S
 
-\section{Technology}
+\subsection{Programming Language}
+The team will be using Python3 as the main programming language. Python is a great language for handling large data sets and for computing and performing statistical analysis. The team may also use some R for certain features if/when necessary.
 
-\begin{itemize}
-\item Specific programming language
-\item Specific linter tool (if appropriate)
-\item Specific unit testing framework
-\item Investigation of code coverage measuring tools
-\item Specific plans for Continuous Integration (CI), or an explanation that CI
-  is not being done
-\item Specific performance measuring tools (like Valgrind), if
-  appropriate
-\item Libraries you will likely be using?
-\item Tools you will likely be using?
-\end{itemize}
+\subsection{Development Tools}
+ The team will also be using VSCode along with RStudio as an IDE. The linting tool that will be used is pylint in order to keep our code consistent and clean. The team will be likely using the R5py python library for routing different types of transportation networks. As well as GeoPandas which makes geo-spatial data easier to work with in Python. The data will be stored and fetched from MongoDB. GitHub is where the repository will be stored and issues will be created and tracked.
+ 
+\subsection{Documentation}
+Doxygen will be used to create documentation for the code. Quarto files will be also be used in parallel to document the code in a more thorough manner. Quarto files will include markdown as well as code in order to create well documented code that is executable.
+
+\subsection{Testing Frameworks}
+The unit testing framework that will be used is pytest. Pytest also has various plugins such as pytest-regressions which will be used to regression test our code.
+ 
+\subsection{Continuous Integration}
+Continuous Integration will be integrated through GitHub Actions, which will build the code and run the tests on virtual machines hosted by GitHub. CI tests are needed to pass during the pull request stage for the code to be merged in.
 
 \section{Coding Standard}
 
