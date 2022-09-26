@@ -25,7 +25,8 @@
 \midrule
 Sept. 23, 2022 & Nicholas & Problem Statement\\\\
 Sept. 25, 2022 & Longwei Ye & Problem Statement\\\\
-Sept. 23, 2022 & Moksha Srinivasan & Goals, Stretch Goals\\
+Sept. 23, 2022 & Moksha Srinivasan & Goals, Stretch Goals\\\\
+Sept. 23, 2022 & Niyatha Rangarajan & Added definitions and edited sections for better understanding.\\
 ... & ... & ...\\
 \bottomrule
 \end{tabularx}
@@ -36,9 +37,8 @@ Sept. 23, 2022 & Moksha Srinivasan & Goals, Stretch Goals\\
 
 
 \subsection{Problem}
-With the large usage of global positioning systems, software has been created to help researchers develop tools and methods based off peoples GPS data. 
-One such software is the ArcPro toolbox that can match GPS traces to transportation networks. This software suffers from specific data requirements that limit usability, 
-limited functionality and is not able to handle the use of larger GPS data sets. In order to overcome these weaknesses the ArcPro toolbox must be re-engineered with a focuses 
+With the large usage of global positioning systems, software has been created to help researchers develop tools and methods based off exisitng GPS data. 
+One such software is the ArcGIS Pro toolbox that can match GPS traces to transportation networks. This software suffers from specific data requirements that limit usability and functionality. Hence, it can not be extended to larger GPS data sets with newer data manipulation techniques. In order to overcome these weaknesses the ArcPro toolbox must be re-engineered with a focus 
 on transferability, modularity, and scalability as well as being open source without using any proprietary software. 
 
 \subsection{Inputs and Outputs}
@@ -48,9 +48,9 @@ on transferability, modularity, and scalability as well as being open source wit
     \hline
     Input & Output  \\
     \hline
-    \multirow{2}{5cm}{A dataset of latitude and longitude positions and times based on persons typical route during the day} & Identify sections of each travelers day based on the location they are in for some period of time.  \\\cline{2-2} 
-    & Identify the travelers method of transportation they are using during each episode (See Definitions)  \\\cline{2-2} 
-    & Estimate the possible route a traveler will take\\\cline{2-2} 
+    \multirow{2}{5cm}{A dataset of latitude and longitude positions and times based on a person's typical route during the day} & Identify sections of each travelers day based on the location they are at for some period of time.  \\\cline{2-2} 
+    & Identify the traveler's method of transportation that they are using during each episode. (See Definitions)  \\\cline{2-2} 
+    & Estimate the possible route a traveler will take through map-matched routes integrated with route detection and route choice set generation modules.\\\cline{2-2}  
     \hline
     \end{tabular}
 \end{table}
@@ -98,7 +98,7 @@ with Python pre-installed.
 \end{tabular}
 \section{Definitions}
 %[1] 
-\includegraphics[scale=0.6]{REV0/ProblemStatementAndGoals/gert.jpg}
+\includegraphics[scale=0.6]{./gert.jpg}
 \subsection{Episodes}
 In the context of activity analysis, a person’s 24-h (daily) activities can be subdivided into episodes, which are differentiated
 based on location (inside a building or travel mode); hence an
