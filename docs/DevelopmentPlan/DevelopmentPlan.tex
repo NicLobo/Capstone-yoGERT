@@ -23,8 +23,10 @@
 \toprule
 \textbf{Date} & \textbf{Developer(s)} & \textbf{Change}\\
 \midrule
-Sept. 21, 2022 & Abeer & Introduction, Team Members Roles, Proof of Concept Demonstration, Project Scheduling, Coding Standard \\
-Sept. 21, 2022 & Smita & Worked on Team Meeting Plan, Team Communication Plan, Workflow Plan, Technology, Coding Standard\\
+Sept. 21, 2022 & Abeer & Introduction, Team Members Roles, Proof of Concept Demonstration, Project Scheduling, Coding Standard \\\\
+Sept. 21, 2022 & Smita & Worked on Team Meeting Plan, Team Communication Plan, Workflow Plan, Technology, Coding Standard\\\\
+Sept. 25, 2022 & Niyatha & Basic edits for grammatical issues. Suggested better 
+ development tools and risk mitigation.\\\\
 %... & ... & ...\\
 \bottomrule
 \end{tabularx}
@@ -67,6 +69,7 @@ All team members are expected to be responsible for completing technical softwar
     \caption{Team Roles}
     \label{tab:team_roles}
 \end{table}
+%A
 
 \section{Workflow Plan} %S
 
@@ -77,25 +80,25 @@ Issues will be discussed and created by all of the group members and will be sto
 \section{Proof of Concept Demonstration Plan} %A
 
 \subsection{Most Significant Risk}
-The project will include three main risks that the team must address for a successful demonstration. First one is scalability of the software to meet the project scope. This includes module designs related to performance and maintainability. The project is tackling multiple aspects of the ARC GIS system so it is important to design modules following the separation of concerns principles to ensure modularity in the design. Building a reliable design plan before implementation eliminates the risk. Second risk is project's size with the time given to complete the project. Since the project will be based from the ARC GIS system which include various components to build the software. Hence, the team must make a selective process of designing and implementing modules of core functionalities before expanding. This ensures completion of a system with fundamental functionalities to use. Third risk is re-implementation of existing modules and tools of the system. The team must deliver a full Python3 re-implementation the system with accessible tools for technical users to follow and use. 
+The project will include three main risks that the team must address for a successful demonstration. The first one is scalability of the software to meet the project scope. This includes module designs related to performance and maintainability. The project is tackling multiple aspects of the ARC GIS system so it is important to design modules following the separation of concerns principles to ensure modularity in the design. Building a reliable design plan before implementation eliminates the risk. The second risk is the project's functional capabilities within the specified deadlines since the project will be based on the ARC GIS system which include various components for GPS tracking. Hence, the team must prioritize the designing and implementing modules of core functionalities before expanding. This ensures completion of a system with fundamental features. The third risk is re-implementation of existing modules and tools of the system. The team must deliver a full Python3 re-implementation the system with accessible tools for technical users to follow and use. 
 
 \subsection{Will a part of the implementation be difficult?}
 The team is not anticipating many problems with implementation except ensuring that only accessible libraries and tools are used to build the system. It may require more research and time to use the new technology with the team's existing set of skills. 
 
 \subsection{Will testing be difficult?}
-Automated integration testing for multiple modules will be difficult because it requires enormous amount of work to gather proper data of how the modules will be used together. Therefore, automating such cases might not be feasible for the project.
+Automated integration testing for multiple modules will be difficult because it requires enormous amount of work to gather proper data on how the modules will be used together. Therefore, automating such cases might not be feasible for the project.
 
 \subsection{Is a required library difficult to install?}
 No, because any required libraries will be available in the project's git repository.
 
 \subsection{Will portability be a concern?}
-No, since the project will have all the files available on the git repository. Also, the potential users for the software are assumed to have prior knowledge to download the repository and run a starting Python3 module to use the system. Therefore, any technical user with machine with Python will be able to use the system.
+No, since the project will have all the files available on the git repository as it is open source. Also, the potential users for the software are assumed to have prior knowledge to download the repository and run a starting Python3 module to use the system. Therefore, any technical user with Python pre-installed will be able to use the system.
 
 \subsection{Hardware Concerns}
 Not applicable for the project because no hardware is involved. 
 
 \subsection{Proof of Concept Plan}
-The proof of concept demonstration will be providing a summary of the design architecture of the project and showing the fundamental modules in the form of a use case scenario. The scenarios must provide successful system functionalities to ensure proper design decisions, mitigation method for design risks, and technical feasibility to complete the project scope. The demonstration will showcase all the functional features of the system re-implementation on a rudimentary level to proof that the system is suitable for scaling and followed a modular design principle. Not only that but also demonstrating 80-90\% of the project's main goals will establish that the team will be successful to fully complete the project to the end.
+The proof of concept demonstration will be providing a summary of the design architecture of the project and showing the fundamental modules in the form of a use case scenario. The scenarios must provide successful system functionalities to ensure proper design decisions, mitigation method for design risks, and technical feasibility to complete the project scope. The demonstration will showcase all the functional features of the system and re-implementation on a rudimentary level to prove that the system is suitable for scaling and follows a modular design principle. Also, demonstrating 80-90\% of the project's main goals will establish that the team is successful at completing the project end to the end.
 
 %What will you demonstrate during your proof of concept demonstration to convince yourself that you will be able to overcome this risk?
 
@@ -104,6 +107,7 @@ The proof of concept demonstration will be providing a summary of the design arc
 %what technologies we plan to use to show the demo
 %design and architecture to be used 
 %methods of overcoming risks 
+
 
 \section{Technology}%S
 
@@ -122,6 +126,7 @@ The unit testing framework that will be used is pytest. Pytest also has various 
 \subsection{Continuous Integration}
 Continuous Integration will be integrated through GitHub Actions, which will build the code and run the tests on virtual machines hosted by GitHub. CI tests are needed to pass during the pull request stage for the code to be merged in.
 
+
 \section{Coding Standard}
 The project coding standard will follow the Pylint rules. This is because all team members will be using VS Code for Python and will enable the standard linting tool. This will ensure consistent, clean and readable code because Pylint is able to catch a number of bugs and disable unwanted warnings. %A
 PEP 8 – Style Guide for Python Code is another tool be used to ensure standard coding conventions. %S
@@ -133,5 +138,6 @@ The project schedule will be showcased using a Microsoft Planner that will be ac
 \centering
 \includegraphics[width=\textwidth]{REV0/DevelopmentPlan/SProject schedule.png}
 \end{figure}
+
 
 \end{document}
