@@ -88,266 +88,274 @@ User characteristics should go under assumptions.
 
 \subsubsection{Individual Product Use Cases}
 
-\subsection{Functional Requirements}
-
+\subsection{Functional and Data Requirements}
 \noindent \begin{itemize}
 
-\subsubsection{Functional Requirements}
-
-\subsubsection{Data Requirements}
-
 \item[R\refstepcounter{reqnum}\thereqnum
-\label{R_Inputs_1}:] \plt{The system shall accept GPS data points.}
+\label{R_Inputs_1}:] \plt{The system shall allow users to upload GPS data in standard format.}
 \begin{itemize}
-    \item \textbf{Rationale}: System must analysis activity data.
-    \item \textbf{Fit Criterion}: User successfully upload GPS data in standard format such as csv. 
+    \item \textbf{Requirement Type}: Functional
+    \item \textbf{Rationale}: The user needs to upload GPS data for processing.
+    \item \textbf{Fit Criterion}: The system successfully uploads the file and notifies the user.
     \item \textbf{Priority}: 5
-    \item \textbf{Event}: Number%usecase it relates to
+    \item \textbf{Event}: UC1
     \item \textbf{Customer Satisfaction}: 5
     \item \textbf{Customer Dissatisfaction}: 5
-    \item \textbf{Conflict}: None
+    \item \textbf{Conflict}:None
+    \item \textbf{Planned Date}: November 14, 2022
+\end{itemize}
+
+\item[R\refstepcounter{reqnum}\thereqnum
+\label{R_Inputs_1}:] \plt{The system shall process GPS data points.}
+\begin{itemize}
+    \item \textbf{Requirement Type}: Data
+    \item \textbf{Rationale}: System must analysis activity data.
+    \item \textbf{Fit Criterion}: The system outputs GPS data points as latitude, longtude, and time variables. 
+    \item \textbf{Priority}: 5
+    \item \textbf{Event}: UC1
+    \item \textbf{Customer Satisfaction}: 5
+    \item \textbf{Customer Dissatisfaction}: 5
+    \item \textbf{Conflict}: R1.
+    \item \textbf{Planned Date}: November 14, 2022
 \end{itemize}
 
 \item[R\refstepcounter{reqnum}\thereqnum
 \label{R_Inputs_1}:] \plt{The system shall accept TUD data points.}
 \begin{itemize}
+    \item \textbf{Requirement Type}: Data
     \item \textbf{Rationale}: System must analysis activity data.
     \item \textbf{Fit Criterion}: User successfully upload TUD data in standard format such as csv. 
     \item \textbf{Priority}: 5
-    \item \textbf{Event}: Number%usecase it relates to
+    \item \textbf{Event}: UC3
     \item \textbf{Customer Satisfaction}: 5
     \item \textbf{Customer Dissatisfaction}: 5
     \item \textbf{Conflict}: None
+    \item \textbf{Planned Date}: November 14, 2022
+\end{itemize}
+
+\item[R\refstepcounter{reqnum}\thereqnum
+\label{R_Output_3}:] \plt{The system shall produce output in a standard transferable format.}
+\begin{itemize}
+    \item \textbf{Requirement Type}: Functional
+    \item \textbf{Rationale}: User must read data and re-use output data across multiple applications.
+    \item \textbf{Fit Criterion}: System successfully outputs data in standard format such as csv. 
+    \item \textbf{Priority}: 5
+    \item \textbf{Event}: UC1-7
+    \item \textbf{Customer Satisfaction}: 5
+    \item \textbf{Customer Dissatisfaction}: 4
+    \item \textbf{Conflict}: None
+    \item \textbf{Planned Date}: November 14, 2022
 \end{itemize}
 
 \item[R\refstepcounter{reqnum}\thereqnum
 \label{R_Inputs_2}:] \plt{The system shall use longitude, latitude, and time variables from GPS data points.}
 \begin{itemize}
+    \item \textbf{Requirement Type}: Data
     \item \textbf{Rationale}: System must use general variables to make computations and produce analysis.
     \item \textbf{Fit Criterion}: System successfully extracts longitude, latitude, and time information from inputs.
     \item \textbf{Priority}: 5
-    \item \textbf{Event}: Number.
+    \item \textbf{Event}: UC1-7
     \item \textbf{Customer Satisfaction}: 5
     \item \textbf{Customer Dissatisfaction}: 5
-    \item \textbf{Conflict}: FR1
+    \item \textbf{Conflict}: R2
+    \item \textbf{Planned Date}: November 14, 2022
 \end{itemize}
 
 \item[R\refstepcounter{reqnum}\thereqnum
-\label{R_Outputs_1}:] \plt{The system shall extract episode attributes including speed, duration, direction, distance, change in direction, and status points from GPS data points.}
+\label{R_Outputs_1}:] \plt{The system shall extract episode attributes including speed, duration, direction, distance, change in direction, acceleration, and status points from GPS data points.}
 \begin{itemize}
+    \item \textbf{Requirement Type}: Functional
     \item \textbf{Rationale}: System must categorize data points to useful information for the user to read.
     \item \textbf{Fit Criterion}: System successfully produce reports of episode attributes. 
     \item \textbf{Priority}: 5
-    \item \textbf{Event}: Number.
+    \item \textbf{Event}: UC2
     \item \textbf{Customer Satisfaction}: 5
     \item \textbf{Customer Dissatisfaction}: 5
-    \item \textbf{Conflict}: FR1
-\end{itemize}
-
-\item[R\refstepcounter{reqnum}\thereqnum
-\label{R_Outputs_2}:] \plt{The system shall decompose episode into output segments of type stop and trip.}
-\begin{itemize}
-    \item \textbf{Rationale}: User need to understand the object's behaviour during a segment.
-    \item \textbf{Fit Criterion}: System successfully categorize a moving object in a trip segment and a static object in stop segment
-    \item \textbf{Priority}: 5
-    \item \textbf{Event}: Number.
-    \item \textbf{Customer Satisfaction}: 5
-    \item \textbf{Customer Dissatisfaction}: 5
-    \item \textbf{Conflict}:
-\end{itemize}
-
-\item[R\refstepcounter{reqnum}\thereqnum
-\label{R_Output_3}:] \plt{The system shall produce output in a transferable format.}
-\begin{itemize}
-    \item \textbf{Rationale}: User must read data and re-use output data across multiple applications.
-    \item \textbf{Fit Criterion}: System successfully outputs data in standard format such as csv. 
-    \item \textbf{Priority}: 5
-    \item \textbf{Event}: Number.
-    \item \textbf{Customer Satisfaction}: 5
-    \item \textbf{Customer Dissatisfaction}: 4
-    \item \textbf{Conflict}:
-\end{itemize}
-
-\item[R\refstepcounter{reqnum}\thereqnum
-\label{R_Inputs_1}:] \plt{The system shall classify extracted episode into different types including stop, car, walk, bus, and other travel episodes.}
-\begin{itemize}
-    \item \textbf{Rationale}: User need to understand travel behaviour of objects' episode.  
-    \item \textbf{Fit Criterion}: System successfully classify predefined examples into correct episode types. 
-    \item \textbf{Priority}: 5
-    \textbf{Event}: Number
-    \item \textbf{Customer Satisfaction}: 5
-    \item \textbf{Customer Dissatisfaction}: 5
-    \item \textbf{Conflict}:
-\end{itemize}
-
-\item[R\refstepcounter{reqnum}\thereqnum
-\label{R_Inputs_1}:] \plt{The system shall identify activity locations based on the episode attributes of the route to the stop point.}
-\begin{itemize}
-    \item \textbf{Rationale}: System needs location types for land use and road network analysis.
-    \item \textbf{Fit Criterion}: System successfully identify a high activity locations and low activity locations. 
-    \item \textbf{Priority}: 5
-    \item \textbf{Event}: Number
-    \item \textbf{Customer Satisfaction}: 5
-    \item \textbf{Customer Dissatisfaction}: 5
-    \item \textbf{Conflict}:
+    \item \textbf{Conflict}: R5
+    \item \textbf{Planned Date}: November 14, 2022
 \end{itemize}
 
 \item[R\refstepcounter{reqnum}\thereqnum
 \label{R_Inputs_1}:] \plt{The system shall extract episode attributes including duration, distance, and change in trajectory from TUD data points.}
 \begin{itemize}
+    \item \textbf{Requirement Type}: Functional
     \item \textbf{Rationale}: The system needs to validate  analysis of GPS points.
     \item \textbf{Fit Criterion}: System successfully produce reports of episode attribute.
     \item \textbf{Priority}: 5
-    \item \textbf{Event}: Number
+    \item \textbf{Event}: UC3
     \item \textbf{Customer Satisfaction}: 5
     \item \textbf{Customer Dissatisfaction}: 4
-    \item \textbf{Conflict}:
+    \item \textbf{Conflict}: R3
+    \item \textbf{Planned Date}: November 14, 2022
+\end{itemize}
+
+\item[R\refstepcounter{reqnum}\thereqnum
+\label{R_Inputs_1}:] \plt{The system shall classify extracted episode into different types including stop, car, walk, bus, and other travel episodes.}
+\begin{itemize}
+    \item \textbf{Requirement Type}: Functional
+    \item \textbf{Rationale}: User need to understand travel behaviour of objects' episode.  
+    \item \textbf{Fit Criterion}: System successfully classify predefined examples into correct episode types. 
+    \item \textbf{Priority}: 5
+    \textbf{Event}: UC2
+    \item \textbf{Customer Satisfaction}: 5
+    \item \textbf{Customer Dissatisfaction}: 5
+    \item \textbf{Conflict}: R6,7
+    \item \textbf{Planned Date}: November 14, 2022
+\end{itemize}
+
+\item[R\refstepcounter{reqnum}\thereqnum
+\label{R_Outputs_2}:] \plt{The system shall decompose episode into output segments of type stop and trip.}
+\begin{itemize}
+    \item \textbf{Requirement Type}: Functional
+    \item \textbf{Rationale}: User need to understand the object's behaviour during a segment.
+    \item \textbf{Fit Criterion}: System successfully categorize a moving object in a trip segment and a static object in stop segment
+    \item \textbf{Priority}: 5
+    \item \textbf{Event}: UC3
+    \item \textbf{Customer Satisfaction}: 5
+    \item \textbf{Customer Dissatisfaction}: 5
+    \item \textbf{Conflict}: R8
+    \item \textbf{Planned Date}: November 14, 2022
 \end{itemize}
 
 \item[R\refstepcounter{reqnum}\thereqnum
 \label{R_Inputs_1}:] \plt{The system shall identify trip trajectory using extracted segments.}
 \begin{itemize}
-    \item \textbf{Rationale}: System needs trip trajectory for route analysis. 
+    \item \textbf{Requirement Type}: Functional
+    \item \textbf{Rationale}: The system needs trip trajectory for route analysis. 
     \item \textbf{Fit Criterion}: The system successfully identifies the change in the trajectory when the object changes direction. 
     \item \textbf{Priority}: 5
-    \item \textbf{Event}: Number
+    \item \textbf{Event}: UC3,4
     \item \textbf{Customer Satisfaction}: 5
     \item \textbf{Customer Dissatisfaction}: 5
-    \item \textbf{Conflict}:
+    \item \textbf{Conflict}: R9
+    \item \textbf{Planned Date}: November 14, 2022
 \end{itemize}
 
 \item[R\refstepcounter{reqnum}\thereqnum
-\label{R_Inputs_1}:] \plt{The system shall .}
+\label{R_Inputs_1}:] \plt{The system shall identify activity locations based on the episode attributes of the route to the stop point.}
 \begin{itemize}
-    \item \textbf{Rationale}:
-    \item \textbf{Fit Criterion}:
-    \item \textbf{Priority}:
-    \item \textbf{Event}: Number
-    \item \textbf{Customer Satisfaction}:
-    \item \textbf{Customer Dissatisfaction}:
-    \item \textbf{Conflict}:
+    \item \textbf{Requirement Type}: Functional
+    \item \textbf{Rationale}: The system needs location types for land use and road network analysis.
+    \item \textbf{Fit Criterion}: The system successfully identify a high activity locations and low activity locations. 
+    \item \textbf{Priority}: 5
+    \item \textbf{Event}: UC5,7
+    \item \textbf{Customer Satisfaction}: 5
+    \item \textbf{Customer Dissatisfaction}: 5
+    \item \textbf{Conflict}: R6,7
+    \item \textbf{Planned Date}: November 14, 2022
 \end{itemize}
 
 \item[R\refstepcounter{reqnum}\thereqnum
-\label{R_Inputs_1}:] \plt{The system shall .}
+\label{R_Inputs_1}:] \plt{The system shall generate RCA variables based on trip trajectory}
 \begin{itemize}
-    \item \textbf{Rationale}:
-    \item \textbf{Fit Criterion}:
-    \item \textbf{Priority}:
-    \item \textbf{Event}: Number
-    \item \textbf{Customer Satisfaction}:
-    \item \textbf{Customer Dissatisfaction}:
-    \item \textbf{Conflict}:
+    \item \textbf{Requirement Type}: Functional
+    \item \textbf{Rationale}: The system needs to define route choice behaviour dataset.
+    \item \textbf{Fit Criterion}: The system successfully defines variables to describe a route from position A to position B.
+    \item \textbf{Priority}: 5
+    \item \textbf{Event}: UC4,6
+    \item \textbf{Customer Satisfaction}: 5
+    \item \textbf{Customer Dissatisfaction}: 4
+    \item \textbf{Conflict}: R10
+    \item \textbf{Planned Date}: November 14, 2022
 \end{itemize}
 
 \item[R\refstepcounter{reqnum}\thereqnum
-\label{R_Inputs_1}:] \plt{The system shall .}
+\label{R_Inputs_1}:] \plt{The system shall store RCA data set.}
 \begin{itemize}
-    \item \textbf{Rationale}:
-    \item \textbf{Fit Criterion}:
-    \item \textbf{Priority}:
-    \item \textbf{Event}: Number
-    \item \textbf{Customer Satisfaction}:
-    \item \textbf{Customer Dissatisfaction}:
-    \item \textbf{Conflict}:
+    \item \textbf{Requirement Type}: Data
+    \item \textbf{Rationale}: The system needs to track the RCA for descriptive route analysis. 
+    \item \textbf{Fit Criterion}: System successfully stored multiple instances of RCA variables. 
+    \item \textbf{Priority}: 4
+    \item \textbf{Event}: UC4,6
+    \item \textbf{Customer Satisfaction}: 5
+    \item \textbf{Customer Dissatisfaction}: 4
+    \item \textbf{Conflict}: R12
+    \item \textbf{Planned Date}: November 14, 2022
 \end{itemize}
 
 \item[R\refstepcounter{reqnum}\thereqnum
-\label{R_Inputs_1}:] \plt{The system shall .}
+\label{R_Inputs_1}:] \plt{The system shall automate routes from position A to position B based on RCA set.}
 \begin{itemize}
-    \item \textbf{Rationale}:
-    \item \textbf{Fit Criterion}:
-    \item \textbf{Priority}:
-    \item \textbf{Event}: Number
-    \item \textbf{Customer Satisfaction}:
-    \item \textbf{Customer Dissatisfaction}:
-    \item \textbf{Conflict}:
+    \item \textbf{Requirement Type}: Functional
+    \item \textbf{Rationale}: The user wants to request routes from position A to position B.
+    \item \textbf{Fit Criterion}: The system produce a mapped route from position A to position B.
+    \item \textbf{Priority}: 4
+    \item \textbf{Event}: UC6
+    \item \textbf{Customer Satisfaction}: 5
+    \item \textbf{Customer Dissatisfaction}: 4
+    \item \textbf{Conflict}: R13
+    \item \textbf{Planned Date}: November 14, 2022
 \end{itemize}
 
 \item[R\refstepcounter{reqnum}\thereqnum
-\label{R_Inputs_1}:] \plt{The system shall .}
+\label{R_Inputs_1}:] \plt{The system shall allow users to select options for automated route requests .}
 \begin{itemize}
-    \item \textbf{Rationale}:
-    \item \textbf{Fit Criterion}:
-    \item \textbf{Priority}:
-    \item \textbf{Event}: Number
-    \item \textbf{Customer Satisfaction}:
-    \item \textbf{Customer Dissatisfaction}:
-    \item \textbf{Conflict}:
+    \item \textbf{Requirement Type}: Functional
+    \item \textbf{Rationale}: The user needs the option to customize routes. 
+    \item \textbf{Fit Criterion}: The system successfully maps a route with selected options such as shortest distance. 
+    \item \textbf{Priority}: 4
+    \item \textbf{Event}: UC6
+    \item \textbf{Customer Satisfaction}: 4
+    \item \textbf{Customer Dissatisfaction}: 4
+    \item \textbf{Conflict}: R13
+    \item \textbf{Planned Date}: November 14, 2022
 \end{itemize}
 
 \item[R\refstepcounter{reqnum}\thereqnum
-\label{R_Inputs_1}:] \plt{The system shall .}
+\label{R_Inputs_1}:] \plt{The system shall store activity location identifications.}
 \begin{itemize}
-    \item \textbf{Rationale}:
-    \item \textbf{Fit Criterion}:
-    \item \textbf{Priority}:
-    \item \textbf{Event}: Number
-    \item \textbf{Customer Satisfaction}:
-    \item \textbf{Customer Dissatisfaction}:
-    \item \textbf{Conflict}:
+    \item \textbf{Requirement Type}: Data
+    \item \textbf{Rationale}: The user needs to search for specific type of activity location.
+    \item \textbf{Fit Criterion}: The system successfully stores data and notifies user. 
+    \item \textbf{Priority}:4
+    \item \textbf{Event}: UC5,7
+    \item \textbf{Customer Satisfaction}: 4
+    \item \textbf{Customer Dissatisfaction}: 2
+    \item \textbf{Conflict}: R11
+    \item \textbf{Planned Date}: November 14, 2022
 \end{itemize}
 
 \item[R\refstepcounter{reqnum}\thereqnum
-\label{R_Inputs_1}:] \plt{The system shall .}
+\label{R_Inputs_1}:] \plt{The system shall allows requests for activity location description by filtering.}
 \begin{itemize}
-    \item \textbf{Rationale}:
-    \item \textbf{Fit Criterion}:
-    \item \textbf{Priority}:
-    \item \textbf{Event}: Number
-    \item \textbf{Customer Satisfaction}:
-    \item \textbf{Customer Dissatisfaction}:
-    \item \textbf{Conflict}:
+    \item \textbf{Requirement Type}: Functional
+    \item \textbf{Rationale}: The user needs the options to search for specific type of activity location.
+    \item \textbf{Fit Criterion}: The system successfully outputs relevant types of activity locations to what the user requested. 
+    \item \textbf{Priority}:4
+    \item \textbf{Event}: UC5,7
+    \item \textbf{Customer Satisfaction}: 4
+    \item \textbf{Customer Dissatisfaction}: 2
+    \item \textbf{Conflict}: R16
+    \item \textbf{Planned Date}: November 14, 2022
 \end{itemize}
 
 \item[R\refstepcounter{reqnum}\thereqnum
-\label{R_Inputs_1}:] \plt{The system shall .}
+\label{R_Inputs_1}:] \plt{The system shall allow users to request trip segments' description for a given GPS data set.}
 \begin{itemize}
-    \item \textbf{Rationale}:
-    \item \textbf{Fit Criterion}:
-    \item \textbf{Priority}:
-    \item \textbf{Event}: Number
-    \item \textbf{Customer Satisfaction}:
-    \item \textbf{Customer Dissatisfaction}:
-    \item \textbf{Conflict}:
+    \item \textbf{Requirement Type}: Functional
+    \item \textbf{Rationale}: The user needs to review intermediate analysis steps. 
+    \item \textbf{Fit Criterion}: The system successfully produce trip segment reports. 
+    \item \textbf{Priority}: 5
+    \item \textbf{Event}: UC3
+    \item \textbf{Customer Satisfaction}: 5
+    \item \textbf{Customer Dissatisfaction}: 5
+    \item \textbf{Conflict}: R9
+    \item \textbf{Planned Date}: November 14, 2022
 \end{itemize}
 
 \item[R\refstepcounter{reqnum}\thereqnum
-\label{R_Inputs_1}:] \plt{The system shall .}
+\label{R_Inputs_1}:] \plt{The system shall allow users to request episode descriptions of GPS inputs.}
 \begin{itemize}
-    \item \textbf{Rationale}:
-    \item \textbf{Fit Criterion}:
-    \item \textbf{Priority}:
-    \item \textbf{Event}: Number
-    \item \textbf{Customer Satisfaction}:
-    \item \textbf{Customer Dissatisfaction}:
-    \item \textbf{Conflict}:
+    \item \textbf{Requirement Type}: Functional
+    \item \textbf{Rationale}: The user needs to access intermediate details about episode attributes.
+    \item \textbf{Fit Criterion}: The system successfully produces a standard output file with the requested details.
+    \item \textbf{Priority}: 5
+    \item \textbf{Event}: UC2
+    \item \textbf{Customer Satisfaction}: 5
+    \item \textbf{Customer Dissatisfaction}: 5
+    \item \textbf{Conflict}: R6-8
+    \item \textbf{Planned Date}: November 14, 2022
 \end{itemize}
-
-\item[R\refstepcounter{reqnum}\thereqnum
-\label{R_Inputs_1}:] \plt{The system shall .}
-\begin{itemize}
-    \item \textbf{Rationale}:
-    \item \textbf{Fit Criterion}:
-    \item \textbf{Priority}:
-    \item \textbf{Event}: Number
-    \item \textbf{Customer Satisfaction}:
-    \item \textbf{Customer Dissatisfaction}:
-    \item \textbf{Conflict}:
-\end{itemize}
-
-\item[R\refstepcounter{reqnum}\thereqnum
-\label{R_Inputs_1}:] \plt{The system shall .}
-\begin{itemize}
-    \item \textbf{Rationale}:
-    \item \textbf{Fit Criterion}:
-    \item \textbf{Priority}:
-    \item \textbf{Event}: Number
-    \item \textbf{Customer Satisfaction}:
-    \item \textbf{Customer Dissatisfaction}:
-    \item \textbf{Conflict}:
-\end{itemize}
-
 
 \end{itemize}
 
