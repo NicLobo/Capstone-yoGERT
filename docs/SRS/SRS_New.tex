@@ -61,20 +61,51 @@ to the template, you should explicity state what modifications were made.
 \section{Project Drivers}
 
 \subsection{The Purpose of the Project}
+Even though there exists softwares such as the ArcGIS Pro toolbox to help researchers and compaines to match GPS traces to transportation networks, they are suffer from specific data requirements that limit usability and functionality. In other words, it cannot be extended to larger GPS data sets with new data manipulation techniques. The purpose of the project is to overcome these weaknesses by re-engineered ArcGIS Pro toolbox with a focus on on transferability, modularity, and scalability as well as being open source without using any proprietary software.
 
 \subsection{The Stakeholders}
 
 \subsubsection{The Client}
+Researchers who are interested in matching GPS data to transportation networks in the context of travel episodes and route estimations analysis.
 
 \subsubsection{The Customers}
+Companies who are interested in matching GPS data for business analysis and managements.
 
 \subsubsection{Other Stakeholders}
+Developer, tester, and operator of this project.
 
 \subsection{Mandated Constraints}
+\begin{itemize}
+    \item This project must be completed by the end of April, 2023.
+    \item The final product must be able to run on personal laptops and desktops that uses Linux, Windows, and MacOS operating system with Python pre-installed.
+\end{itemize}
 
 \subsection{Naming Conventions and Terminology}
+\begin{tabular}{l l} 
+  \toprule		
+  \textbf{symbol} & \textbf{description}\\
+  \midrule 
+  GPS & Global Positioning Systems\\
+  GIS & Geographical Information Systems\\
+  GERT & GIS-based episode reconstruction toolkit \\
+  Point & location coordinate with time stamp.\\
+  Session & Object activity history quantified by GPS points \\
+  Episode & Session\\
+  Segment & Group of GPS Points combined based on episode attributes.\\
+  Trip & GPS points represents an object moving to a different position.\\
+  Route & Object path to get from point A to point B\\
+  MD & Mode Detection \\
+  TUD & Time Use Diary \\
+  RCA & Route Choice Analysis \\
+  \bottomrule
+\end{tabular}\\
 
 \subsection{Relevant Facts and Assumptions}
+begin{itemize}
+    \item As the project is built under python, we assume that the user should be familiar with python.
+    \item Assume users are familiar with csv files.
+    \item Assume users are familiar with map files such as .shp.
+\end{itemize}
 
 User characteristics should go under assumptions.
 
