@@ -109,13 +109,51 @@ begin{itemize}
 
 User characteristics should go under assumptions.
 
+\newpage
 \section{Functional Requirements}
 
 \subsection{The Scope of the Work and the Product}
 
 \subsubsection{The Context of the Work}
+The current GERT toolbox is dependent on ARCGIS libraries including arcgisscripting and arcpy. The toolbox currently supports processing GPS files into compatible data types, accurate and fast choice model estimations,  processing millions of GPS data points quickly, extract travel episodes and information on trips, potential activity locations and stops.
+
+\begin{figure}[!h]
+	    \begin{center}
+    	    \includegraphics[width=0.75\linewidth]{REV0/SRS/images/gertcontextdiagram.png}
+    	    \caption{Context Diagram}
+    	    \label{fig: Context Diagram}
+    	\end{center}
+\end{figure}
 
 \subsubsection{Work Partitioning}
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|p{4cm}|p{4cm}|p{6cm}|}
+         \hline
+         Event Name & Input and Output & Summary\\
+         \hline
+         User requests processed gps data & Input: CSV file Output: CSV file & System outputs normalized GPS data\\
+         \hline
+         User requests GPS episode extraction and mode detection & Input CSV file of gps data, Output: CSV file of of GPS episodes & System outputs episode extraction and mode detection CSV file\\
+         \hline
+         User requests trip segments based on processed data & Input: CSV file, Output: .shp file & System outputs GPS trip trajectories in a readable format for the user\\
+         \hline
+         User requests route choice sets & Input: .shp file, Output: .shp file & System outputs route choice sets and allows filtering based on set qualifiers\\
+         \hline
+         User requests activity locations  & Input: csv file, Output: .shp file & System outputs activity locations(stops) .shp file\\
+         \hline
+         User requests route choice analysis variables  & Input: .shp file, Output: .shp file & System outputs the route choice analysis variables along with justification for user perusal \\
+         \hline
+          User requests activity location identification  & Input: csv file, .shp file, .shp file, Output: .shp file& System outputs Activity location with Land Use and potential activity locations information in .shp file. \\
+         \hline
+    \end{tabular}
+    \caption{Work Partitioning Diagram}
+    \label{tab:team_roles}
+\end{table}
+
+\subsubsection{Product Boundary}
+
+N/A
 
 \subsubsection{Individual Product Use Cases}
 
