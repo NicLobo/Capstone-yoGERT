@@ -3,6 +3,11 @@
 \usepackage{booktabs}
 \usepackage{tabularx}
 \usepackage{hyperref}
+\usepackage{float}
+\usepackage{graphicx}
+
+\newcounter{reqnum} %Requirement Number
+
 \hypersetup{
     colorlinks,
     citecolor=black,
@@ -84,6 +89,267 @@ User characteristics should go under assumptions.
 \subsubsection{Individual Product Use Cases}
 
 \subsection{Functional Requirements}
+
+\noindent \begin{itemize}
+
+\subsubsection{Functional Requirements}
+
+\subsubsection{Data Requirements}
+
+\item[R\refstepcounter{reqnum}\thereqnum
+\label{R_Inputs_1}:] \plt{The system shall accept GPS data points.}
+\begin{itemize}
+    \item \textbf{Rationale}: System must analysis activity data.
+    \item \textbf{Fit Criterion}: User successfully upload GPS data in standard format such as csv. 
+    \item \textbf{Priority}: 5
+    \item \textbf{Event}: Number%usecase it relates to
+    \item \textbf{Customer Satisfaction}: 5
+    \item \textbf{Customer Dissatisfaction}: 5
+    \item \textbf{Conflict}: None
+\end{itemize}
+
+\item[R\refstepcounter{reqnum}\thereqnum
+\label{R_Inputs_1}:] \plt{The system shall accept TUD data points.}
+\begin{itemize}
+    \item \textbf{Rationale}: System must analysis activity data.
+    \item \textbf{Fit Criterion}: User successfully upload TUD data in standard format such as csv. 
+    \item \textbf{Priority}: 5
+    \item \textbf{Event}: Number%usecase it relates to
+    \item \textbf{Customer Satisfaction}: 5
+    \item \textbf{Customer Dissatisfaction}: 5
+    \item \textbf{Conflict}: None
+\end{itemize}
+
+\item[R\refstepcounter{reqnum}\thereqnum
+\label{R_Inputs_2}:] \plt{The system shall use longitude, latitude, and time variables from GPS data points.}
+\begin{itemize}
+    \item \textbf{Rationale}: System must use general variables to make computations and produce analysis.
+    \item \textbf{Fit Criterion}: System successfully extracts longitude, latitude, and time information from inputs.
+    \item \textbf{Priority}: 5
+    \item \textbf{Event}: Number.
+    \item \textbf{Customer Satisfaction}: 5
+    \item \textbf{Customer Dissatisfaction}: 5
+    \item \textbf{Conflict}: FR1
+\end{itemize}
+
+\item[R\refstepcounter{reqnum}\thereqnum
+\label{R_Outputs_1}:] \plt{The system shall extract episode attributes including speed, duration, direction, distance, change in direction, and status points from GPS data points.}
+\begin{itemize}
+    \item \textbf{Rationale}: System must categorize data points to useful information for the user to read.
+    \item \textbf{Fit Criterion}: System successfully produce reports of episode attributes. 
+    \item \textbf{Priority}: 5
+    \item \textbf{Event}: Number.
+    \item \textbf{Customer Satisfaction}: 5
+    \item \textbf{Customer Dissatisfaction}: 5
+    \item \textbf{Conflict}: FR1
+\end{itemize}
+
+\item[R\refstepcounter{reqnum}\thereqnum
+\label{R_Outputs_2}:] \plt{The system shall decompose episode into output segments of type stop and trip.}
+\begin{itemize}
+    \item \textbf{Rationale}: User need to understand the object's behaviour during a segment.
+    \item \textbf{Fit Criterion}: System successfully categorize a moving object in a trip segment and a static object in stop segment
+    \item \textbf{Priority}: 5
+    \item \textbf{Event}: Number.
+    \item \textbf{Customer Satisfaction}: 5
+    \item \textbf{Customer Dissatisfaction}: 5
+    \item \textbf{Conflict}:
+\end{itemize}
+
+\item[R\refstepcounter{reqnum}\thereqnum
+\label{R_Output_3}:] \plt{The system shall produce output in a transferable format.}
+\begin{itemize}
+    \item \textbf{Rationale}: User must read data and re-use output data across multiple applications.
+    \item \textbf{Fit Criterion}: System successfully outputs data in standard format such as csv. 
+    \item \textbf{Priority}: 5
+    \item \textbf{Event}: Number.
+    \item \textbf{Customer Satisfaction}: 5
+    \item \textbf{Customer Dissatisfaction}: 4
+    \item \textbf{Conflict}:
+\end{itemize}
+
+\item[R\refstepcounter{reqnum}\thereqnum
+\label{R_Inputs_1}:] \plt{The system shall classify extracted episode into different types including stop, car, walk, bus, and other travel episodes.}
+\begin{itemize}
+    \item \textbf{Rationale}: User need to understand travel behaviour of objects' episode.  
+    \item \textbf{Fit Criterion}: System successfully classify predefined examples into correct episode types. 
+    \item \textbf{Priority}: 5
+    \textbf{Event}: Number
+    \item \textbf{Customer Satisfaction}: 5
+    \item \textbf{Customer Dissatisfaction}: 5
+    \item \textbf{Conflict}:
+\end{itemize}
+
+\item[R\refstepcounter{reqnum}\thereqnum
+\label{R_Inputs_1}:] \plt{The system shall identify activity locations based on the episode attributes of the route to the stop point.}
+\begin{itemize}
+    \item \textbf{Rationale}: System needs location types for land use and road network analysis.
+    \item \textbf{Fit Criterion}: System successfully identify a high activity locations and low activity locations. 
+    \item \textbf{Priority}: 5
+    \item \textbf{Event}: Number
+    \item \textbf{Customer Satisfaction}: 5
+    \item \textbf{Customer Dissatisfaction}: 5
+    \item \textbf{Conflict}:
+\end{itemize}
+
+\item[R\refstepcounter{reqnum}\thereqnum
+\label{R_Inputs_1}:] \plt{The system shall extract episode attributes including duration, distance, and change in trajectory from TUD data points.}
+\begin{itemize}
+    \item \textbf{Rationale}: The system needs to validate  analysis of GPS points.
+    \item \textbf{Fit Criterion}: System successfully produce reports of episode attribute.
+    \item \textbf{Priority}: 5
+    \item \textbf{Event}: Number
+    \item \textbf{Customer Satisfaction}: 5
+    \item \textbf{Customer Dissatisfaction}: 4
+    \item \textbf{Conflict}:
+\end{itemize}
+
+\item[R\refstepcounter{reqnum}\thereqnum
+\label{R_Inputs_1}:] \plt{The system shall identify trip trajectory using extracted segments.}
+\begin{itemize}
+    \item \textbf{Rationale}: System needs trip trajectory for route analysis. 
+    \item \textbf{Fit Criterion}: The system successfully identifies the change in the trajectory when the object changes direction. 
+    \item \textbf{Priority}: 5
+    \item \textbf{Event}: Number
+    \item \textbf{Customer Satisfaction}: 5
+    \item \textbf{Customer Dissatisfaction}: 5
+    \item \textbf{Conflict}:
+\end{itemize}
+
+\item[R\refstepcounter{reqnum}\thereqnum
+\label{R_Inputs_1}:] \plt{The system shall .}
+\begin{itemize}
+    \item \textbf{Rationale}:
+    \item \textbf{Fit Criterion}:
+    \item \textbf{Priority}:
+    \item \textbf{Event}: Number
+    \item \textbf{Customer Satisfaction}:
+    \item \textbf{Customer Dissatisfaction}:
+    \item \textbf{Conflict}:
+\end{itemize}
+
+\item[R\refstepcounter{reqnum}\thereqnum
+\label{R_Inputs_1}:] \plt{The system shall .}
+\begin{itemize}
+    \item \textbf{Rationale}:
+    \item \textbf{Fit Criterion}:
+    \item \textbf{Priority}:
+    \item \textbf{Event}: Number
+    \item \textbf{Customer Satisfaction}:
+    \item \textbf{Customer Dissatisfaction}:
+    \item \textbf{Conflict}:
+\end{itemize}
+
+\item[R\refstepcounter{reqnum}\thereqnum
+\label{R_Inputs_1}:] \plt{The system shall .}
+\begin{itemize}
+    \item \textbf{Rationale}:
+    \item \textbf{Fit Criterion}:
+    \item \textbf{Priority}:
+    \item \textbf{Event}: Number
+    \item \textbf{Customer Satisfaction}:
+    \item \textbf{Customer Dissatisfaction}:
+    \item \textbf{Conflict}:
+\end{itemize}
+
+\item[R\refstepcounter{reqnum}\thereqnum
+\label{R_Inputs_1}:] \plt{The system shall .}
+\begin{itemize}
+    \item \textbf{Rationale}:
+    \item \textbf{Fit Criterion}:
+    \item \textbf{Priority}:
+    \item \textbf{Event}: Number
+    \item \textbf{Customer Satisfaction}:
+    \item \textbf{Customer Dissatisfaction}:
+    \item \textbf{Conflict}:
+\end{itemize}
+
+\item[R\refstepcounter{reqnum}\thereqnum
+\label{R_Inputs_1}:] \plt{The system shall .}
+\begin{itemize}
+    \item \textbf{Rationale}:
+    \item \textbf{Fit Criterion}:
+    \item \textbf{Priority}:
+    \item \textbf{Event}: Number
+    \item \textbf{Customer Satisfaction}:
+    \item \textbf{Customer Dissatisfaction}:
+    \item \textbf{Conflict}:
+\end{itemize}
+
+\item[R\refstepcounter{reqnum}\thereqnum
+\label{R_Inputs_1}:] \plt{The system shall .}
+\begin{itemize}
+    \item \textbf{Rationale}:
+    \item \textbf{Fit Criterion}:
+    \item \textbf{Priority}:
+    \item \textbf{Event}: Number
+    \item \textbf{Customer Satisfaction}:
+    \item \textbf{Customer Dissatisfaction}:
+    \item \textbf{Conflict}:
+\end{itemize}
+
+\item[R\refstepcounter{reqnum}\thereqnum
+\label{R_Inputs_1}:] \plt{The system shall .}
+\begin{itemize}
+    \item \textbf{Rationale}:
+    \item \textbf{Fit Criterion}:
+    \item \textbf{Priority}:
+    \item \textbf{Event}: Number
+    \item \textbf{Customer Satisfaction}:
+    \item \textbf{Customer Dissatisfaction}:
+    \item \textbf{Conflict}:
+\end{itemize}
+
+\item[R\refstepcounter{reqnum}\thereqnum
+\label{R_Inputs_1}:] \plt{The system shall .}
+\begin{itemize}
+    \item \textbf{Rationale}:
+    \item \textbf{Fit Criterion}:
+    \item \textbf{Priority}:
+    \item \textbf{Event}: Number
+    \item \textbf{Customer Satisfaction}:
+    \item \textbf{Customer Dissatisfaction}:
+    \item \textbf{Conflict}:
+\end{itemize}
+
+\item[R\refstepcounter{reqnum}\thereqnum
+\label{R_Inputs_1}:] \plt{The system shall .}
+\begin{itemize}
+    \item \textbf{Rationale}:
+    \item \textbf{Fit Criterion}:
+    \item \textbf{Priority}:
+    \item \textbf{Event}: Number
+    \item \textbf{Customer Satisfaction}:
+    \item \textbf{Customer Dissatisfaction}:
+    \item \textbf{Conflict}:
+\end{itemize}
+
+\item[R\refstepcounter{reqnum}\thereqnum
+\label{R_Inputs_1}:] \plt{The system shall .}
+\begin{itemize}
+    \item \textbf{Rationale}:
+    \item \textbf{Fit Criterion}:
+    \item \textbf{Priority}:
+    \item \textbf{Event}: Number
+    \item \textbf{Customer Satisfaction}:
+    \item \textbf{Customer Dissatisfaction}:
+    \item \textbf{Conflict}:
+\end{itemize}
+
+\item[R\refstepcounter{reqnum}\thereqnum
+\label{R_Inputs_1}:] \plt{The system shall .}
+\begin{itemize}
+    \item \textbf{Rationale}:
+    \item \textbf{Fit Criterion}:
+    \item \textbf{Priority}:
+    \item \textbf{Event}: Number
+    \item \textbf{Customer Satisfaction}:
+    \item \textbf{Customer Dissatisfaction}:
+    \item \textbf{Conflict}:
+\end{itemize}
+
+
+\end{itemize}
 
 \section{Non-functional Requirements}
 
