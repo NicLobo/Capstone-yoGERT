@@ -117,9 +117,10 @@ User characteristics should go under assumptions.
 \subsubsection{The Context of the Work}
 The current GERT toolbox is dependent on ARCGIS libraries including arcgisscripting and arcpy. The toolbox currently supports processing GPS files into compatible data types, accurate and fast choice model estimations,  processing millions of GPS data points quickly, extract travel episodes and information on trips, potential activity locations and stops.
 
+
 \begin{figure}[!h]
 	    \begin{center}
-    	    \includegraphics[width=0.75\linewidth]{REV0/SRS/images/gertcontextdiagram.png}
+    	    \includegraphics[width=0.75\linewidth]{REV0/SRS/gertcontextdiagram.png}
     	    \caption{Context Diagram}
     	    \label{fig: Context Diagram}
     	\end{center}
@@ -155,7 +156,71 @@ The current GERT toolbox is dependent on ARCGIS libraries including arcgisscript
 
 N/A
 
+\subsubsection{Product Use Case List}
+\begin{figure}[H]
+	    \begin{center}
+    	    \includegraphics[width=1\linewidth]{REV0/SRS/useCaseDiagram.png}
+    	    \caption{Use Case Diagram for Toolbox}
+    	    \label{fig:Toolbox Use Case Diagram}
+    	\end{center}
+\end{figure}
+
+\newpage
+
 \subsubsection{Individual Product Use Cases}
+
+
+\begin{itemize}
+    \item[UC\refstepcounter{ucnum}\theucnum
+\label{UC_Inputs_1}:] \plt{ Name: Process GPS data\\
+        Trigger: User requests processed GPS data\\
+        Preconditions: User has a csv file of unprocessed GPS data \\
+        Stakeholders: User, Professor, Geospatial Analyst\\
+        Actors:User, Toolbox\\
+        Outcome: System outputs a csv file of normalized GPS data\\}
+    \item[UC\refstepcounter{ucnum}\theucnum
+\label{UC_Inputs_2}:] \plt{ Name: Episode extraction and mode detection\\
+        Trigger: User requests GPS episode extraction and mode detection\\
+        Preconditions: User has already requested processed GPS data \\
+        Stakeholders: User, Professor, Geospatial Analyst\\
+        Actors:User, Toolbox\\
+        Outcome: System presents user with a csv file including all the episodes and mode detection data in a csv file\\}
+    \item[UC\refstepcounter{ucnum}\theucnum
+\label{UC_Inputs_3}:] \plt{ Name: Trip segment generation\\
+        Trigger: User requests trip segments\\
+        Preconditions: System has preprocessed input GPS data, user may optionally input TUD (time use diary) episodes\\
+        Stakeholders: User, Professor, Geospatial Analyst\\
+        Actors: User, Toolbox\\
+        Outcome: .shp file with GPS trip trajectories in a readable format for the user\\}
+    \item[UC\refstepcounter{ucnum}\theucnum
+\label{UC_Inputs_4}:] \plt{ Name: Route choice set generation\\
+        Trigger: User requests route choice sets\\
+        Preconditions: System has preprocessed input GPS data and generated trip trajectories file\\
+        Stakeholders: User, Professor, Geospatial Analyst\\
+        Actors:User, Toolbox\\
+        Outcome: .shp file with route choice sets\\}
+    \item[UC\refstepcounter{ucnum}\theucnum
+\label{UC_Inputs_5}:] \plt{ Name: Activity locations\\
+        Trigger: User requests activity locations\\
+        Preconditions: System has preprocessed input GPS data and extracted episodes and mode detection csv file \\
+        Stakeholders: User, Professor, Geospatial Analyst\\
+        Actors:User, Toolbox\\
+        Outcome: System generates .shp file of activity locations (stops)\\}
+    \item[UC\refstepcounter{ucnum}\theucnum
+\label{UC_Inputs_6}:] \plt{ Name: Route choice analysis variable generation\\
+        Trigger: User requests route choice analysis variables\\
+        Preconditions: System has preprocessed input GPS data and generated trip trajectories file\\
+        Stakeholders: User, Professor, Geospatial Analyst\\
+        Actors:User, Toolbox\\
+        Outcome: .csv file containing route choice analysis variables and variable justification\\}
+    \item[UC\refstepcounter{ucnum}\theucnum
+\label{UC_Inputs_7}:] \plt{ Name: Activity location identification\\
+        Trigger:User has requested activity location identification\\
+        Preconditions: System has preprocessed input GPS data, extracted episodes and mode detection csv file, and then extracted activity location .shp file, as well as user has inputted land use .shp file potential activity location .shp file \\
+        Stakeholders: User, Professor, Geospatial Analyst\\
+        Actors:User, Toolbox\\
+        Outcome: System outputs a .shp file of activity location with land use and potential activity location information .shp file\\}
+\end{itemize}
 
 \subsection{Functional and Data Requirements}
 \noindent \begin{itemize}
