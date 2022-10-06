@@ -5,6 +5,7 @@
 \usepackage{hyperref}
 \usepackage{float}
 \usepackage{graphicx}
+\usepackage[numbers]{natbib}
 
 \newcounter{ucnum} %use case number
 \newcounter{reqnum} %FRequirement Number
@@ -17,7 +18,6 @@
     linkcolor=red,
     urlcolor=blue
 }
-\usepackage[round]{natbib}
 
 \title{\textbf{yoGERT GIS Toolbox}\\ Capstone 4G06\\ Software Requirements Specification}
 
@@ -32,6 +32,7 @@
 
 \begin{document}
 
+\nocite{*}
 \maketitle
 
 \pagenumbering{roman}
@@ -64,7 +65,7 @@ October 5, 2022 & 1.0 & Longwei: Sec 1,8; Moksha: Sec 2.1,8; Smita: Sec 2.1,8; A
 \subsection{The Purpose of the Project}
 Many researchers and companies want to gain information about how people travel, whether that be through the use of personal automobiles, public transit, biking, or even walking. This is because through this data you can derive insights to help inform decisions including but not limited to: public transit design, ad placement, and investment in infrastructure. \\
 
-\noindent When the original GERT toolbox was created, there already existed software to match GPS traces to transportation networks, but the tools suffered had limited usability and functionality. The GERT toolbox solved this problem by extending functionality, and making the toolbox better suited for multiple input data types. Although the project was a success, it was largely inaccessible due to its reliance on the proprietary and expensive ArcGIS software. \\
+\noindent When the original GERT toolbox was created, there already existed software to match GPS traces to transportation networks, but the tools suffered had limited usability and functionality \cite{GISBASED}. The GERT toolbox solved this problem by extending functionality, and making the toolbox better suited for multiple input data types. Although the project was a success, it was largely inaccessible due to its reliance on the proprietary and expensive ArcGIS software. \\
 
 \noindent The purpose of the project is to re-engineer the toolbox with a focus on on transferability, modularity, and scalability and remove reliance on any proprietary software so it can be used by a wider audience. 
 
@@ -97,9 +98,9 @@ Developers, testers, and operators of this project.
   Episode & Session\\
   Segment & Group of GPS Points combined based on episode attributes.\\
   Trip & GPS points represents an object moving to a different position.\\
-  Route & Object path to get from point A to point B\\
+  Route & Object path to get from position A to position B\\
   Mode Detection (MD) & Detection of type of transportation being used \\
-  Time Use Diary (TUD) & Time Use Diary are records of continuos events and actions through a particular period of time (usually 24 to 48 hours) \\
+  Time Use Diary (TUD) & Time Use Diary are records of continuous events and actions through a particular period of time (usually 24 to 48 hours) \\
   Route Choice Analysis (RCA) &  Analyzes route selection from point a to point b\\
   .shp & .shp are geospatial data format files\\
   CSV/.csv & Comma Separated Values is a file type that contains large amounts of data separated by commas. \\
@@ -157,7 +158,7 @@ The current GERT toolbox is dependent on ARCGIS libraries including arcgisscript
           User requests activity location identification  & Input: CSV file, .shp file, .shp file, Output: .shp file& System outputs Activity location with Land Use and potential activity locations information in .shp file. \\
          \hline
     \end{tabular}
-    \caption{Work Partitioning Diagram}
+    \caption{Work Partitioning Diagram\cite{GISBASED}}
     \label{tab:work_partitioning_diagram}
 \end{table}
 
@@ -180,54 +181,54 @@ The product boundary diagram was omitted due to redundancy. There are no externa
 
 \begin{itemize}
     \item[UC\refstepcounter{ucnum}\theucnum
-\label{UC_Inputs_1}:] \plt{ Name: Process GPS data\\
-        Trigger: User requests processed GPS data\\
-        Preconditions: User has a CSV file of unprocessed GPS data \\
-        Stakeholders: User, Professor, Geospatial Analyst\\
-        Actors:User, Toolbox\\
-        Outcome: System outputs a CSV file of normalized GPS data\\}
+\label{UC_Inputs_1}:] \plt{ \textbf{Name}: Process GPS data\\
+        \textbf{Trigger}: User requests processed GPS data\\
+        \textbf{Preconditions}: User has a CSV file of unprocessed GPS data \\
+        \textbf{Stakeholders}: User, Professor, Geospatial Analyst\\
+        \textbf{Actors}: User, Toolbox\\
+        \textbf{Outcome}: System outputs a CSV file of normalized GPS data\\}
     \item[UC\refstepcounter{ucnum}\theucnum
-\label{UC_Inputs_2}:] \plt{ Name: Episode extraction and mode detection\\
-        Trigger: User requests GPS episode extraction and mode detection\\
-        Preconditions: User has already requested processed GPS data \\
-        Stakeholders: User, Professor, Geospatial Analyst\\
-        Actors:User, Toolbox\\
-        Outcome: System presents user with a CSV file including all the episodes and mode detection data in a CSV file\\}
+\label{UC_Inputs_2}:] \plt{ \textbf{Name}: Episode extraction and mode detection\\
+        \textbf{Trigger}: User requests GPS episode extraction and mode detection\\
+        \textbf{Preconditions}: User has already requested processed GPS data \\
+        \textbf{Stakeholders}: User, Professor, Geospatial Analyst\\
+        \textbf{Actors}: User, Toolbox\\
+        \textbf{Outcome}: System presents user with a CSV file including all the episodes and mode detection data in a CSV file\\}
     \item[UC\refstepcounter{ucnum}\theucnum
-\label{UC_Inputs_3}:] \plt{ Name: Trip segment generation\\
-        Trigger: User requests trip segments\\
-        Preconditions: System has preprocessed input GPS data, user may optionally input TUD (time use diary) episodes\\
-        Stakeholders: User, Professor, Geospatial Analyst\\
-        Actors: User, Toolbox\\
-        Outcome: .shp file with GPS trip trajectories in a readable format for the user\\}
+\label{UC_Inputs_3}:] \plt{ \textbf{Name}: Trip segment generation\\
+        \textbf{Trigger}: User requests trip segments\\
+        \textbf{Preconditions}: System has preprocessed input GPS data, user may optionally input TUD (time use diary) episodes\\
+        \textbf{Stakeholders}: User, Professor, Geospatial Analyst\\
+        \textbf{Actors}: User, Toolbox\\
+        \textbf{Outcome}: .shp file with GPS trip trajectories in a readable format for the user\\}
     \item[UC\refstepcounter{ucnum}\theucnum
-\label{UC_Inputs_4}:] \plt{ Name: Route choice set generation\\
-        Trigger: User requests route choice sets\\
-        Preconditions: System has preprocessed input GPS data and generated trip trajectories file\\
-        Stakeholders: User, Professor, Geospatial Analyst\\
-        Actors:User, Toolbox\\
-        Outcome: .shp file with route choice sets\\}
+\label{UC_Inputs_4}:] \plt{ \textbf{Name}: Route choice set generation\\
+        \textbf{Trigger}: User requests route choice sets\\
+        \textbf{Preconditions}: System has preprocessed input GPS data and generated trip trajectories file\\
+        \textbf{Stakeholders}: User, Professor, Geospatial Analyst\\
+        \textbf{Actors}: User, Toolbox\\
+        \textbf{Outcome}: .shp file with route choice sets\\}
     \item[UC\refstepcounter{ucnum}\theucnum
-\label{UC_Inputs_5}:] \plt{ Name: Activity locations\\
-        Trigger: User requests activity locations\\
-        Preconditions: System has preprocessed input GPS data and extracted episodes and mode detection CSV file \\
-        Stakeholders: User, Professor, Geospatial Analyst\\
-        Actors:User, Toolbox\\
-        Outcome: System generates .shp file of activity locations (stops)\\}
+\label{UC_Inputs_5}:] \plt{ \textbf{Name}: Activity locations\\
+        \textbf{Trigger}: User requests activity locations\\
+        \textbf{Preconditions}: System has preprocessed input GPS data and extracted episodes and mode detection CSV file \\
+        \textbf{Stakeholders}: User, Professor, Geospatial Analyst\\
+        \textbf{Actors}: User, Toolbox\\
+        \textbf{Outcome}: System generates .shp file of activity locations (stops)\\}
     \item[UC\refstepcounter{ucnum}\theucnum
-\label{UC_Inputs_6}:] \plt{ Name: Route choice analysis variable generation\\
-        Trigger: User requests route choice analysis variables\\
-        Preconditions: System has preprocessed input GPS data and generated trip trajectories file\\
-        Stakeholders: User, Professor, Geospatial Analyst\\
-        Actors:User, Toolbox\\
-        Outcome: .csv file containing route choice analysis variables and variable justification\\}
+\label{UC_Inputs_6}:] \plt{ \textbf{Name}: Route choice analysis variable generation\\
+        \textbf{Trigger}: User requests route choice analysis variables\\
+        \textbf{Preconditions}: System has preprocessed input GPS data and generated trip trajectories file\\
+        \textbf{Stakeholders}: User, Professor, Geospatial Analyst\\
+        \textbf{Actors}: User, Toolbox\\
+        \textbf{Outcome}: .csv file containing route choice analysis variables and variable justification\\}
     \item[UC\refstepcounter{ucnum}\theucnum
-\label{UC_Inputs_7}:] \plt{ Name: Activity location identification\\
-        Trigger:User has requested activity location identification\\
-        Preconditions: System has preprocessed input GPS data, extracted episodes and mode detection CSV file, and then extracted activity location .shp file, as well as user has inputted land use .shp file potential activity location .shp file \\
-        Stakeholders: User, Professor, Geospatial Analyst\\
-        Actors:User, Toolbox\\
-        Outcome: System outputs a .shp file of activity location with land use and potential activity location information .shp file\\}
+\label{UC_Inputs_7}:] \plt{ \textbf{Name}: Activity location identification\\
+        \textbf{Trigger}:User has requested activity location identification\\
+        \textbf{Preconditions}: System has preprocessed input GPS data, extracted episodes and mode detection CSV file, and then extracted activity location .shp file, as well as user has inputted land use .shp file potential activity location .shp file \\
+        \textbf{Stakeholders}: User, Professor, Geospatial Analyst\\
+        \textbf{Actors}: User, Toolbox\\
+        \textbf{Outcome}: System outputs a .shp file of activity location with land use and potential activity location information .shp file\\}
 \end{itemize}
 
 \subsection{Functional and Data Requirements}
@@ -243,7 +244,7 @@ The product boundary diagram was omitted due to redundancy. There are no externa
     \item \textbf{Event}: UC1
     \item \textbf{Customer Satisfaction}: 5
     \item \textbf{Customer Dissatisfaction}: 5
-    \item \textbf{Conflict}:None
+    \item \textbf{Conflict}: None
     \item \textbf{Planned Date}: November 14, 2022
 \end{itemize}
 
@@ -335,7 +336,7 @@ The product boundary diagram was omitted due to redundancy. There are no externa
 \label{R_Inputs_1}:] \plt{The system shall classify extracted episode into different types including stop, car, walk, bus, and other travel episodes.}
 \begin{itemize}
     \item \textbf{Requirement Type}: Functional
-    \item \textbf{Rationale}: User need to understand travel behaviour of objects' episode.  
+    \item \textbf{Rationale}: User need to understand travel behaviour of objects' episode.
     \item \textbf{Fit Criterion}: System successfully classify predefined examples into correct episode types. 
     \item \textbf{Priority}: 5
     \textbf{Event}: UC2
@@ -840,7 +841,7 @@ GPS Coordinates as Inputs
 \\
 GPS Episodes as Outputs 
 \begin{itemize}
-\item TODO 
+\item As the main requirements of the project depends on the usuage of GPS episodes the output is unlikely to change.
 \end{itemize}
 
 
@@ -856,21 +857,21 @@ R2  & X& & & & & & & X& X& & X& X& X& & & & & & \\ \hline
 R3  & & & X& X& X& X& & X& X& X& X& & & & & & & &X \\ \hline
 R4  & X& X& X& & & & & & X& & X& & & & & & & & \\ \hline
 R5  & & & & & & X& & & & & X& & & X& & & & & \\ \hline
-R6  & & & & & & & & & & & & & & & & & & & \\ \hline
-R7  & & & & & & & & & & & & & & & & & & & \\ \hline
-R8  & & & & & & & & & & & & & & & & & & & \\ \hline
-R9  & & & & & & & & & & & & & & & & & & & \\ \hline
-R10 & & & & & & & & & & & & & & & & & & & \\ \hline
-R11 & & & & & & & & & & & & & & & & & & & \\ \hline
-R12 & & & & & & & & & & & & & & & & & & & \\ \hline
-R13 & & & & & & & & & & & & & & & & & & & \\ \hline
-R14 & & & & & & & & & & & & & & & & & & & \\ \hline
-R15 & & & & & & & & & & & & & & & & & & & \\ \hline
-R16 & & & & & & & & & & & & & & & & & & & \\ \hline
-R17 & & & & & & & & & & & & & & & & & & & \\ \hline
-R18 & & & & & & & & & & & & & & & & & & & \\ \hline
-R19 & & & & & & & & & & & & & & & & & & & \\ \hline
-R20 & & & & & & & & & & & & & & & & & & & \\ \hline
+R6  & & X& & & & & & X& X& & X& & & & & & & & \\ \hline
+R7  & & X& & & & & & X& X& & X& & & & & & & & \\ \hline
+R8  & & X& & X& & X& & X& & & X& & & & & & & & \\ \hline
+R9  & & X& & X& & X& & X& & & X& & & & & & & & \\ \hline
+R10 & X& X& & & & X& & & X& & X& & & & & & & & \\ \hline
+R11 & X& X& & & & X& & & X& & X& & & & & & & & \\ \hline
+R12 & X& & & & & & & & X& X& X& & & & & & & & \\ \hline
+R13 & X& & & & & & & & X& X& X& & & & & & & & \\ \hline
+R14 & X& & & & & & & & X& X& X& & & & & & & & \\ \hline
+R15 & X& & X& X& X& X& & & & & & & & & & & & & \\ \hline
+R16 & & & & & & & & & X& & & & & & & X& X& X& \\ \hline
+R17 & X& & & & & & & & X& X& X& & & & & & & & \\ \hline
+R18 & X& X& X& X& & & & X& X& X& & & & & & & & & \\ \hline
+R19 & X& X& X& X& & & & X& X& X& & & & & & & & & \\ \hline
+R20 & X& X& X& X& & & & & & & & & & & & X& X& X& \\ \hline
 \hline
 \end{tabular}
 }
@@ -918,9 +919,6 @@ The current plan to for project is a complete re engineering of the GERT toolbox
 \end{itemize}
 \subsection{Ideas for Solutions}
 At this point in time we are still actively researching different libraries and frameworks to use for this project and they will be added into this section in later revisions of this document. 
-\bibliographystyle{plainnat}
-
-\bibliography{SRS}
 
 \newpage
 
@@ -942,5 +940,8 @@ To successfully complete this project, the team must acquire knowledge related t
 \noindent Another skill our team has to acquire is team management. As a group project, a successful team management strategy will help members complete their tasks more efficiently. We have already established a team communication strategy and methodology for pushing/reviewing content (code, docs, etc.), to complement this, we will routinely schedule retrospectives regarding management strategies to update processes and maximize efficiency. These retrospectives will often consist of identifying productivity blockers, researching better methods, and implementing them into our tooling. \\
 
 \noindent Another skill our team has to acquire is writing and presentation skills. Since every member of the team has different writing experiences, our method of writing varies drastically from person to person. Learning how to write as a team, create formal documentation that is thoroughly consistent with one another will be a challenge. Therefore we will investigate formal writing conventions and ensure that each member of the team is aware and actively uses the predetermined methods. Similarly for the end of the year capstone presentations, the team will have to work together to come up with a method of presentation that will fit all of us as well as be consistent with formal presentation styles. This will require more investigation and practise as a team.\\
+
+\bibliographystyle{IEEEtran}
+\bibliography{SRS}
 
 \end{document}
