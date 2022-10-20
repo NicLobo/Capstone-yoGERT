@@ -158,5 +158,49 @@ The section lists the newly formulated requirements. The new requirements will b
     \item \textbf{Associated Hazards:} H3-2 (\ref{H1-1})
 \end{itemize}
 
+\item[SR\refstepcounter{Sreqnum}\theSreqnum
+\label{IR4}:] \plt{The system shall provide warning log messages of proper or expected system uses. }
+\begin{itemize}
+    \item \textbf{Rationale:} The system should provide helpful information when navigating around the system. This ensures a mitigation response to unexpected user activity.
+    \item \textbf{Associated Hazards:}  H1-2 (\ref{H1-1})
+\end{itemize}
+
+\item[SR\refstepcounter{Sreqnum}\theSreqnum
+\label{IR5}:] \plt{The system shall confirm upload and output files are not larger than 1GB.}
+\begin{itemize}
+    \item \textbf{Rationale:} The system needs to provide secure methods of handling system files. This ensures safe saving and uploading of files. 
+    \item \textbf{Associated Hazards:} H2-1, H2-2 (\ref{H1-1})
+\end{itemize}
+
+
+\subsection{Privacy Requirements}
+\item[SR\refstepcounter{Sreqnum}\theSreqnum
+\label{PR1}:] \plt{The system will only store data locally.}
+\begin{itemize}
+    \item \textbf{Rationale:} The data does not have to be hosted on a remote location such as online database; which would mean better security and protection for the user's data. Failure to store makes the system unresponsive and idle. 
+    \item \textbf{Associated Hazards:} H3-4 (\ref{H1-1})
+\end{itemize}
+
+\subsection{Audit Requirements}
+\item[SR\refstepcounter{Sreqnum}\theSreqnum
+\label{ADR1}:] \plt{The system should be verifiable against the requirements and MIS }
+\begin{itemize}
+    \item \textbf{Rationale:} The system must be verified with logical and deductible methods. Failure to meet the requirement results with poor demonstration of requirements.
+    \item \textbf{Associated Hazards:} H3-1, H3-2, H3-3 (\ref{H1-1})
+\end{itemize}
+
+\subsection{Immunity Requirements}
+N/A
+
+\end{itemize}
+
+\section{Roadmap}
+%\wss{Which safety requirements will be implemented as part of the capstone $timeline?
+%Which requirements will be implemented in the future?}
+
+The document outlined new safety and security requirements to mitigate and avoid system hazards. The project aims to implement all the safety requirements. However, a priority guideline has been decided that leaves SR\ref{IR2}, SR\ref{IR3}, and SR\ref{IR4} requirements to be more likely than 50\% implemented in the future due to constrained capstone timeline. 
+
+\bibliographystyle{IEEEtran}
+\bibliography{hazardanalysis}
 
 \end{document}
