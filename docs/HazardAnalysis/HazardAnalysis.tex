@@ -113,7 +113,53 @@ The hazards out of scope would be:
 \end{itemize}
 
 \noindent The user's personal computer and validity of input data are integral parts of our system's correctness. It is out of scope to develop a mechanism to verify that data is correct/applicable, and hence hazards with respect to correctness and validity of data are out of scope. To ensure that we can process the user's data we will be sanitizing and normalizing data before applying functions. The user's personal computer is managed by the user and software updates are applied by the manufacturer, hence we cannot control all hazards. 
+\newpage 
+\begin{landscape}
+\subsection{Failure Modes & Effects Analysis Table}
 
+\subsubsection{}
+%%%divide table by those sections maybe?
+System: GERT toolbox\\
+Subsystem:N/A \\
+Phase/Mode:System Requirements\\
+\begin{table}[H]
+\centering
+\scalebox{0.75}{
+
+\begin{tabular}{|p{1.8 in}|p{2.0 in}|p{2 in}|p{2 in}|p{2.3 in}|p{0.5 in}|p{0.5 in}|} \hline
+		\textbf{Design Function} & \textbf{Failure Modes} & \textbf{Effects of Failure} & \textbf{Causes of Failure} & \textbf{Recommended Actions} & \textbf{SR} & \textbf{Ref.}\\\hline
+
+
+
+\multirow{3}{1.8in}{Storage of users geo-location data} 
+
+& User's location data is corrupted  
+& Unable to use program without clearing out corrupted data
+& a. Bad data inputted by user\newline
+  b. Corrupted files being load into system\newline
+& a. Data is checked and sanitized before being added into system\newline
+& a:SR\ref{IR4} %6
+& H1-1\label{H1-1} \\ 
+ 
+& User's location data is not saved
+& User must input data again
+&  a. Disconnection from internet\newline
+   b. Computer crash while using software \newline
+& 
+  b. Last actions made by user in the software are saved  
+& a:SR\ref{IR2}\newline b:SR\ref{PR1}%8
+& H1-2 \\ \hline
+
+
+
+ 
+
+\end{tabular}
+}
+\caption{FMEA TABLE}
+\label{Table:FMEA TABLE}
+\end{table}
+\end{landscape}
 \section{Safety and Security Requirements}
 The section lists the newly formulated requirements. The new requirements will be added to the SRS document and the previous requirements will be removed before Revision 1 milestone.
 
