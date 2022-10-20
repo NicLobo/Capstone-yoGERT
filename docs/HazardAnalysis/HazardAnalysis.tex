@@ -114,5 +114,49 @@ The hazards out of scope would be:
 
 \noindent The user's personal computer and validity of input data are integral parts of our system's correctness. It is out of scope to develop a mechanism to verify that data is correct/applicable, and hence hazards with respect to correctness and validity of data are out of scope. To ensure that we can process the user's data we will be sanitizing and normalizing data before applying functions. The user's personal computer is managed by the user and software updates are applied by the manufacturer, hence we cannot control all hazards. 
 
+\section{Safety and Security Requirements}
+The section lists the newly formulated requirements. The new requirements will be added to the SRS document and the previous requirements will be removed before Revision 1 milestone.
+
+\begin{itemize} %for all safety items
+\subsection{Access Requirements}
+
+\item[SR\refstepcounter{Sreqnum}\theSreqnum
+% \label{ACR}:] \plt{\emph{The system must ensure that the user session is password protected. }}
+\label{ACR1}:] \plt{The system must allow users to have access to the data they've uploaded}
+\begin{itemize}
+    \item \textbf{Rationale:} This would allow users to edit inputted data and make any necessary changes. If a problem occurs, the user should be able to retrieve their data instead of having to restart the process or software which would be time consuming
+    \item \textbf{Associated Hazards: } H3-3 (\ref{H1-1})
+\end{itemize}
+
+\item[SR\refstepcounter{Sreqnum}\theSreqnum
+\label{ACR2}:] \plt{The system shall allow access to all system services and data outputs.}
+\begin{itemize}
+    \item \textbf{Rationale:} This is the main objective to the application to satisfy user goals. If a problem occurs, the system will be completely ineffective and not workable. 
+    \item \textbf{Associated Hazards:} H3-1 (\ref{H1-1})
+\end{itemize}
+
+\subsection{Integrity Requirements}
+\item[SR\refstepcounter{Sreqnum}\theSreqnum
+% \label{IR}:] \plt{\emph{The system shall encyrpt user information. }}
+\label{IR1}:] \plt{The system shall output correct calculated or modified data}
+\begin{itemize}
+    \item \textbf{Rationale:} The user should not have to question the accuracy of the data outputted. If the data is not accurate or correctly calculated it is contrary to the goal of the system. 
+    \item \textbf{Associated Hazards:} H3-3 (\ref{H1-1})
+\end{itemize}
+
+\item[SR\refstepcounter{Sreqnum}\theSreqnum
+\label{IR2}:] \plt{The system will only modify necessary data}
+\begin{itemize}
+    \item \textbf{Rationale:} The system would be wasting resources and time if any other modification or unnecessary calculations occur. It would also be unethical to use the data in a way that the user is unaware of and has not consented to. 
+    \item \textbf{Associated Hazards: } H3-3 (\ref{H1-1})
+\end{itemize}
+
+\item[SR\refstepcounter{Sreqnum}\theSreqnum
+\label{IR3}:] \plt{The system shall produce accuracy of 80\% when graphing location data points on a map.}
+\begin{itemize}
+    \item \textbf{Rationale:} The graphics produced to the system should be consistent to produce valuable information to be reused. When the graphic points deviate from the actual location the system will be counterproductive and user will be alarmed.  
+    \item \textbf{Associated Hazards:} H3-2 (\ref{H1-1})
+\end{itemize}
+
 
 \end{document}
