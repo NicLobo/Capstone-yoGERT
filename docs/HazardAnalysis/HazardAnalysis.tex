@@ -2,21 +2,49 @@
 
 \usepackage{booktabs}
 \usepackage{tabularx}
+\usepackage[letterpaper, margin=1in]{geometry}
+\usepackage{fixltx2e}
+\usepackage{longtable}
+\usepackage{placeins}
+\usepackage{xr}
+\usepackage{amssymb}
+\usepackage{pdflscape}
+\usepackage{multicol}
+\usepackage{multirow}
+\usepackage{verbatim}
+\usepackage{rotating}
+\usepackage{pdfpages}
+\usepackage{lscape}
+\usepackage{hyperref}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{makecell}
 
-\title{Hazard Analysis\\\progname}
+\newcounter{Sreqnum} %Safety Requirement Number
 
-\author{Team \#, Team Name
-		\\ Student 1 name and macid
-		\\ Student 2 name and macid
-		\\ Student 3 name and macid
+\title{\textbf{yoGERT GIS Toolbox}\\ Capstone 4G06\\ Hazard Analysis}
+
+\author{Team 19,
+		\\ Smita Singh, Abeer Alyasiri, Niyatha Rangarajan,\\ Moksha Srinivasan, Nicholas Lobo, Longwei Ye \\\\
 }
 
-\date{}
+\date{\today}
 
-\input{../Comments}
-\input{../Common}
+
+\input{}
 
 \begin{document}
+\nocite{*}
+\maketitle
+
+\newpage
+
+\pagenumbering{roman}
+\tableofcontents
+\listoftables
+\listoffigures
+
+\section{Revisions}
 
 \begin{table}[hp]
 \caption{Revision History} \label{TblRevisionHistory}
@@ -26,14 +54,65 @@
 \midrule
 Date1 & Name(s) & Description of changes\\
 Date2 & Name(s) & Description of changes\\
+10/13/2022 & Moksha Srinivasan & Sections 3-8.1\\
+10/18/2022 & Abeer Alyasiri & Safety and Security Requirements, Roadmap\\
+10/18/2022 & Longwei Ye & Failure Modes and Effects Analysis\\
+10/19/2022 & Nicholas Lobo & Failure Modes and Effects Analysis\\
 ... & ... & ...\\
 \bottomrule
 \end{tabularx}
 \end{table}
 
-\newpage
+\section{Definitions}
+\subsection{Naming Conventions and Terminology}
+\begin{tabular}{l p{6cm}} 
+  \toprule		
+  \textbf{symbol} & \textbf{description}\\
+  \midrule 
+  GPS & Global Positioning Systems.\\
+  GIS & Geographical Information Systems.\\
+  MIS & Module Interface Specification.\\
+  GUI & Graphical User Interface. \\
+  CSV/.csv & Comma Separated Values is a file type that contains large amounts of data separated by commas.\\
+  SRS & System Requirement Specification.\\
+  GB & Gigabyte \\
 
-\maketitle
+  \bottomrule
+\end{tabular}\\
+
+\section{Introduction}
+This document is the hazard analysis of the yoGERT GIS toolbox. The toolbox is a software that aids in deriving insights from transportation data. This includes route choice estimations, travel mode detection, and travel episode identification/analysis.
+\section{Scope and Purpose of Hazard Analysis}
+The scope of this document is to identify possible hazards within the yoGERT system, the causes and effects of failure, steps for mitigation, as well as safety and security requirements.
+\section{System Boundary}
+The system referred to in this document that the hazard analysis is conducted upon consists of:
+\begin{itemize}
+    \item The toolbox (installed on users' personal computers) made up of the following major components:
+    \begin{itemize}
+        \item Data Pre-processing
+        \item Travel Episode Identification
+        \item Travel Mode Detection
+        \item Activity Location Identification
+        \item Route Choice Analysis
+        \item Visualization Module
+    \end{itemize}
+    \item The user's personal computer
+    
+\end{itemize}
+\section{Definition of the Hazard}
+The definition of a hazard is from Nancy Leveson's work as follows: A property or condition in the system along with a condition in the environment that has the potential to cause harm or damage. In yoGERT, there are hazards with regard to safety (to data preservation) and security (restricted data access).
+\section{Critical Assumptions}
+One critical assumption is regarding the system boundary. For example, if the stretch goal of adding a GUI and GIS software plug-in is completed, the hazard analysis will have to be extended. Another critical assumption is that the user knows how to upload a file using a file path. \\
+
+\section{Failure Modes and Effects Analysis}
+\subsection{Hazards Out of Scope}
+The hazards out of scope would be:
+\begin{itemize}
+    \item The user's personal computer
+    \item The validity of input data
+\end{itemize}
+
+\noindent The user's personal computer and validity of input data are integral parts of our system's correctness. It is out of scope to develop a mechanism to verify that data is correct/applicable, and hence hazards with respect to correctness and validity of data are out of scope. To ensure that we can process the user's data we will be sanitizing and normalizing data before applying functions. The user's personal computer is managed by the user and software updates are applied by the manufacturer, hence we cannot control all hazards. 
 
 
 \end{document}
