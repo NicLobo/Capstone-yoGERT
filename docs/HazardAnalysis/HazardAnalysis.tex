@@ -151,6 +151,41 @@ Phase/Mode:System Requirements\\
 & H1-2 \\ \hline
 
 
+\multirow{3}{1.8in}{General use of the system} 
+& Program crashes unexpectedly
+& Program is terminated, unable to continue current progress, data of the
+current progress could be lost
+& 
+a. Crash due to lack of supported libraries\newline
+b. User device runs out of power\newline
+& 
+a. Check if the supported libraries are installed at the start of the program
+& SR\ref{ACR2}%2
+& H3-1\label{H3-1} \\
+
+
+& Output does not meet the desired accuracy
+& Unusable output, unable to proceed to the next step
+&
+a. Input data is in wrong format
+b. Input file is corrupted
+& 
+b. Same as H1-2 \newline
+c. Validating against requirements and mathematical specifications\newline
+& SR\ref{IR3}\newline SR\ref{IR1} \newline SR\ref{ADR1}
+& H3-2\label{H3-2}  \\
+
+
+& An unauthorized action
+& Data can be corrupted and the produce wrong output 
+&
+a. Unexpected action made by the user\newline
+& 
+d. Revert the changes made by the unauthorized action\newline
+& SR\ref{ACR1}, SR\ref{ADR1}
+& H3-3 \\ \hline
+
+
 
  
 
