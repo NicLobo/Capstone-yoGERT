@@ -53,12 +53,12 @@
 \textbf{Date} & \textbf{Developer(s)} & \textbf{Change}\\
 \midrule
 Date1 & Name(s) & Description of changes\\
-Date2 & Name(s) & Description of changes\\
+10/19/2022 & Niyatha Rangarajan & Failure Modes and Effects Analysis\\
+10/18/2022 & Smita Singh & Safety and Security Requirements\\
 10/13/2022 & Moksha Srinivasan & Sections 3-8.1\\
 10/18/2022 & Abeer Alyasiri & Safety and Security Requirements, Roadmap\\
 10/18/2022 & Longwei Ye & Failure Modes and Effects Analysis\\
 10/19/2022 & Nicholas Lobo & Failure Modes and Effects Analysis\\
-... & ... & ...\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -113,6 +113,7 @@ The hazards out of scope would be:
 \end{itemize}
 
 \noindent The user's personal computer and validity of input data are integral parts of our system's correctness. It is out of scope to develop a mechanism to verify that data is correct/applicable, and hence hazards with respect to correctness and validity of data are out of scope. To ensure that we can process the user's data we will be sanitizing and normalizing data before applying functions. The user's personal computer is managed by the user and software updates are applied by the manufacturer, hence we cannot control all hazards. 
+
 \newpage 
 \begin{landscape}
 \subsection{Failure Modes & Effects Analysis Table}
@@ -128,7 +129,6 @@ Phase/Mode:System Requirements\\
 
 \begin{tabular}{|p{1.8 in}|p{2.0 in}|p{2 in}|p{2 in}|p{2.3 in}|p{0.5 in}|p{0.5 in}|} \hline
 		\textbf{Design Function} & \textbf{Failure Modes} & \textbf{Effects of Failure} & \textbf{Causes of Failure} & \textbf{Recommended Actions} & \textbf{SR} & \textbf{Ref.}\\\hline
-
 
 
 \multirow{3}{1.8in}{Storage of users geo-location data} 
@@ -149,6 +149,34 @@ Phase/Mode:System Requirements\\
   b. Last actions made by user in the software are saved  
 & a:SR\ref{IR2}\newline b:SR\ref{PR1}%8
 & H1-2 \\ \hline
+ 
+
+ 
+
+\multirow{3}{1.8in}{Memory usage of the system} 
+& 
+Unprocessed csv file for gps input is too large   
+& 
+Unable to process the gps data for other functions 
+& a. Incomplete system functionality\newline
+  b. File if produced might be inaccurate or skewed\newline
+  c. Uncertainity in output \newline 
+ 
+& a. State file size restrictions for the system \newline
+& a. SR\ref{IR5} \newline 
+& H2-1\\
+
+
+
+& Processed gps data is too large to be stored in the output directory
+& Unable to use the system for creating episodes, routes and activities
+& a. Useful data manipulation can be attained\newline
+  b. The system is incomplete in functionality\newline
+  c. Benefits of analysing episodes is prevented \newline 
+& b. Produced file can be compressed to meet storage requirements\newline
+& b. SR\ref{IR5} \newline 
+& H2-2 \\ \hline
+ 
 
 
 \multirow{3}{1.8in}{General use of the system} 
@@ -176,6 +204,17 @@ c. Validating against requirements and mathematical specifications\newline
 & H3-2\label{H3-2}  \\
 
 
+
+%& Data is leaked to other users %%%not possible with our local toolbox
+%& User's work could be plagiarized by other users
+%&
+%a. The exists of system vulnerability\newline
+%& 
+%a. All data is stored locally\newline %%%our scope project is already defined locally.
+%b. Output data can be encrypted with password\newline
+%& SR7
+%& H2-3 \\ \hline
+
 & An unauthorized action
 & Data can be corrupted and the produce wrong output 
 &
@@ -195,6 +234,8 @@ d. Revert the changes made by the unauthorized action\newline
 \label{Table:FMEA TABLE}
 \end{table}
 \end{landscape}
+
+
 \section{Safety and Security Requirements}
 The section lists the newly formulated requirements. The new requirements will be added to the SRS document and the previous requirements will be removed before Revision 1 milestone.
 
