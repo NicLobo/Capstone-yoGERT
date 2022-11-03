@@ -254,121 +254,33 @@ How test will be performed:
 \wss{Provide a table that shows which test cases are supporting which
   requirements.}
 
+
 \section{Unit Test Description}
 
-\wss{Reference your MIS and explain your overall philosophy for test case
-  selection.}  
-\wss{This section should not be filled in until after the MIS has
-  been completed.}
+The pytest library will be used to complete unit testing for this toolbox. To develop unit tests for the internal functions of the program, we will be creating a corresponding test file for each module. Each test file will contain unit tests for each function within the module. These tests contain a variety of inputs, including those which output the correct transformation as well as inputs that generate errors and exceptions. \\
+
+\noindent We will be using coverage metrics to determine how well-tested our code is. This will be determined through the use of coverage.py, a python library that quickly analyzes code coverage of all modules within a project. We will be aiming for 90\% code coverage per module, ensuring that we adequately test all functions. 
+%\wss{Reference your MIS (detailed design document) and explain your overall
+ % philosophy for test case selection.}  
+%\wss{This section should not be filled in until after the MIS (detailed design
+  %document) has been completed.}
 
 \subsection{Unit Testing Scope}
 
-\wss{What modules are outside of the scope.  If there are modules that are
-  developed by someone else, then you would say here if you aren't planning on
-  verifying them.  There may also be modules that are part of your software, but
-  have a lower priority for verification than others.  If this is the case,
-  explain your rationale for the ranking of module importance.}
+Route choice analysis variable modules will be verified for correct functionality (correct sample inputs output correct sample outputs), but logic of previously existing modules will be assessed for correctness by our supervisor, Dr. Paez.
+%\wss{What modules are outside of the scope.  If there are modules that are
+%  developed by someone else, then you would say here if you aren't planning on
+%  verifying them.  There may also be modules that are part of your software, but
+%  have a lower priority for verification than others.  If this is the case,
+% 5 explain your rationale for the ranking of module importance.}
 
 \subsection{Tests for Functional Requirements}
 
-\wss{Most of the verification will be through automated unit testing.  If
-  appropriate specific modules can be verified by a non-testing based
-  technique.  That can also be documented in this section.}
-
-\subsubsection{Module 1}
-
-\wss{Include a blurb here to explain why the subsections below cover the module.
-  References to the MIS would be good.  You will want tests from a black box
-  perspective and from a white box perspective.  Explain to the reader how the
-  tests were selected.}
-
-\begin{enumerate}
-
-\item{test-id1\\}
-
-Type: \wss{Functional, Dynamic, Manual, Automatic, Static etc. Most will
-  be automatic}
-					
-Initial State: 
-					
-Input: 
-					
-Output: \wss{The expected result for the given inputs}
-
-Test Case Derivation: \wss{Justify the expected value given in the Output field}
-
-How test will be performed: 
-					
-\item{test-id2\\}
-
-Type: \wss{Functional, Dynamic, Manual, Automatic, Static etc. Most will
-  be automatic}
-					
-Initial State: 
-					
-Input: 
-					
-Output: \wss{The expected result for the given inputs}
-
-Test Case Derivation: \wss{Justify the expected value given in the Output field}
-
-How test will be performed: 
-
-\item{...\\}
-    
-\end{enumerate}
-
-\subsubsection{Module 2}
-
-...
-
-\subsection{Tests for Nonfunctional Requirements}
-
-\wss{If there is a module that needs to be independently assessed for
-  performance, those test cases can go here.  In some projects, planning for
-  nonfunctional tests of units will not be that relevant.}
-
-\wss{These tests may involve collecting performance data from previously
-  mentioned functional tests.}
-
-\subsubsection{Module ?}
-		
-\begin{enumerate}
-
-\item{test-id1\\}
-
-Type: \wss{Functional, Dynamic, Manual, Automatic, Static etc. Most will
-  be automatic}
-					
-Initial State: 
-					
-Input/Condition: 
-					
-Output/Result: 
-					
-How test will be performed: 
-					
-\item{test-id2\\}
-
-Type: Functional, Dynamic, Manual, Static etc.
-					
-Initial State: 
-					
-Input: 
-					
-Output: 
-					
-How test will be performed: 
-
-\end{enumerate}
-
-\subsubsection{Module ?}
-
-...
+This section will be completed once the MIS has been updated and there is greater clarity on specific modules. 
 
 \subsection{Traceability Between Test Cases and Modules}
-
-\wss{Provide evidence that all of the modules have been considered.}
+This section will be completed once the MIS has been updated and there is greater clarity on specific modules. 
+%\wss{Provide evidence that all of the modules have been considered.}
 				
 \bibliographystyle{plainnat}
 
@@ -378,8 +290,6 @@ How test will be performed:
 
 \section{Appendix}
 
-This is where you can place additional information.
-
 \subsection{Symbolic Parameters}
 
 The definition of the test cases will call for SYMBOLIC\_CONSTANTS.
@@ -388,5 +298,29 @@ Their values are defined in this section for easy maintenance.
 \subsection{Usability Survey Questions?}
 
 \wss{This is a section that would be appropriate for some projects.}
+
+\newpage{}
+\section*{Appendix --- Reflection}
+General Team:\\
+
+\noindent To implement the verification and validation plan within our project our team will have to learn a few new skills. The team will have to create a standard testing suite and develop a standard testing method that each member of the team will follow. This will be to ensure that all tests are understandable and readable by all members of the group. \\
+
+\noindent The team will also familiarize themselves with the pytest framework which will allow us to create consistent, efficient tests that will test each function in our program. As well as learn system testing techniques such as ---.  The team will also need to create a testing strategy that is appropriate and feasible for the project.\\
+
+\noindent Smita Singh:\\ Smita will be responsible for creating unit test for Route Choice Analysis. She will need understand the inputs and outputs of each of the methods that will be required to perform that specific module. Smita will also be leading the creation of a test strategy. \\
+
+\noindent Moksha Srinivasan:\\ Similar to Smita, Moksha will also be responsible for creating tests for Route Choice Analysis. Moksha will also be responsible for helping set up the standard test suite and implementing CI/CD into our git repository by following the tutorial given by Chris Shankula. \\
+
+\noindent Longwei Ye:\\
+Longwei will be responsible for creating unit testing for trip trajectory. Longwei will be responsible for learning about best testing practises through research and will ensure that the team sticks to those practises.\\
+
+\noindent Niyatha Rangarajan:\\
+Niyatha will be creating unit testing module for travel episode verification and categorization. Niyatha has been passionate about end to end system testing. She will be researching how to perform relevant system testing by researching industry standards and then be responsible for informing the rest of the team.\\
+
+\noindent Abeer Alyasiri:\\ Abeer will be responsible for learning about different file formats (CSV, XML, JSON, SHP) and the most efficient ways of parsing through and transforming data. This will ensure that modules are well designed and time efficient. She will ensure test cases include all relevant input file formats and malformed data inputs as well. She will learn about these best practices through the use of data parsing python tutorials online as well as researching libraries/prior implementations of open source GIS analysis tools. Through her co-op position, Abeer has significant experience working with various types of data and hence is the most suited member of our team for this task.   \\
+
+\noindent Nicholas Lobo: \\
+Nicholas has always been interested in learning about data analysis and normalization. Within the scope of this project, he has taken on the responsibility of learning about GPS data standards to help provide a wide range of inputs for all tests. He will ensure that the preprocessing unit can handle various types of GPS data as well as inform decisions about edge cases related to incorrect data. He can complete this task by consulting academic papers that detail the characteristics of and how to parse GPS data.\\
+
 
 \end{document}
