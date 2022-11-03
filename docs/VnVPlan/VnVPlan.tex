@@ -341,15 +341,15 @@ Control: Manual
 					
 Initial State: The application has been loaded onto the computer
 					
-Input: User loads in a CVS file of GPS data
-					
-Output: The system saves the CVS file of GPS data
+Input: User loads in a CSV file of GPS data
+				
+Output: The system saves the CSV file of GPS data
 
 Test Case Derivation: The user wants the application to read the given CSV file 
 					
 How test will be performed: Different sets of valid CSV data will be uploaded by the tester to see if the computer reads the values correctly
 
-Associated Functional Requirement: R1 
+Associated Functional Requirement: FR1 
 
 \item{test-UT-2\\}
 
@@ -361,11 +361,11 @@ Input: The system has a loaded file of GPS data
 					
 Output: The system saves the values found in the CSV file as latitude longitude and time variables
 
-Test Case Derivation: The user wants to use the software to save the given CVS files into variables that can be manipulated
+Test Case Derivation: The user wants to use the software to save the given CSV files into variables that can be manipulated
 					
 How test will be performed: Different sets of valid CSV's of GPS data will be uploaded by the tester to see if the computer reads the values correctly
 
-Associated Functional Requirement: R2,R5
+Associated Functional Requirement: FR2,FR5
 
 \item{test-UT-3\\}
 
@@ -373,15 +373,15 @@ Control: Manual
 					
 Initial State: The application has been loaded onto the computer
 					
-Input: User loads in a CVS file of TUD
+Input: User loads in a CSV file of time use diaries (TUD)
 					
-Output: The system saves the the the CSV file of TUD
+Output: The system saves the the the CSV file of TUD's
 
-Test Case Derivation: The user wants to use the software to read the given CSV file and save it to attributes that can be 
+Test Case Derivation: The user wants to use the software to read the given CSV file and save it
 					
 How test will be performed: Different sets of valid CSV's of TUD data will be uploaded by the tester to see if the computer reads the values correctly
 
-Associated Functional Requirement: R3
+Associated Functional Requirement: FR3
 
 \item{test-UT-4\\}
 
@@ -397,7 +397,7 @@ Test Case Derivation: The user wants to use the software to read the given CSV f
 					
 How test will be performed: Different sets of valid CSV's of TUD data will be uploaded by the tester to see if the computer reads the values correctly
 
-Associated Functional Requirement: R4
+Associated Functional Requirement: FR4
 \end{enumerate}
 
 \subsubsection{System Functionality Tests}
@@ -410,7 +410,7 @@ This will test all functionality from the system perspectives. How data is being
 
 \item{test-ST-1\\}
 
-Control: Manual
+Control: Manual       
 					
 Initial State: CSV of GPS data has been inputted to the application
 					
@@ -418,12 +418,12 @@ Input: The user types a function to call for the system to organize the inputted
 					
 Output: The system returns a report of categorized data points such as speed, duration, distance, and change in direction.
 
-Test Case Derivation: \wss{Justify the expected value given in the Output field}
+Test Case Derivation: The system needs to be displayed in a way that the user can read easily
 
 How test will be performed: The tester will use a variety of CSV files filled with valid GPS data and use the function call to see if valid reports were generated
 
 
-Associated Functional Requirement: R6
+Associated Functional Requirement: FR6
 
 
 
@@ -431,18 +431,18 @@ Associated Functional Requirement: R6
 
 Control: Manual
 					
-Initial State: CSV of TUD data has been inputted to the application
+Initial State: A CSV of TUD data has been inputted to the application
 					
 Input: The user types a function to call for the system to organize the inputted data into episodes 
 					
 Output: The system returns a report which contains a list of episodes that have categorized data points such as speed, duration, distance, and change in direction.
 
-Test Case Derivation: \wss{Justify the expected value given in the Output field}
+Test Case Derivation: The system needs valid GPS points
 
 How test will be performed: The tester will use a variety of CSV files filled with valid GPS data and use the function call to see if valid reports were generated
 
 
-Associated Functional Requirement: R7
+Associated Functional Requirement: FR7
 
 \item{test-ST-3\\}
 
@@ -459,7 +459,7 @@ Test Case Derivation: The user wants to understand the methods of travel used fr
 How test will be performed: The tester will use a variety of CSV files filled with valid GPS data and use the function call to see if valid categories are found in the reports generated
 
 
-Associated Functional Requirement: R8
+Associated Functional Requirement: FR8,FR20
 
 
 \item{test-ST-4\\}
@@ -477,7 +477,7 @@ Test Case Derivation: The user wants to understand the behaviour of the object g
 How test will be performed: The tester will use a variety of generated reports to see if valid episode segments were created 
 
 
-Associated Functional Requirement: R9
+Associated Functional Requirement: FR9,FR19
 
 
 \item{test-ST-5\\}
@@ -494,74 +494,73 @@ Test Case Derivation: The system needs trip trajectory values for route choice a
 
 How test will be performed: The tester will validate the trajectory values based on the given CSV GPS data 
 
-Associated Functional Requirement: R10
+Associated Functional Requirement: FR10
 
-\item{test-ST-5\\}
+\item{test-ST-6\\}
 
 Control: Manual
 					
-Initial State: CSV of GPS data has been inputted to the application and the report of episodes are generated
+Initial State: CSV of GPS data has been inputted to the application and the report is generated
 					
 Input: The report of episodes and segments are generated
 					
-Output: The system generates activity locations for each of the episodes in the report
+Output: The system generates and stores activity locations for each of the episodes in the report
 
 Test Case Derivation: The system needs to generate high and low activity locations
 
-How test will be performed: The tester will validate the trajectory values based on the given CSV GPS data 
+How test will be performed: The tester will validate a sample reports activity location matches with a curated list of episodes with known activity locations
 
-Associated Functional Requirement: R11
+Associated Functional Requirement: FR11,FR16,18
 
-\item{test-ST-5\\}
-
-Control: Manual
-					
-Initial State: CSV of GPS data has been inputted to the application 
-					
-Input: The report of episodes and segments are generated
-					
-Output: The system generates the trip trajectory values based on the given segments
-
-Test Case Derivation: The system needs trip trajectory values for route choice analysis
-
-How test will be performed: The tester will validate the trajectory values based on the given CSV gps data 
-
-Associated Functional Requirement: R11
-\item{test-ST-5\\}
+\item{test-ST-7\\}
 
 Control: Manual
 					
-Initial State: CSV of GPS data has been inputted to the application 
+Initial State: CSV of GPS data has been inputted to the application and the report of episodes and their segments are generated
 					
-Input: The report of episodes and segments are generated
+Input: The trajectory values are calculated by the system
 					
-Output: The system generates the trip trajectory values based on the given segments
+Output: The system creates RCA variables based on the trip trajectory 
 
-Test Case Derivation: The system needs trip trajectory values for route choice analysis
+Test Case Derivation: The system needs the RCA variables to define route choice behaviour data set. 
 
-How test will be performed: The tester will validate the trajectory values based on the given CSV gps data 
+How test will be performed: The tester will generate multiple RCA datasets from different reports and check the validity of them
 
-Associated Functional Requirement: R11
+Associated Functional Requirement: FR12,FR13
 
-\item{test-ST-5\\}
+\item{test-ST-8\\}
 
 Control: Manual
 					
-Initial State: CSV of GPS data has been inputted to the application 
+Initial State: A RCA dataset has been generated by the software
 					
-Input: The report of episodes and segments are generated
+Input: The user request a route from two GPS points A and B 
 					
-Output: The system generates the trip trajectory values based on the given segments
+Output: The system generates a mapped route from position A and position B 
 
-Test Case Derivation: The system needs trip trajectory values for route choice analysis
+Test Case Derivation: The user needs requested routes given two GPS points
 
-How test will be performed: The tester will validate the trajectory values based on the given CSV gps data 
+How test will be performed: The tester will request for multiple routes to be created from a generated RCA dataset
 
-Associated Functional Requirement: R11
+Associated Functional Requirement: FR14,FR17
 
+\item{test-ST-9\\}
+
+Control: Manual
+					
+Initial State: A RCA dataset has been generated by the software
+					
+Input: The user request a route from two GPS points A and B with selected constraints 
+					
+Output: The system generates a mapped route from position A and position B with selected constraints
+
+Test Case Derivation: The user wants customized routes based on selected constraints 
+
+How test will be performed: The tester will request for multiple routes with selected constraints be created from a generated RCA dataset
+
+Associated Functional Requirement: R15
 
 \end{enumerate}
-
 
 
 \subsection{Tests for Nonfunctional Requirements}
@@ -720,6 +719,37 @@ Associated NFR: 14,15,16
 \subsection{Traceability Between Test Cases and Requirements}
 
 \paragraph{*8,13,17,18 NFRs relate to stretch goals like storing the user information and building a GUI. Hence, based on reassessment of nfrs with stakeholders, these nfrs will be reevaluated or omitted in the revised version of the SRS.}
+
+\begin{table}[H]
+    \centering
+    \scalebox{0.5}{
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+    \hline        
+    & FR1 & FR2 & FR3 & FR4 & FR5 & FR6 & FR7& FR8 & FR9 & FR10 & FR11 & FR12 & FR13 & FR14 & FR15 & FR16 & FR17 & FR18 & FR19 & FR20\\ \hline
+    test-UT-1  &X & & & &X & & & & & & & & & & & & & & & \\ \hline
+    test-UT-2  & &X & & & & & & & & & & & & & & & & & &  \\ \hline
+    test-UT-3  & & &X & & & & & & & & & & & & & & & & &  \\ \hline
+    test-UT-4  & & & &X & & & & & & & & & & & & & & & & \\ \hline
+    test-ST-1  & & & & & &X & & & & & & & & & & & & & &  \\ \hline
+    test-ST-2  & & & & & & &X & & & & & & & & & & & & & \\ \hline
+    test-ST-3  & & & & & & & &X & & & & & & & & & & & &X\\ \hline
+    test-ST-4  & & & & & & & & &X & & & & & & & & & &X & \\ \hline
+    test-ST-5  & & & & & & & & & &X & & & & & & & & & & \\ \hline
+    test-ST-6  & & & & & & & & & & &X & & & & &X & &X & & \\ \hline
+    test-ST-7  & & & & & & & & & & & &X &X & & & & & & & \\ \hline
+    test-ST-8  & & & & & & & & & & & & & &X & & &X & & & \\ \hline
+    test-ST-9  & & & & & & & & & & & & & & & X& & & & & \\ \hline
+    
+    
+    
+    \hline %
+    \end{tabular}
+    }
+    \caption{Traceability Matrix Showing the Connections Between Functional Requirements and their test.}
+    \label{Table:trace}
+    \end{table}
+
+    
 \begin{table}[H]
 \centering
 \scalebox{0.5}{
