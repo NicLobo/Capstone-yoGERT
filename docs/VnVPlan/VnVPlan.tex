@@ -2,6 +2,8 @@
 
 \usepackage{booktabs}
 \usepackage{tabularx}
+\usepackage{graphicx}
+\usepackage{float}
 \usepackage{hyperref}
 \hypersetup{
     colorlinks,
@@ -11,14 +13,15 @@
     urlcolor=blue
 }
 \usepackage[round]{natbib}
+\usepackage{multirow}
 
-\input{../Comments}
-\input{../Common}
+%\input{../Comments}
+%\input{../Common}
 
 \begin{document}
 
 \title{Project Title: System Verification and Validation Plan for \progname{}} 
-\author{Author Name}
+\author{\authname}
 \date{\today}
 	
 \maketitle
@@ -31,7 +34,7 @@
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
 Date 1 & 1.0 & Notes\\
-2022/11/2 & 1.1 & Update Section 3 by Longwei Ye\\
+Date 2 & 1.1 & Notes\\
 \bottomrule
 \end{tabularx}
 
@@ -40,7 +43,7 @@ Date 1 & 1.0 & Notes\\
 \tableofcontents
 
 \listoftables
-\wss{Remove this section if it isn't needed}
+% \wss{Remove this section if it isn't needed}
 
 \listoffigures
 \wss{Remove this section if it isn't needed}
@@ -50,23 +53,46 @@ Date 1 & 1.0 & Notes\\
 \section{Symbols, Abbreviations and Acronyms}
 
 \renewcommand{\arraystretch}{1.2}
-\begin{tabular}{l l} 
+\begin{tabular}{l p{10cm}} 
   \toprule		
   \textbf{symbol} & \textbf{description}\\
   \midrule 
   T & Test\\
+  SRS & Software Requirements Specification \\
+%   GPS & Global Positioning Systems\\
+%   GIS & Geographical Information Systems\\
+%   GERT & GIS-based episode reconstruction toolkit \\
+%   Point & location coordinate with time stamp.\\
+%   Session & Object activity history quantified by GPS points \\
+%   Episode & Session\\
+%   Segment & Group of GPS Points combined based on episode attributes.\\
+%   Trip & GPS points represents an object moving to a different position.\\
+%   Route & Object path to get from position A to position B\\
+%   Mode Detection (MD) & Detection of type of transportation being used \\
+%   Time Use Diary (TUD) & Time Use Diary are records of continuous events and actions through a particular period of time (usually 24 to 48 hours) \\
+%   Route Choice Analysis (RCA) &  Analyzes route selection from point a to point b\\
+%   .shp & .shp are geospatial data format files\\
+%   CSV/.csv & Comma Separated Values is a file type that contains large amounts of data separated by commas. \\
+%   Potential Activity Locations (PALS) & PALS are potential trip stops \\
+%   Activity Locations (ALs) & ALs are trip stops \\
+
+
   \bottomrule
 \end{tabular}\\
 
-\wss{symbols, abbreviations or acronyms -- you can simply reference the SRS
-  \citep{SRS} tables, if appropriate}
+% \wss{symbols, abbreviations or acronyms --- you can simply reference the SRS
+%   \citep{SRS} tables, if appropriate}
+
+% \wss{Remove this section if it isn't needed}
 
 \newpage
 
 \pagenumbering{arabic}
 
-This document ... \wss{provide an introductory blurb and roadmap of the
-  Verification and Validation plan}
+This document provides the project's verification and 
+validation plan for documentation phase and implementation phase. Also, it will include detailed testing decisions for system test cases and unit test cases.  
+% \wss{provide an introductory blurb and roadmap of the
+%   Verification and Validation plan}
 
 \section{General Information}
 
@@ -80,8 +106,8 @@ The software being verified and validated is the \emph{yoGERT} toolbox. The soft
     \item Categorize movement and stop behaviour. 
 \end{itemize}
 
-%\wss{Say what software is being tested.  Give its name and a brief overview of
-  its general functions.}%
+% \wss{Say what software is being tested.  Give its name and a brief overview of
+%   its general functions.}
 
 \subsection{Objectives}
 The objectives of the verification and validation plan are:
@@ -92,11 +118,11 @@ The objectives of the verification and validation plan are:
     \item To build confidence in toolbox accessibility and transferability. 
 \end{itemize}
 
-%\wss{State what is intended to be accomplished.  The objective will be around
-  the qualities that are most important for your project.  You might have
-  something like: ``build confidence in the software correctness,''
-  ``demonstrate adequate usability.'' etc.  You won't list all of the qualities,
-  just those that are most important.}%
+% \wss{State what is intended to be accomplished.  The objective will be around
+%   the qualities that are most important for your project.  You might have
+%   something like: ``build confidence in the software correctness,''
+%   ``demonstrate adequate usability.'' etc.  You won't list all of the qualities,
+%   just those that are most important.}
 
 \subsection{Relevant Documentation}
 The test plan are created follow the documents listed below:
@@ -106,174 +132,555 @@ The test plan are created follow the documents listed below:
     \item Module Interface Specification.
 \end{itemize}
 
-%\wss{Reference relevant documentation.  This will definitely include your SRS
-  and your other project documents (MG, MIS, etc).  You can include these even
-  before they are written, since by the time the project is done, they will be
-  written.}%
 
-\citet{SRS}
+% \wss{Reference relevant documentation.  This will definitely include your SRS
+%   and your other project documents (design documents, like MG, MIS, etc).  You
+%   can include these even before they are written, since by the time the project
+%   is done, they will be written.}
+
+% \citet{SRS}
 
 \section{Plan}
 
-\wss{Introduce this section.   You can provide a roadmap of the sections to
-  come.}
+% \wss{Introduce this section.   You can provide a roadmap of the sections to
+%   come.}
+  
+This section outlines verification and validation plan including details on possible testing approaches and division of resources. The section provides risk analysis to justify the decisions making process for the verification and validation plan.
 
 \subsection{Verification and Validation Team}
 
-\wss{You, your classmates and the course instructor.  Maybe your supervisor.
-  You shoud do more than list names.  You should say what each person's role is
-  for the project.  A table is a good way to summarize this information.}
+% \wss{Your teammates.  Maybe your supervisor.
+%   You shoud do more than list names.  You should say what each person's role is
+%   for the project's verification.  A table is a good way to summarize this information.}
+The testing team consists of all members of \emph{yoGERT} team. All team members need to be actively aware of each testing plan and involved in all aspects of the testing process. All team members are involved because this is a capstone project that requires students to participate in all the project stages. The table below shows the division of responsibilities to assign leaders for different testing milestones. This way the team is sure that every testing stage is on track. Therefore, the team aims to evenly split testing and preparing for automated testing. 
+\newpage
+\begin{table}[h!]
+    \begin{tabular}{|c|p{50mm}|p{50mm}| }
+ \hline
+ \textbf{Team Member} & \textbf{Testing Role} & \textbf{Responsibilities}  \\ 
+ \hline
+ Abeer Alyasiri & SRS and Design Verification and Acceptance Testing & Leads document and code walkthroughs and inspections. Leads user and business acceptance testing using black box techniques. \\ 
+ Longwei Ye & Integration Testing & Leads regression testing using black box techniques. \\ 
+ Moksha Srinivasan & Unit Testing & Leads implementation of white box testing techniques. \\
+ Smita Singh & Unit Testing & Leads implementation of white box testing techniques. \\
+ Nicholas Lobo & System Testing & Leads functional requirements testing. \\
+ Niyatha Rangarajan & System Testing & Leads non-functional requirements testing. \\
+ \hline
+\end{tabular}
+    \caption{Verification and Validation Team.}
+    \label{tab:my_label}
+\end{table}
 
 \subsection{SRS Verification Plan}
 
-\wss{List any approaches you intend to use for SRS verification.  This may just
-  be ad hoc feedback from reviewers, like your classmates, or you may have
-  something more rigorous/systematic in mind..}
+% \wss{List any approaches you intend to use for SRS verification.  This may include
+%   ad hoc feedback from reviewers, like your classmates, or you may plan for 
+%   something more rigorous/systematic.}
+The SRS verification plan consists of three parts to check if the SRS
+document was completed according to the Volere Template Standards and 
+meet the project goals. All parts will implement a static technique of 
+testing that include structured and unstructured walkthroughs and
+checklists. Part one is the unstructured feedback received from 
+classmates in the form of GitHub issues. These reviews provide technical
+improvements on the document from outside the team. It is helpful because it improves the
+understandability of the document to professional individuals in the
+field, such as software engineers. Part two is the structured review
+received from the TA. The TA follows a checklist in the form of the
+milestone rubric. The feedback is beneficial because the SRS is reviewed
+from an industry standard perspective. Hence, the document will be
+closer to implementing best-practices techniques throughout the
+document. This increases the productivity of using the SRS during the
+design stage. Part three is a structured review with the supervisor. The
+review will be a combination of SRS walkthrough and modified task based inspection. 
+The objectives of the walkthrough is to introduce the supervisor to the 
+team's documentation and receive general feedback on the scope and 
+clarity of the documentation. On the other hand the task based 
+inspection will analyze both functional and non-functional
+requirements in depth. The inspection will consist of questions to 
+motivate the supervisor to think about the relationship between his 
+system goals and the formulated requirements. This is helpful with 
+removing ambiguities of the requirement's relevance to the desired final system. Also,
+the inspection will focus on problem categorization.
+These will represent the question's talking points.
+The categorizations are clarity of requirements, conflicting requirements, and unrealistic requirements problems. \\
+All the reviews collected from the SRS verification plan will be applied
+to the document before the POC demonstration.
 
-\wss{Remember you have an SRS checklist}
+% \wss{Maybe create an SRS checklist?}
 
 \subsection{Design Verification Plan}
 
-\wss{Plans for design verification}
+Design verification will be similar to the SRS verification part one and
+part two. In addition it will include a formal review by teammates using
+a checklist. The checklist will consist of Dr. Spencer's MG and MIS checklists and the following points:
+\begin{itemize}
+    \item Each design decision maps to one or more requirements. 
+    \item Each design specification has one output. 
+    \item Each function decomposition follow top to down design model.
+    \item Design specification connect functional processes logically for the user to carry out tasks.
+    \item Design specification does not include implementation details.
+    \item Design specification describe inputs, logical operations, and output. 
+    \item Design specification outputs are consistent across a division of input cases.
+    \item Design specification outlines error responses for unexpected behaviour. 
+\end{itemize}
 
-\wss{The review will include reviews by your classmates}
+The team will conduct the verification against the checklist using 
+static and dynamic testing techniques. Static testing will involve 
+a walkthrough to proof traceability and accuracy of the system 
+architectural model. Dynamic testing will include unit testing, white box testing, black box testing, and integration testing.
 
-\wss{Remember you have MG and MIS checklists}
+% \wss{Plans for design verification}
+
+% \wss{The review will include reviews by your classmates}
+
+% \wss{Create a checklists?}
+
+\subsection{Verification and Validation Plan Verification Plan}
+
+Verification and validation plan will be verified through reviews. First, it will be verified against Dr. Spencer's VnV-checklist by \emph{yoGERT} team members. It will verify the completeness of the test cases to tracing back to at least one requirement and testing it correctly. Second, it will be reviewed by classmate in an informal way. This feedback is beneficial because it is outside the team professional opinion on what is the missing information in the document. Third, it will be reviewed by the TA in a standard way using the rubric as a checklist. The review will focus on the accuracy of information used to formulate the plan and if the plan is appropriate to the project. The plan is appropriate when it is feasible within the capstone timeline and test cases are complete within its requirement scope. 
+
+% \wss{The verification and validation plan is an artifact that should also be verified.}
+
+% \wss{The review will include reviews by your classmates}
+
+% \wss{Create a checklists?}
 
 \subsection{Implementation Verification Plan}
 
-\wss{You should at least point to the tests listed in this document and the unit
-  testing plan.}
+% \wss{You should at least point to the tests listed in this document and the unit
+%   testing plan.}
+The implementation verification plan includes both
+system test cases and unit test cases listed in this 
+document. The verification plan is a combination of 
+different testing techniques to start with testing the 
+building blocks of the system up to testing structural 
+interaction between theses components.\\ 
+In the early stages of the implementation verification 
+plan, the team will conduct static verification
+techniques. It includes code inspections to test code 
+readability and code walkthroughs to verify 
+implementation meets that design specification. \\
+The other stages of the implementation verification plan will rely on dynamic 
+testing techniques. These tests will be driven by white box testing and 
+integration testing techniques. Both these techniques are focused on proving that 
+the system follows the design specification and is consistent with the addition of
+new components. Also, The verification plan must encapsulate testing scenarios of how the system reacts to faulty inputs. It can be tested by inputting irrational data points and observing if a safe output will be produced instead of system failure. Therefore, it is important that the testing cases will include boundary and edge inputs to the system's safe outputs and consistent behaviour.
 
-\wss{In this section you would also give any details of any plans for static verification of
-  the implementation.  Potential techniques include code walkthroughs, code
-  inspection, static analyzers, etc.}
+
+% \wss{In this section you would also give any details of any plans for static verification of
+%   the implementation.  Potential techniques include code walkthroughs, code
+%   inspection, static analyzers, etc.}
 
 \subsection{Automated Testing and Verification Tools}
 
-\wss{What tools are you using for automated testing.  Likely a unit testing
-  framework and maybe a profiling tool, like ValGrind.  Other possible tools
-  include a static analyzer, make, continuous integration tools, test coverage
-  tools, etc.  Explain your plans for summarizing code coverage metrics.
-  Linters are another important class of tools.  For the programming language
-  you select, you should look at the available linters.  There may also be tools
-  that verify that coding standards have been respected, like flake9 for
-  Python.}
+% \wss{What tools are you using for automated testing.  Likely a unit testing
+%   framework and maybe a profiling tool, like ValGrind.  Other possible tools
+%   include a static analyzer, make, continuous integration tools, test coverage
+%   tools, etc.  Explain your plans for summarizing code coverage metrics.
+%   Linters are another important class of tools.  For the programming language
+%   you select, you should look at the available linters.  There may also be tools
+%   that verify that coding standards have been respected, like flake9 for
+%   Python.}
 
-\wss{The details of this section will likely evolve as you get closer to the
-  implementation.}
+% \wss{If you have already done this in the development plan, you can point to
+% that document.}
+
+% \wss{The details of this section will likely evolve as you get closer to the
+%   implementation.}
+
+The section was done in the development plan document Sections 6 and 7. \\
+
+The details of this section will likely evolve further
+in the project. Currently the plan is to only use 
+automation testing for unit tests. 
 
 \subsection{Software Validation Plan}
 
 \wss{If there is any external data that can be used for validation, you should
   point to it here.  If there are no plans for validation, you should state that
   here.}
+  
+Software validation plan will be divided into two parts. Part one will involve walkthrough and task based inspection similar to the SRS veri
+
+\wss{You might want to use review sessions with the stakeholder to check that
+the requirements document captures the right requirements.  Maybe task based
+inspection?}
+
+\wss{This section might reference back to the SRS verification section.}
 
 \section{System Test Description}
 	
 \subsection{Tests for Functional Requirements}
 
-\wss{Subsets of the tests may be in related, so this section is divided into
-  different areas.  If there are no identifiable subsets for the tests, this
-  level of document structure can be removed.}
+The testing of functional requirements will be divided into two sections. One to test user functionality and one to test system functionality. 
 
-\wss{Include a blurb here to explain why the subsections below
-  cover the requirements.  References to the SRS would be good.}
+\subsubsection{User Functionality Tests}
 
-\subsubsection{Area of Testing1}
-
-\wss{It would be nice to have a blurb here to explain why the subsections below
-  cover the requirements.  References to the SRS would be good.  If a section
-  covers tests for input constraints, you should reference the data constraints
-  table in the SRS.}
+This will test all functionality from the users perspectives. How data is being read will be the main focus of these tests. 
 		
-\paragraph{Title for Test}
+\paragraph{User Input Testing}
 
 \begin{enumerate}
 
-\item{test-id1\\}
+\item{test-UT-1\\}
 
-Control: Manual versus Automatic
+Control: Manual 
 					
-Initial State: 
+Initial State: The application has been loaded onto the computer
 					
-Input: 
+Input: User loads in a CVS file of GPS data
 					
-Output: \wss{The expected result for the given inputs}
+Output: The system saves the CVS file of GPS data
+
+Test Case Derivation: The user wants the application to read the given CSV file 
+					
+How test will be performed: Different sets of valid CSV data will be uploaded by the tester to see if the computer reads the values correctly
+
+Associated Functional Requirement: R1 
+
+\item{test-UT-2\\}
+
+Control: Manual 
+					
+Initial State: The application has been loaded onto the computer
+					
+Input: The system has a loaded file of GPS data 
+					
+Output: The system saves the values found in the CSV file as latitude longitude and time variables
+
+Test Case Derivation: The user wants to use the software to save the given CVS files into variables that can be manipulated
+					
+How test will be performed: Different sets of valid CSV's of GPS data will be uploaded by the tester to see if the computer reads the values correctly
+
+Associated Functional Requirement: R2,R5
+
+\item{test-UT-3\\}
+
+Control: Manual 
+					
+Initial State: The application has been loaded onto the computer
+					
+Input: User loads in a CVS file of TUD
+					
+Output: The system saves the the the CSV file of TUD
+
+Test Case Derivation: The user wants to use the software to read the given CSV file and save it to attributes that can be 
+					
+How test will be performed: Different sets of valid CSV's of TUD data will be uploaded by the tester to see if the computer reads the values correctly
+
+Associated Functional Requirement: R3
+
+\item{test-UT-4\\}
+
+Control: Manual 
+					
+Initial State: A CSV of GPS data has been inputted to the application
+					
+Input: User downloads the file that it uploaded to the system 
+					
+Output: The system gives the user the data in a CSV format 
+
+Test Case Derivation: The user wants to use the software to read the given CSV file and save it to attributes that can be 
+					
+How test will be performed: Different sets of valid CSV's of TUD data will be uploaded by the tester to see if the computer reads the values correctly
+
+Associated Functional Requirement: R4
+\end{enumerate}
+
+\subsubsection{System Functionality Tests}
+
+This will test all functionality from the system perspectives. How data is being process and outputted will be the main focus of these tests. 
+		
+\paragraph{System Output Testing}
+
+\begin{enumerate}
+
+\item{test-ST-1\\}
+
+Control: Manual
+					
+Initial State: CSV of GPS data has been inputted to the application
+					
+Input: The user types a function to call for the system to organize the inputted data into episodes 
+					
+Output: The system returns a report of categorized data points such as speed, duration, distance, and change in direction.
 
 Test Case Derivation: \wss{Justify the expected value given in the Output field}
-					
-How test will be performed: 
-					
-\item{test-id2\\}
 
-Control: Manual versus Automatic
+How test will be performed: The tester will use a variety of CSV files filled with valid GPS data and use the function call to see if valid reports were generated
+
+
+Associated Functional Requirement: R6
+
+
+
+\item{test-ST-2\\}
+
+Control: Manual
 					
-Initial State: 
+Initial State: CSV of TUD data has been inputted to the application
 					
-Input: 
+Input: The user types a function to call for the system to organize the inputted data into episodes 
 					
-Output: \wss{The expected result for the given inputs}
+Output: The system returns a report which contains a list of episodes that have categorized data points such as speed, duration, distance, and change in direction.
 
 Test Case Derivation: \wss{Justify the expected value given in the Output field}
 
-How test will be performed: 
+How test will be performed: The tester will use a variety of CSV files filled with valid GPS data and use the function call to see if valid reports were generated
+
+
+Associated Functional Requirement: R7
+
+\item{test-ST-3\\}
+
+Control: Manual
+					
+Initial State: CSV of GPS data has been inputted to the application
+					
+Input: The user types a function to call for the system to organize the inputted data into episodes 
+					
+Output: The system returns a report of episodes categorized by different  methods of transportation(walk, car, bus).
+
+Test Case Derivation: The user wants to understand the methods of travel used from the set of data points given
+
+How test will be performed: The tester will use a variety of CSV files filled with valid GPS data and use the function call to see if valid categories are found in the reports generated
+
+
+Associated Functional Requirement: R8
+
+
+\item{test-ST-4\\}
+
+Control: Manual
+					
+Initial State: CSV of GPS data has been inputted to the application and a report of episodes was generated 
+					
+Input: The user selects one of the episodes generated from the report
+					
+Output: The system returns the segments of the episodes into type stop and trip 
+
+Test Case Derivation: The user wants to understand the behaviour of the object given an episode in the report
+
+How test will be performed: The tester will use a variety of generated reports to see if valid episode segments were created 
+
+
+Associated Functional Requirement: R9
+
+
+\item{test-ST-5\\}
+
+Control: Manual
+					
+Initial State: CSV of GPS data has been inputted to the application 
+					
+Input: The report of episodes and segments are generated
+					
+Output: The system generates the trip trajectory values based on the given segments
+
+Test Case Derivation: The system needs trip trajectory values for route choice analysis
+
+How test will be performed: The tester will validate the trajectory values based on the given CSV gps data 
+
+Associated Functional Requirement: R10
+
+\item{test-ST-5\\}
+
+Control: Manual
+					
+Initial State: CSV of GPS data has been inputted to the application 
+					
+Input: The report of episodes and segments are generated
+					
+Output: The system generates the trip trajectory values based on the given segments
+
+Test Case Derivation: The system needs trip trajectory values for route choice analysis
+
+How test will be performed: The tester will validate the trajectory values based on the given CSV gps data 
+
+Associated Functional Requirement: R11
+
 
 \end{enumerate}
 
-\subsubsection{Area of Testing2}
 
-...
 
 \subsection{Tests for Nonfunctional Requirements}
 
-\wss{The nonfunctional requirements for accuracy will likely just reference the
-  appropriate functional tests from above.  The test cases should mention
-  reporting the relative error for these tests.}
-
-\wss{Tests related to usability could include conducting a usability test and
-  survey.}
-
-\subsubsection{Area of Testing1}
-		
-\paragraph{Title for Test}
+\paragraph{* Storing user information is now considered as a stretch goal. This conclusion was reached after a dicussion with our stakeholders. Hence, the SRS will be revised to avoid including such information. The following tests do not involve storing user information while the rest of SRS NFR related information remains unchanged. }
+\subsubsection{UI/UX components}
+\paragraph{Since the information must be presented to the user in an understandable manner, we must have UI/UX related tests.}
 
 \begin{enumerate}
 
 \item{test-id1\\}
 
-Type: 
+Type: Regression testing
 					
-Initial State: 
+Initial State: Word document is present in the directory. Various functions to perform on the GPS data are shown to the user.
 					
-Input/Condition: 
+Input/Condition: The user types a function to call for the system to organize the
+inputted data (word document) into episodes giving a word document as input. 
 					
-Output/Result: 
+Output/Result: An error stating that the input file provided is not of the correct format.
 					
-How test will be performed: 
-					
+How test will be performed: Since, different functions require different inputs, it is important to see if the current modules functionality changes when the format of the input file changes.
+
+Associated NFR: 11
 \item{test-id2\\}
 
-Type: Functional, Dynamic, Manual, Static etc.
+Type: Manual testing
 					
-Initial State: 
+Initial State: CSV of GPS data has been inputted to the application
 					
-Input: 
+Input: The user types a function to call for the system to organize the
+inputted data into episodes
 					
-Output: 
+Output: The system returns a possible set of input data types if the function matches a stored function in the system
 					
-How test will be performed: 
+How test will be performed: This works like VS code, were as you type a function, a function description hovers over the function call, depciting the required user input for that function. One can try this test with different function calls to check its validity.
+
+Associated NFR: 2, 3, 4, 5, 6, 7 
+\end{enumerate}
+
+\subsubsection{Memory and performance issues}
+\paragraph{Since, we are working with large sets of data, we must make sure the edge cases of data size and its relevant processing time are considered. }
+
+\begin{enumerate}
+
+\item{test-id3\\}
+
+Type: Regression testing
+					
+Initial State: CSV of 47.3 million data points of GPS data has been inputted to the application
+					
+Input/Condition: The user types a function to call for the system to organize the
+inputted data (word document) into episodes giving a word document as input. 
+					
+Output/Result: The system returns a report of categorized data points such
+as speed, duration, distance, and change in direction within 6000 seconds upon request
+					
+How test will be performed: We perform edge case tests to see if performance and capacity requirements are met. 
+
+Associated NFR: 9, 11, 12
+
+\item{test-id4\\}
+
+Type: Unit testing
+					
+Initial State: CSV of GPS data has been inputted to the application
+					
+Input: The user types a function to call for the system to organize the
+inputted data into episodes
+					
+Output: The system returns a possible set of input data types if the function matches a stored function in the system
+					
+How test will be performed: We perform a unit test to see if the outputted data matches the expected episodes we require from the system. This is helpful for precision requirements.
+
+Associated NFR: 11
 
 \end{enumerate}
 
-\subsubsection{Area of Testing2}
 
-...
+\subsubsection{Security of user information}
+		
+\paragraph{Since the information inputted will be used by APIs online, we must ensure protection of user information.}
 
+\begin{enumerate}
+
+\item{test-id5\\}
+
+Type: Manual
+					
+Initial State: CSV of GPS data has been inputted to the application
+					
+Input/Condition: The user types a function to call for the system to organize the
+inputted data into episodes
+					
+Output/Result: No data seen at API endpoint.
+					
+How test will be performed: We must make sure we use online APIs like pandas, geopy, etc. does not store any user inputted information.
+
+Associated NFR: 19
+
+\item{test-id6\\}
+
+Type: Dynamic testing
+					
+Initial State: CSV of GPS data has been inputted to the application
+					
+Input: The user types a function to call for the system to organize the
+inputted data into episodes
+					
+Output: Inputted data has not changed once the episodes are created.
+					
+How test will be performed: Black box testing using Finite state machines. If there is no change of state for the input, then the test succeeds. 
+
+Associated NFR: 10
+
+\end{enumerate}
+
+\subsubsection{Environment issues}
+		
+\paragraph{For the functioning of the application, it must have certain prerequisite software like Python installed and the environment it is run on like Mac, Windows, etc. must be accounted for.}
+
+\begin{enumerate}
+
+\item{test-id7\\}
+
+Type: Unit testing
+					
+Initial State: CSV of GPS data has been inputted to the application
+					
+Input/Condition: The user types a function to call for the system to organize the
+inputted data into episodes. 
+					
+Output/Result: Error is outputted stating that Python must be installed in the system.
+					
+How test will be performed: Python is not installed in the system before inputting the data. 
+
+Associated NFR: 15
+
+\item{test-id8\\}
+
+Type: Unit testing
+					
+Initial State: CSV of GPS data has been inputted to the application
+					
+Input/Condition: The user types a function to call for the system to organize the
+inputted data into episodes. 
+					
+Output/Result: The system returns a report of categorized data points such
+as speed, duration, distance, and change in direction
+					
+How test will be performed: Python2 is installed in the system before inputting the data. Since, Python can only be installed on a valid OS, we simultaneously test for the operational environment.
+
+Associated NFR: 14,15,16
+
+\end{enumerate}
 \subsection{Traceability Between Test Cases and Requirements}
 
-\wss{Provide a table that shows which test cases are supporting which
-  requirements.}
+\paragraph{*1,8,13,17,18 NFRs relate to stretch goals like storing the user information and building a GUI. Hence, based on reassessment of nfrs with stakeholders, these nfrs will be reevaluated or omitted in the revised version of the SRS.}
+\begin{table}[H]
+\centering
+\scalebox{0.5}{
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+\hline        
+& NFR1 & NFR2 & NFR3 & NFR4 & NFR5 & NFR6 & NFR7& NFR8 & NFR9 & NFR10 & NFR11 & NFR12 & NFR13 & NFR14 & NFR15 & NFR16 & NFR17 & NFR18 & NFR19\\ \hline
+test-id1  & & & & & & & & & & &X & & & &  & & & & \\ \hline
+test-id2  & &X &X &X &X &X &X & & & & & & & &  & & & & \\ \hline
+test-id3  & & & & & & & & &X & &X &X & & &  & & & & \\ \hline
+test-id4  & & & & & & & & & & &X & & & &  & & & & \\ \hline
+test-id5  & & & & & & & & & & & & & & &  & & & &X \\ \hline
+test-id6  & & & & & & & & & &X & & & & &  & & & & \\ \hline
+test-id7  & & & & & & & & & & & & & & &X  & & & & \\ \hline
+test-id8  & & & & & & & & & & & & & &X &X  &X & & & \\ \hline
+
+\hline
+\end{tabular}
+}
+\caption{Traceability Matrix Showing the Connections Between Non Functional Requirements and their test.}
+\label{Table:trace}
+\end{table}
 
 
 \section{Unit Test Description}
