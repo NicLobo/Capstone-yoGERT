@@ -20,9 +20,13 @@
 
 \begin{document}
 
-\title{Project Title: System Verification and Validation Plan for \progname{}} 
-\author{\authname}
-\date{\today}
+\title{Capstone 4G06: System Verification and Validation Plan for \progname{yoGERT GIS Toolbox}} 
+\author{Team 19,
+		\\ Smita Singh, Abeer Alyasiri, Niyatha Rangarajan,\\ Moksha Srinivasan, Nicholas Lobo, Longwei Ye \\\\
+		\textbf{New VnV Template}
+}
+
+\date{November 2, 2022}
 	
 \maketitle
 
@@ -33,8 +37,8 @@
 \begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
-Date 1 & 1.0 & Notes\\
-Date 2 & 1.1 & Notes\\
+November 2, 2022 & 1.0 & Longwei: Sec 3; Moksha: Sec 6,7; Smita: Sec 6,7; Abeer: Sec 3,4,formatting; Niyatha: 5.2; Nicholas: Sec 5.2,5.3 \\
+% Date 2 & 1.1 & Notes\\
 \bottomrule
 \end{tabularx}
 
@@ -45,8 +49,8 @@ Date 2 & 1.1 & Notes\\
 \listoftables
 % \wss{Remove this section if it isn't needed}
 
-\listoffigures
-\wss{Remove this section if it isn't needed}
+% \listoffigures
+% \wss{Remove this section if it isn't needed}
 
 \newpage
 
@@ -57,24 +61,25 @@ Date 2 & 1.1 & Notes\\
   \toprule		
   \textbf{symbol} & \textbf{description}\\
   \midrule 
-  T & Test\\
   SRS & Software Requirements Specification \\
-%   GPS & Global Positioning Systems\\
-%   GIS & Geographical Information Systems\\
-%   GERT & GIS-based episode reconstruction toolkit \\
-%   Point & location coordinate with time stamp.\\
-%   Session & Object activity history quantified by GPS points \\
-%   Episode & Session\\
-%   Segment & Group of GPS Points combined based on episode attributes.\\
-%   Trip & GPS points represents an object moving to a different position.\\
-%   Route & Object path to get from position A to position B\\
-%   Mode Detection (MD) & Detection of type of transportation being used \\
-%   Time Use Diary (TUD) & Time Use Diary are records of continuous events and actions through a particular period of time (usually 24 to 48 hours) \\
-%   Route Choice Analysis (RCA) &  Analyzes route selection from point a to point b\\
-%   .shp & .shp are geospatial data format files\\
-%   CSV/.csv & Comma Separated Values is a file type that contains large amounts of data separated by commas. \\
-%   Potential Activity Locations (PALS) & PALS are potential trip stops \\
-%   Activity Locations (ALs) & ALs are trip stops \\
+  GPS & Global Positioning Systems\\
+  GIS & Geographical Information Systems\\
+  GERT & GIS-based episode reconstruction toolkit \\
+  Point & location coordinate with time stamp.\\
+  Session & Object activity history quantified by GPS points \\
+  Episode & Session\\
+  Segment & Group of GPS Points combined based on episode attributes.\\
+  Trip & GPS points represents an object moving to a different position.\\
+  Route & Object path to get from position A to position B\\
+  Mode Detection (MD) & Detection of type of transportation being used \\
+  Time Use Diary (TUD) & Time Use Diary are records of continuous events and actions through a particular period of time (usually 24 to 48 hours) \\
+  Route Choice Analysis (RCA) &  Analyzes route selection from point a to point b\\
+  .shp & .shp are geospatial data format files\\
+  CSV/.csv & Comma Separated Values is a file type that contains large amounts of data separated by commas. \\
+  Potential Activity Locations (PALS) & PALS are potential trip stops \\
+  Activity Locations (ALs) & ALs are trip stops \\
+  FR & Functional Requirement \\
+  NFR & Non-Functional Requirement \\
 
 
   \bottomrule
@@ -320,7 +325,6 @@ If time permits, external data can be used for validation. The external data wil
 
 % \wss{This section might reference back to the SRS verification section.}
 
-
 \section{System Test Description}
 	
 \subsection{Tests for Functional Requirements}
@@ -337,67 +341,67 @@ This will test all functionality from the users perspectives. How data is being 
 
 \item{test-UT-1\\}
 
-Control: Manual 
+\textbf{Control}: Manual 
 					
-Initial State: The application has been loaded onto the computer
+\textbf{Initial State}: The application has been loaded onto the computer
 					
-Input: User loads in a CSV file of GPS data
+\textbf{Input}: User loads in a CSV file of GPS data
 				
-Output: The system saves the CSV file of GPS data
+\textbf{Output}: The system saves the CSV file of GPS data
 
-Test Case Derivation: The user wants the application to read the given CSV file 
+\textbf{Test Case Derivation}: The user wants the application to read the given CSV file 
 					
-How test will be performed: Different sets of valid CSV data will be uploaded by the tester to see if the computer reads the values correctly
+\textbf{How test will be performed}: Different sets of valid CSV data will be uploaded by the tester to see if the computer reads the values correctly
 
-Associated Functional Requirement: FR1 
+\textbf{Associated Functional Requirement}: FR1 
 
 \item{test-UT-2\\}
 
-Control: Manual 
+\textbf{Control}: Manual 
 					
-Initial State: The application has been loaded onto the computer
+\textbf{Initial State}: The application has been loaded onto the computer
 					
-Input: The system has a loaded file of GPS data 
+\textbf{Input}: The system has a loaded file of GPS data 
 					
-Output: The system saves the values found in the CSV file as latitude longitude and time variables
+\textbf{Output}: The system saves the values found in the CSV file as latitude longitude and time variables
 
-Test Case Derivation: The user wants to use the software to save the given CSV files into variables that can be manipulated
+\textbf{Test Case Derivation}: The user wants to use the software to save the given CSV files into variables that can be manipulated
 					
-How test will be performed: Different sets of valid CSV's of GPS data will be uploaded by the tester to see if the computer reads the values correctly
+\textbf{How test will be performed}: Different sets of valid CSV's of GPS data will be uploaded by the tester to see if the computer reads the values correctly
 
-Associated Functional Requirement: FR2,FR5
+\textbf{Associated Functional Requirement}: FR2,FR5
 
 \item{test-UT-3\\}
 
-Control: Manual 
+\textbf{Control}: Manual 
 					
-Initial State: The application has been loaded onto the computer
+\textbf{Initial State}: The application has been loaded onto the computer
 					
-Input: User loads in a CSV file of time use diaries (TUD)
+\textbf{Input}: User loads in a CSV file of time use diaries (TUD)
 					
-Output: The system saves the the the CSV file of TUD's
+\textbf{Output}: The system saves the the the CSV file of TUD's
 
-Test Case Derivation: The user wants to use the software to read the given CSV file and save it
+\textbf{Test Case Derivation}: The user wants to use the software to read the given CSV file and save it
 					
-How test will be performed: Different sets of valid CSV's of TUD data will be uploaded by the tester to see if the computer reads the values correctly
+\textbf{How test will be performed}: Different sets of valid CSV's of TUD data will be uploaded by the tester to see if the computer reads the values correctly
 
-Associated Functional Requirement: FR3
+\textbf{Associated Functional Requirement}: FR3
 
 \item{test-UT-4\\}
 
-Control: Manual 
+\textbf{Control}: Manual 
 					
-Initial State: A CSV of GPS data has been inputted to the application
+\textbf{Initial State}: A CSV of GPS data has been inputted to the application
 					
-Input: User downloads the file that it uploaded to the system 
+\textbf{Input}: User downloads the file that it uploaded to the system 
 					
-Output: The system gives the user the data in a CSV format 
+\textbf{Output}: The system gives the user the data in a CSV format 
 
-Test Case Derivation: The user wants to use the software to read the given CSV file and save it to attributes that can be 
+\textbf{Test Case Derivation}: The user wants to use the software to read the given CSV file and save it to attributes that can be 
 					
-How test will be performed: Different sets of valid CSV's of TUD data will be uploaded by the tester to see if the computer reads the values correctly
+\textbf{How test will be performed}: Different sets of valid CSV's of TUD data will be uploaded by the tester to see if the computer reads the values correctly
 
-Associated Functional Requirement: FR4
+\textbf{Associated Functional Requirement}: FR4
 \end{enumerate}
 
 \subsubsection{System Functionality Tests}
@@ -410,271 +414,272 @@ This will test all functionality from the system perspectives. How data is being
 
 \item{test-ST-1\\}
 
-Control: Manual       
+\textbf{Control}: Manual       
 					
-Initial State: CSV of GPS data has been inputted to the application
+\textbf{Initial State}: CSV of GPS data has been inputted to the application
 					
-Input: The user types a function to call for the system to organize the inputted data into episodes 
+\textbf{Input}: The user types a function to call for the system to organize the inputted data into episodes 
 					
-Output: The system returns a report of categorized data points such as speed, duration, distance, and change in direction.
+\textbf{Output}: The system returns a report of categorized data points such as speed, duration, distance, and change in direction.
 
-Test Case Derivation: The system needs to be displayed in a way that the user can read easily
+\textbf{Test Case Derivation}: The system needs to be displayed in a way that the user can read easily
 
-How test will be performed: The tester will use a variety of CSV files filled with valid GPS data and use the function call to see if valid reports were generated
+\textbf{How test will be performed}: The tester will use a variety of CSV files filled with valid GPS data and use the function call to see if valid reports were generated
 
 
-Associated Functional Requirement: FR6
+\textbf{Associated Functional Requirement}: FR6
 
 
 
 \item{test-ST-2\\}
 
-Control: Manual
+\textbf{Control}: Manual
 					
-Initial State: A CSV of TUD data has been inputted to the application
+\textbf{Initial State}: A CSV of TUD data has been inputted to the application
 					
-Input: The user types a function to call for the system to organize the inputted data into episodes 
+\textbf{Input}: The user types a function to call for the system to organize the inputted data into episodes 
 					
-Output: The system returns a report which contains a list of episodes that have categorized data points such as speed, duration, distance, and change in direction.
+\textbf{Output}: The system returns a report which contains a list of episodes that have categorized data points such as speed, duration, distance, and change in direction.
 
-Test Case Derivation: The system needs valid GPS points
+\textbf{Test Case Derivation}: The system needs valid GPS points
 
-How test will be performed: The tester will use a variety of CSV files filled with valid GPS data and use the function call to see if valid reports were generated
+\textbf{How test will be performed}: The tester will use a variety of CSV files filled with valid GPS data and use the function call to see if valid reports were generated
 
 
-Associated Functional Requirement: FR7
+\textbf{Associated Functional Requirement}: FR7
 
 \item{test-ST-3\\}
 
-Control: Manual
+\textbf{Control}: Manual
 					
-Initial State: CSV of GPS data has been inputted to the application
+\textbf{Initial State}: CSV of GPS data has been inputted to the application
 					
-Input: The user types a function to call for the system to organize the inputted data into episodes 
+\textbf{Input}: The user types a function to call for the system to organize the inputted data into episodes 
 					
-Output: The system returns a report of episodes categorized by different  methods of transportation(walk, car, bus).
+\textbf{Output}: The system returns a report of episodes categorized by different  methods of transportation(walk, car, bus).
 
-Test Case Derivation: The user wants to understand the methods of travel used from the set of data points given
+\textbf{Test Case Derivation}: The user wants to understand the methods of travel used from the set of data points given
 
-How test will be performed: The tester will use a variety of CSV files filled with valid GPS data and use the function call to see if valid categories are found in the reports generated
+\textbf{How test will be performed}: The tester will use a variety of CSV files filled with valid GPS data and use the function call to see if valid categories are found in the reports generated
 
 
-Associated Functional Requirement: FR8,FR20
+\textbf{Associated Functional Requirement}: FR8,FR20
 
 
 \item{test-ST-4\\}
 
-Control: Manual
+\textbf{Control}: Manual
 					
-Initial State: CSV of GPS data has been inputted to the application and a report of episodes was generated 
+\textbf{Initial State}: CSV of GPS data has been inputted to the application and a report of episodes was generated 
 					
-Input: The user selects one of the episodes generated from the report
+\textbf{Input}: The user selects one of the episodes generated from the report
 					
-Output: The system returns the segments of the episodes into type stop and trip 
+\textbf{Output}: The system returns the segments of the episodes into type stop and trip 
 
-Test Case Derivation: The user wants to understand the behaviour of the object given an episode in the report
+\textbf{Test Case Derivation}: The user wants to understand the behaviour of the object given an episode in the report
 
-How test will be performed: The tester will use a variety of generated reports to see if valid episode segments were created 
+\textbf{How test will be performed}: The tester will use a variety of generated reports to see if valid episode segments were created 
 
 
-Associated Functional Requirement: FR9,FR19
+\textbf{Associated Functional Requirement}: FR9,FR19
 
 
 \item{test-ST-5\\}
 
-Control: Manual
+\textbf{Control}: Manual
 					
-Initial State: CSV of GPS data has been inputted to the application 
+\textbf{Initial State}: CSV of GPS data has been inputted to the application 
 					
-Input: The report of episodes and segments are generated
+\textbf{Input}: The report of episodes and segments are generated
 					
-Output: The system generates the trip trajectory values based on the given segments
+\textbf{Output}: The system generates the trip trajectory values based on the given segments
 
-Test Case Derivation: The system needs trip trajectory values for route choice analysis
+\textbf{Test Case Derivation}: The system needs trip trajectory values for route choice analysis
 
-How test will be performed: The tester will validate the trajectory values based on the given CSV GPS data 
+\textbf{How test will be performed}: The tester will validate the trajectory values based on the given CSV GPS data 
 
-Associated Functional Requirement: FR10
+\textbf{Associated Functional Requirement}: FR10
 
 \item{test-ST-6\\}
 
-Control: Manual
+\textbf{Control}: Manual
 					
-Initial State: CSV of GPS data has been inputted to the application and the report is generated
+\textbf{Initial State}: CSV of GPS data has been inputted to the application and the report is generated
 					
-Input: The report of episodes and segments are generated
+\textbf{Input}: The report of episodes and segments are generated
 					
-Output: The system generates and stores activity locations for each of the episodes in the report
+\textbf{Output}: The system generates and stores activity locations for each of the episodes in the report
 
-Test Case Derivation: The system needs to generate high and low activity locations
+\textbf{Test Case Derivation}: The system needs to generate high and low activity locations
 
-How test will be performed: The tester will validate a sample reports activity location matches with a curated list of episodes with known activity locations
+\textbf{How test will be performed}: The tester will validate a sample reports activity location matches with a curated list of episodes with known activity locations
 
-Associated Functional Requirement: FR11,FR16,18
+\textbf{Associated Functional Requirement}: FR11,FR16,18
 
 \item{test-ST-7\\}
 
-Control: Manual
+\textbf{Control}: Manual
 					
-Initial State: CSV of GPS data has been inputted to the application and the report of episodes and their segments are generated
+\textbf{Initial State}: CSV of GPS data has been inputted to the application and the report of episodes and their segments are generated
 					
-Input: The trajectory values are calculated by the system
+\textbf{Input}: The trajectory values are calculated by the system
 					
-Output: The system creates RCA variables based on the trip trajectory 
+\textbf{Output}: The system creates RCA variables based on the trip trajectory 
 
-Test Case Derivation: The system needs the RCA variables to define route choice behaviour data set. 
+\textbf{Test Case Derivation}: The system needs the RCA variables to define route choice behaviour data set. 
 
-How test will be performed: The tester will generate multiple RCA datasets from different reports and check the validity of them
+\textbf{How test will be performed}: The tester will generate multiple RCA datasets from different reports and check the validity of them
 
-Associated Functional Requirement: FR12,FR13
+\textbf{Associated Functional Requirement}: FR12,FR13
 
 \item{test-ST-8\\}
 
-Control: Manual
+\textbf{Control}: Manual
 					
-Initial State: A RCA dataset has been generated by the software
+\textbf{Initial State}: A RCA dataset has been generated by the software
 					
-Input: The user request a route from two GPS points A and B 
+\textbf{Input}: The user request a route from two GPS points A and B 
 					
-Output: The system generates a mapped route from position A and position B 
+\textbf{Output}: The system generates a mapped route from position A and position B 
 
-Test Case Derivation: The user needs requested routes given two GPS points
+\textbf{Test Case Derivation}: The user needs requested routes given two GPS points
 
-How test will be performed: The tester will request for multiple routes to be created from a generated RCA dataset
+\textbf{How test will be performed}: The tester will request for multiple routes to be created from a generated RCA dataset
 
-Associated Functional Requirement: FR14,FR17
+\textbf{Associated Functional Requirement}: FR14,FR17
 
 \item{test-ST-9\\}
 
-Control: Manual
+\textbf{Control}: Manual
 					
-Initial State: A RCA dataset has been generated by the software
+\textbf{Initial State}: A RCA dataset has been generated by the software
 					
-Input: The user request a route from two GPS points A and B with selected constraints 
+\textbf{Input}: The user request a route from two GPS points A and B with selected constraints 
 					
-Output: The system generates a mapped route from position A and position B with selected constraints
+\textbf{Output}: The system generates a mapped route from position A and position B with selected constraints
 
-Test Case Derivation: The user wants customized routes based on selected constraints 
+\textbf{Test Case Derivation}: The user wants customized routes based on selected constraints 
 
-How test will be performed: The tester will request for multiple routes with selected constraints be created from a generated RCA dataset
+\textbf{How test will be performed}: The tester will request for multiple routes with selected constraints be created from a generated RCA dataset
 
-Associated Functional Requirement: R15
+\textbf{Associated Functional Requirement}: R15
 
 \end{enumerate}
 
 
+
 \subsection{Tests for Nonfunctional Requirements}
 
-\paragraph{* Storing user information is now considered as a stretch goal. This conclusion was reached after a dicussion with our stakeholders. Hence, the SRS will be revised to avoid including such information. The following tests do not involve storing user information while the rest of SRS NFR related information remains unchanged. }
+% \paragraph{* Storing user information is now considered as a stretch goal. This conclusion was reached after a dicussion with our stakeholders. Hence, the SRS will be revised to avoid including such information. The following tests do not involve storing user information while the rest of SRS NFR related information remains unchanged. }
 \subsubsection{UI/UX components}
-\paragraph{Since the information must be presented to the user in an understandable manner, we must have UI/UX related tests.}
+\paragraph{The information must be presented to the user in readable format. Hence, there will be UI/UX related tests.}
 
 \begin{enumerate}
 
 \item{test-id1\\}
 
-Type: Regression testing
+\textbf{Type}: Regression testing
 					
-Initial State: Word document is present in the directory. Various functions to perform on the GPS data are shown to the user.
+\textbf{Initial State}: Word document is present in the directory. Various functions to perform on the GPS data are shown to the user.
 					
-Input/Condition: The user types a function to call for the system to organize the
+\textbf{Input/Condition}: The user types a function to call for the system to organize the
 inputted data (word document) into episodes giving a word document as input. 
 					
-Output/Result: An error stating that the input file provided is not of the correct format.
+\textbf{Output/Result}: An error stating that the input file provided is not of the correct format.
 					
-How test will be performed: Since, different functions require different inputs, it is important to see if the current modules functionality changes when the format of the input file changes.
+\textbf{How test will be performed}: Since, different functions require different inputs, it is important to see if the current modules functionality changes when the format of the input file changes.
 
-Associated NFR: 11
+\textbf{Associated NFR}: 11
 \item{test-id2\\}
 
-Type: Manual testing
+\textbf{Type}: Manual testing
 					
-Initial State: CSV of GPS data has been inputted to the application
+\textbf{Initial State}: CSV of GPS data has been inputted to the application
 					
-Input: The user types a function to call for the system to organize the
+\textbf{Input}: The user types a function to call for the system to organize the
 inputted data into episodes
 					
-Output: The system returns a possible set of input data types if the function matches a stored function in the system
+\textbf{Output}: The system returns a possible set of input data types if the function matches a stored function in the system
 					
-How test will be performed: This works like VS code, were as you type a function, a function description hovers over the function call, depciting the required user input for that function. One can try this test with different function calls to check its validity.
+\textbf{How test will be performed}: This works like VS code, were as you type a function, a function description hovers over the function call, depciting the required user input for that function. One can try this test with different function calls to check its validity.
 
-Associated NFR: 1, 2, 3, 4, 5, 6, 7 
+\textbf{Associated NFR}: 1, 2, 3, 4, 5, 6, 7 
 \end{enumerate}
 
 \subsubsection{Memory and performance issues}
-\paragraph{Since, we are working with large sets of data, we must make sure the edge cases of data size and its relevant processing time are considered. }
+\paragraph{The toolbox must work with large sets of data, hence test must consider the edge cases of data size and its relevant processing time. }
 
 \begin{enumerate}
 
 \item{test-id3\\}
 
-Type: Regression testing
+\textbf{Type}: Regression testing
 					
 Initial State: CSV of 47.3 million data points of GPS data has been inputted to the application
 					
-Input/Condition: The user types a function to call for the system to organize the
+\textbf{Input/Condition}: The user types a function to call for the system to organize the
 inputted data (word document) into episodes giving a word document as input. 
 					
-Output/Result: The system returns a report of categorized data points such
+\textbf{Output/Result}: The system returns a report of categorized data points such
 as speed, duration, distance, and change in direction within 6000 seconds upon request
 					
-How test will be performed: We perform edge case tests to see if performance and capacity requirements are met. 
+\textbf{How test will be performed}: We perform edge case tests to see if performance and capacity requirements are met. 
 
-Associated NFR: 9, 11, 12
+\textbf{Associated NFR}: 9, 11, 12
 
 \item{test-id4\\}
 
-Type: Unit testing
+\textbf{Type}: Unit testing
 					
-Initial State: CSV of GPS data has been inputted to the application
+\textbf{Initial State}: CSV of GPS data has been inputted to the application
 					
-Input: The user types a function to call for the system to organize the
+\textbf{Input}: The user types a function to call for the system to organize the
 inputted data into episodes
 					
-Output: The system returns a possible set of input data types if the function matches a stored function in the system
+\textbf{Output}: The system returns a possible set of input data types if the function matches a stored function in the system
 					
-How test will be performed: We perform a unit test to see if the outputted data matches the expected episodes we require from the system. This is helpful for precision requirements.
+\textbf{How test will be performed}: We perform a unit test to see if the outputted data matches the expected episodes we require from the system. This is helpful for precision requirements.
 
-Associated NFR: 11
+\textbf{Associated NFR}: 11
 
 \end{enumerate}
 
 
 \subsubsection{Security of user information}
 		
-\paragraph{Since the information inputted will be used by APIs online, we must ensure protection of user information.}
+\paragraph{Since the information inputted will be used by APIs online, the system must ensure protection of user information.}
 
 \begin{enumerate}
 
 \item{test-id5\\}
 
-Type: Manual
+\textbf{Type}: Manual
 					
-Initial State: CSV of GPS data has been inputted to the application
+\textbf{Initial State}: CSV of GPS data has been inputted to the application
 					
-Input/Condition: The user types a function to call for the system to organize the
+\textbf{Input/Condition}: The user types a function to call for the system to organize the
 inputted data into episodes
 					
-Output/Result: No data seen at API endpoint.
+\textbf{Output/Result}: No data seen at API endpoint.
 					
-How test will be performed: We must make sure we use online APIs like pandas, geopy, etc. does not store any user inputted information.
+\textbf{How test will be performed}: We must make sure we use online APIs like pandas, geopy, etc. does not store any user inputted information.
 
-Associated NFR: 19
+\textbf{Associated NFR}: 19
 
 \item{test-id6\\}
 
-Type: Dynamic testing
+\textbf{Type}: Dynamic testing
 					
-Initial State: CSV of GPS data has been inputted to the application
+\textbf{Initial State}: CSV of GPS data has been inputted to the application
 					
-Input: The user types a function to call for the system to organize the
+\textbf{Input}: The user types a function to call for the system to organize the
 inputted data into episodes
 					
-Output: Inputted data has not changed once the episodes are created.
+\textbf{Output}: Inputted data has not changed once the episodes are created.
 					
-How test will be performed: Black box testing using Finite state machines. If there is no change of state for the input, then the test succeeds. 
+\textbf{How test will be performed}: Black box testing using Finite state machines. If there is no change of state for the input, then the test succeeds. 
 
-Associated NFR: 10
+\textbf{Associated NFR}: 10
 
 \end{enumerate}
 
@@ -686,70 +691,106 @@ Associated NFR: 10
 
 \item{test-id7\\}
 
-Type: Unit testing
+\textbf{Type}: Unit testing
 					
-Initial State: CSV of GPS data has been inputted to the application
+\textbf{Initial State}: CSV of GPS data has been inputted to the application
 					
-Input/Condition: The user types a function to call for the system to organize the
+\textbf{Input/Condition}: The user types a function to call for the system to organize the
 inputted data into episodes. 
 					
-Output/Result: Error is outputted stating that Python must be installed in the system.
+\textbf{Output/Result}: Error is outputted stating that Python must be installed in the system.
 					
-How test will be performed: Python is not installed in the system before inputting the data. 
+\textbf{How test will be performed}: Python is not installed in the system before inputting the data. 
 
-Associated NFR: 15
+\textbf{Associated NFR}: 15
 
 \item{test-id8\\}
 
-Type: Unit testing
+\textbf{Type}: Unit testing
 					
-Initial State: CSV of GPS data has been inputted to the application
+\textbf{Initial State}: CSV of GPS data has been inputted to the application
 					
-Input/Condition: The user types a function to call for the system to organize the
+\textbf{Input/Condition}: The user types a function to call for the system to organize the
 inputted data into episodes. 
 					
-Output/Result: The system returns a report of categorized data points such
+\textbf{Output/Result}: The system returns a report of categorized data points such
 as speed, duration, distance, and change in direction
 					
-How test will be performed: Python2 is installed in the system before inputting the data. Since, Python can only be installed on a valid OS, we simultaneously test for the operational environment.
+\textbf{How test will be performed}: Python2 is installed in the system before inputting the data. Since, Python can only be installed on a valid OS, we simultaneously test for the operational environment.
 
-Associated NFR: 14,15,16
+\textbf{Associated NFR}: 14,15,16
+
+\subsubsection{Accessibility issues}
+
+\item{test-id9\\}
+
+\textbf{Type}: Manual testing
+					
+\textbf{Initial State}: CSV of GPS data has been inputted to the application
+					
+\textbf{Input/Condition}: The user typed a function to call for the system to output the
+inputted data into episodes with input to specify file output. 
+					
+\textbf{Output/Result}: The system returns a report of categorized data points such
+as speed, duration, distance, and change in direction in a csv file format to allow output to be saved
+					
+\textbf{How test will be performed}: The GPS data points are inputs and a function is ran on them with the option to open the output in csv file format.
+
+\textbf{Associated NFR}: 8.
+
+\subsubsection{Scalability issues}
+
+\item{test-id10\\}
+
+\textbf{Type}: Manual testing
+					
+\textbf{Initial State}: application has a pre-existing data points as inputs
+					
+\textbf{Input/Condition}: The second user inputs a different set of GPS data points.
+					
+\textbf{Output/Result}: The system returns a successful message of the accepted inputs and maps them as a continuation of the initial data points. 
+					
+\textbf{How test will be performed}: The toolbox initialized with an input then an new input is loaded on the toolbox. 
+
+\textbf{Associated NFR}: 13.
+
+\subsubsection{Security issues}
+NFRs 17,18  are not applicable to the \emph{yoGERT} toolbox as it was mentioned in the Hazard Analysis document. After the Hazard Analysis NFR changes are applied to the SRS document then appropriate test cases will be described here.
 
 \end{enumerate}
 \subsection{Traceability Between Test Cases and Requirements}
 
-\paragraph{*8,13,17,18 NFRs relate to stretch goals like storing the user information and building a GUI. Hence, based on reassessment of nfrs with stakeholders, these nfrs will be reevaluated or omitted in the revised version of the SRS.}
-
 \begin{table}[H]
-    \centering
-    \scalebox{0.5}{
-    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
-    \hline        
-    & FR1 & FR2 & FR3 & FR4 & FR5 & FR6 & FR7& FR8 & FR9 & FR10 & FR11 & FR12 & FR13 & FR14 & FR15 & FR16 & FR17 & FR18 & FR19 & FR20\\ \hline
-    test-UT-1  &X & & & &X & & & & & & & & & & & & & & & \\ \hline
-    test-UT-2  & &X & & & & & & & & & & & & & & & & & &  \\ \hline
-    test-UT-3  & & &X & & & & & & & & & & & & & & & & &  \\ \hline
-    test-UT-4  & & & &X & & & & & & & & & & & & & & & & \\ \hline
-    test-ST-1  & & & & & &X & & & & & & & & & & & & & &  \\ \hline
-    test-ST-2  & & & & & & &X & & & & & & & & & & & & & \\ \hline
-    test-ST-3  & & & & & & & &X & & & & & & & & & & & &X\\ \hline
-    test-ST-4  & & & & & & & & &X & & & & & & & & & &X & \\ \hline
-    test-ST-5  & & & & & & & & & &X & & & & & & & & & & \\ \hline
-    test-ST-6  & & & & & & & & & & &X & & & & &X & &X & & \\ \hline
-    test-ST-7  & & & & & & & & & & & &X &X & & & & & & & \\ \hline
-    test-ST-8  & & & & & & & & & & & & & &X & & &X & & & \\ \hline
-    test-ST-9  & & & & & & & & & & & & & & & X& & & & & \\ \hline
-    
-    
-    
-    \hline %
-    \end{tabular}
-    }
-    \caption{Traceability Matrix Showing the Connections Between Functional Requirements and their test.}
-    \label{Table:trace}
-    \end{table}
+\centering
+\scalebox{0.5}{
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+\hline        
+& FR1 & FR2 & FR3 & FR4 & FR5 & FR6 & FR7& FR8 & FR9 & FR10 & FR11 & FR12 & FR13 & FR14 & FR15 & FR16 & FR17 & FR18 & FR19 & FR20\\ \hline
+test-UT-1  &X & & & &X & & & & & & & & & & & & & & & \\ \hline
+test-UT-2  & &X & & & & & & & & & & & & & & & & & &  \\ \hline
+test-UT-3  & & &X & & & & & & & & & & & & & & & & &  \\ \hline
+test-UT-4  & & & &X & & & & & & & & & & & & & & & & \\ \hline
+test-ST-1  & & & & & &X & & & & & & & & & & & & & &  \\ \hline
+test-ST-2  & & & & & & &X & & & & & & & & & & & & & \\ \hline
+test-ST-3  & & & & & & & &X & & & & & & & & & & & &X\\ \hline
+test-ST-4  & & & & & & & & &X & & & & & & & & & &X & \\ \hline
+test-ST-5  & & & & & & & & & &X & & & & & & & & & & \\ \hline
+test-ST-6  & & & & & & & & & & &X & & & & &X & &X & & \\ \hline
+test-ST-7  & & & & & & & & & & & &X &X & & & & & & & \\ \hline
+test-ST-8  & & & & & & & & & & & & & &X & & &X & & & \\ \hline
+test-ST-9  & & & & & & & & & & & & & & & X& & & & & \\ \hline
 
-    
+
+
+\hline %
+\end{tabular}
+}
+\caption{Traceability Matrix Showing the Connections Between Functional Requirements and their test.}
+\label{Table:trace}
+\end{table}
+
+
+
 \begin{table}[H]
 \centering
 \scalebox{0.5}{
@@ -757,13 +798,15 @@ Associated NFR: 14,15,16
 \hline        
 & NFR1 & NFR2 & NFR3 & NFR4 & NFR5 & NFR6 & NFR7& NFR8 & NFR9 & NFR10 & NFR11 & NFR12 & NFR13 & NFR14 & NFR15 & NFR16 & NFR17 & NFR18 & NFR19\\ \hline
 test-id1  & & & & & & & & & & &X & & & &  & & & & \\ \hline
-test-id2  & &X &X &X &X &X &X & & & & & & & &  & & & & \\ \hline
+test-id2  &X &X &X &X &X &X &X & & & & & & & &  & & & & \\ \hline
 test-id3  & & & & & & & & &X & &X &X & & &  & & & & \\ \hline
 test-id4  & & & & & & & & & & &X & & & &  & & & & \\ \hline
 test-id5  & & & & & & & & & & & & & & &  & & & &X \\ \hline
 test-id6  & & & & & & & & & &X & & & & &  & & & & \\ \hline
 test-id7  & & & & & & & & & & & & & & &X  & & & & \\ \hline
 test-id8  & & & & & & & & & & & & & &X &X  &X & & & \\ \hline
+test-id9  & & & & & & & &X & & & & & & &  & & & & \\ \hline
+test-id10  & & & & & & & & & & & & &X & &  & & & & \\ \hline
 
 \hline %
 \end{tabular}
