@@ -296,11 +296,12 @@ automation testing for unit tests.
 
 \subsection{Software Validation Plan}
 
-\wss{If there is any external data that can be used for validation, you should
-  point to it here.  If there are no plans for validation, you should state that
-  here.}
+% \wss{If there is any external data that can be used for validation, you should
+%   point to it here.  If there are no plans for validation, you should state that
+%   here.}
   
-Software validation plan will be divided into two parts. Part one will involve walkthrough and task based inspection similar to the SRS veri
+Software validation plan will be divided into two parts. Part one will involve walkthrough and task based inspection with the supervisor similar to the SRS 
+verification plan section. It will be conducted for the same reasons to flush out any problems with the SRS requirements. This standardized review will be conducted prior to implementation. Part two will involve walkthrough and demonstration to the supervisor
 
 \wss{You might want to use review sessions with the stakeholder to check that
 the requirements document captures the right requirements.  Maybe task based
@@ -479,9 +480,56 @@ Output: The system generates the trip trajectory values based on the given segme
 
 Test Case Derivation: The system needs trip trajectory values for route choice analysis
 
-How test will be performed: The tester will validate the trajectory values based on the given CSV gps data 
+How test will be performed: The tester will validate the trajectory values based on the given CSV GPS data 
 
 Associated Functional Requirement: R10
+
+\item{test-ST-5\\}
+
+Control: Manual
+					
+Initial State: CSV of GPS data has been inputted to the application and the report of episodes are generated
+					
+Input: The report of episodes and segments are generated
+					
+Output: The system generates activity locations for each of the episodes in the report
+
+Test Case Derivation: The system needs to generate high and low activity locations
+
+How test will be performed: The tester will validate the trajectory values based on the given CSV GPS data 
+
+Associated Functional Requirement: R11
+
+\item{test-ST-5\\}
+
+Control: Manual
+					
+Initial State: CSV of GPS data has been inputted to the application 
+					
+Input: The report of episodes and segments are generated
+					
+Output: The system generates the trip trajectory values based on the given segments
+
+Test Case Derivation: The system needs trip trajectory values for route choice analysis
+
+How test will be performed: The tester will validate the trajectory values based on the given CSV gps data 
+
+Associated Functional Requirement: R11
+\item{test-ST-5\\}
+
+Control: Manual
+					
+Initial State: CSV of GPS data has been inputted to the application 
+					
+Input: The report of episodes and segments are generated
+					
+Output: The system generates the trip trajectory values based on the given segments
+
+Test Case Derivation: The system needs trip trajectory values for route choice analysis
+
+How test will be performed: The tester will validate the trajectory values based on the given CSV gps data 
+
+Associated Functional Requirement: R11
 
 \item{test-ST-5\\}
 
@@ -539,7 +587,7 @@ Output: The system returns a possible set of input data types if the function ma
 					
 How test will be performed: This works like VS code, were as you type a function, a function description hovers over the function call, depciting the required user input for that function. One can try this test with different function calls to check its validity.
 
-Associated NFR: 2, 3, 4, 5, 6, 7 
+Associated NFR: 1, 2, 3, 4, 5, 6, 7 
 \end{enumerate}
 
 \subsubsection{Memory and performance issues}
@@ -659,7 +707,7 @@ Associated NFR: 14,15,16
 \end{enumerate}
 \subsection{Traceability Between Test Cases and Requirements}
 
-\paragraph{*1,8,13,17,18 NFRs relate to stretch goals like storing the user information and building a GUI. Hence, based on reassessment of nfrs with stakeholders, these nfrs will be reevaluated or omitted in the revised version of the SRS.}
+\paragraph{*8,13,17,18 NFRs relate to stretch goals like storing the user information and building a GUI. Hence, based on reassessment of nfrs with stakeholders, these nfrs will be reevaluated or omitted in the revised version of the SRS.}
 \begin{table}[H]
 \centering
 \scalebox{0.5}{
@@ -675,7 +723,7 @@ test-id6  & & & & & & & & & &X & & & & &  & & & & \\ \hline
 test-id7  & & & & & & & & & & & & & & &X  & & & & \\ \hline
 test-id8  & & & & & & & & & & & & & &X &X  &X & & & \\ \hline
 
-\hline
+\hline %
 \end{tabular}
 }
 \caption{Traceability Matrix Showing the Connections Between Non Functional Requirements and their test.}
