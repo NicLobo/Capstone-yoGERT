@@ -145,14 +145,21 @@ The test plan are created follow the documents listed below:
 % \wss{Introduce this section.   You can provide a roadmap of the sections to
 %   come.}
   
-This section outlines verification and validation plan including details on possible testing approaches and division of resources. The section provides risk analysis to justify the decisions making process for the verification and validation plan.
+This section outlines verification and validation plan including details on possible testing approaches and division of resources. The section provides rationalized decisions making process for the verification and validation plan.
 
 \subsection{Verification and Validation Team}
 
 % \wss{Your teammates.  Maybe your supervisor.
 %   You shoud do more than list names.  You should say what each person's role is
 %   for the project's verification.  A table is a good way to summarize this information.}
-The testing team consists of all members of \emph{yoGERT} team. All team members need to be actively aware of each testing plan and involved in all aspects of the testing process. All team members are involved because this is a capstone project that requires students to participate in all the project stages. The table below shows the division of responsibilities to assign leaders for different testing milestones. This way the team is sure that every testing stage is on track. Therefore, the team aims to evenly split testing and preparing for automated testing. 
+The testing team consists of all members of \emph{yoGERT} team. All team members
+need to be actively aware of each testing plan and involved in all aspects of the
+testing process. All team members are involved because this is a capstone project
+that requires students to participate in all the project's stages. Therefore, the
+team aims to evenly split testing and preparing for automated testing. The table
+below shows the division of responsibilities. It assigns leaders for different
+testing milestones. This way the team is sure that every testing stage is on
+track.  
 \newpage
 \begin{table}[h!]
     \begin{tabular}{|c|p{50mm}|p{50mm}| }
@@ -176,35 +183,35 @@ The testing team consists of all members of \emph{yoGERT} team. All team members
 % \wss{List any approaches you intend to use for SRS verification.  This may include
 %   ad hoc feedback from reviewers, like your classmates, or you may plan for 
 %   something more rigorous/systematic.}
-The SRS verification plan consists of three parts to check if the SRS
-document was completed according to the Volere Template Standards and 
-meet the project goals. All parts will implement a static technique of 
-testing that include structured and unstructured walkthroughs and
-checklists. Part one is the unstructured feedback received from 
+The SRS verification plan consists of three parts. The main objectives is to check
+if the SRS document was completed according to the Volere Template Standards and 
+if the requirements address the project goals. All parts will utilize a static 
+testing technique that includes structured and unstructured reviews, walkthroughs or checklists.\\
+Part one is the unstructured feedback received from 
 classmates in the form of GitHub issues. These reviews provide technical
-improvements on the document from outside the team. It is helpful because it improves the
-understandability of the document to professional individuals in the
-field, such as software engineers. Part two is the structured review
-received from the TA. The TA follows a checklist in the form of the
-milestone rubric. The feedback is beneficial because the SRS is reviewed
+improvements on the document from outside the team. It is helpful because it 
+improves the document's information flow to professional individuals in the
+field, such as software engineers.\\ 
+Part two is the structured review received from the TA. The TA follows a checklist in the form of a rubric. The feedback is beneficial because the SRS is reviewed
 from an industry standard perspective. Hence, the document will be
 closer to implementing best-practices techniques throughout the
 document. This increases the productivity of using the SRS during the
-design stage. Part three is a structured review with the supervisor. The
-review will be a combination of SRS walkthrough and modified task based inspection. 
+design stage.\\ 
+Part three is a structured review with the supervisor. The review will be a
+combination of SRS walkthrough and modified task based inspection. 
 The objectives of the walkthrough is to introduce the supervisor to the 
 team's documentation and receive general feedback on the scope and 
 clarity of the documentation. On the other hand the task based 
 inspection will analyze both functional and non-functional
 requirements in depth. The inspection will consist of questions to 
-motivate the supervisor to think about the relationship between his 
+motivate the supervisor to think about the relationship between 
 system goals and the formulated requirements. This is helpful with 
-removing ambiguities of the requirement's relevance to the desired final system. Also,
-the inspection will focus on problem categorization.
-These will represent the question's talking points.
+removing ambiguities of the requirement's relevance to the desired final system. 
+Also, the inspection will focus on problem categorization.
+These will represent the talking points of the task based inspection with the supervisor.
 The categorizations are clarity of requirements, conflicting requirements, and unrealistic requirements problems. \\
-All the reviews collected from the SRS verification plan will be applied
-to the document before the POC demonstration.
+All reviews collected from the SRS verification plan will be applied
+to the document before the design document deliverable.
 
 % \wss{Maybe create an SRS checklist?}
 
@@ -237,7 +244,10 @@ architectural model. Dynamic testing will include unit testing, white box testin
 
 \subsection{Verification and Validation Plan Verification Plan}
 
-Verification and validation plan will be verified through reviews. First, it will be verified against Dr. Spencer's VnV-checklist by \emph{yoGERT} team members. It will verify the completeness of the test cases to tracing back to at least one requirement and testing it correctly. Second, it will be reviewed by classmate in an informal way. This feedback is beneficial because it is outside the team professional opinion on what is the missing information in the document. Third, it will be reviewed by the TA in a standard way using the rubric as a checklist. The review will focus on the accuracy of information used to formulate the plan and if the plan is appropriate to the project. The plan is appropriate when it is feasible within the capstone timeline and test cases are complete within its requirement scope. 
+Verification and validation plan will be verified through reviews. It is important to highlight that it is difficult to proof the correctness of the test cases. Therefore, the combination multiple verification techniques induct that the verification and validation plan  approximately tested critical points of the system.\\ 
+First, it will be verified against Dr. Spencer's VnV-checklist by \emph{yoGERT} team members. It will verify the completeness of the test cases. It is done by tracing at least one requirement to a test case and examining the requirement across different types of inputs.\\ 
+Second, it will be reviewed by classmates in an informal way. This feedback is beneficial because it is outside the team professional opinion on what information is missing from the document.\\ 
+Third, it will be reviewed by the TA in a standard way using the rubric as a checklist. The review will focus on the accuracy of information used to formulate the plan and if the plan is appropriate to the project. The plan is appropriate if it is feasible within the capstone timeline and test cases are complete within its requirement scope. 
 
 % \wss{The verification and validation plan is an artifact that should also be verified.}
 
@@ -301,13 +311,15 @@ automation testing for unit tests.
 %   here.}
   
 Software validation plan will be divided into two parts. Part one will involve walkthrough and task based inspection with the supervisor similar to the SRS 
-verification plan section. It will be conducted for the same reasons to flush out any problems with the SRS requirements. This standardized review will be conducted prior to implementation. Part two will involve walkthrough and demonstration to the supervisor
+verification plan section. It will be conducted, for the same reasons from before, to flush out any problems with the SRS requirements. This standardized review will be conducted prior to implementation. Part two will involve walkthrough and demonstration to the supervisor to validate that the system behaves as the primary stakeholder expected. The formal walkthrough ensures validation of the design implementation functionality. On the other hand the demonstration validate the system's usability and response to user inputs. The supervisor will be able to provide feedback as he understand the GIS toolbox functionality and he represents a typical user for the \emph{yoGERT} toolbox. 
+If time permits, external data can be used for validation. The external data will be ARC GIS outputs to the same inputs fed into the \emph{yoGERT} toolbox. The objective of this validation is to show the consistency between the \emph{yoGERT} toolbox and the current available toolbox. This form of validation need to use external data with exact method applied to since the \emph{yoGERT} toolbox is implementing parts of the ARC GIS application. Hence, not all outputs of the ARC GIS application are the expected outputs from the \emph{yoGERT} toolbox.
 
-\wss{You might want to use review sessions with the stakeholder to check that
-the requirements document captures the right requirements.  Maybe task based
-inspection?}
+% \wss{You might want to use review sessions with the stakeholder to check that
+% the requirements document captures the right requirements.  Maybe task based
+% inspection?}
 
-\wss{This section might reference back to the SRS verification section.}
+% \wss{This section might reference back to the SRS verification section.}
+
 
 \section{System Test Description}
 	
