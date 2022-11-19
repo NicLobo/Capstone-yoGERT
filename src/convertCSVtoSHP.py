@@ -14,14 +14,15 @@ from os import walk, mkdir, getcwd
 from os.path import join
 
 
-def readDir(inputpath: str) -> list:
+def readDir(inputpath):
     files = []
     for (dirpath, dirnames, filenames) in walk(inputpath):
-        f.extend(filenames)
+        files.extend(filenames)
         break
+    return files
 
 
-def convertCSVtoSHP(filenames: list) -> str:
+def convertCSVtoSHP(filenames):
     curDir =  os.getcwd()
     targetPath = os.path.join(curDir, "/SHPfiles/")
     os.mkdir(targetPath)
@@ -31,5 +32,7 @@ def convertCSVtoSHP(filenames: list) -> str:
         ESRI_WKT = 'GEOGCS["GCS_WGS_1984",DATUM["D_WGS_1984",SPHEROID["WGS_1984",6378137,298.257223563]],PRIMEM["Greenwich",0],UNIT["Degree",0.017453292519943295]]'
         shpfilename = 'travelepisode' + csvfile + ".shp"
         dataGDF.to_file(filename=shpfilename, driver = 'ESRI Shapefile', crs_wkt='ESRI_WKT')
+
+    return targetPath
 
 
