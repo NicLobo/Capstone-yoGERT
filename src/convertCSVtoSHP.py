@@ -10,15 +10,12 @@ and convert them to point SHP files
 import pandas as pd
 import geopandas as gpd
 import matplotlib.pyplot as plt
-from os import walk, mkdir, getcwd
+import os
 from os.path import join
 
 
 def readDir(inputpath):
-    files = []
-    for (dirpath, dirnames, filenames) in walk(inputpath):
-        files.extend(filenames)
-        break
+    files = os.listdir(inputpath)
     return files
 
 

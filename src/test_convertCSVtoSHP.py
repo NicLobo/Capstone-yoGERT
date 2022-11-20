@@ -1,15 +1,19 @@
-#Stub to test convertCSVtoSHP module
 import pytest
-#import tempfile
-#import shutil
-import convertCSVtoSHP
+from convertCSVtoSHP import readDir, convertCSVtoSHP
+import os
 
 
-def test_readDir(tmp_path):
-    d = tmp_path / "sub"
-    d.mkdir()
-    p = d / "hello.txt"
-    output = readDir(d)[0]
-    assert output == "hello.txt"
+def test_readDir(tmpdir):
+    expectedoutput = ['testfile.txt', 'testfile1.txt']
 
-    
+    for i in expectedoutput:
+        filename = tmpdir.join(i)
+        filename.write("this is a test stub")
+
+    output = readDir(tmpdir)
+
+    assert output[0] == 'testfile1.txt'
+    assert output[1] == 'testfile.txt'
+
+def test_convertCSVtoSHP(tmpdir):
+    convertCSVtoSHP("test/csvdata")
