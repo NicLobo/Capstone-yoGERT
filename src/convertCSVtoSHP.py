@@ -2,7 +2,7 @@
 
 """@package src
 
-This module will process an incoming travel episode CSVs 
+This module will process incoming travel episode CSVs 
 with fields Latitude, Longitude, and Time
 and convert them to point SHP files
 """
@@ -13,10 +13,14 @@ import os
 from os.path import join
 
 
+#This function receives a directory and returns an array of all files
+#within the directory, full file paths
 def readDir(inputpath):
     return [os.path.join(inputpath, file) for file in os.listdir(inputpath)]
 
 
+#The function receives an array of csv epsiode files and 
+#returns a directory filled with the corresponding point shapefiles 
 def convertCSVtoSHP(filenames):
     targetPath = os.path.join("../", "SHPfiles/")
     os.mkdir(targetPath)
