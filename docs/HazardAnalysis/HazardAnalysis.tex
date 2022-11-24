@@ -20,6 +20,9 @@
 \usepackage{graphicx}
 \usepackage{makecell}
 
+\usepackage{xcolor}
+\usepackage{ulem}
+
 \newcounter{Sreqnum} %Safety Requirement Number
 
 \title{\textbf{yoGERT GIS Toolbox}\\ Capstone 4G06\\ Hazard Analysis}
@@ -188,6 +191,7 @@ a. Crash due to lack of supported libraries\newline
 b. User device runs out of power\newline
 & 
 a. Check if the supported libraries are installed at the start of the program
+\textcolor{blue}{b. Charge the device to make the system work again\newline}
 & SR\ref{ACR2}%2
 & H3-1\label{H3-1} \\
 
@@ -215,10 +219,10 @@ c. Validating against requirements and mathematical specifications\newline
 %& SR7
 %& H2-3 \\ \hline
 
-& An unauthorized action
+& \sout{An unauthorized action} \textcolor{blue}{Actual output does not meet the user's expectation at all}
 & Data can be corrupted and the produce wrong output 
 &
-a. Unexpected action made by the user\newline
+a. \textcolor{blue}{An unauthorized or an unexpected}\sout{Unexpected} action made by the user\newline
 & 
 d. Revert the changes made by the unauthorized action\newline
 & SR\ref{ACR1}, SR\ref{ADR1}
