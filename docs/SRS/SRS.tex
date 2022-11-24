@@ -7,6 +7,9 @@
 \usepackage{graphicx}
 \usepackage[numbers]{natbib}
 
+\usepackage{xcolor}
+\usepackage{ulem}
+
 \newcounter{ucnum} %use case number
 \newcounter{reqnum} %FRequirement Number
 \newcounter{freqnum} %NFRequirement Number
@@ -796,6 +799,21 @@ N/A
     \item \textbf{Conflict}: NFR13,17,18; R16
     \item \textbf{Planned Date}: November 14, 2022
 \end{itemize}
+
+\textcolor{blue}{
+\item[NFR\refstepcounter{freqnum}\thefreqnum
+\label{NFR}:] \plt{The system shall keep all the data locally. }
+\begin{itemize}
+    \item \textbf{Rationale}: Since the system is running on user's computer locally, the system must make sure that all the data are kept on the machine only to satisfy the privacy requirement.
+    \item \textbf{Fit Criterion}: The system only keeps the executed data on the machine locally.
+    \item \textbf{Priority}: 5
+    \item \textbf{Event}: UC1-7%usecase it relates to
+    \item \textbf{Customer Satisfaction}: 5
+    \item \textbf{Customer Dissatisfaction}: 5
+    \item \textbf{Conflict}: N/A
+    \item \textbf{Planned Date}: November 14, 2022
+\end{itemize}
+}
 \subsubsection{Audit Requirements}
 N/A
 \subsubsection{Immunity Requirements}
