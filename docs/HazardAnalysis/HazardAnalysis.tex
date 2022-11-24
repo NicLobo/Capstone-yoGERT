@@ -248,7 +248,7 @@ The section lists the newly formulated requirements. The new requirements will b
 
 \item[SR\refstepcounter{Sreqnum}\theSreqnum
 % \label{ACR}:] \plt{\emph{The system must ensure that the user session is password protected. }}
-\label{ACR1}:] \plt{The system must allow users to have access to the data they've uploaded}
+\label{ACR1}:] \plt{The system must allow users to have access to \textcolor{blue}{read and modify} the data they've uploaded}
 \begin{itemize}
     \item \textbf{Rationale:} This would allow users to edit inputted data and make any necessary changes. If a problem occurs, the user should be able to retrieve their data instead of having to restart the process or software which would be time consuming
     \item \textbf{Associated Hazards: } H3-3 (\ref{H1-1})
@@ -285,7 +285,7 @@ The section lists the newly formulated requirements. The new requirements will b
 \end{itemize}
 
 \item[SR\refstepcounter{Sreqnum}\theSreqnum
-\label{IR4}:] \plt{The system shall provide warning log messages of proper or expected system uses. }
+\label{IR4}:] \plt{The system shall provide warning log messages of \sout{proper or expected} \textcolor{blue}{improper or unexpected} system uses. }
 \begin{itemize}
     \item \textbf{Rationale:} The system should provide helpful information when navigating around the system. This ensures a mitigation response to unexpected user activity.
     \item \textbf{Associated Hazards:}  H1-2 (\ref{H1-1})
