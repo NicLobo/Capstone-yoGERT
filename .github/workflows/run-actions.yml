@@ -10,7 +10,7 @@ jobs:
         with:
           python-version: "3.7"
       - name: Install packages
-        run: pip3 install pandas geopandas os os.path subprocess
+        run: pip3 install pandas geopandas 
       - name: Install pytest
         run: pip3 install pytest
       - name: Test with Pytest
