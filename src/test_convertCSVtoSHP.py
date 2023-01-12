@@ -12,6 +12,7 @@ def test_readDir(tmpdir):
     output = readDir(tmpdir)
     assert 'testfile1.txt' in output[0]
     assert 'testfile.txt' in output[1] 
+#test fails in mac os
 
 def test_convertCSVtoSHP(tmpdir):
     csvfiles = readDir("../test/csvdata")
