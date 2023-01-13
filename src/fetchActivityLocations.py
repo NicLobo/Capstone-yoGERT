@@ -55,12 +55,19 @@ def fetchActivityLocations(latitude, longitude):
                 data_frame.drop(row.Index, inplace=True)
 
     print(activityLocationList)
+    return activityLocationList
     # print(data_frame)                              # return data frame if you want to use it further in main function.
 
 
 def fetchStopAL(list_of_stops):
+    list_of_stops_AL = []
     for i in list_of_stops:
-        fetchActivityLocations(i[0],i[1])
+        listStops= fetchActivityLocations(i[0],i[1])
+        list_of_stops_AL.append([i, listStops])
+    print(list_of_stops_AL)
     
-listStops = [(43.645914,-79.392435), (43.645914,-79.392435), (43.645914,-79.392435)]
-fetchStopAL(listStops)
+
+
+    
+# listStops = [(43.645914,-79.392435), (43.645914,-79.392435), (43.645914,-79.392435)]
+# fetchStopAL(listStops)
