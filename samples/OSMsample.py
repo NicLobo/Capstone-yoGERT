@@ -31,8 +31,6 @@ for node in result.nodes:                     # from each node , get the all tag
     node.tags['id'] = node.id
     list_of_node_tags.append(node.tags)
 data_frame = pd.DataFrame(list_of_node_tags)  # forming a pandas dataframe using list of dictionaries
-data_frame.to_csv('output_data.csv')
-print("\nCSV file created- 'output_data.csv'. Check the file in current directory.")
 print(data_frame)                              # return data frame if you want to use it further in main function.
 
 
