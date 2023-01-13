@@ -3,9 +3,9 @@ import pandas as pd
 import json
 import requests
 
-def fetchActivityLocations(longitude, latitude):
+def fetchActivityLocations(latitude, longitude):
     tolerance = 25 #tolerance of the surrounding areas in meters
-    long_lat_tol_query_str = str(tolerance)+''',''' + str(longitude) +''','''+ str(latitude)
+    long_lat_tol_query_str = str(tolerance)+''',''' + str(latitude) +''','''+ str(longitude)
     activityLocationList = []
     activityLocationIndex = []
     built_query = '''
@@ -34,14 +34,14 @@ def fetchActivityLocations(longitude, latitude):
     data_frame = pd.DataFrame(list_of_node_tags)  # forming a pandas dataframe using list of dictionaries
 
     for column_name in data_frame:
-        print(column_name)
+        # print(column_name)
         if "name" not in column_name:
             data_frame.drop(column_name, axis=1, inplace=True)
     
     if "name" in data_frame.columns:
         for row in data_frame.itertuples():
             if str(row.name) != "nan":
-                print(row.name)
+                # print(row.name)
                 activityLocationList.append(str(row.name))
                 activityLocationIndex.append(row.Index)
                 data_frame.drop(row.Index, inplace=True)
@@ -55,8 +55,12 @@ def fetchActivityLocations(longitude, latitude):
                 data_frame.drop(row.Index, inplace=True)
 
     print(activityLocationList)
-    print(data_frame)                              # return data frame if you want to use it further in main function.
+    # print(data_frame)                              # return data frame if you want to use it further in main function.
 
 
-
-fetchActivityLocations(43.645914,-79.392435)
+def fetchStopAL(list_of_stops):
+    for i in list_of_stops:
+        fetchActivityLocations(i[0],i[1])
+    
+listStops = [(43.645914,-79.392435), (43.645914,-79.392435), (43.645914,-79.392435)]
+fetchStopAL(listStops)
