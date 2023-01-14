@@ -38,6 +38,7 @@ def fetchActivityLocations(latitude, longitude):
         if "name" not in column_name:
             data_frame.drop(column_name, axis=1, inplace=True)
     
+    #first checks name column if there is one and stores in a list of activity locations and then removes both the column and the rows for optimation purposes 
     if "name" in data_frame.columns:
         for row in data_frame.itertuples():
             if str(row.name) != "nan":
