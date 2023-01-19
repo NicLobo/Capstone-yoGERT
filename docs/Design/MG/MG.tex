@@ -16,8 +16,8 @@
     urlcolor=blue
 }
 
-\input{../../Comments}
-\input{../../Common}
+% \input{../../Comments}
+% \input{../../Common}
 
 \newcounter{acnum}
 \newcommand{\actheacnum}{AC\theacnum}
@@ -33,8 +33,8 @@
 
 \begin{document}
 
-\title{Module Guide for \progname{}} 
-\author{Author Name}
+\title{Module Guide for \progname{yoGERT}} 
+\author{\authname}
 \date{\today}
 
 \maketitle
@@ -46,8 +46,10 @@
 \begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
-Date 1 & 1.0 & Notes\\
-Date 2 & 1.1 & Notes\\
+1/17/2023 & 1.0 & \textbf{Longwei}, Raw Documentation Generated \& Contents filled in\\
+1/18/2023 & 1.1 & \textbf{Longwei}, Modules update based on MIS document\\
+1/18/2023 & 1.2 & \textbf{Abeer}, Correct Module Decomposition\\
+1/18/2023 & 1.3 & \textbf{Team yoGERT}, Review of the MG document\\
 \bottomrule
 \end{tabularx}
 
@@ -69,12 +71,12 @@ This section records information for easy reference.
   M & Module \\
   MG & Module Guide \\
   OS & Operating System \\
+  O/S & Out of scope\\
   R & Requirement\\
   SC & Scientific Computing \\
   SRS & Software Requirements Specification\\
   \progname & Explanation of program name\\
   UC & Unlikely Change \\
-  \wss{etc.} & \wss{...}\\
   \bottomrule
 \end{tabular}\\
 
@@ -111,7 +113,7 @@ Our design follows the rules layed out by \citet{ParnasEtAl1984}, as follows:
 \end{itemize}
 
 After completing the first stage of the design, the Software Requirements
-Specification (SRS), the Module Guide (MG) is developed~\citep{ParnasEtAl1984}. The MG
+Specification (\href{https://github.com/NicLobo/Capstone-yoGERT/blob/main/docs/SRS/SRS.pdf}{SRS}), the Module Guide (MG) is developed~\citep{ParnasEtAl1984}. The MG
 specifies the modular structure of the system and is intended to allow both
 designers and maintainers to easily identify the parts of the software.  The
 potential readers of this document are as follows:
@@ -125,7 +127,7 @@ potential readers of this document are as follows:
   important for a maintainer to update the relevant sections of the document
   after changes have been made.
 \item Designers: Once the module guide has been written, it can be used to
-  check for consistency, feasibility and flexibility. Designers can verify the
+  check for consistency, feasibility, and flexibility. Designers can verify the
   system in various ways, such as consistency among modules, feasibility of the
   decomposition, and flexibility of the design.
 \end{itemize}
@@ -137,7 +139,7 @@ was constructed according to the likely changes. Section \ref{SecConnection}
 specifies the connections between the software requirements and the
 modules. Section \ref{SecMD} gives a detailed description of the
 modules. Section \ref{SecTM} includes two traceability matrices. One checks
-the completeness of the design against the requirements provided in the SRS. The
+the completeness of the design against the requirements provided in the \href{https://github.com/NicLobo/Capstone-yoGERT/blob/main/docs/SRS/SRS.pdf}{SRS}. The
 other shows the relation between anticipated changes and the modules. Section
 \ref{SecUse} describes the use relation between modules.
 
@@ -159,9 +161,13 @@ change.
 \begin{description}
 \item[\refstepcounter{acnum} \actheacnum \label{acHardware}:] The specific
   hardware on which the software is running.
-\item[\refstepcounter{acnum} \actheacnum \label{acInput}:] The format of the
-  initial input data.
-\item ...
+\item[\refstepcounter{acnum} \actheacnum \label{acMechFunc}:] The mechanism or 
+  functionality of the program.
+\item[\refstepcounter{acnum} \actheacnum \label{acOutput}:] The format of
+  the output data
+%Abeer revision
+\item[\refstepcounter{acnum} \actheacnum \label{acOnlineLibraries}:] The online databases and libraries that modules use for implementing secrets. 
+%Abeer revision
 \end{description}
 
 \subsection{Unlikely Changes} \label{SecUchange}
@@ -176,7 +182,14 @@ decisions will be changed.
 \begin{description}
 \item[\refstepcounter{ucnum} \uctheucnum \label{ucIO}:] Input/Output devices
   (Input: File and/or Keyboard, Output: File, Memory, and/or Screen).
-\item ...
+\item[\refstepcounter{ucnum} \uctheucnum \label{ucInput}:] The format of the
+  input data.
+\item[\refstepcounter{ucnum} \uctheucnum \label{ucSource}:] There always exists
+  open source data for the program's modules.
+\item[\refstepcounter{ucnum} \uctheucnum \label{ucNodes}:] The graph of nodes
+  that shows the connections between GPS points.
+\item[\refstepcounter{ucnum} \uctheucnum \label{ucInteraction}:] The way that 
+  the user interacts with the program.
 \end{description}
 
 \section{Module Hierarchy} \label{SecMH}
@@ -188,7 +201,16 @@ actually be implemented.
 
 \begin{description}
 \item [\refstepcounter{mnum} \mthemnum \label{mHH}:] Hardware-Hiding Module
-\item ...
+\item [\refstepcounter{mnum} \mthemnum \label{mPI}:] Preprocessing Inputs Module
+\item [\refstepcounter{mnum} \mthemnum \label{mNG}:] Network Graph Module
+\item [\refstepcounter{mnum} \mthemnum \label{mGE}:] Generate Episodes Module
+\item [\refstepcounter{mnum} \mthemnum \label{mSR}:] Shortest Route  Module
+\item [\refstepcounter{mnum} \mthemnum \label{mAR}:] Alternative Route Module
+\item [\refstepcounter{mnum} \mthemnum \label{mRG}:] Route Generation Module
+\item [\refstepcounter{mnum} \mthemnum \label{mDT}:] Data Transformation Module
+\item [\refstepcounter{mnum} \mthemnum \label{mFAL}:] Fetch Activity Locations Module
+\item [\refstepcounter{mnum} \mthemnum \label{mMap}:] Mapping Module
+\item [\refstepcounter{mnum} \mthemnum \label{mMain}:] Main Module
 \end{description}
 
 
@@ -202,19 +224,19 @@ actually be implemented.
 {Hardware-Hiding Module} & ~ \\
 \midrule
 
-\multirow{7}{0.3\textwidth}{Behaviour-Hiding Module} & ?\\
-& ?\\
-& ?\\
-& ?\\
-& ?\\
-& ?\\
-& ?\\ 
-& ?\\
+\multirow{7}{0.3\textwidth}{Behaviour-Hiding Module}
+& \mref{mGE}\\
+& \mref{mRG}\\
+& \mref{mFAL}\\
+& \mref{mMap}\\
+& \mref{mMain}\\
 \midrule
 
-\multirow{3}{0.3\textwidth}{Software Decision Module} & {?}\\
-& ?\\
-& ?\\
+\multirow{3}{0.3\textwidth}{Software Decision Module} & \mref{mPI}\\
+& \mref{mNG}\\
+& \mref{mSR}\\
+& \mref{mAR}\\
+& \mref{mDT}\\
 \bottomrule
 
 \end{tabular}
@@ -225,17 +247,8 @@ actually be implemented.
 \section{Connection Between Requirements and Design} \label{SecConnection}
 
 The design of the system is intended to satisfy the requirements developed in
-the SRS. In this stage, the system is decomposed into modules. The connection
-between requirements and modules is listed in Table \ref{TblRT}.
-
-\wss{The intention of this section is to document decisions that are made
-  ``between'' the requirements and the design.  To satisfy some requirements,
-  design decisions need to be made.  Rather than make these decisions implicit,
-  they are explicitly recorded here.  For instance, if a program has security
-  requirements, a specific design decision may be made to satisfy those
-  requirements with a password.  In scientific examples, the choice of algorithm
-could potentially go here, if that is a decision that is exposed by the
-interface.}
+the \href{https://github.com/NicLobo/Capstone-yoGERT/blob/main/docs/SRS/SRS.pdf}{SRS}. In this stage, the system is decomposed into modules. The connection
+between requirements and modules is listed in Table~\ref{TblRT}.
 
 \section{Module Decomposition} \label{SecMD}
 
@@ -258,10 +271,10 @@ to be implemented.
 \begin{description}
 \item[Secrets:]The data structure and algorithm used to implement the virtual
   hardware.
-\item[Services:]Serves as a virtual hardware used by the rest of the
+\item[Services:]Serves as a virtual hardware used by the
   system. This module provides the interface between the hardware and the
-  software. So, the system can use it to display outputs or to accept inputs.
-\item[Implemented By:] OS
+  software. So, the system can use it to display outputs or to accept inputs. Also, it provides functionality for the user to interact with the system. 
+\item[Implemented By:] OS (Linux)
 \end{description}
 
 \subsection{Behaviour-Hiding Module}
@@ -272,22 +285,60 @@ to be implemented.
   the system as specified in the software requirements specification (SRS)
   documents. This module serves as a communication layer between the
   hardware-hiding module and the software decision module. The programs in this
-  module will need to change if there are changes in the SRS.
-\item[Implemented By:] --
+  module will need to change if there are changes in the \href{https://github.com/NicLobo/Capstone-yoGERT/blob/main/docs/SRS/SRS.pdf}{SRS}.
+\item[Implemented By:] N/A
 \end{description}
 
-\subsubsection{Input Format Module (\mref{mInput})}
+% \subsubsection{Input Parameter Module (\mref{mNG})}
+% \begin{description}
+% \item[Secrets:]The format and structure of the input data.
+% \item[Services:]Converts the input data into the data structure used by the
+%   input parameters module.
+% \item[Implemented By:] [Your Program Name Here]
+% \item[Type of Module:] [Record, Library, Abstract Object, or Abstract Data Type]
+%   [Information to include for leaf modules in the decomposition by secrets tree.]
+% \end{description}
 
+\subsubsection{Generate Episode Module (\mref{mGE})}
 \begin{description}
-\item[Secrets:]The format and structure of the input data.
-\item[Services:]Converts the input data into the data structure used by the
-  input parameters module.
-\item[Implemented By:] [Your Program Name Here]
-\item[Type of Module:] [Record, Library, Abstract Object, or Abstract Data Type]
-  [Information to include for leaf modules in the decomposition by secrets tree.]
+\item[Secrets:]Episode generation algorithm
+\item[Services:]Filtering the input data points and keeps the points that are significant to the user's session. In addition, episode activity mode (i.e. stop, walk, drive) are added for each segment that survives from filtering.
+\item[Implemented By:] Python
+\item[Type of Module:] Abstract Object %% double check after MIS updated
 \end{description}
 
-\subsubsection{Etc.}
+\subsubsection{Route Generation Module (\mref{mRG})}
+\begin{description}
+\item[Secrets:]Inputs
+\item[Services:]Transfer the filtered dataset into specific dataform for route analysis. 
+\item[Implemented By:] Python
+\item[Type of Module:] Library.
+\end{description}
+
+\subsubsection{Activity Locations Generation Module (\mref{mFAL})}
+\begin{description}
+\item[Secrets:]Activity location fetching algorithm, output
+\item[Services:]Allows the user to navigate through a list of possible locations within the tolerance radius of the given input stop GPS points generated by the program
+\item[Implemented By:] Python
+\item[Type of Module:] Library
+\end{description}
+
+\subsubsection{Mapping Module (\mref{mMap})}
+\begin{description}
+\item[Secrets:]Output, Map generation
+\item[Services:]Deliver an interactive map that consists of information(i.e. , activity location, and points) generated by the previous modules.
+\item[Implemented By:] Python, html
+\item[Type of Module:] Abstract Object
+\end{description}
+
+\subsubsection{Main Module (\mref{mMain})}
+\begin{description}
+\item[Secrets:]User Interaction
+\item[Services:]Allow the user to call all yoGERT's functions(i.e. generate map, generate route, preprocess data, activity points, or episodes)
+\item[Implemented By:] Python
+\item[Type of Module:] Library
+\end{description}
+
 
 
 \subsection{Software Decision Module}
@@ -300,10 +351,48 @@ to be implemented.
   do not provide direct interaction with the user. 
   % Changes in these modules are more likely to be motivated by a desire to
   % improve performance than by externally imposed changes.
-\item[Implemented By:] --
+\item[Implemented By:] N/A
 \end{description}
 
-\subsubsection{Etc.}
+\subsubsection{Preprocessing Inputs Module (\mref{mPI})}
+\begin{description}
+\item[Secrets:] Inputs
+\item[Services:]Clean and validate the CSV file input.
+\item[Implemented By:] Python
+\item[Type of Module:] Library. 
+\end{description}
+
+\subsubsection{Network Graph Module (\mref{mNG})}
+\begin{description}
+\item[Secrets:]Inputs
+\item[Services:]Allows user to generate a NetworkGraph object that consists of network consisting of nodes and edges based on specified travel mode(i.e. walk, drive) for the motion. 
+\item[Implemented By:] Python
+\item[Type of Module:] Abstract Object.
+\end{description}
+
+\subsubsection{Shortest Route Module (\mref{mSR})}
+\begin{description}
+\item[Secrets:]Route finding algorithm
+\item[Services:]Generate the shortest route from one point to another compatible with NetworkGraph object.
+\item[Implemented By:] Python
+\item[Type of Module:] Abstract Object. 
+\end{description}
+
+\subsubsection{Alternative Route Module (\mref{mAR})}
+\begin{description}
+\item[Secrets:]Route generation algorithm
+\item[Services:]Generate the bus route from one point to another compatible with NetworkGraph object.
+\item[Implemented By:] Python
+\item[Type of Module:] Abstract Object.
+\end{description}
+
+\subsubsection{Data Transformation Module (\mref{mDT})}
+\begin{description}
+\item[Secrets:]Inputs
+\item[Services:]Transfer the filtered dataset into specific data forms for route analysis, activity fetching, and mapping. 
+\item[Implemented By:] Python
+\item[Type of Module:] Library
+\end{description}
 
 \section{Traceability Matrix} \label{SecTM}
 
@@ -318,17 +407,24 @@ requirements and between the modules and the anticipated changes.
 \toprule
 \textbf{Req.} & \textbf{Modules}\\
 \midrule
-R1 & \mref{mHH}, \mref{mInput}, \mref{mParams}, \mref{mControl}\\
-R2 & \mref{mInput}, \mref{mParams}\\
-R3 & \mref{mVerify}\\
-R4 & \mref{mOutput}, \mref{mControl}\\
-R5 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}, \mref{mSeqDS}, \mref{mSolver}, \mref{mPlot}\\
-R6 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}, \mref{mSeqDS}, \mref{mSolver}, \mref{mPlot}\\
-R7 & \mref{mOutput}, \mref{mEnergy}, \mref{mControl}, \mref{mSeqDS}, \mref{mPlot}\\
-R8 & \mref{mOutput}, \mref{mEnergy}, \mref{mControl}, \mref{mSeqDS}, \mref{mPlot}\\
-R9 & \mref{mVerifyOut}\\
-R10 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}\\
-R11 & \mref{mOutput}, \mref{mODEs}, \mref{mEnergy}, \mref{mControl}\\
+R1 & \mref{mMain}\\
+R2 & \mref{mPI}, \mref{mNG}, \mref{mGE}\\
+R3 & \mref{mGE}\\
+R4 & \mref{mNG}, \mref{mGE}, \mref{mDT}, \mref{mSR}, \mref{mAR}, \mref{mRG}, \mref{mFAL}\\
+R5 & \mref{mGE}\\
+R6 & \mref{mGE}\\
+R7 & \mref{mGE}\\
+R8 & \mref{mGE}\\
+R9 & \mref{mGE}, \mref{mFAL}\\
+R10 & O/S\\
+R11 & O/S\\
+R12 & \mref{mRG}, partial O/S\\
+R13 & \mref{mRG}, \mref{mAR}\\
+R14 & \mref{mGE}\\
+R15 & \mref{mGE}, partial O/S\\
+R16 & \mref{mMap}\\
+R17 & \mref{mMap}\\
+R18 & \mref{mMap}\\
 \bottomrule
 \end{tabular}
 \caption{Trace Between Requirements and Modules}
@@ -342,17 +438,9 @@ R11 & \mref{mOutput}, \mref{mODEs}, \mref{mEnergy}, \mref{mControl}\\
 \textbf{AC} & \textbf{Modules}\\
 \midrule
 \acref{acHardware} & \mref{mHH}\\
-\acref{acInput} & \mref{mInput}\\
-\acref{acParams} & \mref{mParams}\\
-\acref{acVerify} & \mref{mVerify}\\
-\acref{acOutput} & \mref{mOutput}\\
-\acref{acVerifyOut} & \mref{mVerifyOut}\\
-\acref{acODEs} & \mref{mODEs}\\
-\acref{acEnergy} & \mref{mEnergy}\\
-\acref{acControl} & \mref{mControl}\\
-\acref{acSeqDS} & \mref{mSeqDS}\\
-\acref{acSolver} & \mref{mSolver}\\
-\acref{acPlot} & \mref{mPlot}\\
+\acref{acMechFunc} & \mref{mPI}, \mref{mNG}, \mref{mSR}, \mref{mAR}, \mref{mRG}, \mref{mDT}, \mref{mFAL}, \mref{mMap}\\
+\acref{acOutput} & \mref{mFAL}, \mref{mMap}\\
+\acref{acOnlineLibraries} & \mref{mFAL}, \mref{mMap}\\
 \bottomrule
 \end{tabular}
 \caption{Trace Between Anticipated Changes and Modules}
@@ -374,7 +462,7 @@ because they use modules from the lower levels.
 
 \begin{figure}[H]
 \centering
-%\includegraphics[width=0.7\textwidth]{UsesHierarchy.png}
+\includegraphics[width=0.7\textwidth]{UsesHierarchy.png}
 \caption{Use hierarchy among modules}
 \label{FigUH}
 \end{figure}
@@ -382,6 +470,9 @@ because they use modules from the lower levels.
 %\section*{References}
 
 \bibliographystyle {plainnat}
-\bibliography{../../../refs/References}
+\bibliography{MG.bib}
+%\bibliography{../../../refs/References}
+
+\newpage{}
 
 \end{document}
