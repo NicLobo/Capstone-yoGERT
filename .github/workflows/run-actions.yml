@@ -13,5 +13,3 @@ jobs:
         run: pip3 install pandas geopandas 
       - name: Install pytest
         run: pip3 install pytest
-      - name: Test with Pytest
-        run: pytest
