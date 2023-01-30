@@ -4,7 +4,7 @@ def convert_to_floats(arr):
     result = map(float, arr)
     return list(result)
 
-def GenALInput(filepath):
+def GenALInput(filepath): 
     data = csv.reader(open(filepath))
 
     li = []
