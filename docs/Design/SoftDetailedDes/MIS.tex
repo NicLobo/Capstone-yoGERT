@@ -397,14 +397,9 @@ None
 \hline
 \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 \hline
-\wss{GenALInput} & A full path to a .csv file containing stop episodes (Start: Lat, Long, Time, Stop: Lat, Long, Time) &  collection of tuple of (latitude: $\mathbb{R}$, longitude: $\mathbb{R}$) & invalidCSV \\
+\wss{GenInput} & A full path to a .csv containing travel episodes with mode detected & seq of tuple of (latitude: $\mathbb{R}$, longitude: $\mathbb{R}$) & invalidCSV \\
 \hline
-\wss{GenGraphInput} & A full path to a .csv containing travel episodes with mode detected & seq of tuple of (latitude: $\mathbb{R}$, longitude: $\mathbb{R}$) & invalidCSV \\
-\hline
-\wss{GenShortInput} & A full path to a .csv containing travel episodes with mode detected & seq of tuple of (latitude: $\mathbb{R}$, longitude: $\mathbb{R}$), $\mathbb{B}$ & invalidCSV \\
-\hline
-\wss{GenAltInput} & A full path to a .csv containing travel episodes with mode detected & seq of tuple of (latitude: $\mathbb{R}$, longitude: $\mathbb{R}$), $\mathbb{B}$ & invalidCSV \\
-\hline
+
 \end{tabular}
 \end{center}
 
@@ -418,57 +413,24 @@ We assume that the input files are generated from the GenerateEpisodes module.
 
 \subsubsection{Access Routine Semantics}
 
-\noindent \wss{GenALInput}(travelEpisodes):
-\begin{itemize}
-\item transition: N/A
-\item output: collection of tuple of (latitude: $\mathbb{R}$, longitude: $\mathbb{R}$) provided by genALHelper
-\item exception: \wss{invalidCSV} 
-\end{itemize}
 
-\noindent \wss{GenGraphInput}(travelEpisodes):
+\noindent \wss{GenInput}(travelEpisodes):
 \begin{itemize}
 \item transition: N/A
-\item output: collection of tuple of (latitude: $\mathbb{R}$, longitude: $\mathbb{R}$) provided by genGraphHelper
-\item exception: \wss{invalidCSV} 
-\end{itemize}
-
-\noindent \wss{GenShortInput}(travelEpisodes):
-\begin{itemize}
-\item transition: N/A
-\item output: collection of tuple of (latitude: $\mathbb{R}$, longitude: $\mathbb{R}$) provided by genShortHelper
-\item exception: \wss{invalidCSV} 
-\end{itemize}
-
-\noindent \wss{GenAltInput}(travelEpisodes):
-\begin{itemize}
-\item transition: N/A
-\item output: collection of tuple of (latitude: $\mathbb{R}$, longitude: $\mathbb{R}$) provided by genAltHelper
+\item output: collection of tuple of (latitude: $\mathbb{R}$, longitude: $\mathbb{R}$) provided by genHelper
 \item exception: \wss{invalidCSV} 
 \end{itemize}
 
 
 \subsubsection{Local Functions}
 
-genALHelper : Path of CSV file(String)
-\begin{itemize}
-    \item Description : Parses file path and reads CSV file content and converts content and returns collection of tuple of (latitude: $\mathbb{R}$, longitude: $\mathbb{R}$)
-\end{itemize}
 
-genGraphHelper : Path of CSV file(String)
+genHelper : Path of CSV file(String)
 \begin{itemize}
     \item Description : Parses file path and reads CSV file content and converts content and returns seq of tuple of $(\mathbb{R}, \mathbb{R})  \rightarrow tuple of (\mathbb{R}, \mathbb{R})$
 \end{itemize}
 
-genShortHelper : Path of CSV file (String)
 
-\begin{itemize}
-    \item Description : Parses file path and reads CSV file content and converts content and returns seq of tuple of $(\mathbb{R}, \mathbb{R})  \rightarrow tuple of (\mathbb{R}, \mathbb{R})$
-\end{itemize}
-
-genAltHelper : Path of CSV file (String)
-\begin{itemize}
-    \item Description : Parses file path and reads CSV file content and converts content and returns seq of tuple of $(\mathbb{R}, \mathbb{R})  \rightarrow tuple of (\mathbb{R}, \mathbb{R})$
-\end{itemize}
   
 \newpage
 

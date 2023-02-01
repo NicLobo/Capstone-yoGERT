@@ -69,6 +69,7 @@ def fetchStopAL(list_of_stops):
         print(i[0].lat,i[0].lon )
         for x in i[1]:
             print(x.name, x.lat, x.lon)
+
     
 
 
