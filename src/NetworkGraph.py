@@ -25,7 +25,7 @@ class NetworkGraph:
     def __init__(self, startCoord, endCoord, stops, networkMode):
         # check inputs
         try: 
-            if networkMode not in ["drive", "walk"]:
+            if networkMode not in ["drive", "walk", "bike"]:
                 raise InvalidModeException
             else:
                 self.dist = self.findDistance(startCoord, endCoord, stops)
@@ -63,12 +63,11 @@ class NetworkGraph:
                 distance = testDis
         distance = distance + DISTANCETOL
         return distance
-
+        
     ## @brief This function returns the graph's transportation mode
-    #  @return a string of the transportation mode.
+    #  @return a string of the transportation mode
     def getMode(self):
         return self.mode
-
 
 
 # inputOne = [(-23.546498,-46.691141),(-23.558094,-46.660205),(-23.635039,-46.641239),
