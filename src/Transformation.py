@@ -19,6 +19,23 @@ def GenALInput(filepath):
 
     return li
     
+def GenALInputT(filepath): 
+    data = csv.reader(open(filepath))
+
+    li = []
+    c=0
+    
+    for line in data:
+        
+        if c>0: 
+            li.append(tuple(convert_to_floats(line[2:6])))
+        
+        c = c+1
+
+    return li
+    
 
 l = GenALInput('./episode.csv')
+l2 = GenALInputT('./episode.csv')
 print(l)
+print(l2)
