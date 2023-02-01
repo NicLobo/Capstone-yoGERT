@@ -66,6 +66,7 @@ def fetchStopAL(list_of_stops):
         listStops= fetchActivityLocations(i[0],i[1])
         list_of_stops_AL.append([i, listStops])
     print(list_of_stops_AL)
+    return list_of_stops_AL # Added for main.py
     
 
 
