@@ -4,11 +4,9 @@ import os
 import osmnx
 
 import Mapping
-import AlternativeRoute
 import fetchActivityLocations
-import NetworkGraph
-import ShortestRoute
 import Transformation
+import GenerateRoute
 
 import tkinter
 from tkinter import filedialog
@@ -49,7 +47,7 @@ def findActivityLocations(userFile):
 
     return convertedResult
 
-def generateShortestPath(userFile, motion):
+def generateShortestPath(userFile, motion, optimizer):
     #File Preprocessing
 
     inputPoints = []
@@ -59,15 +57,16 @@ def generateShortestPath(userFile, motion):
         for row in fileReader:
             point = (float(row[0]),float(row[1]))
             inputPoints.append(point)
-    
-    #Generate NetworkGraph
-    networkGraph = NetworkGraph.NetworkGraph(inputPoints[0], inputPoints[-1], inputPoints, motion)
-    shortestRoute = ShortestRoute.ShortestRoute(networkGraph, inputPoints)
+
+    # Generate NetworkGraph
+    networkGraph = GenerateRoute.GenerateGraph(inputPoints, motion)
+    # Generate ShortestPath
+    shortestRoute = GenerateRoute.GenerateShortestPath(networkGraph, inputPoints, optimizer)
     
     print("Complete, now you can do the mapping.")
     return networkGraph, shortestRoute
 
-def generateAlternativePath(userFile):
+def generateAlternativePath(userFile, optimizer):
     #File Preprocessing
 
     inputPoints = []
@@ -79,7 +78,7 @@ def generateAlternativePath(userFile):
             inputPoints.append(point)
     
     # Generate Graph
-    alternativeRoute = AlternativeRoute.AlternativeRoute(inputPoints)
+    alternativeRoute = GenerateRoute.AlternativeRoute(inputPoints, optimizer)
     print("Complete, now you can put the points on the map.")
     return alternativeRoute
 
@@ -116,7 +115,6 @@ def mapActivityLocations(userList):
             listActivities.append((j[1],j[2]))
             listActDescription.append(j[0])
 
-
     # Generate Map
     dirName = os.path.dirname(os.path.abspath(__file__))
     outFile = os.path.join(dirName, 'activity_location.html')
@@ -146,13 +144,6 @@ if __name__ == '__main__':
     print("Please select the csv file you want to process: ")
     inputFile = filedialog.askopenfilename()
 
-    # # Testing
-    # dirName = os.path.dirname(os.path.abspath(__file__))
-    # inFile = os.path.join(dirName, 'fetchOutput.csv')
-
-    # a = Transformation.convertActivityCSV(inFile)
-    # mapActivityLocations(a)
-
     # Should keep
     ActivityList = []
 
@@ -163,9 +154,11 @@ if __name__ == '__main__':
             ActivityList = findActivityLocations(inputFile)
         elif(moduleSelect == 5):
             inputMotion = input("Please insert the motion of the episode: ")
-            shortestNetworkGraph, shortestRoute =  generateShortestPath(inputFile, inputMotion)
+            inputOptimizer = input("Please type in the optimzer[time/length]: ")
+            shortestNetworkGraph, shortestRoute =  generateShortestPath(inputFile, inputMotion, inputOptimizer)
         elif(moduleSelect == 6):
-            alternativeRoute = generateAlternativePath(inputFile)
+            inputOptimizer = input("Please type in the optimzer[time/length]: ")
+            alternativeRoute = generateAlternativePath(inputFile, inputOptimizer)
         elif(moduleSelect == 8):
             if (len(ActivityList) != 0):
                 print("Dected pre-stored data in the system. Displaying the data: ")
