@@ -20,25 +20,31 @@ def findActivityLocations(userFile):
     listStops = []
     with open(userFile,'r') as inputFile:
         fileReader = csv.reader(inputFile)
+        # Skip Header
+        next(fileReader)
         # Import list of stops
         for row in fileReader:
-            stop = (float(row[0]),row[1])
+            stop = (float(row[0]),float(row[1]))
             listStops.append(stop)
     
     #Call fetchActivityLocations
     result = fetchActivityLocations.fetchStopAL(listStops)
-    print(result)
     
     # Write Result to a csv file.
     dirName = os.path.dirname(os.path.abspath(__file__))
     outFile = os.path.join(dirName, 'fetchOutput.csv')
-    with open(outFile, 'w') as outputFile:
+    with open(outFile, 'w', newline='') as outputFile:
         fileWriter = csv.writer(outputFile)
         # Creater Header
-        fileWriter.writerow(['Latitude', 'Longitude', 'Activity Locations'])
+        fileWriter.writerow(['Latitude', 'Longitude', 'Nearby Activity Locations'])
 
         for i in result:
-            fileWriter.writerow([i[0][0],i[0][1],i[1]])
+            activityList = []
+            for j in i[1]:
+                activityList.append([j.name, float(j.lat), float(j.lon)])
+
+            fileWriter.writerow([i[0].lat, i[0].lon, activityList])        
+
     
     print("Complete. The path of the generated file is: \n" + dirName)
 
