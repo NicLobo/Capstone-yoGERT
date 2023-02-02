@@ -32,10 +32,14 @@ def MapRoute(graph, mode, routes, savePath):
 ## @brief This function plots activity locations as markers on a map and saves it as an interactive file.
 #  @param activityLocations list of tuples of the GPS coordinates for the identified activity locations. 
 #  @param activityLocationsDescription list of string that describes the activity locations.
+#  @param stopPoints list of tuples of the GPS coordinates for the identified stop points from the episode generation.
 #  @param savePath string of where the interactive will be saved. 
-def MapActivityLocation(activityLocations, activityLocationsDescription, savePath):
+def MapActivityLocation(activityLocations, activityLocationsDescription, stopPoints, savePath):
     base = folium.Map(location=[activityLocations[0][0], activityLocations[0][1]], zoom_start=10)
     tooltip = "Activity Location"
+    for point in stopPoints:
+        base.add_child(folium.Marker([point[0],point[1]], 
+                        tooltip="Stop Episode", icon=folium.Icon(color="red")))
     for i in range(0, len(activityLocations)):
         base.add_child(folium.Marker([activityLocations[i][0],activityLocations[i][1]], popup=activityLocationsDescription[i], 
                         tooltip=tooltip, icon=folium.Icon(color="green", icon="info-sign")))
@@ -45,7 +49,7 @@ def MapActivityLocation(activityLocations, activityLocationsDescription, savePat
 
 ## @brief This function plots episode GPS coordinates as markers on a map and saves it as an interactive file.
 #  @param GPSCoords list of tuples of the GPS coordinates. 
-#  @param GPSCoords list of date time stamp for GPS coordinates.
+#  @param timestamps list of date time stamp for GPS coordinates.
 #  @param modes list of string that describes mode of transportation at each GPS coordinate.
 #  @param savePath string of where the interactive will be saved. 
 def MapEpisodePoints(GPSCoords, timestamps, modes, savePath):
@@ -65,3 +69,20 @@ def MapEpisodePoints(GPSCoords, timestamps, modes, savePath):
                         tooltip=tooltip, icon=folium.Icon(color=color, icon=icon, prefix="fa")))
     base.save(savePath)
     IFrame(savePath, width=600, height=500)
+
+# # example for activity locations
+# stoppoints = [(-23.546498,-46.691141),(-23.558094,-46.660205),(-23.635039,-46.641239),
+#                 (-23.645996,-46.641027),(-23.625882,-46.640936),(-23.618245,-46.639139),
+#                 (-23.6130583,-46.637918),(-23.598541,-46.636634),(-23.589342,-46.634677),
+#                 (-23.567615,-46.649027),(-23.56357,-46.653893),(-23.581203,-46.638489),
+#                 (-23.5754,-46.6407),(-23.568521,-46.63990),(-23.561435,-46.638534)]
+# activitypoints = [(-23.546498,-46.691141),(-23.558094,-46.660205),(-23.635039,-46.641239)]
+# activitydescription = ["mall", "park", "school"]
+# MapActivityLocation(activitypoints,activitydescription,stoppoints,"C:/Users/sweet/anaconda3/envs/capstone/data/activity_test_graph.html")
+
+# #example for episode
+# stoppoints = [(-23.546498,-46.691141),(-23.558094,-46.660205),(-23.635039,-46.641239)]
+# timestamps = ["17:10:05", "17:10:05", "17:10:05"]
+# mode = ["drive", "stop", "stop"]
+# MapEpisodePoints(stoppoints, timestamps, mode, "C:/Users/sweet/anaconda3/envs/capstone/data/episodeagain_test_graph.html")
+
