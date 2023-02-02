@@ -1,3 +1,4 @@
+import ast
 import csv
 import os
 import osmnx
@@ -111,15 +112,20 @@ def mapActivityLocations(userFile):
         fileReader = csv.reader(inputFile)
         next(fileReader)
         for row in fileReader:
-            location = (float(row[0]),float(row[1]))
-            listLocations.append(location)
-            listDescription.append(row[2])
+            listLocations.append((float(row[0]),float(row[1])))
+            listDescription.append("Stop Point")
+            # Deal with nearby locations
+            nearbyList = ast.literal_eval(row[2])
+
+            for i in nearbyList:
+                listLocations.append((float(i[1]),float(i[2])))
+                listDescription.append(i[0])
 
     # Generate Map
     dirName = os.path.dirname(os.path.abspath(__file__))
     outFile = os.path.join(dirName, 'activity_location.html')
     Mapping.MapActivityLocation(listLocations,listDescription,outFile)
-    print("Complete.\n The name of the file is activity_location.html.\n The path of the generated file is: \n" + dirName)
+    print("Complete. The name of the file is activity_location.html.\n The path of the generated file is: \n" + dirName)
 
 
 def mapSRoute(userNetworkGraph,userMotion, userRoute):
