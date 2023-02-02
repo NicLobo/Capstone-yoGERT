@@ -75,5 +75,5 @@ def fetchStopAL(list_of_stops):
 
 
     
-listStops = [(43.645914,-79.392435), (43.645914,-79.392435), (43.645914,-79.392435)]
-fetchStopAL(listStops)
+#listStops = [(43.645914,-79.392435), (43.645914,-79.392435), (43.645914,-79.392435)]
+#fetchStopAL(listStops)
