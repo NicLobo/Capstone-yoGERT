@@ -2,12 +2,11 @@ import csv
 import pandas as pd
 import re
 
-
+#ValidateCSV - confirms that CSV is valid and updates to correct column names, removing invalid data
+#Inputs - csvpath is a full path to the input CSV file
+#Outputs - Bool if the data is valid, if valid, the data is processed and written to a new file with the name of the original file concatenated with _processed
 def ValidateCSV(csvpath):
     df = pd.read_csv(csvpath)
-
-    #list that contains the name of columns for dataframe indexing during data cleanup
-    colnames = []
 
     #check to see if it has fields latitude, longitude, and time in column titles
     counter = 0
