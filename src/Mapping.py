@@ -39,7 +39,7 @@ def MapActivityLocation(activityLocations, activityLocationsDescription, stopPoi
     tooltip = "Activity Location"
     for point in stopPoints:
         base.add_child(folium.Marker([point[0],point[1]], 
-                        tooltip="Stop Episode", icon=folium.Icon(color="red")))
+                        tooltip="Stop Episode", icon=folium.Icon(color="red", icon="stop", prefix="fa")))
     for i in range(0, len(activityLocations)):
         base.add_child(folium.Marker([activityLocations[i][0],activityLocations[i][1]], popup=activityLocationsDescription[i], 
                         tooltip=tooltip, icon=folium.Icon(color="green", icon="info-sign")))
