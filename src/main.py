@@ -7,12 +7,19 @@ import Mapping
 import fetchActivityLocations
 import Transformation
 import GenerateRoute
+import episodeGeneration
 
 import tkinter
 from tkinter import filedialog
-tkinter.Tk().withdraw() # prevents an empty tkinter window from appearing
+tkinter.Tk().withdraw()
 
+def generateEpisode(userFile):
+    episodeGeneration.createSegments(userFile, "trace")
+    episodeGeneration.createVelocities("./Segment/trace")
+    episodeGeneration.generateEpisodes("./Segment/trace")
+    episodeGeneration.cleanEpisode("./Segment/trace")
 
+    print("Complete.")
 
 def findActivityLocations(userFile):
     #First, do input processing.
@@ -84,23 +91,30 @@ def generateAlternativePath(userFile, optimizer):
 
 
 def mapEpisodes(userFile):
-    listCoords = []
-    listTimeStamp = []
+    listStops = []
+    listTime = []
     listMode = []
+    
     with open(userFile, 'r') as inputFile:
         fileReader = csv.reader(inputFile)
         # Skip Header
         next(fileReader)
         # Import data
         for row in fileReader:
-            location = (float(row[0]), float(row[1]))
-            listCoords.append(location)
-            listTimeStamp.append(row[2]) # Have to update
-            listMode.append(row[3]) # Have to update
+            listStops.append((float(row[0]),float(row[1])))
+            listTime.append(row[4])
+            listMode.append(row[6])
+        
+        # Deal with the last point
+        listStops.append((float(row[0]),float(row[1])))
+        listTime.append(row[4])
+        listMode.append(row[6])
+
+
     # Generate Graph 
     dirName = os.path.dirname(os.path.abspath(__file__))
     outFile = os.path.join(dirName, 'episode_path.html')
-    Mapping.MapEpisodePoints(listCoords,listTimeStamp,listMode,outFile)
+    Mapping.MapEpisodePoints(listStops,listTime,listMode,outFile)
 
     print("Complete.\n The name of the file is episode_path.html.\n The path of the generated file is: \n" + dirName)    
 
@@ -130,12 +144,12 @@ def mapSRoute(userNetworkGraph,userMotion, userRoute):
     Mapping.MapRoute(userNetworkGraph.graph,userMotion, userRoute.routes, outFile)
     print("Complete.\n The name of the file is shortest_path.html.\n The path of the generated file is: \n" + dirName)
 
-def mapARoute(userMode, userRoute):
+def mapARoute(userMotion, userRoute):
     dirName = os.path.dirname(os.path.abspath(__file__))
     outFile = os.path.join(dirName, 'alternative_path.html')
 
     # Mapping
-    Mapping.MapRoute(userRoute.network.graph, userMode, userRoute.path.routes, outFile)
+    Mapping.MapRoute(userRoute.network.graph, userMotion, userRoute.path.routes, outFile)
     print("Complete.\n The name of the file is alternative_path.html.\n The path of the generated file is: \n" + dirName)
 
 
