@@ -205,13 +205,20 @@ def cleanEpisode(csv_path):
 
     if(lenwalk <= lendrive):
         summaryepisode = episode.loc[episode['mode'] == 'mode.DRIVE']
+        summaryepisode = summaryepisode.loc[:,'mode']
+        summaryepisode = summaryepisode.head(1)
+        summaryepisode.to_csv(csv_path+"/summary_episode.csv", index=False)
+
     else: 
         summaryepisode = episode.loc[episode['mode'] == 'mode.WALK']
+        summaryepisode = summaryepisode.loc[:,'mode']
+        summaryepisode = summaryepisode.head(1)
+        summaryepisode.to_csv(csv_path+"/summary_episode.csv", index=False)
 
     stopepisode = episode.loc[episode['mode'] == 'mode.STOP']
     episode.to_csv(csv_path+"/episode.csv", index=False)
     stopepisode.to_csv(csv_path+"/stop_episode.csv", index=False)
-    summaryepisode.to_csv(csv_path+"/summary_episode.csv", index=False)
+    
 createSegments("../src/exampleDataset/data1.csv","data1")
 # createVelocities("./Segment/trace1")
 # generateEpisodes("./Segment/trace1")
