@@ -1,6 +1,5 @@
 import csv
 import pandas as pd
-import re
 
 #ValidateCSV - confirms that CSV is valid and updates to correct column names, removing invalid data
 #Inputs - csvpath is a full path to the input CSV file
@@ -12,13 +11,13 @@ def ValidateCSV(csvpath):
     counter = 0
     for col in df.columns:
         if col == 'lat' or col == 'latitude' or col == "Latitude":
-            df = df.rename({col: 'Latitude'}, axis='columns')
+            df = df.rename({col: 'lat'}, axis='columns')
             counter+=1
         elif col == 'long' or col == 'longitude' or col == 'Longitude':
-            df = df.rename({col: 'Longitude'}, axis='columns')
+            df = df.rename({col: 'long'}, axis='columns')
             counter+=1
         elif col == 'time' or col == "Time":
-            df = df.rename({col: 'Time'}, axis='columns')
+            df = df.rename({col: 'time'}, axis='columns')
             counter+=1
 
     #Invalid Latitude: max/min 90.0000000 to -90.0000000
@@ -27,7 +26,7 @@ def ValidateCSV(csvpath):
     if counter == 3:
         df = df[float(df.Latitude) >= -90 and float(df.Latitude) <= 90]
         df = df[float(df.Longitude) >= -180 and float(df.Longitude) <= 180]
-        df = df.dropna(subset=['Latitude', 'Longitude', 'Time'])
+        df = df.dropna(subset=['lat', 'long', 'time'])
         df.to_csv(csvpath+"_processed")
         return True
 
