@@ -1,10 +1,10 @@
-long,lat,track_fid,track_seg_id,track_seg_point_id,ele,time,magvar,geoidheight,name,cmt,desc,src,link1_href,link1_text,link1_type,link2_href,link2_text,link2_type,sym,type,fix,sat,hdop,vdop,pdop,ageofdgpsdata,dgpsid,power,gpxtpx_TrackPointExtension
--0.257197,51.3398,0,0,0,36.4,2023/01/13 16:07:21+00,,,,,,,,,,,,,,,,,,,,,,98,      <gpxtpx:atemp>26</gpxtpx:atemp>      <gpxtpx:hr>75</gpxtpx:hr>      <gpxtpx:cad>60</gpxtpx:cad>     
--0.257274,51.339797,0,0,1,36.4,2023/01/13 16:07:22+00,,,,,,,,,,,,,,,,,,,,,,203,      <gpxtpx:atemp>26</gpxtpx:atemp>      <gpxtpx:hr>77</gpxtpx:hr>      <gpxtpx:cad>64</gpxtpx:cad>     
--0.257319,51.339792,0,0,2,36.4,2023/01/13 16:07:23+00,,,,,,,,,,,,,,,,,,,,,,223,      <gpxtpx:atemp>26</gpxtpx:atemp>      <gpxtpx:hr>78</gpxtpx:hr>      <gpxtpx:cad>67</gpxtpx:cad>     
--0.257355,51.339779,0,0,3,36,2023/01/13 16:07:24+00,,,,,,,,,,,,,,,,,,,,,,313,      <gpxtpx:atemp>26</gpxtpx:atemp>      <gpxtpx:hr>79</gpxtpx:hr>      <gpxtpx:cad>74</gpxtpx:cad>     
--0.2574,51.339766,0,0,4,35.8,2023/01/13 16:07:25+00,,,,,,,,,,,,,,,,,,,,,,345,      <gpxtpx:atemp>26</gpxtpx:atemp>      <gpxtpx:hr>80</gpxtpx:hr>      <gpxtpx:cad>79</gpxtpx:cad>     
--0.257431,51.339757,0,0,5,35.8,2023/01/13 16:07:26+00,,,,,,,,,,,,,,,,,,,,,,319,      <gpxtpx:atemp>26</gpxtpx:atemp>      <gpxtpx:hr>82</gpxtpx:hr>      <gpxtpx:cad>90</gpxtpx:cad>     
+long,lat,fid,track_seg_id,track_seg_point_id,ele,time,magvar,geoidheight,name,cmt,desc,src,link1_href,link1_text,link1_type,link2_href,link2_text,link2_type,sym,type,fix,sat,hdop,vdop,pdop,ageofdgpsdata,dgpsid,power,gpxtpx_TrackPointExtension
+-0.257197,51.3398,1,0,0,36.4,2023/01/13 16:07:21+00,,,,,,,,,,,,,,,,,,,,,,98,      <gpxtpx:atemp>26</gpxtpx:atemp>      <gpxtpx:hr>75</gpxtpx:hr>      <gpxtpx:cad>60</gpxtpx:cad>     
+-0.257274,51.339797,1,0,1,36.4,2023/01/13 16:07:22+00,,,,,,,,,,,,,,,,,,,,,,203,      <gpxtpx:atemp>26</gpxtpx:atemp>      <gpxtpx:hr>77</gpxtpx:hr>      <gpxtpx:cad>64</gpxtpx:cad>     
+-0.257319,51.339792,1,0,2,36.4,2023/01/13 16:07:23+00,,,,,,,,,,,,,,,,,,,,,,223,      <gpxtpx:atemp>26</gpxtpx:atemp>      <gpxtpx:hr>78</gpxtpx:hr>      <gpxtpx:cad>67</gpxtpx:cad>     
+-0.257355,51.339779,1,0,3,36,2023/01/13 16:07:24+00,,,,,,,,,,,,,,,,,,,,,,313,      <gpxtpx:atemp>26</gpxtpx:atemp>      <gpxtpx:hr>79</gpxtpx:hr>      <gpxtpx:cad>74</gpxtpx:cad>     
+-0.2574,51.339766,0,1,4,35.8,2023/01/13 16:07:25+00,,,,,,,,,,,,,,,,,,,,,,345,      <gpxtpx:atemp>26</gpxtpx:atemp>      <gpxtpx:hr>80</gpxtpx:hr>      <gpxtpx:cad>79</gpxtpx:cad>     
+-0.257431,51.339757,1,0,5,35.8,2023/01/13 16:07:26+00,,,,,,,,,,,,,,,,,,,,,,319,      <gpxtpx:atemp>26</gpxtpx:atemp>      <gpxtpx:hr>82</gpxtpx:hr>      <gpxtpx:cad>90</gpxtpx:cad>     
 -0.257439,51.339744,0,0,6,35.8,2023/01/13 16:07:27+00,,,,,,,,,,,,,,,,,,,,,,308,      <gpxtpx:atemp>26</gpxtpx:atemp>      <gpxtpx:hr>82</gpxtpx:hr>      <gpxtpx:cad>90</gpxtpx:cad>     
 -0.257424,51.339731,0,0,7,36,2023/01/13 16:07:28+00,,,,,,,,,,,,,,,,,,,,,,248,      <gpxtpx:atemp>26</gpxtpx:atemp>      <gpxtpx:hr>83</gpxtpx:hr>      <gpxtpx:cad>86</gpxtpx:cad>     
 -0.257392,51.339702,0,0,8,36.2,2023/01/13 16:07:29+00,,,,,,,,,,,,,,,,,,,,,,228,      <gpxtpx:atemp>26</gpxtpx:atemp>      <gpxtpx:hr>84</gpxtpx:hr>      <gpxtpx:cad>85</gpxtpx:cad>     

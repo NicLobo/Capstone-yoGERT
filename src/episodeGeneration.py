@@ -26,45 +26,57 @@ os.chdir(path)
 # @return an .csv file that consists of points
 def createSegments(csv_path, title):
 
-    #Reads csv and store in data frame
-    df = pd.read_csv(csv_path)
-    df = df[["lat","long","time"]]
-    df['time']= pd.to_datetime(df['time'])
-    df['index_column'] = df.index
+     # Create Segment Directory
 
-
-    #Calculate stepsize using start and end time of dataset
-    starttime = pd.to_datetime(df['time'].iloc[0])
-    endtime = pd.to_datetime(df['time'].iloc[-1])
-    totaltime = pd.Timedelta(endtime - starttime).seconds 
-    stepsize = (round(len(df)/totaltime)) 
-
-    #Trim points based on step size
-    if(stepsize != 0):
-        df = df.drop(df[df.index_column%stepsize !=0].index)
-        df = df.reset_index()
-    df = df[["lat","long","time"]]
-
-
-    # Create Segment Directory
     try: 
-        os.mkdir("Segment")
+        os.mkdir(str(title))
         print("Directory Segment Created ") 
+
     except FileExistsError:
         print("Directory Segment already exists")
 
-    #Create trace directory in segment directory
-    try: 
-        path = "./Segment/"+title
-        os.mkdir(path)
-        print("Directory " , path ,  " Created ") 
-    except FileExistsError:
-        print("Directory " , path ,  " already exists")
+    #Reads csv and store in data frame
+    df = pd.read_csv(csv_path)
+    df = df[["lat","long","fid","time"]]
+    df['time']= pd.to_datetime(df['time'])
+    df['index_column'] = df.index
+
+    segments = df['fid'].unique()
+
+    for i in segments: 
+        newdf = df.loc[df['fid'] == i]
+        newdf = newdf.reset_index()
+        #Calculate stepsize using start and end time of dataset
+        starttime = pd.to_datetime(newdf['time'].iloc[0])
+        endtime = pd.to_datetime(newdf['time'].iloc[-1])
+        totaltime = pd.Timedelta(endtime - starttime).seconds 
+
+        if(totaltime == 0):
+            stepsize = 1
+        else:
+            stepsize = (round(len(newdf)/totaltime)) 
+
+        #Trim points based on step size
+        if(stepsize != 0):
+            newdf = newdf.drop(newdf[newdf.index_column%stepsize !=0].index)
+            newdf = newdf.reset_index()
+        newdf = newdf[["lat","long","fid","time"]]
 
 
-    #Saves trip points to csv file 
-    df.to_csv(path+"/points.csv", index=False)
 
+
+        #Create trace directory in segment directory
+        try: 
+            path = "./"+str(title)+"/segment-"+str(i)
+            os.mkdir(path)
+            print("Directory " , path ,  " Created ") 
+        except FileExistsError:
+            print("Directory " , path ,  " already exists")
+
+
+        #Saves trip points to csv file 
+        newdf.to_csv(path+"/points.csv", index=False)
+        createVelocities(path)
 
 #INPUT POINTS.CSV
 #OUTPUT VELOCITIES.CSV
@@ -90,7 +102,7 @@ def createVelocities(csv_path):
 
     #Saves trip segement to csv file
     velocities.to_csv(csv_path+"/velocities.csv", index=False)
-
+    generateEpisodes(csv_path)
 
 
 from enum import Enum
@@ -166,11 +178,10 @@ def generateEpisodes(csv_path):
 
 
     episode.to_csv(csv_path+"/episode.csv", index=False)
-
+    cleanEpisode(csv_path)
 
 def cleanEpisode(csv_path):
     episode = pd.read_csv(csv_path+"/episode.csv") 
-
     droplist = []
 
 
@@ -187,10 +198,21 @@ def cleanEpisode(csv_path):
 
     episode = episode.drop(droplist)
     episode = episode.reset_index(drop=True)
+
+    
+    lenwalk = len(episode.loc[episode['mode'] == 'mode.DRIVE'])
+    lendrive = len(episode.loc[episode['mode'] == 'mode.WALK '])
+
+    if(lenwalk <= lendrive):
+        summaryepisode = episode.loc[episode['mode'] == 'mode.DRIVE']
+    else: 
+        summaryepisode = episode.loc[episode['mode'] == 'mode.WALK']
+
+    stopepisode = episode.loc[episode['mode'] == 'mode.STOP']
     episode.to_csv(csv_path+"/episode.csv", index=False)
-
-
-# createSegments("../src/exampleDataset/trace_1.csv","trace1")
+    stopepisode.to_csv(csv_path+"/stop_episode.csv", index=False)
+    summaryepisode.to_csv(csv_path+"/summary_episode.csv", index=False)
+createSegments("../src/exampleDataset/data1.csv","data1")
 # createVelocities("./Segment/trace1")
 # generateEpisodes("./Segment/trace1")
 # cleanEpisode("./Segment/trace1")
