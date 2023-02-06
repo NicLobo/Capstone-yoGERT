@@ -182,7 +182,6 @@ def generateEpisodes(csv_path):
 
 def cleanEpisode(csv_path):
     episode = pd.read_csv(csv_path+"/episode.csv") 
-
     droplist = []
 
 
@@ -199,8 +198,10 @@ def cleanEpisode(csv_path):
 
     episode = episode.drop(droplist)
     episode = episode.reset_index(drop=True)
-    episode.to_csv(csv_path+"/episode.csv", index=False)
 
+    stopepisode = episode.loc[episode['mode'] == 'mode.STOP']
+    episode.to_csv(csv_path+"/episode.csv", index=False)
+    stopepisode.to_csv(csv_path+"/stop_episode.csv", index=False)
 
 createSegments("../src/exampleDataset/data1.csv","data1")
 # createVelocities("./Segment/trace1")
