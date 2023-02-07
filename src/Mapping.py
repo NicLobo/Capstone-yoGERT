@@ -56,10 +56,10 @@ def MapEpisodePoints(GPSCoords, timestamps, modes, savePath):
     base = folium.Map(location=[GPSCoords[0][0], GPSCoords[0][1]], zoom_start=10)
     for i in range(0, len(GPSCoords)):
         tooltip = timestamps[i]
-        if modes[i] == "drive":
+        if modes[i] == "drive" or modes[i] == "mode.DRIVE":
             color = "green"
             icon="car-side"
-        elif modes[i] == "walk":
+        elif modes[i] == "walk" or modes[i] == "mode.WALK":
             color = "blue"
             icon="person-walking"
         else:
