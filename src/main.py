@@ -15,10 +15,6 @@ tkinter.Tk().withdraw()
 
 def generateEpisode(userFile):
     episodeGeneration.createSegments(userFile, "trace")
-    episodeGeneration.createVelocities("./Segment/trace")
-    episodeGeneration.generateEpisodes("./Segment/trace")
-    episodeGeneration.cleanEpisode("./Segment/trace")
-
     print("Complete.")
 
 def findActivityLocations(userFile):
@@ -164,16 +160,18 @@ if __name__ == '__main__':
 
     while True:
         moduleSelect = int(input("Please select the module you want to go over: "))
-        if (moduleSelect == 3):
+        if(moduleSelect == 2): # Generate Episodes
+            generateEpisode(inputFile)
+        elif(moduleSelect == 3): # Find Activity Locations
             ActivityList = findActivityLocations(inputFile)
-        elif(moduleSelect == 5):
+        elif(moduleSelect == 5): # Generate Shortest Path
             inputMotion = input("Please insert the motion of the episode: ")
             inputOptimizer = input("Please type in the optimzer[time/length]: ")
             shortestNetworkGraph, shortestRoute =  generateShortestPath(inputFile, inputMotion, inputOptimizer)
-        elif(moduleSelect == 6):
+        elif(moduleSelect == 6): # Generate Alternative Path
             inputOptimizer = input("Please type in the optimzer[time/length]: ")
             alternativeRoute = generateAlternativePath(inputFile, inputOptimizer)
-        elif(moduleSelect == 8):
+        elif(moduleSelect == 8): # Mapping Activity Locations
             if (len(ActivityList) != 0):
                 print("Dected pre-stored data in the system. Displaying the data: ")
                 print(ActivityList)
@@ -193,13 +191,14 @@ if __name__ == '__main__':
             # print("Please select the csv file you want to process: ")
             # inputFile = filedialog.askopenfilename()
             # mapActivityLocations(inputFile)
-        elif(moduleSelect == 9):
+        elif(moduleSelect == 9): # Mapping Shortest Route
             sRouteMotion = input("Please insert the motion of the episode: ")
             mapSRoute(shortestNetworkGraph, sRouteMotion, shortestRoute)
-        elif (moduleSelect == 10):
+        elif (moduleSelect == 10): # Mapping Alternative Route
             inputMotion = input("Please insert the mode of the points: ")
             print("Hello world!")
         elif (moduleSelect == 0):
+            print("Thank you for using the system.")
             break
         else:
             print("Error. You choose the wrong number.")
