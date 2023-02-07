@@ -1,18 +1,25 @@
+import ast
 import csv
 import os
 import osmnx
 
 import Mapping
-import AlternativeRoute
 import fetchActivityLocations
-import NetworkGraph
-import ShortestRoute
+import Transformation
+import GenerateRoute
+import episodeGeneration
 
 import tkinter
 from tkinter import filedialog
-tkinter.Tk().withdraw() # prevents an empty tkinter window from appearing
+tkinter.Tk().withdraw()
 
+def generateEpisode(userFile):
+    episodeGeneration.createSegments(userFile, "trace")
+    episodeGeneration.createVelocities("./Segment/trace")
+    episodeGeneration.generateEpisodes("./Segment/trace")
+    episodeGeneration.cleanEpisode("./Segment/trace")
 
+    print("Complete.")
 
 def findActivityLocations(userFile):
     #First, do input processing.
@@ -20,29 +27,34 @@ def findActivityLocations(userFile):
     listStops = []
     with open(userFile,'r') as inputFile:
         fileReader = csv.reader(inputFile)
+        # Skip Header
+        next(fileReader)
         # Import list of stops
         for row in fileReader:
-            stop = (float(row[0]),row[1])
+            stop = (float(row[0]),float(row[1]))
             listStops.append(stop)
     
     #Call fetchActivityLocations
     result = fetchActivityLocations.fetchStopAL(listStops)
-    print(result)
+    convertedResult = Transformation.convertActivityLocation(result) # convert to nested list
     
     # Write Result to a csv file.
     dirName = os.path.dirname(os.path.abspath(__file__))
     outFile = os.path.join(dirName, 'fetchOutput.csv')
-    with open(outFile, 'w') as outputFile:
+    with open(outFile, 'w', newline='') as outputFile:
         fileWriter = csv.writer(outputFile)
         # Creater Header
-        fileWriter.writerow(['Latitude', 'Longitude', 'Activity Locations'])
+        fileWriter.writerow(['Latitude', 'Longitude', 'Nearby Activity Locations'])
 
-        for i in result:
-            fileWriter.writerow([i[0][0],i[0][1],i[1]])
-    
+        # Write each rows
+        for i in convertedResult:
+            fileWriter.writerow([i[0],i[1],i[2]])
+
     print("Complete. The path of the generated file is: \n" + dirName)
 
-def generateShortestPath(userFile, motion):
+    return convertedResult
+
+def generateShortestPath(userFile, motion, optimizer):
     #File Preprocessing
 
     inputPoints = []
@@ -52,15 +64,16 @@ def generateShortestPath(userFile, motion):
         for row in fileReader:
             point = (float(row[0]),float(row[1]))
             inputPoints.append(point)
-    
-    #Generate NetworkGraph
-    networkGraph = NetworkGraph.NetworkGraph(inputPoints[0], inputPoints[-1], inputPoints, motion)
-    shortestRoute = ShortestRoute.ShortestRoute(networkGraph, inputPoints)
+
+    # Generate NetworkGraph
+    networkGraph = GenerateRoute.GenerateGraph(inputPoints, motion)
+    # Generate ShortestPath
+    shortestRoute = GenerateRoute.GenerateShortestPath(networkGraph, inputPoints, optimizer)
     
     print("Complete, now you can do the mapping.")
     return networkGraph, shortestRoute
 
-def generateAlternativePath(userFile):
+def generateAlternativePath(userFile, optimizer):
     #File Preprocessing
 
     inputPoints = []
@@ -72,48 +85,55 @@ def generateAlternativePath(userFile):
             inputPoints.append(point)
     
     # Generate Graph
-    alternativeRoute = AlternativeRoute.AlternativeRoute(inputPoints)
+    alternativeRoute = GenerateRoute.AlternativeRoute(inputPoints, optimizer)
     print("Complete, now you can put the points on the map.")
     return alternativeRoute
 
 
 def mapEpisodes(userFile):
-    listCoords = []
-    listTimeStamp = []
+    listStops = []
+    listTime = []
     listMode = []
+    
     with open(userFile, 'r') as inputFile:
         fileReader = csv.reader(inputFile)
         # Skip Header
         next(fileReader)
         # Import data
         for row in fileReader:
-            location = (float(row[0]), float(row[1]))
-            listCoords.append(location)
-            listTimeStamp.append(row[2]) # Have to update
-            listMode.append(row[3]) # Have to update
+            listStops.append((float(row[0]),float(row[1])))
+            listTime.append(row[4])
+            listMode.append(row[6])
+        
+        # Deal with the last point
+        listStops.append((float(row[0]),float(row[1])))
+        listTime.append(row[4])
+        listMode.append(row[6])
+
+
     # Generate Graph 
     dirName = os.path.dirname(os.path.abspath(__file__))
     outFile = os.path.join(dirName, 'episode_path.html')
-    Mapping.MapEpisodePoints(listCoords,listTimeStamp,listMode,outFile)
+    Mapping.MapEpisodePoints(listStops,listTime,listMode,outFile)
 
     print("Complete.\n The name of the file is episode_path.html.\n The path of the generated file is: \n" + dirName)    
 
-def mapActivityLocations(userFile):
-    listLocations = []
-    listDescription = []
-    with open(userFile,'r') as inputFile:
-        fileReader = csv.reader(inputFile)
-        next(fileReader)
-        for row in fileReader:
-            location = (float(row[0]),float(row[1]))
-            listLocations.append(location)
-            listDescription.append(row[2])
+def mapActivityLocations(userList):
+    listStops = []
+    listActivities = []
+    listActDescription = [] #List of activity location description
+
+    for i in userList:
+        listStops.append((i[0],i[1]))
+        for j in i[2]:
+            listActivities.append((j[1],j[2]))
+            listActDescription.append(j[0])
 
     # Generate Map
     dirName = os.path.dirname(os.path.abspath(__file__))
     outFile = os.path.join(dirName, 'activity_location.html')
-    Mapping.MapActivityLocation(listLocations,listDescription,outFile)
-    print("Complete.\n The name of the file is activity_location.html.\n The path of the generated file is: \n" + dirName)
+    Mapping.MapActivityLocation(listActivities,listActDescription,listStops,outFile)
+    print("Complete. The name of the file is activity_location.html.\n The path of the generated file is: \n" + dirName)
 
 
 def mapSRoute(userNetworkGraph,userMotion, userRoute):
@@ -124,12 +144,12 @@ def mapSRoute(userNetworkGraph,userMotion, userRoute):
     Mapping.MapRoute(userNetworkGraph.graph,userMotion, userRoute.routes, outFile)
     print("Complete.\n The name of the file is shortest_path.html.\n The path of the generated file is: \n" + dirName)
 
-def mapARoute(userMode, userRoute):
+def mapARoute(userMotion, userRoute):
     dirName = os.path.dirname(os.path.abspath(__file__))
     outFile = os.path.join(dirName, 'alternative_path.html')
 
     # Mapping
-    Mapping.MapRoute(userRoute.network.graph, userMode, userRoute.path.routes, outFile)
+    Mapping.MapRoute(userRoute.network.graph, userMotion, userRoute.path.routes, outFile)
     print("Complete.\n The name of the file is alternative_path.html.\n The path of the generated file is: \n" + dirName)
 
 
@@ -138,20 +158,41 @@ if __name__ == '__main__':
     print("Please select the csv file you want to process: ")
     inputFile = filedialog.askopenfilename()
 
+    # Should keep
+    ActivityList = []
+
 
     while True:
         moduleSelect = int(input("Please select the module you want to go over: "))
         if (moduleSelect == 3):
-            findActivityLocations(inputFile)
+            ActivityList = findActivityLocations(inputFile)
         elif(moduleSelect == 5):
             inputMotion = input("Please insert the motion of the episode: ")
-            shortestNetworkGraph, shortestRoute =  generateShortestPath(inputFile, inputMotion)
+            inputOptimizer = input("Please type in the optimzer[time/length]: ")
+            shortestNetworkGraph, shortestRoute =  generateShortestPath(inputFile, inputMotion, inputOptimizer)
         elif(moduleSelect == 6):
-            alternativeRoute = generateAlternativePath(inputFile)
+            inputOptimizer = input("Please type in the optimzer[time/length]: ")
+            alternativeRoute = generateAlternativePath(inputFile, inputOptimizer)
         elif(moduleSelect == 8):
-            print("Please select the csv file you want to process: ")
-            inputFile = filedialog.askopenfilename()
-            mapActivityLocations(inputFile)
+            if (len(ActivityList) != 0):
+                print("Dected pre-stored data in the system. Displaying the data: ")
+                print(ActivityList)
+                choice = input("Do you want to use this data to continue?[y/n]: ")
+                if (choice == 'y'):
+                    mapActivityLocations(ActivityList)
+                else:
+                    print("Please select the csv to continue: ")
+                    inputFile = filedialog.askopenfilename()
+                    ActivityList = Transformation.convertActivityCSV(inputFile)
+                    mapActivityLocations(ActivityList)
+            else:
+                print("No pre-stored data detected.\n Please select the csv file to continue: ")
+                inputFile = filedialog.askopenfilename()
+                ActivityList = Transformation.convertActivityCSV(inputFile)
+                mapActivityLocations(ActivityList)
+            # print("Please select the csv file you want to process: ")
+            # inputFile = filedialog.askopenfilename()
+            # mapActivityLocations(inputFile)
         elif(moduleSelect == 9):
             sRouteMotion = input("Please insert the motion of the episode: ")
             mapSRoute(shortestNetworkGraph, sRouteMotion, shortestRoute)
@@ -162,3 +203,4 @@ if __name__ == '__main__':
             break
         else:
             print("Error. You choose the wrong number.")
+            continue

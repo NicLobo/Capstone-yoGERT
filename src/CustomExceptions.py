@@ -16,3 +16,6 @@ class OutOfBoundsCoordException(Exception):
 class  InvalidWeightException(Exception):
     "Raised when the input value is not a subset of {time, length}"
     pass
+
+class InvalidInputDataException(Exception):
+    "Raised when the inputdata does not have all required columns (lat, long, time)"
