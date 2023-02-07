@@ -219,7 +219,7 @@ def cleanEpisode(csv_path):
     episode.to_csv(csv_path+"/episode.csv", index=False)
     stopepisode.to_csv(csv_path+"/stop_episode.csv", index=False)
     
-createSegments("../src/exampleDataset/data1.csv","data1")
+# createSegments("../src/exampleDataset/data1.csv","data1")
 # createVelocities("./Segment/trace1")
 # generateEpisodes("./Segment/trace1")
 # cleanEpisode("./Segment/trace1")
