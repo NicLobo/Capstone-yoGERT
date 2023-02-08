@@ -19,6 +19,8 @@
 \usepackage[section]{placeins}
 \usepackage{caption}
 \usepackage{fullpage}
+\usepackage[normalem]{ulem}   
+\usepackage{xcolor}
 
 \hypersetup{
 bookmarks=true,     % show bookmarks bar?
@@ -56,7 +58,7 @@ urlcolor=cyan          % color of external links
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
 January 18, 2023 & 1.0 & \textbf{Smita}:Generating Activity Locations Module, Main Module, Data Transformation Module. \textbf{Abeer}:Network Graph, Shortest Route, Alternative Route, Route Generation, Mapping. \textbf{Moksha}: Preprocessing, Data Transformation. \textbf{Longwei} Module Decomposition, \textbf{Niyatha} Generating episodes \\
-Date 2 & 1.1 & Notes\\
+February 5th, 2023 & 1.1 & \textbf{Smita}: Updating Modules, addressing issues #51 and #52 \textbf{Moksha}: Updating Preprocessing Modules, addressing issues #50 and #53 from Team 14's Review \\
 \bottomrule
 \end{tabularx}
 
@@ -77,17 +79,13 @@ See \href{https://github.com/NicLobo/Capstone-yoGERT/blob/main/docs/SRS/SRS.pdf}
 \section{Introduction}
 
 The following document details the Module Interface Specifications for
-\wss{Fill in your project name and description}
+\wss{the yoGERT toolbox}
 
 Complementary documents include the \href{https://github.com/NicLobo/Capstone-yoGERT/blob/main/docs/SRS/SRS.pdf}{System Requirement Specification}
 and \href{https://github.com/NicLobo/Capstone-yoGERT/blob/main/docs/Design/SoftArchitecture/MG.pdf}{Module Guide}. The full documentation and implementation can be
 found at \url{https://github.com/NicLobo/Capstone-yoGERT}.  %\wss{provide the url for your repo}
 
 \section{Notation}
-
-\wss{You should describe your notation.  You can use what is below as
-  a starting point.}
-
 The structure of the MIS for modules comes from \citet{HoffmanAndStrooper1995},
 with the addition that template modules have been adapted from
 \cite{GhezziEtAl2003}.  The mathematical notation comes from Chapter 3 of
@@ -120,6 +118,7 @@ different types. In addition, \progname \ uses functions, which
 are defined by the data types of their inputs and outputs. Local functions are
 described by giving their type signature followed by their specification.
 
+\newpage
 \section{Module Decomposition}
 
 The following table is taken directly from the \href{}{Module Guide} document for this project.
@@ -155,9 +154,7 @@ The following table is taken directly from the \href{}{Module Guide} document fo
 \end{table}
 
 \newpage
-~\newpage
 
-\newpage
 \section{MIS of \wss{Module Preprocessing}} \label{Module} 
 
 \subsection{Module}
@@ -176,7 +173,7 @@ Preprocessing Inputs
 \hline
 \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 \hline
-\wss{validateCSV} & CSV & $\mathbb{B}$ & $\mbox{InvalidCoord}$ \\
+\wss{validateCSV} & CSV & $\mathbb{B}$, CSV & $\mbox{\textcolor{red}{InvalidInput}}$ $\mbox{\textcolor{red}{IOError}}$ \\
 \hline
 \end{tabular}
 \end{center}
@@ -203,14 +200,18 @@ application. It is used when saving files locally.
 \noindent \wss{validateCSV}(csvfile):
 \begin{itemize}
 \item transition: \wss{None} 
-\item output: \wss{(\forall coord : tuple($\mathbb{R},\mathbb{R}$) | file \in readdata(csvfile) : validGPS(coord)) $\Rightarrow$ \emph{true}} 
-\item exception: \wss{$(\neg((\forall coord : tuple($\mathbb{R},\mathbb{R}$) | file \in readdata(csvfile) : validGPS)) \Rightarrow \mbox{InvalidCoord})$} 
+\item output: \wss{\textcolor{red}{(\forall columns : str | file \in validateCSV(csvfile) : validateCols(columns)) $\Rightarrow$ \emph{true}}}
+\item output: \wss{\textcolor{red}{$(\forall rows : tuple($\mathbb{R}, \mathbb{R}, str$) | file \in normalizeCSV(csvfile) : validateData(rows))) \Rightarrow \mbox{CSV})$}}
+
+\item exception: \wss{$(\neg(((\forall columns : str | file \in validateCSV(csvfile) : validateCols(columns)) $\Rightarrow$ \mbox{InvalidInput}$} 
+
+\item exception: \wss{\textcolor{red}{$(\neg(\forall rows : tuple($\mathbb{R}, \mathbb{R}, str$) | file \in normalizeCSV(csvfile) : validateData(rows))) \Rightarrow \mbox{IOError})$}} 
 \end{itemize}
 
 \subsubsection{Local Functions}
 
-readdata : .CSV FILE $ \Rightarrow \mathbb{B} \times $ seq of String\\
-validGPS : tuple of ($\mathbb{R},\mathbb{R}$) $\Rightarrow \mathbb{B}$ 
+\textcolor{red}{normalizeCSV : removes any invalid gps and time points from the original CSV data}
+\textcolor{red}{validateCols : Ensures that data has latitude, longitude, and time columns}
 
 \newpage
 
@@ -272,10 +273,10 @@ onlinenetworkdatabase : connection to online database to retrieve information la
 \item exception: \wss{$(\neg(networkmode \in \{drive, walk, bike\}) \Rightarrow \mbox{InvalidMode}))$} 
 \end{itemize}
 
-\noindent \wss{get\_nearest\_node}(\emph{coord}):
+\noindent \wss{getNearestNode}(\emph{coord}):
 \begin{itemize}
 \item transition: \wss{None} 
-\item output: \wss{nodes[i] where $i \in [0..|s|-1]$} 
+\item output: \textcolor{red}{\wss{nodes[i] where $i \in [0..|stopcoords|-1] $} }
 \item exception: \wss{$(\neg(findhdistance(coord,stcoord) \leq \mbox{dist}) \Rightarrow \mbox{OutOfBoundsCoord}))$}
 \end{itemize}
 
@@ -330,7 +331,7 @@ Activityepisode = ?
 
 \subsubsection{State Variables}
 \emph{points} : columns of csv containing ($\mathbb{R}$, $\mathbb{R}$, ${datetime}$) - latitude, longitude and timestamp for a point.\\
-\emph{finalpoints} : columns of csv containing ($\mathbb{R}$, $\mathbb{R}$, ${datetime}$) - latitude, longitude and timestamp for a point after data has been run with generateEpisodes(csv\_path).\\
+\emph{finalpoints} : columns of csv containing ($\mathbb{R}$, $\mathbb{R}$, ${datetime}$) - latitude, longitude and timestamp for a point after data has been run with generateEpisodes(csvPath).\\
 \emph{mode} : enum of ($\mathbb{N}$, $\mathbb{N}$, $\mathbb{N}$) - modes for episodes, STOP = 0, WALK = 1, DRIVE = 10\\
 s
 \subsubsection{Environment Variables}
@@ -342,36 +343,36 @@ N/A
 
 \subsubsection{Access Routine Semantics}
 
-\noindent \wss{new Activityepisode}(\emph{csv\_path}):
+\noindent \wss{new Activityepisode}(\emph{csvPath}):
 \begin{itemize}
 \item transition: A full path to a .csv file containing GPS points (Start: Lat, Long, Time, Stop: Lat, Long, Time) to a full path to a .csv file containing preprocessed GPS data.
 \item output: \wss{finalpoints[i] where $i \in [0..|len(points)|-1]$
-\item exception: \wss{$(\neg(csv\_path) \Rightarrow \mbox{InvalidFile}))$}
+\item exception: \wss{$(\neg(csvPath) \Rightarrow \mbox{InvalidFile}))$}
 \end{itemize}
 
 
-\noindent \wss{createSegments}(\emph{csv\_path, title}):
+\noindent \wss{createSegments}(\emph{csvPath, title}):
 \begin{itemize}
 \item transition: \wss{The given csv file is parsed and trimmed based using the average stepsize of the given data points.} 
 \item output: \wss{points[i] where $i \in [0..|len(points)|-1]$ $ \wedge $$ i = i + (points[-1]-points[0])/len(points)$} 
-\item exception: \wss{$(\neg(csv\_path) \Rightarrow \mbox{InvalidFile}))$} 
+\item exception: \wss{$(\neg(csvPath) \Rightarrow \mbox{InvalidFile}))$} 
 \end{itemize}
 
 
-\noindent \wss{createVelocities}(\emph{csv\_path}):
+\noindent \wss{createVelocities}(\emph{csvPath}):
 \begin{itemize}
 \item transition: \wss{The given csv file is used to create another csv file with the added column velocity} 
 \item output: \wss{points.append(velocity[i] where $(sqrt((i.lat -(i+1).lat)^2+(i.long -(i+1).long)^2)/(i.time - (i+1).time)$} 
-\item exception: \wss{$(\neg(csv\_path) \Rightarrow \mbox{InvalidFile}))$} 
+\item exception: \wss{$(\neg(csvPath) \Rightarrow \mbox{InvalidFile}))$} 
 \end{itemize}
 
 
-\noindent \wss{generateEpisodes}(\emph{csv\_path}):
+\noindent \wss{generateEpisodes}(\emph{csvPath}):
 \begin{itemize}
 \item transition: \wss{Generate activity episodes for each mode change in \emph{points} in the csv file.} 
 \item output: \wss{endMode[i] where $(( velocity[i] \>= mode.WALK.value and velocity[i] \< mode.DRIVE.value) \wedge endMode = mode.WALK) \vee (endVel \>= mode.DRIVE.value \wedge endMode = mode.DRIVE)\vee endMode = mode.STOP$
 } 
-\item exception: \wss{$(\neg(csv\_path) \Rightarrow \mbox{InvalidFile}))$} 
+\item exception: \wss{$(\neg(csvPath) \Rightarrow \mbox{InvalidFile}))$} 
 \end{itemize}
 
 \newpage
@@ -491,7 +492,7 @@ None.
 
 findnode : \emph{NetworkGraph} $\times$ tuple of $(\mathbb{R}, \mathbb{R})  \rightarrow \mathbb{N}$
 \begin{itemize}
-    \item Description : \emph{NetworkGraph.get\_nearest\_node}(GPS coordinate) using the \emph{NetworkGraph} access routine the function returns node number.
+    \item Description : \emph{NetworkGraph.getNearestNode}(GPS coordinate) using the \emph{NetworkGraph} access routine the function returns node number.
 \end{itemize}
 DijkstraAlg : \emph{NetworkGraph} $\times$ String $\times$ $\mathbb{N} \times \mathbb{N}  \rightarrow seq of \mathbb{N}$
 \begin{itemize}
@@ -558,7 +559,7 @@ onlinetransitdatabase : connection to online database to retrieve information la
 
 findnode : \emph{NetworkGraph} $\times$ tuple of $(\mathbb{R}, \mathbb{R})  \rightarrow \mathbb{N}$
 \begin{itemize}
-    \item Description : \emph{NetworkGraph.get\_nearest\_node}(GPS coordinate) using the \emph{NetworkGraph} access routine the function returns node number.
+    \item Description : \emph{NetworkGraph.getNearestNode}(GPS coordinate) using the \emph{NetworkGraph} access routine the function returns node number.
 \end{itemize}
 pathfinder : \emph{NetworkGraph} $\times$ String $\times$ $\mathbb{N} \times \mathbb{N}  \rightarrow seq of \mathbb{N}$\\
 deactivateedges : \emph{NetworkGraph} $\times$ \emph{onlinetransitdatabase} $ \rightarrow NetworkGraph$
@@ -661,15 +662,108 @@ getconnections : seq of tuple of $(\mathbb{R}, \mathbb{R})  \rightarrow$ seq of 
 %done route generation
 \newpage
 
+\color{red}
+\section{MIS of \wss{Activity Location}} \label{Module} 
+
+\subsection{Template Module}
+Activity Location
+
+\subsection{Uses}
+None.
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+None
+
+\subsubsection{Exported Type}
+ActivityLocation = ?
+
+\subsubsection{Exported Access Programs}
+
+\begin{tabular}{p{2cm} p{3cm} p{4cm} p{4cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+\wss{new ActivityLocation} & name: String, lat: Latitude ($\mathbb{R}$), lon: Longitude ($\mathbb{R}$) &  Activity Location} \\
+\hline
+
+\end{tabular}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+\emph{name} : String of Activity Location name\\
+\emph{lat} : latitude of Activity Location ($\mathbb{R}$)\\
+\emph{lon} : longitude of Activity Location ($\mathbb{R}$)
+
+\subsubsection{Environment Variables}
+None.
+\subsubsection{Assumptions}
+\begin{itemize}
+    \item Assume the values for latitude, longitude and name provided are valid
+\end{itemize}
+
+\subsubsection{Access Routine Semantics}
+None
+\color{black}
+
+\newpage
+\color{red}
+\section{MIS of \wss{Stop Point}} \label{Module} 
+
+\subsection{Template Module}
+Stop Point
+
+\subsection{Uses}
+None.
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+None
+
+\subsubsection{Exported Type}
+StopPoint = ?
+
+\subsubsection{Exported Access Programs}
+
+\begin{tabular}{p{2cm} p{3cm} p{4cm} p{4cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+\wss{new StopPoint} & lat: Latitude ($\mathbb{R}$), lon: Longitude ($\mathbb{R}$) &  StopPoint} \\
+\hline
+
+\end{tabular}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+\emph{lat} : latitude of Stop Point ($\mathbb{R}$)\\
+\emph{lon} : longitude of Stop Point ($\mathbb{R}$)\\
+
+\subsubsection{Environment Variables}
+None.
+\subsubsection{Assumptions}
+\begin{itemize}
+    \item Assume the values for latitude, longitude  provided are valid
+\end{itemize}
+
+\subsubsection{Access Routine Semantics}
+None
+\color{black}
+\newpage
 
 \section{MIS of \wss{Generating Activity Locations}} \label{ModuleSPath} 
 %\wss{Use labels for cross-referencing}
 
 \subsection{Module}
 Fetch Activity Locations
-
 \subsection{Uses}%what modules it uses 
-Uses no other modules
+\textcolor{red}{\sout{Uses no other modules}}
+\textcolor{red}{Activity Location, Stop Point}
+
 %make overpy an environemental variable and just name it as online database
 %don't use overpy
 
@@ -685,7 +779,7 @@ None.
 \hline
 \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 \hline
-\wss{fetchStopAL} & collection of tuple of (latitude: $\mathbb{R}$, longitude: $\mathbb{R}$),  & collection of a collection of tuples (latitude: $\mathbb{R}$, longitude: $\mathbb{R}$ and activity location collection(String, latitude: $\mathbb{R}$, longitude: $\mathbb{R}$) & EmptyListException \\
+\wss{fetchStopAL} & \textcolor{red}{collection of Stop Points}  & \textcolor{red}{collection of tuples (Stop Point, Activity Location)} & EmptyListException \\
 \hline
 \end{tabular}
 \end{center}
@@ -709,18 +803,18 @@ intersections, roads, and paths, and activity locations.}
 \end{itemize}
 \subsubsection{Access Routine Semantics}
 
-\noindent \wss{fetchStopAL(list\_of\_stops)}():
+\noindent \wss{fetchStopAL(listOfStops)}():
 \begin{itemize}
 \item transition: Not applicable
 % \wss{For all stops in list\_of\_stops, calls local auxiliary function fetchActivityLocation() by sending in latitude and longitude parameters to find list of activity locations per stop}
-\item output: \wss{Collection of a collection of tuples (latitude: $\mathbb{R}$, longitude: $\mathbb{R}$) and activity location collection(String, latitude: $\mathbb{R}$, longitude: $\mathbb{R}$) $\forall  stops \in list\_of\_stops$}
-\item exception: \wss{$list\_of\_stops = \{\} \Rightarrow \mbox{EmptyListException}$} 
+\item output: \textcolor{red}{collection of tuples (Stop Point, Activity Location)}
+\item exception: \wss{$listOfStops = \{\} \Rightarrow \mbox{EmptyListException}$} 
 \end{itemize}
 
 \subsubsection{Local Functions}
 fetchActivityLocations : tuple of (latitude: $\mathbb{R}$, longitude: $\mathbb{R}$)
 \begin{itemize}
-    \item Description: Computes activity location given the latitude and longitude of a specific stop location by fetching activity locations in a 25 meter radius from onlineworkdatabase and returns list of activity location names and latitudes and longitudes
+    \item Description: Computes activity location given the latitude and longitude of a specific stop location by fetching activity locations in a 25 meter radius from onlineworkdatabase and \textcolor{red}{\sout{returns list of activity location names and latitudes and longitudes} returns list of ActivityLocation objects} 
 \end{itemize}
   
 \newpage
@@ -749,7 +843,7 @@ Display = ?
 \hline
 \wss{new Mapping} & \emph{NetworkGraph}, seq of \emph{ShortestRoute}, seq of \emph{AlternativeRoute}, seq of $\mathbb{N}$, seq of $\mathbb{N}$ & HTML FILE & - \\
 \hline
-\wss{update\_mapping} & seq of \emph{ShortestRoute}, seq of \emph{AlternativeRoute}, seq of $\mathbb{N}$, seq of $\mathbb{N}$ & HTML FILE & - \\
+\wss{updateMapping} & seq of \emph{ShortestRoute}, seq of \emph{AlternativeRoute}, seq of $\mathbb{N}$, seq of $\mathbb{N}$ & HTML FILE & - \\
 \hline
 \end{tabular}
 
@@ -779,7 +873,7 @@ IOmanager : it is the access point between the local memory and the application.
 \item exception: \wss{None} 
 \end{itemize}
 
-\noindent \wss{update\_mapping}(shortest, alternative, activitylocations, episodes):
+\noindent \wss{updateMapping}(shortest, alternative, activitylocations, episodes):
 \begin{itemize}
 \item transition: \wss{Add new elements to \emph{Mapping} object and saves it locally with \emph{IOmanager}} 
 \item output: \wss{None.} 
@@ -788,7 +882,7 @@ IOmanager : it is the access point between the local memory and the application.
 
 \subsubsection{Local Functions}
 
-get\_node : seq of tuples of $(\mathbb{R}, \mathbb{R}) \Rightarrow $ seq of $\mathbb{N}$
+getNode : seq of tuples of $(\mathbb{R}, \mathbb{R}) \Rightarrow $ seq of $\mathbb{N}$
 \begin{itemize}
     \item Description: converts GPS coordinates to graph nodes. 
 \end{itemize}
