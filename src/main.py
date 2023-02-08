@@ -56,6 +56,8 @@ def generateShortestPath(userFile, motion, optimizer):
     inputPoints = []
     with open(userFile,'r') as inputFile:
         fileReader = csv.reader(inputFile)
+        # Skip Header
+        next(fileReader)
         # Import points
         for row in fileReader:
             point = (float(row[0]),float(row[1]))
@@ -75,6 +77,7 @@ def generateAlternativePath(userFile, optimizer):
     inputPoints = []
     with open(userFile,'r') as inputFile:
         fileReader = csv.reader(inputFile)
+        next(fileReader)
         # Import points
         for row in fileReader:
             point = (float(row[0]),float(row[1]))
@@ -166,11 +169,13 @@ if __name__ == '__main__':
             ActivityList = findActivityLocations(inputFile)
         elif(moduleSelect == 5): # Generate Shortest Path
             inputMotion = input("Please insert the motion of the episode: ")
-            inputOptimizer = input("Please type in the optimzer[time/length]: ")
+            inputOptimizer = input("Please type in the optimizer[time/length]: ")
             shortestNetworkGraph, shortestRoute =  generateShortestPath(inputFile, inputMotion, inputOptimizer)
         elif(moduleSelect == 6): # Generate Alternative Path
-            inputOptimizer = input("Please type in the optimzer[time/length]: ")
+            inputOptimizer = input("Please type in the optimizer[time/length]: ")
             alternativeRoute = generateAlternativePath(inputFile, inputOptimizer)
+        elif(moduleSelect == 7): # Mapping Episodes
+            mapEpisodes(inputFile)
         elif(moduleSelect == 8): # Mapping Activity Locations
             if (len(ActivityList) != 0):
                 print("Dected pre-stored data in the system. Displaying the data: ")
@@ -196,7 +201,7 @@ if __name__ == '__main__':
             mapSRoute(shortestNetworkGraph, sRouteMotion, shortestRoute)
         elif (moduleSelect == 10): # Mapping Alternative Route
             inputMotion = input("Please insert the mode of the points: ")
-            print("Hello world!")
+            mapARoute(inputMotion, alternativeRoute)
         elif (moduleSelect == 0):
             print("Thank you for using the system.")
             break
