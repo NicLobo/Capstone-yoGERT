@@ -12,6 +12,8 @@ sudo apt-get update
 
 #installing required python packages
 pip install pandas
+pip install numpy
+pip install scipy
 pip install geopandas
 pip install h3
 pip install osmnx
