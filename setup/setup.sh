@@ -1,7 +1,11 @@
-# this script assumes you're on a linux environment and already have python installed
-# update the paths based on your own system
+#author: Moksha Srinivasan, 400181518
+#last updated: 2023-02-07
 
-#!/bin/bash
+#this script assumes the following:  
+#1. you are running the toolbox in a unix environment and already have python 3 installed
+#2. you are a superuser with sudo privileges, keep your password handy!
+
+#!/usr/bin/env bash
 
 #updating your system
 sudo apt-get update
@@ -12,3 +16,4 @@ pip install geopandas
 pip install h3
 pip install osmnx
 pip install networkx
+pip install -U scikit-learn
