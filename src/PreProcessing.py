@@ -16,6 +16,7 @@ def ValidateCSV(csvpath):
         #check to see if it has fields latitude, longitude, and time in column titles
         counter = 0
         for col in df.columns:
+            print("The column name is:"+ col + "and counter value is" + str(counter))
             if col == 'lat' or col == 'latitude' or col == "Latitude":
                 df = df.rename({col: 'lat'}, axis='columns')
                 counter+=1
@@ -30,10 +31,12 @@ def ValidateCSV(csvpath):
         #Invalid Longitude: max/min 180.0000000 to -180.0000000
         #Invalid Time: this depends on the time format, will be updated for Rev1
         if counter == 3:
-            df = df[float(df.Latitude) >= -90 and float(df.Latitude) <= 90]
-            df = df[float(df.Longitude) >= -180 and float(df.Longitude) <= 180]
+            df = df[(df['lat'] >= -90.0) & (df['lat'] <= 90.0)]
+            df = df[(df['long'] >= -180.0) & (df['long'] <= 180.0)]
             df = df.dropna(subset=['lat', 'long', 'time'])
-            df.to_csv(csvpath+"_processed")
+            newFilename = csvpath.split('.csv')
+            filenameFinal = newFilename[0]+"_processed"+".csv"
+            df.to_csv(filenameFinal)
             return True 
         raise InvalidInputDataException
 
@@ -41,3 +44,4 @@ def ValidateCSV(csvpath):
         raise Exception("InvalidInputDataException: invalid input, you do not have all required columns (latitude, longitude, time)") 
 
     
+#ValidateCSV("/home/moksha/4G06/Capstone-yoGERT/src/exampleDataset.csv")
