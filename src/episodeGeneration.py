@@ -67,7 +67,7 @@ def createSegments(csv_path, title):
 
         #Create trace directory in segment directory
         try: 
-            path = "./"+str(title)+"/segment-"+str(i)
+            path = "./"+str(title)+"/trace-"+str(i)
             os.mkdir(path)
             print("Directory " , path ,  " Created ") 
         except FileExistsError:
