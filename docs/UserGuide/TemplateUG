@@ -1,0 +1,89 @@
+YoGert User Guide 
+
+Welcome to YoGert Python Toolbox.  
+
+To get started, please open your Linux command line application or Mac terminal. Navigate to the directory where the toolbox is saved locally (Tip 1).  
+
+Steps to set up environment:  
+
+Navigate to the “setup” directory within the local repository. 
+
+Run the following command “chmod u+x setup.sh,” this makes the file executable by changing the file permissions (Tip 2) . 
+
+Run “./setup.sh” and notice that the required libraries are being installed. 
+
+Steps to run the toolbox: 
+
+Navigate to the “src” directory within the local repository. 
+
+To start up the toolbox, run the following command “python3 main.py”. 
+
+Now you are inside the toolbox and have access to all the functionalities. The toolbox will prompt you to enter a module number that you wish to use. Check out Tip 3 for the list of modules.  
+
+Recommended flow of using the toolbox's functions and how to be used: 
+
+Enter “2” to generate segments. 
+
+Application prompts you to select a CSV file for episode generation using file explorer window.  
+
+Enter “7” to map generated traces. 
+
+Application prompts you to select a trace number out of the generated traces. For example, enter “1” to select trace #1.  
+
+Enter “3” to find activity location.  
+
+Enter “8” to map activity locations. 
+
+Application prompts you to select a trace number out of the generated traces. For example, enter “1” to select trace #1. 
+
+Enter “5” to generate shortest route. 
+
+Application prompts you to select a trace number out of the generated traces. For example, enter “1” to select trace #1.  
+
+Application prompts you to select optimizer variables for detecting a route. You can either enter “time” or “length.” 
+
+Enter “9” to map shortest route generated with the recent command "5” call. 
+
+Enter “6” to generate alternative route. 
+
+Application prompts you to select a trace number out of the generated traces. For example, enter “1” to select trace #1.  
+
+Application prompts you to select optimizer variables for detecting a route. You can either enter “time” or “length.” 
+
+Enter “10” to map alternative route generated with the recent command “6” call. 
+
+To generate and map a different trace shortest route repeat step 5 and 6.  
+
+To generate and map a different trace alternative route repeat step 6 and 7.  
+
+Tips 
+
+Check out https://www.ibm.com/docs/en/aix/7.2?topic=directories-changing-another-directory-cd-command to learn more about directory navigation.  
+
+Learn about Unix based systems file permissions here! https://www.tutorialspoint.com/unix/unix-file-permission.htm  
+
+List of module numbers: 
+
+0: Exit Toolbox.  
+
+2: Generate Episodes.  
+
+3: Find Activity Locations. 
+
+5: Generate Shortest Path. 
+
+6: Generate Alternative Path. 
+
+7: Map Episodes.  
+
+8: Map Activity Locations.  
+
+9: Map Shortest Route. 
+
+10: Map Alternative Route 
+
+ 
+
+ 
+
+ 
