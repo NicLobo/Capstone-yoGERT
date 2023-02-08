@@ -10,6 +10,7 @@
 \usepackage{xcolor}
 \usepackage{ulem}
 \usepackage{cancel}
+\usepackage{pdflscape}
 
 \newcounter{ucnum} %use case number
 \newcounter{reqnum} %FRequirement Number
@@ -84,9 +85,10 @@ October 5, 2022 & 1.0 & Longwei: Sec 1,8; Moksha: Sec 2.1,8; Smita: Sec 2.1,8; A
   Potential Activity Locations (PALS) & PALS are potential trip stops \\
   Route & Object path to get from position A to position B\\
   \sout{Route Choice Analysis (RCA)} & \sout{Analyzes route selection from point a to point b}\\
-  Segment & Group of GPS Points combined based on episode attributes.\\
+  Segment & Group of GPS Points combined based on episode attributes .\\
   .shp & .shp are geospatial data format files\\
-  Session & Object's activity history quantified by GPS points \\
+  Session & Object's activity history quantified by GPS points \textcolor{blue}{which is a collection of traces.} \\
+  \textcolor{blue}{Trace} & \textcolor{blue}{Collection of GPS points for one travel behaviour or for one user. Each trace is not connected to another.}\\
   \sout{Time Use Diary (TUD)} & \sout{Time Use Diary are records of continuous events and actions through a particular period of time (usually 24 to 48 hours)}\\
   Trip & GPS points represents an object moving to a different position.\\
   
@@ -182,7 +184,7 @@ The current GERT toolbox is dependent on ARCGIS libraries including arcgisscript
          \hline
          User requests trip segments based on processed data & Input: CSV file, Output: .shp file & System outputs GPS trip trajectories in a readable format for the user\\
          \hline
-         User requests route choice sets & Input: .shp file, Output: .shp file & System outputs route choice sets and allows filtering based on set qualifiers\\
+         \sout{User requests route choice sets} & \sout{Input: .shp file, Output: .shp file} & \sout{System outputs route choice sets and allows filtering based on set qualifiers}\\
          \hline
          User requests activity locations  & Input: CSV file, Output: .shp file & System outputs activity locations(stops) .shp file\\
          \hline
@@ -215,7 +217,7 @@ The product boundary diagram was omitted due to redundancy. There are no externa
 \begin{itemize}
     \item[UC\refstepcounter{ucnum}\theucnum
 \label{UC_Inputs_1}:] \plt{ \textbf{Name}: Process GPS data\\
-        \textbf{Trigger}: User requests processed GPS data\\
+        \textbf{Trigger}: User requests processed GPS data of different traces\\
         \textbf{Preconditions}: User has a CSV file of unprocessed GPS data \\
         \textbf{Stakeholders}: User, Professor, Geospatial Analyst\\
         \textbf{Actors}: User, Toolbox\\
@@ -233,35 +235,35 @@ The product boundary diagram was omitted due to redundancy. There are no externa
         \textbf{Preconditions}: System has preprocessed input GPS data, user may optionally input TUD (time use diary) episodes\\
         \textbf{Stakeholders}: User, Professor, Geospatial Analyst\\
         \textbf{Actors}: User, Toolbox\\
-        \textbf{Outcome}: .shp file with GPS trip trajectories in a readable format for the user\\}
+        \textbf{Outcome}: \sout{.shp} \textcolor{blue}{.csv} file with GPS trip trajectories in a readable format for the user\\}
     \item[UC\refstepcounter{ucnum}\theucnum
-\label{UC_Inputs_4}:] \plt{ \textbf{Name}: Route choice set generation\\
-        \textbf{Trigger}: User requests route choice sets\\
-        \textbf{Preconditions}: System has preprocessed input GPS data and generated trip trajectories file\\
-        \textbf{Stakeholders}: User, Professor, Geospatial Analyst\\
-        \textbf{Actors}: User, Toolbox\\
-        \textbf{Outcome}: .shp file with route choice sets\\}
+\label{UC_Inputs_4}:] \plt{ \textbf{Name}: \sout{Route choice set generation}\\
+        \textbf{Trigger}: \sout{User requests route choice sets}\\
+        \textbf{Preconditions}: \sout{System has preprocessed input GPS data and generated trip trajectories file}\\
+        \textbf{Stakeholders}: \sout{User, Professor, Geospatial Analyst}\\
+        \textbf{Actors}: \sout{User, Toolbox}\\
+        \textbf{Outcome}: \sout{.shp file with route choice set}s\\}
     \item[UC\refstepcounter{ucnum}\theucnum
 \label{UC_Inputs_5}:] \plt{ \textbf{Name}: Activity locations\\
         \textbf{Trigger}: User requests activity locations\\
         \textbf{Preconditions}: System has preprocessed input GPS data and extracted episodes and mode detection CSV file \\
         \textbf{Stakeholders}: User, Professor, Geospatial Analyst\\
         \textbf{Actors}: User, Toolbox\\
-        \textbf{Outcome}: System generates .shp file of activity locations (stops)\\}
+        \textbf{Outcome}: System generates \sout{.shp} \textcolor{blue}{.csv} file of activity locations (stops)\\}
     \item[UC\refstepcounter{ucnum}\theucnum
-\label{UC_Inputs_6}:] \plt{ \textbf{Name}: Route choice analysis variable generation\\
-        \textbf{Trigger}: User requests route choice analysis variables\\
+\label{UC_Inputs_6}:] \plt{ \textbf{Name}: \sout{Route choice analysis} \textcolor{blue}{Episode behaviour analysis} variable generation\\
+        \textbf{Trigger}: User requests \sout{route choice analysis} \textcolor{blue}{episode behaviour analysis} variables\\
         \textbf{Preconditions}: System has preprocessed input GPS data and generated trip trajectories file\\
         \textbf{Stakeholders}: User, Professor, Geospatial Analyst\\
         \textbf{Actors}: User, Toolbox\\
-        \textbf{Outcome}: .csv file containing route choice analysis variables and variable justification\\}
+        \textbf{Outcome}: .csv file containing \sout{Route choice analysis} \textcolor{blue}{Episode behaviour analysis} variables and variable justification\\}
     \item[UC\refstepcounter{ucnum}\theucnum
 \label{UC_Inputs_7}:] \plt{ \textbf{Name}: Activity location identification\\
         \textbf{Trigger}:User has requested activity location identification\\
-        \textbf{Preconditions}: System has preprocessed input GPS data, extracted episodes and mode detection CSV file, and then extracted activity location .shp file, as well as user has inputted land use .shp file potential activity location .shp file \\
+        \textbf{Preconditions}: System has preprocessed input GPS data, extracted episodes and mode detection CSV file, and then extracted activity location \sout{.shp} \textcolor{blue}{.csv} file, as well as user has inputted land use \sout{.shp} \textcolor{blue}{.csv} file potential activity location \sout{.shp} \textcolor{blue}{.csv} file \\
         \textbf{Stakeholders}: User, Professor, Geospatial Analyst\\
         \textbf{Actors}: User, Toolbox\\
-        \textbf{Outcome}: System outputs a .shp file of activity location with land use and potential activity location information .shp file\\}
+        \textbf{Outcome}: System outputs a \sout{.shp} \textcolor{blue}{.csv} file of activity location with land use and potential activity location information \sout{.shp} \textcolor{blue}{.csv} file\\}
 \end{itemize}
 
 \subsection{Functional and Data Requirements}
@@ -282,7 +284,7 @@ The product boundary diagram was omitted due to redundancy. There are no externa
 \end{itemize}
 
 \item[R\refstepcounter{reqnum}\thereqnum
-\label{R_Inputs_1}:] \plt{The system shall process GPS data points.}
+\label{R_Inputs_1}:] \plt{The system shall process GPS data points \textcolor{blue}{of multiple traces}.}
 \begin{itemize}
     \item \textbf{Requirement Type}: Data
     \item \textbf{Rationale}: System must analysis activity data.
@@ -338,7 +340,7 @@ The product boundary diagram was omitted due to redundancy. There are no externa
 \end{itemize}
 
 \item[R\refstepcounter{reqnum}\thereqnum
-\label{R_Outputs_1}:] \plt{The system shall extract episode attributes including speed, duration, direction, distance,\sout{ change in direction, acceleration,} and status points from GPS data points.}
+\label{R_Outputs_1}:] \plt{The system shall extract episode attributes including speed, duration, direction, distance,\sout{ change in direction, acceleration,} and status points from GPS data points \textcolor{blue}{for each trace}.}
 \begin{itemize}
     \item \textbf{Requirement Type}: Functional
     \item \textbf{Rationale}: System must categorize data points to useful information for the user to read.
@@ -347,7 +349,7 @@ The product boundary diagram was omitted due to redundancy. There are no externa
     \item \textbf{Event}: UC2
     \item \textbf{Customer Satisfaction}: 5
     \item \textbf{Customer Dissatisfaction}: 5
-    \item \textbf{Conflict}: R5
+    \item \textbf{Conflict}: R4, \textcolor{blue}{19}
     \item \textbf{Planned Date}: November 14, 2022
 \end{itemize}
 
@@ -366,7 +368,7 @@ The product boundary diagram was omitted due to redundancy. There are no externa
 \end{itemize}
 
 \item[R\refstepcounter{reqnum}\thereqnum
-\label{R_Inputs_1}:] \plt{The system shall classify extracted episode into different types including stop, \sout{car} \textcolor{blue}{drive, and } walk \sout{, bus, and other travel episodes}.}
+\label{R_Inputs_1}:] \plt{The system shall classify extracted \textcolor{blue}{trace} into different types including stop, \sout{car} \textcolor{blue}{drive, and } walk \sout{, bus, and other travel episodes}.}
 \begin{itemize}
     \item \textbf{Requirement Type}: Functional
     \item \textbf{Rationale}: User need to understand travel behaviour of the object's episode.
@@ -375,12 +377,12 @@ The product boundary diagram was omitted due to redundancy. There are no externa
     \textbf{Event}: UC2
     \item \textbf{Customer Satisfaction}: 5
     \item \textbf{Customer Dissatisfaction}: 5
-    \item \textbf{Conflict}: R6,7
+    \item \textbf{Conflict}: R6,7,\textcolor{blue}{19}
     \item \textbf{Planned Date}: \sout{November} \textcolor{blue}{February} 14, 2022
 \end{itemize}
 
 \item[R\refstepcounter{reqnum}\thereqnum
-\label{R_Outputs_2}:] \plt{The system shall decompose episode into output segments of type stop and trip.}
+\label{R_Outputs_2}:] \plt{The system shall decompose episode \textcolor{blue}{trace} into output segments of type stop and trip.}
 \begin{itemize}
     \item \textbf{Requirement Type}: Functional
     \item \textbf{Rationale}: User need to understand the object's behaviour during a segment.
@@ -389,7 +391,7 @@ The product boundary diagram was omitted due to redundancy. There are no externa
     \item \textbf{Event}: UC3
     \item \textbf{Customer Satisfaction}: 5
     \item \textbf{Customer Dissatisfaction}: 5
-    \item \textbf{Conflict}: R8
+    \item \textbf{Conflict}: R8,\textcolor{blue}{19}
     \item \textbf{Planned Date}: \sout{November} \textcolor{blue}{February} 14, 2022
 \end{itemize}
 
@@ -408,7 +410,7 @@ The product boundary diagram was omitted due to redundancy. There are no externa
 \end{itemize}
 
 \item[R\refstepcounter{reqnum}\thereqnum
-\label{R_Inputs_1}:] \plt{The system shall identify activity locations based on the episode attributes \sout{of the route to the stop} \textcolor{blue}{from the start point to the end} point.}
+\label{R_Inputs_1}:] \plt{The system shall identify activity locations \textbf{for each trace} based on the episode attributes \sout{of the route to the stop} \textcolor{blue}{from the start point to the end} point.}
 \begin{itemize}
     \item \textbf{Requirement Type}: Functional
     \item \textbf{Rationale}: The system needs location types for land use and road network analysis.
@@ -417,7 +419,7 @@ The product boundary diagram was omitted due to redundancy. There are no externa
     \item \textbf{Event}: UC5,7
     \item \textbf{Customer Satisfaction}: 5
     \item \textbf{Customer Dissatisfaction}: 5
-    \item \textbf{Conflict}: R6,7
+    \item \textbf{Conflict}: R6,7,\textcolor{blue}{19}
     \item \textbf{Planned Date}: \sout{November} \textcolor{blue}{February} 14, 2022
 \end{itemize}
 
@@ -431,7 +433,7 @@ The product boundary diagram was omitted due to redundancy. There are no externa
     \item \textbf{Event}: UC4,6
     \item \textbf{Customer Satisfaction}: 5
     \item \textbf{Customer Dissatisfaction}: 4
-    \item \textbf{Conflict}: R10
+    \item \textbf{Conflict}: R10,\textcolor{blue}{19}
     \item \textbf{Planned Date}: \sout{November} \textcolor{blue}{February} 14, 2022
 \end{itemize}
 
@@ -451,7 +453,7 @@ The product boundary diagram was omitted due to redundancy. There are no externa
 \end{itemize}
 
 \item[R\refstepcounter{reqnum}\thereqnum
-\label{R_Inputs_1}:] \plt{The system shall automate routes from position A to position B based on \sout{RCA} \textcolor{blue}{EBA} set.}
+\label{R_Inputs_1}:] \plt{The system shall automate routes from position A to position B based on \sout{RCA} \textcolor{blue}{EBA} set for each extracted trace.}
 \begin{itemize}
     \item \textbf{Requirement Type}: Functional
     \item \textbf{Rationale}: The user wants to request routes from position A to position B.
@@ -460,7 +462,7 @@ The product boundary diagram was omitted due to redundancy. There are no externa
     \item \textbf{Event}: UC6
     \item \textbf{Customer Satisfaction}: 5
     \item \textbf{Customer Dissatisfaction}: 4
-    \item \textbf{Conflict}: R13
+    \item \textbf{Conflict}: R13,\textcolor{blue}{19}
     \item \textbf{Planned Date}: \sout{November} \textcolor{blue}{February} 14, 2022
 \end{itemize}
 
@@ -474,7 +476,7 @@ The product boundary diagram was omitted due to redundancy. There are no externa
     \item \textbf{Event}: UC6
     \item \textbf{Customer Satisfaction}: 4
     \item \textbf{Customer Dissatisfaction}: 4
-    \item \textbf{Conflict}: R13
+    \item \textbf{Conflict}: R13,\textcolor{blue}{19}
     \item \textbf{Planned Date}: \sout{November} \textcolor{blue}{February} 14, 2022
 \end{itemize}
 
@@ -493,7 +495,7 @@ The product boundary diagram was omitted due to redundancy. There are no externa
 \end{itemize}
 
 \item[R\refstepcounter{reqnum}\thereqnum
-\label{R_Inputs_1}:] \plt{The system shall classify \sout{RCA patterns by route} \textcolor{blue}{episodes by} \sout{purpose} \textcolor{blue}{by movement behaviour; which includes details on peak times, peak locations, and stop behaviour}.}
+\label{R_Inputs_1}:] \plt{The system shall classify \sout{RCA patterns by route} \textcolor{blue}{trace episodes by} \sout{purpose} \textcolor{blue}{by movement behaviour; which includes details on peak times, peak locations, and stop behaviour}.}
 \begin{itemize}
     \item \textbf{Requirement Type}: Functional
     \item \textbf{Rationale}: The system needs to define trip \sout{purpose} \textcolor{blue}{ behaviour attributes}. 
@@ -502,7 +504,7 @@ The product boundary diagram was omitted due to redundancy. There are no externa
     \item \textbf{Event}: UC4,6
     \item \textbf{Customer Satisfaction}: 5
     \item \textbf{Customer Dissatisfaction}: 2
-    \item \textbf{Conflict}: R16,13
+    \item \textbf{Conflict}: R16,13,\textcolor{blue}{19}
     \item \textbf{Planned Date}: \sout{November} \textcolor{blue}{February 20}, 2022
 \end{itemize}
 
@@ -546,6 +548,20 @@ The product boundary diagram was omitted due to redundancy. There are no externa
     \item \textbf{Customer Dissatisfaction}: 5
     \item \textbf{Conflict}: R6-8
     \item \textbf{Planned Date}: \sout{November} \textcolor{blue}{February} 14, 2022
+\end{itemize}
+
+\item[R\refstepcounter{reqnum}\thereqnum
+\label{R_Inputs_1}:] \plt{\textcolor{blue}{The system shall identify different traces from GPS data set}.}
+\begin{itemize}
+    \item \textbf{Requirement Type}: \textcolor{blue}{Functional}
+    \item \textbf{Rationale}: \textcolor{blue}{The user needs to be able to analyze multiple traces for each input GPS file.}
+    \item \textbf{Fit Criterion}: \textcolor{blue}{The system successfully produces identification number for each trace.}
+    \item \textbf{Priority}: \textcolor{blue}{5}
+    \item \textbf{Event}: \textcolor{blue}{UC1}
+    \item \textbf{Customer Satisfaction}: \textcolor{blue}{5}
+    \item \textbf{Customer Dissatisfaction}: \textcolor{blue}{5}
+    \item \textbf{Conflict}: \textcolor{blue}{R2-4}
+    \item \textbf{Planned Date}: \textcolor{blue}{February 14, 2022}
 \end{itemize}
 
 \end{itemize}
@@ -1017,6 +1033,8 @@ GPS Episodes as Outputs
 \item As the main requirements of the project depends on the usuage of GPS episodes the output is unlikely to change.
 \end{itemize}
 
+\newpage
+\begin{landscape}
 
 \section{Traceability Matrix}
 \begin{table}[H]
@@ -1024,33 +1042,34 @@ GPS Episodes as Outputs
 \scalebox{0.5}{
 \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
 \hline        
-& NFR1 & NFR2 & NFR3 & NFR4 & NFR5 & NFR6 & NFR7& NFR8 & NFR9 & NFR10 & NFR11 & NFR12 & NFR13 & NFR14 & NFR15 & NFR16 & NFR17 & NFR18 & NFR19\\ \hline
-R1  & & & &X & &X & & &X &X & &X & & &  & & & &X \\ \hline
-R2  & X& & & & & & & X& X& & X& X& X& & & & & & \\ \hline
-R3  & & & X& X& X& X& & X& X& X& X& & & & & & & &X \\ \hline
-R4  & X& X& X& & & & & & X& & X& & & & & & & & \\ \hline
-R5  & & & & & & X& & & & & X& & & X& & & & & \\ \hline
-R6  & & X& & & & & & X& X& & X& & & & & & & & \\ \hline
-R7  & & X& & & & & & X& X& & X& & & & & & & & \\ \hline
-R8  & & X& & X& & X& & X& & & X& & & & & & & & \\ \hline
-R9  & & X& & X& & X& & X& & & X& & & & & & & & \\ \hline
-R10 & X& X& & & & X& & & X& & X& & & & & & & & \\ \hline
-R11 & X& X& & & & X& & & X& & X& & & & & & & & \\ \hline
-R12 & X& & & & & & & & X& X& X& & & & & & & & \\ \hline
-R13 & X& & & & & & & & X& X& X& & & & & & & & \\ \hline
-R14 & X& & & & & & & & X& X& X& & & & & & & & \\ \hline
-R15 & X& & X& X& X& X& & & & & & & & & & & & & \\ \hline
-R16 & & & & & & & & & X& & & & & & & X& X& X& \\ \hline
-R17 & X& & & & & & & & X& X& X& & & & & & & & \\ \hline
-R18 & X& X& X& X& & & & X& X& X& & & & & & & & & \\ \hline
-R19 & X& X& X& X& & & & X& X& X& & & & & & & & & \\ \hline
-R20 & X& X& X& X& & & & & & & & & & & & X& X& X& \\ \hline
+& NFR1 & NFR2 & NFR3 & NFR4 & NFR5 & NFR6 & NFR7& NFR8 & NFR9 & NFR10 & NFR11 & NFR12 & NFR13 & NFR14 & NFR15 & NFR16 & NFR17 & NFR18 & NFR19 & NFR20 & NFR21 & NFR22 & NFR23 & NFR24 & NFR25 & NFR26 & NFR27\\ \hline
+R1  & & & &X & &X & & &X &X & &X & & &  & & & &X & & &X & & & & & \\ \hline
+R2  & X& & & & & & & X& X& & X& X& X& & & & & & &X &X &X &X &X &X & &X \\ \hline
+R3  & & & X& X& X& X& & X& X& X& X& & & & & & & &X & &X & & & & &X &X \\ \hline
+R4  & X& X& X& & & & & & X& & X& & & & & & & & & &X & & & &X & & \\ \hline
+R5  & & & & & & X& & & & & X& & & X& & & & & &X & & & & & &X &X \\ \hline
+R6  & & X& & & & & & X& X& & X& & & & & & & & &X & & & & &X & &X \\ \hline
+R7  & & X& & & & & & X& X& & X& & & & & & & & &X & & & & &X & &X \\ \hline
+R8  & & X& & X& & X& & X& & & X& & & & & & & & &X & & & & & & &X \\ \hline
+R9  & & X& & X& & X& & X& & & X& & & & & & & & &X & & & & &X & &X \\ \hline
+R10 & X& X& & & & X& & & X& & X& & & & & & & & &X & & & &X &X & &X \\ \hline
+R11 & X& X& & & & X& & & X& & X& & & & & & & & & & & &X &X & & & \\ \hline
+R12 & X& & & & & & & & X& X& X& & & & & & & & & & & &X &X & & & \\ \hline
+R13 & X& & & & & & & & X& X& X& & & & & & & & &X & &X & &X & &X &X \\ \hline
+R14 & X& & & & & & & & X& X& X& & & & & & & & & & & &X &X & & & \\ \hline
+R15 & X& & X& X& X& X& & & & & & & & & & & & & &X & & &X &X &X & &X \\ \hline
+R16 & & & & & & & & & X& & & & & & & X& X& X& &X & & & &X &X & &X  \\ \hline
+R17 & X& & & & & & & & X& X& X& & & & & & & & &X & & & &X &X & &X \\ \hline
+R18 & X& X& X& X& & & & X& X& X& & & & & & & & & &X & & & &X &X & &X \\ \hline
+\sout{R19} & \sout{X}& \sout{X}& \sout{X}& \sout{X}& & & & \sout{X}& \sout{X}& \sout{X}& & & & & & & & & \\ \hline
+\sout{R20} & \sout{X}& \sout{X}& \sout{X}& \sout{X}& & & & & & & & & & & & \sout{X}& \sout{X}& \sout{X}& \\ \hline
 \hline
 \end{tabular}
 }
 \caption{Traceability Matrix Showing the Connections Between Functional Requirements and Non Functional Requirements}
 \label{Table:trace}
 \end{table}
+\end{landscape}
 
 \section{Project Issues}
 
@@ -1077,9 +1096,12 @@ The software being created is a reworking of the original GERT toolbox and will 
     \item Final Documentation
 \end{itemize}
 \subsection{Migration to the New Product}
-Not applicable to this project. 
+\textcolor{blue}{The design architecture for the program(e.g. modular design) can ensure that it can be added with new features/function easily.}
+
 \subsection{Risks}
-Not applicable to this project. 
+\textcolor{blue}{
+One potential risks is that when the user is trying to run the program in new platforms(i.e. new operation system,) he/she
+may have compatibility issues.}
 \subsection{Costs}
 There will be no cost towards making this  toolbox as it is being created completely open source and free from proprietary software.
 \subsection{User Documentation and Training}
