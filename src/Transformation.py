@@ -58,7 +58,7 @@ def convertActivityCSV(userFile):
         for row in fileReader:
             nearbyList = ast.literal_eval(row[2])
             convertedList.append([float(row[0]),float(row[1]),nearbyList])
-    print(convertedList)
+    #print(convertedList)
     return convertedList
             
 
