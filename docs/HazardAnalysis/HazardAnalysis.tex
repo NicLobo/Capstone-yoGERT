@@ -42,7 +42,8 @@
 
 \newpage
 
-\pagenumbering{roman}
+%Page number should be in arabic order
+\pagenumbering{arabic}
 \tableofcontents
 \listoftables
 \listoffigures
@@ -62,6 +63,8 @@ Date1 & Name(s) & Description of changes\\
 10/18/2022 & Abeer Alyasiri & Safety and Security Requirements, Roadmap\\
 10/18/2022 & Longwei Ye & Failure Modes and Effects Analysis\\
 10/19/2022 & Nicholas Lobo & Failure Modes and Effects Analysis\\
+11/22/2022 & Longwei Ye & Format changes based on feedback\\
+11/23/2022 & Longwei Ye & Update FEMA Table\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -111,17 +114,16 @@ One critical assumption is regarding the system boundary. For example, if the st
 \subsection{Hazards Out of Scope}
 The hazards out of scope would be:
 \begin{itemize}
-    \item The user's personal computer
+    \item \sout{The user's personal computer}
     \item The validity of input data
 \end{itemize}
 
-\noindent The user's personal computer and validity of input data are integral parts of our system's correctness. It is out of scope to develop a mechanism to verify that data is correct/applicable, and hence hazards with respect to correctness and validity of data are out of scope. To ensure that we can process the user's data we will be sanitizing and normalizing data before applying functions. The user's personal computer is managed by the user and software updates are applied by the manufacturer, hence we cannot control all hazards. 
+\noindent The \sout{user's personal computer and} validity of input data are integral parts of our system's correctness. It is out of scope to develop a mechanism to verify that data is correct/applicable, and hence hazards with respect to correctness and validity of data are out of scope. To ensure that we can process the user's data we will be sanitizing and normalizing data before applying functions. The user's personal computer is managed by the user and software updates are applied by the manufacturer, hence we cannot control all hazards. 
 
 \newpage 
 \begin{landscape}
 \subsection{Failure Modes & Effects Analysis Table}
 
-\subsubsection{}
 %%%divide table by those sections maybe?
 System: GERT toolbox\\
 Subsystem:N/A \\
@@ -134,7 +136,7 @@ Phase/Mode:System Requirements\\
 		\textbf{Design Function} & \textbf{Failure Modes} & \textbf{Effects of Failure} & \textbf{Causes of Failure} & \textbf{Recommended Actions} & \textbf{SR} & \textbf{Ref.}\\\hline
 
 
-\multirow{3}{1.8in}{Storage of users geo-location data} 
+\multirow{3}{1.8in}{\textcolor{blue}{Storing GPS points through internet connection.}\sout{Storage of users geo-location.}} 
 
 & User's location data is corrupted  
 & Unable to use program without clearing out corrupted data
@@ -156,7 +158,7 @@ Phase/Mode:System Requirements\\
 
  
 
-\multirow{3}{1.8in}{Memory usage of the system} 
+\multirow{3}{1.8in}{\textcolor{blue}{Handling large datasets}\sout{Memory usage of the system} }
 & 
 Unprocessed csv file for gps input is too large   
 & 
@@ -182,7 +184,7 @@ Unable to process the gps data for other functions
  
 
 
-\multirow{3}{1.8in}{General use of the system} 
+\multirow{3}{1.8in}{\textcolor{blue}{Inconsistency in data results}\sout{General use of the system}} 
 & Program crashes unexpectedly
 & Program is terminated, unable to continue current progress, data of the
 current progress could be lost
@@ -190,8 +192,8 @@ current progress could be lost
 a. Crash due to lack of supported libraries\newline
 b. User device runs out of power\newline
 & 
-a. Check if the supported libraries are installed at the start of the program
-\textcolor{blue}{b. Charge the device to make the system work again\newline}
+a. Check if the supported libraries are installed at the start of the program\newline
+\textcolor{blue}{b. Charge the device so that the system can work again\newline}
 & SR\ref{ACR2}%2
 & H3-1\label{H3-1} \\
 
@@ -202,8 +204,8 @@ a. Check if the supported libraries are installed at the start of the program
 a. Input data is in wrong format
 b. Input file is corrupted
 & 
-b. Same as H1-2 \newline
-c. Validating against requirements and mathematical specifications\newline
+a. Same as H1-2 \newline
+b. Validating against requirements and mathematical specifications\newline
 & SR\ref{IR3}\newline SR\ref{IR1} \newline SR\ref{ADR1}
 & H3-2\label{H3-2}  \\
 
@@ -224,7 +226,7 @@ c. Validating against requirements and mathematical specifications\newline
 &
 a. \textcolor{blue}{An unauthorized or an unexpected}\sout{Unexpected} action made by the user\newline
 & 
-d. Revert the changes made by the unauthorized action\newline
+a. Revert the changes made by the unauthorized action\newline
 & SR\ref{ACR1}, SR\ref{ADR1}
 & H3-3 \\ \hline
 
@@ -301,7 +303,7 @@ The section lists the newly formulated requirements. The new requirements will b
 
 \subsection{Privacy Requirements}
 \item[SR\refstepcounter{Sreqnum}\theSreqnum
-\label{PR1}:] \plt{The system will only store data locally.%Based on chat with stakeholders.}
+\label{PR1}:] \plt{The system will only store data locally.}
 \begin{itemize}
     \item \textbf{Rationale:} The data does not have to be hosted on a remote location such as online database; which would mean better security and protection for the user's data. Failure to store makes the system unresponsive and idle. 
     \item \textbf{Associated Hazards:} H3-4 (\ref{H1-1})
@@ -314,6 +316,13 @@ The section lists the newly formulated requirements. The new requirements will b
     \item \textbf{Rationale:} The system must be verified with logical and deductible methods. Failure to meet the requirement results with poor demonstration of requirements.
     \item \textbf{Associated Hazards:} H3-1, H3-2, H3-3 (\ref{H1-1})
 \end{itemize}
+\textcolor{blue}{
+\item[SR\refstepcounter{Sreqnum}\theSreqnum
+\label{ADR1}:] \plt{The system should pass audit requirements for producing correct and reliable data. }
+\begin{itemize}
+    \item \textbf{Rationale:} The system must be verified with logical and deductible methods. Failure to meet the requirement results with poor demonstration of requirements.
+    \item \textbf{Associated Hazards:} H3-1, H3-2, H3-3 (\ref{H1-1})
+\end{itemize}}
 
 \subsection{Immunity Requirements}
 N/A
