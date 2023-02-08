@@ -25,6 +25,7 @@ def generateEpisode(userFile):
 
 def findActivityLocations(traceNum):
     listActivities = []
+    isAtCapacity = False
 
     dirName = os.path.dirname(os.path.abspath(__file__))
     tracePath = os.path.join(dirName, 'trace')
@@ -54,8 +55,14 @@ def findActivityLocations(traceNum):
                 listStops.append(lastStop)
         
         # Call functions
-        result = Transformation.convertActivityLocation(fetchActivityLocations.fetchStopAL(listStops))
-        listActivities.append(result)
+        result = fetchActivityLocations.fetchStopAL(listStops)
+        if (result[0] == None):
+            print("Nothing is generated.")
+            isAtCapacity = True
+            break
+
+        convertedResult = Transformation.convertActivityLocation(result)
+        listActivities.append(convertedResult)
 
         # Write result to a csv file
         outputFileName = 'trace-'+str(i)+'.csv'
@@ -69,7 +76,8 @@ def findActivityLocations(traceNum):
             for i in result:
                 fileWriter.writerow([i[0],i[1],i[2]])
 
-    print("Complete. The path of the generated file is: \n" + outputPath)
+    if (not isAtCapacity):
+        print("Complete. The path of the generated file is: \n" + outputPath)
     return listActivities
 
 
@@ -337,24 +345,27 @@ if __name__ == '__main__':
                     selectedTraceName = 'trace-'+selectTraceNum
                     selectedTracePath = os.path.join(os.path.join(dirName, 'trace'),selectedTraceName)
 
-                    episodeFile = os.path.join(selectedFilePath, 'episode.csv')
+                    episodeFile = os.path.join(selectedTracePath, 'episode.csv')
                     mapEpisodes(episodeFile)
 
                 
                 elif (moduleSelect == 8): # Module 8: Mapping ActivityLocations
-                    if (len(activityList) != 0):
+                    if (len(activityList) == 0):
+                        print("Sorry, no activity locations found, so you cannot generate the map:(")
+                        continue
+                    else:
                         useExistingData = input(("Existing analyzed Activity Location found. Do you want to use these data?[y/n]: "))
                         # Use Existing Data
                         if (useExistingData == 'y'):
                             mapActivityLocations(activityList, 'activityLocation.html')
                             continue
-
-                    selectTraceNum = input(str(traceNum) + " traces detected, which trace do you want to map?: ")
-                    selectedFileName = 'trace-'+selectTraceNum+'.csv'
-                    selectedFilePath = os.path.join(os.path.join(dirName, 'activityList'),selectedFileName)
-                    activityList.append(Transformation.convertActivityCSV(selectedFilePath))
-                    mapFileName = 'activityLocation.html'+selectedFileName
-                    mapActivityLocations(activityList,mapFileName)
+                        else:
+                            selectTraceNum = input(str(traceNum) + " traces detected, which trace do you want to map?: ")
+                            selectedFileName = 'trace-'+selectTraceNum+'.csv'
+                            selectedFilePath = os.path.join(os.path.join(dirName, 'activityList'),selectedFileName)
+                            activityList.append(Transformation.convertActivityCSV(selectedFilePath))
+                            mapFileName = 'activityLocation.html'+selectedFileName
+                            mapActivityLocations(activityList,mapFileName)
 
 
 
