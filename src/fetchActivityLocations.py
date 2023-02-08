@@ -33,6 +33,9 @@ def fetchActivityLocations(latitude, longitude):
     except overpy.exception.OverpassGatewayTimeout:
         serverFree = 0
         print("Overpass server is at capacity! Please try again later")
+    except overpy.exception.OverpassTooManyRequests:
+        serverFree = 0
+        print("Overpass server is at capacity! Please try again later")
 
     if (serverFree == 1):
         list_of_node_tags = []                        # initializing empty list , we'll use it to form a dataframe .
@@ -74,10 +77,10 @@ def fetchStopAL(list_of_stops):
     for i in list_of_stops:
         stopALTupple= fetchActivityLocations(i[0],i[1])
         list_of_stops_AL.append(stopALTupple)
-    for i in list_of_stops_AL:
-        print(i[0].lat,i[0].lon )
-        for x in i[1]:
-            print(x.name, x.lat, x.lon)
+    # for i in list_of_stops_AL:
+    #     print(i[0].lat,i[0].lon )
+    #     for x in i[1]:
+    #         print(x.name, x.lat, x.lon)
     return list_of_stops_AL
 
     
