@@ -16,9 +16,9 @@ import folium
 #  @param routes list of graph nodes to be connected to form a route.
 #  @param savePath string of where the interactive will be saved. 
 def MapRoute(graph, mode, routes, savePath):
-    if mode == "drive":
+    if mode == "drive" or mode == "mode.DRIVE":
         color = '#00FF00'
-    elif mode == "walk":
+    elif mode == "walk" or mode == "mode.WALK":
         color = '#0000FF'
     else:
         color = '#FF00FF'
@@ -40,8 +40,9 @@ def MapActivityLocation(activityLocations, activityLocationsDescription, stopPoi
     for point in stopPoints:
         base.add_child(folium.Marker([point[0],point[1]], 
                         tooltip="Stop Episode", icon=folium.Icon(color="red", icon="stop", prefix="fa")))
-    for i in range(0, len(activityLocations)):
-        base.add_child(folium.Marker([activityLocations[i][0],activityLocations[i][1]], popup=activityLocationsDescription[i], 
+    if (len(activityLocations) > 0):
+        for i in range(0, len(activityLocations)):
+            base.add_child(folium.Marker([activityLocations[i][0],activityLocations[i][1]], popup=activityLocationsDescription[i], 
                         tooltip=tooltip, icon=folium.Icon(color="green", icon="info-sign")))
     filepath = savePath
     base.save(filepath)
