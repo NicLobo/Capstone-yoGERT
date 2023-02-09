@@ -15,11 +15,11 @@ from tkinter import filedialog
 tkinter.Tk().withdraw()
 
 def generateEpisode(userFile):
-    # if (PreProcessing.ValidateCSV(userFile)):
-    #     print("File Checking OK:)")
-    #     print("-------------------------------------------------------")
-    #     episodeGeneration.createSegments(userFile, "trace")
-    episodeGeneration.createSegments(userFile, "trace")
+    if (PreProcessing.ValidateCSV(userFile)):
+        print("File Checking OK:)")
+        print("-------------------------------------------------------")
+        episodeGeneration.createSegments(userFile, "trace")
+    # episodeGeneration.createSegments(userFile, "trace")
     
     print("Complete. You can generate information using other modules.")
 
@@ -54,15 +54,20 @@ def findActivityLocations(traceNum):
                 lastStop = (float(row[2]),float(row[3]))
                 listStops.append(lastStop)
         
+        #print(listStops)
+        
         # Call functions
+        # result = Transformation.convertActivityLocation(fetchActivityLocations.fetchStopAL(listStops))
         result = fetchActivityLocations.fetchStopAL(listStops)
-        if (result[0] == None):
-            print("Nothing is generated.")
-            isAtCapacity = True
-            break
+        if (len(result) == 0 or result[0] == None):
+            print("No nearby activity locations.")
+            listActivities.append([])
+            continue
 
         convertedResult = Transformation.convertActivityLocation(result)
         listActivities.append(convertedResult)
+
+        print(convertedResult)
 
         # Write result to a csv file
         outputFileName = 'trace-'+str(i)+'.csv'
@@ -77,7 +82,11 @@ def findActivityLocations(traceNum):
                 fileWriter.writerow([i[0],i[1],i[2]])
 
     if (not isAtCapacity):
-        print("Complete. The path of the generated file is: \n" + outputPath)
+        if (any(listActivities)):
+            print("Complete. The path of the generated file is at: \n" + outputPath)
+        else:
+            print("Opps, there is no nearby locations.")
+    
     return listActivities
 
 
@@ -123,26 +132,32 @@ def generateShortestPath(stopFile, summaryFile, optimizer):
         next(fileReader)
         # Import points
         for row in fileReader:
-            point = (float(row[0]),float(row[1]))
-            inputPoints.append(point)
+            startPoint = (float(row[0]),float(row[1]))
+            inputPoints.append(startPoint)
+            endPoint = (float(row[2]),float(row[3]))
+            inputPoints.append(endPoint)
     
-    with open(summaryFile,'r') as modeFile:
-        modeReader = csv.reader(modeFile)
-        for row in modeReader:
-            mode = row[0]
-    if (mode == 'mode.WALK'):
-        mode = 'walk'
-    if (mode == 'mode.DRIVE'):
-        mode = 'drive'
-    if (mode == 'mode.BIKE'):
-        mode = 'bike'
-    # Generate NetworkGraph
-    networkGraph = GenerateRoute.GenerateGraph(inputPoints, mode)
-    # Generate ShortestPath
-    shortestRoute = GenerateRoute.GenerateShortestPath(networkGraph, inputPoints, optimizer)
-    
-    print("Complete, now you can do the mapping.")
-    return networkGraph, shortestRoute
+    if (len(inputPoints) > 2):
+        with open(summaryFile,'r') as modeFile:
+            modeReader = csv.reader(modeFile)
+            for row in modeReader:
+                mode = row[0]
+        if (mode == 'mode.WALK'):
+            mode = 'walk'
+        if (mode == 'mode.DRIVE'):
+            mode = 'drive'
+        if (mode == 'mode.BIKE'):
+            mode = 'bike'
+        # Generate NetworkGraph
+        networkGraph = GenerateRoute.GenerateGraph(inputPoints, mode)
+        # Generate ShortestPath
+        shortestRoute = GenerateRoute.GenerateShortestPath(networkGraph, inputPoints, optimizer)
+        
+        print("Complete, now you can do the mapping.")
+        return networkGraph, shortestRoute
+    else:
+        print("Sorry, not sufficient stop points(number < 2), we cannot find a shortest path.")
+        return None, None
 
 
 
@@ -173,13 +188,21 @@ def generateAlternativePath(stopFile, optimizer):
         next(fileReader)
         # Import points
         for row in fileReader:
-            point = (float(row[0]),float(row[1]))
-            inputPoints.append(point)
+            # point = (float(row[0]),float(row[1]))
+            # inputPoints.append(point)
+            startPoint = (float(row[0]),float(row[1]))
+            inputPoints.append(startPoint)
+            endPoint = (float(row[2]),float(row[3]))
+            inputPoints.append(endPoint)
     
+    if (len(inputPoints) > 2):
     # Generate Graph
-    alternativeRoute = GenerateRoute.AlternativeRoute(inputPoints, optimizer)
-    print("Complete, now you can put the points on the map.")
-    return alternativeRoute
+        alternativeRoute = GenerateRoute.AlternativeRoute(inputPoints, optimizer)
+        print("Complete, now you can put the points on the map.")
+        return alternativeRoute
+    else:
+        print("Sorry, not sufficient stop points(number < 2), we cannot find an alternative path.")
+        return None
 
 
 def mapEpisodes(episodeFile):
@@ -187,7 +210,7 @@ def mapEpisodes(episodeFile):
     listTime = []
     listMode = []
     
-    with open(userFile, 'r') as inputFile:
+    with open(episodeFile, 'r') as inputFile:
         fileReader = csv.reader(inputFile)
         # Skip Header
         next(fileReader)
@@ -202,7 +225,7 @@ def mapEpisodes(episodeFile):
         listTime.append(row[4])
         listMode.append(row[6])
 
-
+    
     # Generate Graph 
     dirName = os.path.dirname(os.path.abspath(__file__))
     outFile = os.path.join(dirName, 'episode_path.html')
@@ -230,7 +253,7 @@ def mapActivityLocations(activityList, fileName):
     print("The path of the generated file is: \n" + dirName)
 
 
-def mapSRoute(userNetworkGraph,summaryFile, userRoute):
+def mapSRoute(userNetworkGraph,summaryFile, userRoute,outFileName):
     # Read Mode
     mode = ''
     with open(summaryFile,'r') as modeFile:
@@ -245,14 +268,17 @@ def mapSRoute(userNetworkGraph,summaryFile, userRoute):
         mode = 'bike'
 
     dirName = os.path.dirname(os.path.abspath(__file__))
-    outFile = os.path.join(dirName, 'shortest_path.html')
+    outFile = 'shortest_path_trace_'+outFileName+'.html'
+    outFilePath = os.path.join(dirName, outFile)
 
     # Mapping
-    Mapping.MapRoute(userNetworkGraph.graph, mode, userRoute.routes, outFile)
-    print("Complete.\n The name of the file is shortest_path.html.\n The path of the generated file is: \n" + dirName)
+    Mapping.MapRoute(userNetworkGraph.graph, mode, userRoute.routes, outFilePath)
+    # print("Complete.\n The name of the file is shortest_path.html.\n The path of the generated file is: \n" + dirName)
+    print("Complete. The file name of the generated map is: \n" + outFile)
+    print("The path of the generated file is: \n" + dirName)
 
 
-def mapARoute(summaryFile, userRoute):
+def mapARoute(summaryFile, userRoute, outFileName): 
     # Read Mode
     mode = ''
     with open(summaryFile,'r') as modeFile:
@@ -268,11 +294,14 @@ def mapARoute(summaryFile, userRoute):
 
 
     dirName = os.path.dirname(os.path.abspath(__file__))
-    outFile = os.path.join(dirName, 'alternative_path.html')
+    outFile = 'alternative_path_trace_'+outFileName+'.html'
+    outFilePath = os.path.join(dirName, outFile)
 
     # Mapping
-    Mapping.MapRoute(userRoute.network.graph, mode, userRoute.path.routes, outFile)
-    print("Complete.\n The name of the file is alternative_path.html.\n The path of the generated file is: \n" + dirName)
+    Mapping.MapRoute(userRoute.network.graph, mode, userRoute.path.routes, outFilePath)
+    # print("Complete.\n The name of the file is alternative_path.html.\n The path of the generated file is: \n" + dirName)
+    print("Complete. The file name of the generated map is: \n" + outFile)
+    print("The path of the generated file is: \n" + dirName)
 
 
 
@@ -282,6 +311,7 @@ if __name__ == '__main__':
     #Local Variables
     isEpisodeGenerated = False
     traceNum = 0 # Count number of traces generated from the episode
+    currentTraceNum = -1
     activityList = []
     dirName = os.path.dirname(os.path.abspath(__file__))
     
@@ -308,6 +338,9 @@ if __name__ == '__main__':
             
             path = os.path.join(dirName, 'trace')
             traceNum = len(next(os.walk(path))[1])
+        elif (moduleSelect == 0): # Exit the program
+                    print("Thank you for using the system.")
+                    break
         else:
             if not isEpisodeGenerated: #First Check if the episodes are generated
                 print("You have to generate the Episode first!")
@@ -317,6 +350,7 @@ if __name__ == '__main__':
                     activityList = findActivityLocations(traceNum)
                 elif(moduleSelect == 5): # Module 5: Generate Shortest Route
                     selectTraceNum = input(str(traceNum) + " traces detected, which trace do you want to map?: ")
+                    currentTraceNum = selectTraceNum
                     
                     selectedTraceName = 'trace-'+selectTraceNum
                     selectedTracePath = os.path.join(os.path.join(dirName, 'trace'),selectedTraceName)
@@ -329,6 +363,7 @@ if __name__ == '__main__':
                     
                 elif(moduleSelect == 6): # Module 6: Generate Alternative Routes
                     selectTraceNum = input(str(traceNum) + " traces detected, which trace do you want to map?: ")
+                    currentTraceNum = selectTraceNum
                     
                     selectedTraceName = 'trace-'+selectTraceNum
                     selectedTracePath = os.path.join(os.path.join(dirName, 'trace'),selectedTraceName)
@@ -346,14 +381,19 @@ if __name__ == '__main__':
                     selectedTracePath = os.path.join(os.path.join(dirName, 'trace'),selectedTraceName)
 
                     episodeFile = os.path.join(selectedTracePath, 'episode.csv')
+                    print(episodeFile)
                     mapEpisodes(episodeFile)
 
                 
                 elif (moduleSelect == 8): # Module 8: Mapping ActivityLocations
-                    if (len(activityList) == 0):
+                    if (not any(activityList) or len(activityList) == 0):
                         print("Sorry, no activity locations found, so you cannot generate the map:(")
                         continue
                     else:
+                        # if (not any(activityList)):
+                        #     print("Sorry, no activity locations found, so you cannot generate the map:(")
+                        #     continue
+                        
                         useExistingData = input(("Existing analyzed Activity Location found. Do you want to use these data?[y/n]: "))
                         # Use Existing Data
                         if (useExistingData == 'y'):
@@ -367,19 +407,24 @@ if __name__ == '__main__':
                             mapFileName = 'activityLocation.html'+selectedFileName
                             mapActivityLocations(activityList,mapFileName)
 
-
-
                 elif(moduleSelect == 9): # Module 9: Mapping shortest route
-                    mapSRoute(sRNetworkGraph, summaryFile,sRShortestRoute)
+                    print("You are currently mapping: trace-" + str(currentTraceNum))
+                    if (sRNetworkGraph is None or sRShortestRoute is None):
+                        print("No shortest route has been analyzed, you have generate it using module 5 first.")
+                        continue
 
-                elif(moduleSelect == 10):
-                    mapARoute(summaryFile,alternativeRoute)
+                    mapSRoute(sRNetworkGraph, summaryFile,sRShortestRoute,currentTraceNum)
+
+                elif(moduleSelect == 10): # Module 10: Mapping alternative route
+                    print("You are currently mapping: trace-" + str(currentTraceNum))
+                    if (alternativeRoute is None):
+                        print("No alternative route has been analyzed, you have generate it using module 6 first.")
+                        continue
+
+                    mapARoute(summaryFile,alternativeRoute, currentTraceNum)
                 
-                elif (moduleSelect == 0): # Exit the program
-                    print("Thank you for using the system.")
-                    break
                 else:
-                    print("Not acceptable value, please try again.")
+                    print("Not a valid value, please try again.")
                     continue
 
 
