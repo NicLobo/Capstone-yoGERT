@@ -19,3 +19,8 @@ class  InvalidWeightException(Exception):
 
 class InvalidInputDataException(Exception):
     "Raised when the inputdata does not have all required columns (lat, long, time)"
+    pass
+
+class InvalidSamplingException(Exception):
+    "Raised when input value is not a subset of (stop, distance)"
+    pass
