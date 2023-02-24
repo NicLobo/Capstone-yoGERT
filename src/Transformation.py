@@ -1,6 +1,7 @@
 import csv
 import ast
 from datetime import datetime
+from Point import Point
 
 def convert_to_floats(arr):
     result = map(float, arr)
@@ -15,7 +16,7 @@ def GenALInput(filepath):
     for line in data:
         
         if c>0: 
-            li.append(tuple(convert_to_floats(line[2:4])))
+            li.append(Point(convert_to_floats(line[0:2])))
         
         c = c+1
 
@@ -31,8 +32,7 @@ def GenALInputT(filepath):
     for line in data:
         
         if c>0: 
-            li.append(tuple(convert_to_floats(line[2:4])))
-            lt.append(line[5])
+            li.append(Point(convert_to_floats(line[0:2]),line[2]))
 
         
         c = c+1
