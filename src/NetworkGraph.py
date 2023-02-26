@@ -6,10 +6,10 @@
 import osmnx as ox
 import h3
 from CustomExceptions import *
+from Point import *
 
 # exported constants 
 DISTANCETOL = 200
-EARTHRADIUS = 6371000 
 
 ## @brief Object represents a mapping network of streets, walkways, and roads.
 # @details The network is a represents by a graph of nodes and edges. 
@@ -17,20 +17,19 @@ EARTHRADIUS = 6371000
 class NetworkGraph:
     ## @brief Constructor for NetworkGraph
     #  @details Contructor accepts 4 parameters for start and end GPS coordinates, list of stop GPS coordinates, and mode of transportation.
-    #  @param startCoord (lat, long) tuple for the latitude and longitude of the start GPS coordinate. 
-    #  @param endCoord (lat, long) tuple for the latitude and longitude of the end GPS coordinate.
-    #  @param stops list of tuples consisting of the stop points GPS coordinates. 
-    #  @param networkMode string for the object's mode of transportations for ex: drive or walk.  
+    #  @param points list of Point type consisting of the GPS pings for an episode or trace. 
+    #  @param networkMode string for the entity's mode of transportations for ex: drive or walk.  
     #  @throws InvalidModeException Raised when the input value is not a subset of {drive, walk}
-    def __init__(self, startCoord, endCoord, stops, networkMode):
+    def __init__(self, points, networkMode):
         # check inputs
         try: 
             if networkMode not in ["drive", "walk", "bike"]:
                 raise InvalidModeException
             else:
-                self.dist = self.findDistance(startCoord, endCoord, stops)
-                self.stcoord = startCoord
-                self.graph = ox.graph_from_point(startCoord, dist=self.dist, network_type=networkMode, simplify=False)
+                self.stCoord = (points[0].lat, points[0].lon)
+                self.endCoord = (points[-1].lat, points[0].lon)
+                self.dist = self.findDistance(self.stCoord, self.endCoord, points)
+                self.graph = ox.graph_from_point(self.stCoord, dist=self.dist, network_type=networkMode, simplify=False)
                 self.mode = networkMode
         except InvalidModeException:
             print("InvalidModeException: Invalid network mode! Enter either drive or walk for mode.")
@@ -42,7 +41,7 @@ class NetworkGraph:
     def getNearestNode(self, coord):
         #check inputs
         try: 
-            if (self.findDistance(self.stcoord, coord, []) > self.dist):
+            if (self.findDistance(self.stCoord, coord, []) > self.dist):
                 raise OutOfBoundsCoordException
             else:
                 return ox.nearest_nodes(self.graph, coord[1], coord[0])
@@ -53,12 +52,12 @@ class NetworkGraph:
     #  @details The function uses haversince formula to find the distance between two coordinates. The distance represents the radius from the start point for the extracted graph data.  
     #  @param startCoord (lat, long) tuple for the latitude and longitude of the start GPS coordinate. 
     #  @param endCoord (lat, long) tuple for the latitude and longitude of the end GPS coordinate.
-    #  @param stops list of tuples consisting of the stop points GPS coordinates. 
+    #  @param stops list of Point type consisting of the GPS coordinates of an episode or trace. 
     #  @return a float of the longest distance.
-    def findDistance(self, startCoord, endCoord, stops):
+    def findDistance(self, startCoord, endCoord, points):
         distance = h3.point_dist(startCoord, endCoord, unit='m') # findhdistance
-        for i in range(1,len(stops)-1):
-            testDis = h3.point_dist(startCoord, stops[i], unit='m')
+        for i in range(1,len(points)-1):
+            testDis = h3.point_dist(startCoord, (points[i].lat, points[i].lon), unit='m')
             if (testDis > distance):
                 distance = testDis
         distance = distance + DISTANCETOL
@@ -70,11 +69,12 @@ class NetworkGraph:
         return self.mode
 
 
-# inputOne = [(-23.546498,-46.691141),(-23.558094,-46.660205),(-23.635039,-46.641239),
-#                 (-23.645996,-46.641027),(-23.625882,-46.640936),(-23.618245,-46.639139),
-#                 (-23.6130583,-46.637918),(-23.598541,-46.636634),(-23.589342,-46.634677),
-#                 (-23.567615,-46.649027),(-23.56357,-46.653893),(-23.581203,-46.638489),
-#                 (-23.5754,-46.6407),(-23.568521,-46.63990),(-23.561435,-46.638534)]
-# NetworkGraph1 = NetworkGraph(inputOne[0], (-23.561435,-46.638534), inputOne, "drive")
-# NetworkGraph1.getNearestNode(inputOne[0])
-# NetworkGraph1.getNearestNode((-23.561435,-46.638534))
+# inputTwo = [Point(43.651605, -79.386759,"17:22:02", "mode.DRIVE"), Point(43.651484, -79.386665,"17:22:03", "mode.DRIVE"), 
+#          Point(43.652269, -79.387062,"17:22:04", "mode.DRIVE"),Point(43.653047, -79.387406,"17:22:05", "mode.DRIVE"),
+#          Point(43.653523, -79.385977,"17:22:06", "mode.DRIVE"),Point(43.653915, -79.385434,"17:22:07", "mode.DRIVE"),
+#          Point(43.655093, -79.385935,"17:22:08", "mode.STOP"), Point(43.655199, -79.385977,"17:22:09", "mode.DRIVE"), 
+#          Point(43.655244, -79.385862,"17:22:10", "mode.DRIVE"), Point(43.655388, -79.385236,"17:22:11", "mode.DRIVE")]
+# inputTwoTuples = []
+# for point in inputTwo:
+#     inputTwoTuples.append((point.lat,point.lon))
+# NetworkGraphTwo = NetworkGraph(inputTwo, "drive")
