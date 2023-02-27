@@ -61,7 +61,7 @@ def convertActivityCSV(userFile):
     #print(convertedList)
     return convertedList
             
-def sample(filepath):
+def summarymode(filepath):
     data = csv.reader(open(filepath))
     li = ""
     for line in data:
