@@ -6,9 +6,9 @@ import ActivityLocation
 import StopPoint
 
 
-def fetchActivityLocations(latitude, longitude):
+def fetchActivityLocations(latitude, longitude, tol = 50):
     newStop = StopPoint.StopPoint(latitude, longitude)
-    tolerance = 25 #tolerance of the surrounding areas in meters
+    tolerance = tol #tolerance of the surrounding areas in meters
     long_lat_tol_query_str = str(tolerance)+''',''' + str(latitude) +''','''+ str(longitude)
     activityLocationList = []
     activityLocationIndex = []
@@ -45,10 +45,12 @@ def fetchActivityLocations(latitude, longitude):
             node.tags['id'] = node.id
             list_of_node_tags.append(node.tags)
         data_frame = pd.DataFrame(list_of_node_tags)  # forming a pandas dataframe using list of dictionaries
+        print(data_frame.to_string())
+ 
         # print(data_frame)
         for column_name in data_frame:
             # print(column_name)
-            if not any(x in column_name for x in ("name", "longitude", "latitude")): # check to see if any column names dont contain "name", "longitude", latitude
+            if not any(x in column_name for x in ("name", "longitude", "latitude", "amenity")): # check to see if any column names dont contain "name", "longitude", latitude
                 data_frame.drop(column_name, axis=1, inplace=True) # drop the columns if above is true
         # print(data_frame)
         #first checks name column if there is one and stores in a list of activity locations and then removes both the column and the rows for optimation purposes 
@@ -57,7 +59,7 @@ def fetchActivityLocations(latitude, longitude):
                 # print(row)
                 if str(row.name) != "nan":
                     #creates new activity locaiton object containging name and latitude, longitude information
-                    newActivityLocation = ActivityLocation.ActivityLocation(str(row.name), row.latitude, row.longitude)
+                    newActivityLocation = ActivityLocation.ActivityLocation(str(row.name), row.latitude, row.longitude, row.amenity)
                     # activityLocationList.append(str(row.name))
                     activityLocationList.append(newActivityLocation) # Add activity location object to list of activity locations
                     activityLocationIndex.append(row.Index) # add index of row to indexList to ensure there are not any duplicates
@@ -77,15 +79,19 @@ def fetchStopAL(list_of_stops):
     for i in list_of_stops:
         stopALTupple= fetchActivityLocations(i[0],i[1])
         list_of_stops_AL.append(stopALTupple)
+
     # for i in list_of_stops_AL:
-    #     print(i[0].lat,i[0].lon )
-    #     for x in i[1]:
-    #         print(x.name, x.lat, x.lon)
+    #     if( i != None):
+    #         print("############",i[0].lat,i[0].lon)
+    #         for x in i[1]:
+    #             print(x.name, x.lat, x.lon, x.amenity)
     return list_of_stops_AL
 
     
 
 
     
-#listStops = [(43.645914,-79.392435), (43.645914,-79.392435), (43.645914,-79.392435)]
-#fetchStopAL(listStops)
+# listStops = [(43.645914,-79.392435), (43.6531750, -79.3757559), (43.65021, -79.38047),(43.66017343856208, -79.3864813628639,(43.76448579392273, -79.74858754763592))]
+# listStops = [(43.76448579392273, -79.74858754763592)]
+
+# fetchStopAL(listStops)
