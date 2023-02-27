@@ -16,7 +16,7 @@ def GenALInput(filepath):
     for line in data:
         
         if c>0: 
-            li.append(Point(convert_to_floats(line[0:2])))
+            li.append(Point(convert_to_floats(line[2:4])))
         
         c = c+1
 
@@ -32,12 +32,12 @@ def GenALInputT(filepath):
     for line in data:
         
         if c>0: 
-            li.append(Point(convert_to_floats(line[0:2]),line[2]))
+            li.append(Point(convert_to_floats(line[2:4]),line[4]))
 
         
         c = c+1
 
-    return li,lt
+    return li
 
 def convertActivityLocation(ActvityLoactionList):
     convertedList = []
@@ -61,12 +61,15 @@ def convertActivityCSV(userFile):
     #print(convertedList)
     return convertedList
             
+def sample(filepath):
+    data = csv.reader(open(filepath))
+    li = ""
+    for line in data:
+        
+        if c>0: 
+            li+=str(line[0])
 
+        
+        c = c+1
 
-    
-
-# l = GenALInput('./episode.csv')
-# l2,ltime = GenALInputT('./episode.csv')
-# print(l)
-# print(l2)
-# print(ltime)
+    return li
