@@ -6,6 +6,7 @@
 import csv
 import pandas as pd
 from CustomExceptions import *
+import re
 
 #@brief this function confirms that CSV is valid and updates to correct column names, removing invalid data
 #@param csvpath - a full path to the input CSV file
@@ -27,21 +28,42 @@ def ValidateCSV(csvpath):
                 df = df.rename({col: 'time'}, axis='columns')
                 counter+=1
 
-        #Invalid Latitude: max/min 90.0000000 to -90.0000000
-        #Invalid Longitude: max/min 180.0000000 to -180.0000000
-        #Invalid Time: this depends on the time format, will be updated for Rev1
+        
         if counter == 3:
+            #remove unused columns
+            df = df[['lat', 'long', 'time']]
+            df = df.dropna(subset=['lat', 'long', 'time'])
+
+            dmslat = re.compile('/^[\+-]?(([1-8]?\d)\D+([1-5]?\d|60)\D+([1-5]?\d|60)(\.\d+)?|90\D+0\D+0)\D+[NSns]?$/')
+            dmslong = re.compile('/^[\+-]?([1-7]?\d{1,2}\D+([1-5]?\d|60)\D+([1-5]?\d|60)(\.\d+)?|180\D+0\D+0)\D+[EWew]?$/')
+            #convert to DD from DMS if DMS format detected
+            if dmslat.match(df.iloc[0]['lat']):
+                df['lat'] = df['lat'].apply(DMStoDD)
+            if dmslong.match(df.iloc[0]['long']):
+                df['long'] = df['long'].apply(DMStoDD)
+
+            #Invalid Latitude: max/min 90.0000000 to -90.0000000
+            #Invalid Longitude: max/min 180.0000000 to -180.0000000
             df = df[(df['lat'] >= -90.0) & (df['lat'] <= 90.0)]
             df = df[(df['long'] >= -180.0) & (df['long'] <= 180.0)]
-            df = df.dropna(subset=['lat', 'long', 'time'])
+            
             newFilename = csvpath.split('.csv')
             filenameFinal = newFilename[0]+"_processed"+".csv"
             df.to_csv(filenameFinal)
             return True 
+            
         raise InvalidInputDataException
 
     except InvalidInputDataException: 
         raise Exception("InvalidInputDataException: invalid input, you do not have all required columns (latitude, longitude, time)") 
 
-    
+
+def DMStoDD(dmsstring):
+    deg, minutes, seconds, direction =  re.split('[°\'"]', dmsstring)
+    return (float(deg) + float(minutes)/60 + float(seconds)/(60*60)) * (-1 if direction in ['W', 'S'] else 1)
+
+
 #ValidateCSV("/home/moksha/4G06/Capstone-yoGERT/src/exampleDataset.csv")
+
+#print(DMStoDD('78°55\'44.29458\"N'))
+#print(DMStoDD('124° 4\' 58\" W'))
