@@ -115,13 +115,17 @@ The software being verified and validated is the \emph{yoGERT} toolbox. The soft
 %   its general functions.}
 
 \subsection{Objectives}
-The objectives of the verification and validation plan are:
-\begin{itemize}
-    \item To build confidence in the toolbox correctness. By confirming the functions are executed as expected by the requirements. 
+The objectives of the verification and validation plan ordered by importance are:
+\begin{enumerate}
     \item To demonstrate the fundamental functions meet the stakeholders goals.
-    \item To demonstrate the project scope meets the capstone deadline. 
     \item To build confidence in toolbox accessibility and transferability. 
-\end{itemize}
+    \item To build confidence in the toolbox correctness. By confirming the functions are executed as expected by the requirements. 
+    \item To demonstrate the project scope meets the capstone deadline. 
+
+
+Demonstrating that the fundamental functions meet the stakeholders' goals is the most important objective because it helps to ensure that the project being developed aligns with the expectations of the stakeholders. This will help improve the overall quality of the products as it will be designed with the end-users in mind. To demonstrate the project scope meets the capstone deadline is the least important objective as it will be completed as long as the other objectives above it are met. 
+
+\end{enumerate}
 
 % \wss{State what is intended to be accomplished.  The objective will be around
 %   the qualities that are most important for your project.  You might have
@@ -333,7 +337,10 @@ The testing of functional requirements will be divided into two sections. One to
 
 \subsubsection{User Functionality Tests}
 
-This will test all functionality from the users perspectives. How data is being read will be the main focus of these tests. 
+This type of software testing that focuses on verifying the functionality of a system or application from the end-user's perspective. The purpose of this testing is to ensure that the software meets the needs and expectations of its intended users by testing all user-facing features. How data is being read will be the main focus of these tests to ensure a high level of user satisfaction with the final product.
+
+
+
 		
 \paragraph{User Input Testing}
 
@@ -406,8 +413,8 @@ This will test all functionality from the users perspectives. How data is being 
 
 \subsubsection{System Functionality Tests}
 
-This will test all functionality from the system perspectives. How data is being process and outputted will be the main focus of these tests. 
-		
+These tests will have a focus on verifying the internal workings of the system. It will involve testing the individual components and subsystems that make up the system to ensure that they function as intended and interact with each other properly. How data is being processed and outputted will be the main focus of these tests with the goal of identifying and fixing any defects or issues that could affect the overall performance and stability of the system.
+
 \paragraph{System Output Testing}
 
 \begin{enumerate}
@@ -571,7 +578,7 @@ This will test all functionality from the system perspectives. How data is being
 \subsection{Tests for Nonfunctional Requirements}
 
 % \paragraph{* Storing user information is now considered as a stretch goal. This conclusion was reached after a dicussion with our stakeholders. Hence, the SRS will be revised to avoid including such information. The following tests do not involve storing user information while the rest of SRS NFR related information remains unchanged. }
-\subsubsection{UI/UX components}
+\subsubsection{UI/UX Component Readability }
 \paragraph{The information must be presented to the user in readable format. Hence, there will be UI/UX related tests.}
 
 \begin{enumerate}
@@ -606,7 +613,7 @@ inputted data into episodes
 \textbf{Associated NFR}: 1, 2, 3, 4, 5, 6, 7 
 \end{enumerate}
 
-\subsubsection{Memory and performance issues}
+\subsubsection{Large Data Memory and Performance}
 \paragraph{The toolbox must work with large sets of data, hence test must consider the edge cases of data size and its relevant processing time. }
 
 \begin{enumerate}
@@ -645,7 +652,7 @@ inputted data into episodes
 \end{enumerate}
 
 
-\subsubsection{Security of user information}
+\subsubsection{User information Security and Reliability}
 		
 \paragraph{Since the information inputted will be used by APIs online, the system must ensure protection of user information.}
 
@@ -839,6 +846,10 @@ Route choice analysis variable modules will be verified for correct functionalit
 
 This section will be completed once the MIS has been updated and there is greater clarity on specific modules. 
 
+\subsection{Tests for Non-Functional Requirements}
+
+This section will be completed once the MIS has been updated and there is greater clarity on specific modules. 
+
 \subsection{Traceability Between Test Cases and Modules}
 This section will be completed once the MIS has been updated and there is greater clarity on specific modules. 
 %\wss{Provide evidence that all of the modules have been considered.}
@@ -858,8 +869,36 @@ Their values are defined in this section for easy maintenance.
 
 \subsection{Usability Survey Questions?}
 
-\wss{This is a section that would be appropriate for some projects.}
+\begin{enumerate}
 
+\item How easy was it to complete tasks using the system?
+\begin{enumerate}
+\item Easy
+\item Neither easy nor difficult
+\item Difficult
+\end{enumerate}
+
+\item How satisfied are you with the overall user experience?
+\begin{enumerate}
+\item Satisfied
+\item Neither satisfied nor dissatisfied
+\item Dissatisfied
+\end{enumerate}
+
+\item Were the instructions clear and easy to understand?
+\begin{enumerate}
+\item Clear
+\item Somewhat clear
+\item Not at all clear
+\end{enumerate}
+
+\item How often did you encounter errors or issues while using the system?
+\begin{enumerate}
+\item Never
+\item Sometimes
+\item Almost always
+\end{enumerate}
+\end{enumerate}
 \newpage{}
 \section*{Appendix --- Reflection}
 General Team:\\
