@@ -32,7 +32,7 @@ def GenALInputT(filepath):
     for line in data:
         
         if c>0: 
-            li.append(Point(convert_to_floats(line[2:4]),line[4]))
+            li.append(Point(convert_to_floats(line[2:4]),line[6]))
 
         
         c = c+1
