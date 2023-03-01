@@ -108,19 +108,5 @@ def fetchActivityLocations(list_of_stops, tol=25):
     for i in list_of_stops:
         stopALTupple= fetchALForIndividualPoint(i[0],i[1], tol)
         list_of_stops_AL.append(stopALTupple)
+    return list_of_stops_AL
 
-    if not list_of_stops_AL:
-        return []
-    else:
-        for i in list_of_stops_AL:
-            if(i != None):
-                print("############",i[0].lat,i[0].lon)
-                for x in i[1]:
-                    print(x.name, x.lat, x.lon, x.amenity)
-        return list_of_stops_AL
-
-
-listStops = [(43.645914,-79.392435), (43.6531750, -79.3757559), (43.65021, -79.38047),(43.66017343856208, -79.3864813628639,(43.76448579392273, -79.74858754763592))]
-# listStops = [(43.76448579392273, -79.74858754763592)]
-
-fetchActivityLocations(listStops)
