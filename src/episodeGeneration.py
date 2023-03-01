@@ -165,7 +165,7 @@ def cleanStops(csv_path, timetol, distol):
         starttime = pd.to_datetime(stops['start_time'].iloc[index]) 
         endtime = pd.to_datetime(stops['end_time'].iloc[index])
         timePassed = pd.Timedelta(endtime - starttime).seconds 
-        if(timePassed > timetol and index < len(stops)-1 ):
+        if(timePassed > timetol and index < len(stops)-1):
             droplist.append(index)
            
 
