@@ -8,7 +8,8 @@ import overpy
 import pandas as pd
 import ActivityLocation
 import Point
-
+import Transformation
+import csv
 
 
 ## @brief This function takes latitude and longitude values of a stop point and a tolerance 
@@ -102,25 +103,56 @@ def fetchALForIndividualPoint(latitude, longitude, tol):
 #  @param list_of_stops list of stops
 #  @param tol int tolerance for the radius of nearby activity locations
 #  @return a list of tuples consisting of Point object and a list of ActivityLocation objects)
-def fetchActivityLocations(list_of_stops, tol=25):
+def fetchActivityLocations(inPath, outPath,  tol=25):
+    # creating a list of points based on csv file path provided
+    listStops = []
+    with open(inPath,'r') as inputFile:
+        fileReader = csv.reader(inputFile)
+        # Skip Header
+        next(fileReader)
+        # Import list of stops
+        for row in fileReader:
+            iniStop = (float(row[0]),float(row[1]))
+            listStops.append(iniStop)
+    
+
     # initializing empty list, we'll use it to append stop Point object and list of ActivityLocation objects
     list_of_stops_AL = []
-    for i in list_of_stops:
+    for i in listStops:
         stopALTupple= fetchALForIndividualPoint(i[0],i[1], tol)
         list_of_stops_AL.append(stopALTupple)
-    if not list_of_stops_AL:
-        list_of_stops_AL = []
-    else:
-        for i in list_of_stops_AL:
-            if(i != None):
-                print("############",i[0].lat,i[0].lon)
-                for x in i[1]:
-                    print(x.name, x.lat, x.lon, x.amenity)
-        return list_of_stops_AL
-    return list_of_stops_AL
 
 
-listStops = [(43.645914,-79.392435), (43.6531750, -79.3757559), (43.65021, -79.38047),(43.66017343856208, -79.3864813628639,(43.76448579392273, -79.74858754763592))]
-fetchActivityLocations(listStops)
+    listActivities =[]
+    convertedResult = Transformation.convertActivityLocation(list_of_stops_AL)
+    listActivities.append(convertedResult)
+
+    print(convertedResult)
+
+    # Write result to a csv file
+    with open(outPath, 'w', newline='') as outputFile:
+        fileWriter = csv.writer(outputFile)
+        # Create Header
+        fileWriter.writerow(['Latitude', 'Longitude', 'Nearby Activity Locations'])
+
+        # Write each rows
+        for i in convertedResult:
+            fileWriter.writerow([i[0],i[1],i[2]])
+
+    return 0
+
+    # if not list_of_stops_AL:
+    #     list_of_stops_AL = []
+    # else:
+    #     for i in list_of_stops_AL:
+    #         if(i != None):
+    #             print("############",i[0].lat,i[0].lon)
+    #             for x in i[1]:
+    #                 print(x.name, x.lat, x.lon, x.amenity)
+    #     return list_of_stops_AL
 
 
+# listStops = [(43.645914,-79.392435), (43.6531750, -79.3757559), (43.65021, -79.38047),(43.66017343856208, -79.3864813628639,(43.76448579392273, -79.74858754763592))]
+# # listStops = [(43.76448579392273, -79.74858754763592)]
+
+fetchActivityLocations("testFetch.csv","trace-activityLocation.csv", 100)

@@ -42,11 +42,13 @@ def GenALInputT(filepath):
 def convertActivityLocation(ActvityLoactionList):
     convertedList = []
     for i in ActvityLoactionList:
-        activityList = []
-        for j in i[1]: # The list with all nearby locations
-            activityList.append([j.name, float(j.lat), float(j.lon)])
-        # Append to final list
-        convertedList.append([i[0].lat, i[0].lon, activityList])
+        if i != None:
+            activityList = []
+            for j in i[1]: # The list with all nearby locations
+                if j != None:
+                    activityList.append([j.name, float(j.lat), float(j.lon)])
+            # Append to final list
+            convertedList.append([i[0].lat, i[0].lon, activityList])
     return convertedList
 
 # Convert CSV file(i.e. fetchOutput.csv) into a nested list for mapping
