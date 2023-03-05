@@ -16,7 +16,8 @@ def stoprelated(filepath):
     for line in data:
         
         if c>0: 
-            li.append(Point(float(line[0]),float(line[2]),line[3],float(line[6])))
+            dt = datetime.strptime(line[5], '%y/%m/%d %H:%M:%S')
+            li.append(Point(float(line[2]),float(line[3]),dt, line[8],float(line[9])))
 
         
         c = c+1
@@ -34,8 +35,9 @@ def episoderelated(filepath):
     
     for line in data:
         
-        if c>0: 
-            li.append(Point(float(line[0]),float(line[1]),float(idname[0]),line[4]))
+        if c>0:
+            dt = datetime.strptime(line[2], '%y/%m/%d %H:%M:%S')
+            li.append(Point(float(line[0]),float(line[1]),dt,line[4],float(idname[0])))
 
         
         c = c+1
