@@ -96,3 +96,5 @@ def summarymode(filepath):
         c = c+1
 
     return li
+
+print(stoprelated("trace/stop/stops.csv"))
