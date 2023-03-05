@@ -4,7 +4,23 @@ from datetime import datetime
 from Point import Point
 import os
 
+def tracerelated(filepath): 
+    data = csv.reader(open(filepath))
 
+    li = []
+ 
+    c=0
+    
+    for line in data:
+        
+        if c>0: 
+            dt = datetime.strptime(line[6], '%y/%m/%d %H:%M:%S')
+            li.append(Point(float(line[1]),float(line[0]),dt, None,float(line[2])))
+
+        
+        c = c+1
+
+    return li
     
 def stoprelated(filepath): 
     data = csv.reader(open(filepath))
