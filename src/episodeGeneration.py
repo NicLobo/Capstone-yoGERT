@@ -151,13 +151,20 @@ def findStops(csv_path):
 
     episode = episode.loc[(episode['mode'] == mode.STOP)]
     episode['middle_point'] = (episode['start_index'] + episode['end_index'])/2
-    episode.to_csv(csv_path+"/stops.csv", index=False)
+    try: 
+            os.mkdir(csv_path+"/stop")
+            print("Trace folder created ") 
+
+    except FileExistsError:
+            print("Trace folder already exists")
+
+    episode.to_csv(csv_path+"/stop/stops.csv", index=False)
     cleanStops(csv_path,60,100)
 
 
 
 def cleanStops(csv_path, timetol, distol):
-    stops= pd.read_csv(csv_path+"/stops.csv") 
+    stops= pd.read_csv(csv_path+"/stop/stops.csv") 
     droplist = []
 
 
@@ -173,17 +180,25 @@ def cleanStops(csv_path, timetol, distol):
     stops = stops.drop(droplist)
 
 
-    stops.to_csv(csv_path+"/stops.csv", index=False)
+    stops.to_csv(csv_path+"/stop/stops.csv", index=False)
     createEpisodes(csv_path)
 
 def createEpisodes(csv_path):
-      stops= pd.read_csv(csv_path+"/stops.csv") 
+      stops= pd.read_csv(csv_path+"/stop/stops.csv") 
       trace= pd.read_csv(csv_path+"/trace.csv") 
       segments = pd.read_csv(csv_path+"/segments.csv") 
       
       startindex = 0
       endindex = 0
       eid = 0
+
+      try: 
+            os.mkdir(str(csv_path+"/episode"))
+            print("Trace folder created ") 
+
+      except FileExistsError:
+            print("Trace folder already exists")
+
       for index, row in stops.iterrows():
           endindex = row['start_index']
 
@@ -200,7 +215,7 @@ def createEpisodes(csv_path):
             finalmode = mode.DRIVE
 
           newepisode["mode"] = finalmode
-          newepisode.to_csv(csv_path+"/"+str(eid)+"_episode.csv", index=False)
+          newepisode.to_csv(csv_path+"/episode/"+str(eid)+"_episode.csv", index=False)
           startindex = row['end_index'] + 1
           eid+=1
 
@@ -220,7 +235,7 @@ def createEpisodes(csv_path):
             finalmode = mode.DRIVE
 
           newepisode["mode"] = finalmode
-          newepisode.to_csv(csv_path+"/"+str(eid)+"_episode.csv", index=False)
+          newepisode.to_csv(csv_path+"/episode/"+str(eid)+"_episode.csv", index=False)
           startindex = row['end_index'] + 1   
           eid+=1    
 
@@ -239,13 +254,13 @@ def createEpisodes(csv_path):
             finalmode = mode.DRIVE
 
           newepisode["mode"] = finalmode
-          newepisode.to_csv(csv_path+"/"+str(eid)+"_episode.csv", index=False)
+          newepisode.to_csv(csv_path+"/episode/"+str(eid)+"_episode.csv", index=False)
           startindex = row['end_index'] + 1   
           eid+=1            
 
 
           
-createTrace("../src/exampleDataset/trace_1.csv","FinalData2")
+createTrace("../src/exampleDataset/trace_1.csv","trace")
 
 
 # createVelocities("./Segment/trace1")
