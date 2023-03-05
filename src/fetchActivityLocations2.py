@@ -17,8 +17,7 @@ import csv
 #  @param longitude float the latitude of the stop point
 #  @param tol int tolerance for the radius of nearby activity locations
 #  @return a tuple containing the stop point object and a list of ActivityLocation objects
-def fetchALForIndividualPoint(latitude, longitude, tol):
-    newStop = Point.Point(latitude, longitude)
+def fetchALForIndividualPoint(stopPoint, tol):
     tolerance = tol #tolerance of the surrounding areas in meters
 
     # initializing empty list, we'll use it to append ActivityLocation objects
@@ -26,7 +25,7 @@ def fetchALForIndividualPoint(latitude, longitude, tol):
     activityLocationIndex = []
 
     #Query to be sent to the api to fetch activity location
-    long_lat_tol_query_str = str(tolerance)+''',''' + str(latitude) +''','''+ str(longitude)
+    long_lat_tol_query_str = str(tolerance)+''',''' + str(stopPoint.lat) +''','''+ str(stopPoint.lon)
     built_query = '''
         [out:json][timeout:25];
         // gather results
@@ -92,7 +91,7 @@ def fetchALForIndividualPoint(latitude, longitude, tol):
                     activityLocationIndex.append(row.Index)
                     #DROP COLUMN WITH COLUMN NAME NAME
                     data_frame.drop(row.Index, inplace=True) 
-            return (newStop, activityLocationList)
+            return (stopPoint, activityLocationList)
     else:
         return None
 
@@ -105,21 +104,12 @@ def fetchALForIndividualPoint(latitude, longitude, tol):
 #  @return a list of tuples consisting of Point object and a list of ActivityLocation objects)
 def fetchActivityLocations(inPath, outPath,  tol=25):
     # creating a list of points based on csv file path provided
-    listStops = []
-    with open(inPath,'r') as inputFile:
-        fileReader = csv.reader(inputFile)
-        # Skip Header
-        next(fileReader)
-        # Import list of stops
-        for row in fileReader:
-            iniStop = (float(row[0]),float(row[1]))
-            listStops.append(iniStop)
-    
+    listStops = Transformation.stoprelated(inPath)
 
     # initializing empty list, we'll use it to append stop Point object and list of ActivityLocation objects
     list_of_stops_AL = []
     for i in listStops:
-        stopALTupple= fetchALForIndividualPoint(i[0],i[1], tol)
+        stopALTupple= fetchALForIndividualPoint(i, tol)
         list_of_stops_AL.append(stopALTupple)
 
 
@@ -141,18 +131,4 @@ def fetchActivityLocations(inPath, outPath,  tol=25):
 
     return 0
 
-    # if not list_of_stops_AL:
-    #     list_of_stops_AL = []
-    # else:
-    #     for i in list_of_stops_AL:
-    #         if(i != None):
-    #             print("############",i[0].lat,i[0].lon)
-    #             for x in i[1]:
-    #                 print(x.name, x.lat, x.lon, x.amenity)
-    #     return list_of_stops_AL
-
-
-# listStops = [(43.645914,-79.392435), (43.6531750, -79.3757559), (43.65021, -79.38047),(43.66017343856208, -79.3864813628639,(43.76448579392273, -79.74858754763592))]
-# # listStops = [(43.76448579392273, -79.74858754763592)]
-
-fetchActivityLocations("testFetch.csv","trace-activityLocation.csv", 100)
+fetchActivityLocations("trace/stop/stops.csv","trace/activitylocations/trace-activityLocation.csv", 500)
