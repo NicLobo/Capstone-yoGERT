@@ -8,7 +8,8 @@ import overpy
 import pandas as pd
 import ActivityLocation
 import Point
-
+import Transformation
+import csv
 
 
 ## @brief This function takes latitude and longitude values of a stop point and a tolerance 
@@ -16,8 +17,7 @@ import Point
 #  @param longitude float the latitude of the stop point
 #  @param tol int tolerance for the radius of nearby activity locations
 #  @return a tuple containing the stop point object and a list of ActivityLocation objects
-def fetchALForIndividualPoint(latitude, longitude, tol):
-    newStop = Point.Point(latitude, longitude)
+def fetchALForIndividualPoint(stopPoint, tol):
     tolerance = tol #tolerance of the surrounding areas in meters
 
     # initializing empty list, we'll use it to append ActivityLocation objects
@@ -25,7 +25,7 @@ def fetchALForIndividualPoint(latitude, longitude, tol):
     activityLocationIndex = []
 
     #Query to be sent to the api to fetch activity location
-    long_lat_tol_query_str = str(tolerance)+''',''' + str(latitude) +''','''+ str(longitude)
+    long_lat_tol_query_str = str(tolerance)+''',''' + str(stopPoint.lat) +''','''+ str(stopPoint.lon)
     built_query = '''
         [out:json][timeout:25];
         // gather results
@@ -91,7 +91,7 @@ def fetchALForIndividualPoint(latitude, longitude, tol):
                     activityLocationIndex.append(row.Index)
                     #DROP COLUMN WITH COLUMN NAME NAME
                     data_frame.drop(row.Index, inplace=True) 
-            return (newStop, activityLocationList)
+            return (stopPoint, activityLocationList)
     else:
         return None
 
@@ -102,25 +102,33 @@ def fetchALForIndividualPoint(latitude, longitude, tol):
 #  @param list_of_stops list of stops
 #  @param tol int tolerance for the radius of nearby activity locations
 #  @return a list of tuples consisting of Point object and a list of ActivityLocation objects)
-def fetchActivityLocations(list_of_stops, tol=25):
+def fetchActivityLocations(inPath, outPath,  tol=25):
+    # creating a list of points based on csv file path provided
+    listStops = Transformation.stoprelated(inPath)
+
     # initializing empty list, we'll use it to append stop Point object and list of ActivityLocation objects
     list_of_stops_AL = []
-    for i in list_of_stops:
-        stopALTupple= fetchALForIndividualPoint(i[0],i[1], tol)
+    for i in listStops:
+        stopALTupple= fetchALForIndividualPoint(i, tol)
         list_of_stops_AL.append(stopALTupple)
 
-    if not list_of_stops_AL:
-        return []
-    else:
-        for i in list_of_stops_AL:
-            if(i != None):
-                print("############",i[0].lat,i[0].lon)
-                for x in i[1]:
-                    print(x.name, x.lat, x.lon, x.amenity)
-        return list_of_stops_AL
 
+    listActivities =[]
+    convertedResult = Transformation.convertActivityLocation(list_of_stops_AL)
+    listActivities.append(convertedResult)
 
-listStops = [(43.645914,-79.392435), (43.6531750, -79.3757559), (43.65021, -79.38047),(43.66017343856208, -79.3864813628639,(43.76448579392273, -79.74858754763592))]
-# listStops = [(43.76448579392273, -79.74858754763592)]
+    print(convertedResult)
 
-fetchActivityLocations(listStops)
+    # Write result to a csv file
+    with open(outPath, 'w', newline='') as outputFile:
+        fileWriter = csv.writer(outputFile)
+        # Create Header
+        fileWriter.writerow(['Latitude', 'Longitude', 'Nearby Activity Locations'])
+
+        # Write each rows
+        for i in convertedResult:
+            fileWriter.writerow([i[0],i[1],i[2]])
+
+    return 0
+
+#fetchActivityLocations("trace/stop/stops.csv","trace/activitylocations/trace-activityLocation.csv", 500)
