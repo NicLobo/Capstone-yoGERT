@@ -131,4 +131,4 @@ def fetchActivityLocations(inPath, outPath,  tol=25):
 
     return 0
 
-fetchActivityLocations("trace/stop/stops.csv","trace/activitylocations/trace-activityLocation.csv", 500)
+#fetchActivityLocations("trace/stop/stops.csv","trace/activitylocations/trace-activityLocation.csv", 500)
