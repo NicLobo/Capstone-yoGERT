@@ -27,7 +27,8 @@ def episoderelated(filepath):
     data = csv.reader(open(filepath))
 
     li = []
-    idname = os.path.splitext(filepath)[0]
+    filename = os.path.basename(filepath)
+    idname = os.path.splitext(filename)[0]
 
     c=0
     
