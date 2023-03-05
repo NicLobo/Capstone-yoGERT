@@ -2,39 +2,39 @@ import csv
 import ast
 from datetime import datetime
 from Point import Point
+import os
 
-def convert_to_floats(arr):
-    result = map(float, arr)
-    return list(result)
 
-def GenALInput(filepath): 
+    
+def stoprelated(filepath): 
     data = csv.reader(open(filepath))
 
     li = []
-    c=0
-    
-    for line in data:
-        
-        if c>0:
-            lp = convert_to_floats(line[2:4])
-            li.append(Point(lp[0],lp[1]))
-        
-        c = c+1
-
-    return li
-    
-def GenALInputT(filepath): 
-    data = csv.reader(open(filepath))
-
-    li = []
-    lt = []
+ 
     c=0
     
     for line in data:
         
         if c>0: 
-            lp = convert_to_floats(line[2:4])
-            li.append(Point(lp[0],lp[1],float(line[5]),line[6]))
+            li.append(Point(float(line[0]),float(line[2]),line[3],float(line[6])))
+
+        
+        c = c+1
+
+    return li
+
+def episoderelated(filepath): 
+    data = csv.reader(open(filepath))
+
+    li = []
+    idname = os.path.splitext(filepath)[0]
+
+    c=0
+    
+    for line in data:
+        
+        if c>0: 
+            li.append(Point(float(line[0]),float(line[1]),float(idname[0]),line[4]))
 
         
         c = c+1
