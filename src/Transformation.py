@@ -2,42 +2,63 @@ import csv
 import ast
 from datetime import datetime
 from Point import Point
+import os
 
-def convert_to_floats(arr):
-    result = map(float, arr)
-    return list(result)
-
-def GenALInput(filepath): 
+def tracerelated(filepath): 
     data = csv.reader(open(filepath))
 
     li = []
+ 
     c=0
     
     for line in data:
         
         if c>0: 
-            li.append(Point(convert_to_floats(line[0:2])))
+            dt = datetime.strptime(line[6], '%y/%m/%d %H:%M:%S')
+            li.append(Point(float(line[1]),float(line[0]),dt, None,float(line[2])))
+
         
         c = c+1
 
     return li
     
-def GenALInputT(filepath): 
+def stoprelated(filepath): 
     data = csv.reader(open(filepath))
 
     li = []
-    lt = []
+ 
     c=0
     
     for line in data:
         
         if c>0: 
-            li.append(Point(convert_to_floats(line[0:2]),line[2]))
+            dt = datetime.strptime(line[5], '%y/%m/%d %H:%M:%S')
+            li.append(Point(float(line[2]),float(line[3]),dt, line[8],float(line[9])))
 
         
         c = c+1
 
-    return li,lt
+    return li
+
+def episoderelated(filepath): 
+    data = csv.reader(open(filepath))
+
+    li = []
+    filename = os.path.basename(filepath)
+    idname = os.path.splitext(filename)[0]
+
+    c=0
+    
+    for line in data:
+        
+        if c>0:
+            dt = datetime.strptime(line[2], '%y/%m/%d %H:%M:%S')
+            li.append(Point(float(line[0]),float(line[1]),dt,line[4],float(idname[0])))
+
+        
+        c = c+1
+
+    return li
 
 def convertActivityLocation(ActvityLoactionList):
     convertedList = []
@@ -63,12 +84,15 @@ def convertActivityCSV(userFile):
     #print(convertedList)
     return convertedList
             
+def summarymode(filepath):
+    data = csv.reader(open(filepath))
+    li = ""
+    for line in data:
+        
+        if c>0: 
+            li+=str(line[0])
 
+        
+        c = c+1
 
-    
-
-# l = GenALInput('./episode.csv')
-# l2,ltime = GenALInputT('./episode.csv')
-# print(l)
-# print(l2)
-# print(ltime)
+    return li
