@@ -10,6 +10,7 @@ from statistics import mode
 import glob
 import pandas as pd  
 
+#give trace path
 def tracerelated(filepath): 
     data = csv.reader(open(filepath))
 
@@ -27,7 +28,8 @@ def tracerelated(filepath):
         c = c+1
 
     return li
-    
+
+#give stop and related trace path
 def stoprelated(filepath1,filepath2): 
     data = csv.reader(open(filepath1))
 
@@ -91,7 +93,8 @@ def convertActivityCSV(userFile):
     #print(convertedList)
     return convertedList
             
-def summarymode(filepath):
+    #give episode folder path
+    def summarymode(filepath):
     modes = []
 
 
@@ -121,5 +124,3 @@ def summarymode(filepath):
         writer_object.writerow([str(mode(modes)) ])
 
 
-#episoderelated('./trace/episode/0_episode.csv')
-summarymode('./trace/episode/1_episode.csv')
