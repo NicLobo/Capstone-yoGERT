@@ -131,7 +131,7 @@ def MapRoute(networkGraph, route, savePath):
         usedPoints = route.inputData
     base = folium.Map(location=[usedPoints[0].lat, usedPoints[0].lon], zoom_start=10)
     for point in usedPoints:
-        tooltip = "ID:" + str(point.episodeID) + ", T:" + point.time
+        tooltip = "ID:" + str(point.episodeID) + ", T:" + str(point.time)
         if point.mode == "mode.DRIVE":
             color = "green"
             icon="car-side"
@@ -157,10 +157,12 @@ def MapRoute(networkGraph, route, savePath):
     IFrame(filepath, width=600, height=500)
 
 ## @brief This function plots activity locations as markers on a map and saves it as an interactive file.
-#  @param activityLocations list of ActivityLocation type of the GPS coordinates and description for the identified activity locations. 
-#  @param stopPoints list of Point type of the GPS coordinates used to find the identified stop points from the episode generation.
+#  @param activityLocationsFile string of path to the csv file containitng the output of ActivityLocation module. 
+#  @param stopPointsFile string of path to the csv file of the GPS coordinates used to find the identified stop points from the episode generation.
 #  @param savePath string of where the interactive will be saved. 
-def MapActivityLocation(activityLocations, stopPoints, savePath):
+def MapActivityLocation(activityLocationsFile, stopPointsFile, savePath):
+    activityLocations = convertActivityCSV(activityLocationsFile)
+    stopPoints = stoprelated(stopPointsFile)
     base = folium.Map(location=[stopPoints[0].lat, stopPoints[0].lon], zoom_start=10)
     tooltip = "Activity Location"
     for point in stopPoints:
@@ -179,9 +181,10 @@ def MapActivityLocation(activityLocations, stopPoints, savePath):
     IFrame(filepath, width=600, height=500)
 
 ## @brief This function plots episode GPS coordinates as markers on a map and saves it as an interactive file.
-#  @param GPSCoords list of Point type of the GPS coordinates. 
+#  @param GPSCoords string of the path to the csv file consisting of GPS coordinates for an episode. 
 #  @param savePath string of where the interactive will be saved. 
-def MapEpisodePoints(GPSCoords, savePath):
+def MapEpisodePoints(GPSCoordsFile, savePath):
+    GPSCoords = episoderelated(GPSCoordsFile)
     base = folium.Map(location=[GPSCoords[0].lat, GPSCoords[0].lon], zoom_start=10)
     for point in GPSCoords:
         tooltip = "EpisodeID: " + str(point.episodeID) + ", T: " + point.time
