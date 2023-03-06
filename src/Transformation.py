@@ -11,8 +11,8 @@ import glob
 import pandas as pd  
 
 #trace file path
-def tracerelated(filepath): 
-    data = csv.reader(open(filepath))
+def tracerelated(tracepath): 
+    data = csv.reader(open(tracepath))
 
     li = []
  
@@ -29,9 +29,9 @@ def tracerelated(filepath):
 
     return li
 
-#stop file path, trace file path
-def stoprelated(filepath1,filepath2): 
-    data = csv.reader(open(filepath1))
+#stop file path
+def stoprelated(stopfilepath): 
+    data = csv.reader(open(stopfilepath))
 
     li = []
  
@@ -41,7 +41,8 @@ def stoprelated(filepath1,filepath2):
         
         if c>0: 
             dt = datetime.strptime(line[4], '%Y-%m-%d %H:%M:%S.%f')
-            coord = pandas.read_csv(filepath2)
+            tracepath = os.path.dirname(os.path.dirname(stopfilepath))
+            coord = pandas.read_csv(tracepath+'/trace.csv')
             print(float(line[9]))
             lat = float(coord.iloc[int(float(line[9])):int(float(line[9]))+1,0])
             long = float(coord.iloc[int(float(line[9])):int(float(line[9]))+1,1])
@@ -54,11 +55,11 @@ def stoprelated(filepath1,filepath2):
     return li
 
 #episode path
-def episoderelated(filepath): 
-    data = csv.reader(open(filepath))
+def episoderelated(episodepath): 
+    data = csv.reader(open(episodepath))
 
     li = []
-    filename = os.path.basename(filepath)
+    filename = os.path.basename(episodepath)
     idname = os.path.splitext(filename)[0]
 
     c=0
@@ -96,14 +97,14 @@ def convertActivityCSV(userFile):
     #print(convertedList)
     return convertedList
 
-#episode folder path          
-def summarymode(filepath):
+#trace file path          
+def summarymode(tracefilepath):
     modes = []
 
 
     changec = 0
-    filepath = filepath
-    files = glob.glob(filepath+ "/*.csv")
+    
+    files = glob.glob(os.path.dirname(tracefilepath)+'/episode'+ "/*.csv")
     print(files)
     
     for f in files:
@@ -120,12 +121,11 @@ def summarymode(filepath):
             
             c = c+1
     
-    stats=os.path.dirname(filepath)+'/summarymode.csv'
+    stats=os.path.dirname(tracefilepath)+'/summarymode.csv'
     with open(stats, 'w') as f1:
         writer_object = writer(f1)
         writer_object.writerow(['Summary Mode'])
         writer_object.writerow([str(mode(modes)) ])
 
 
-#print(stoprelated('./trace/stop/stops.csv','./trace/trace.csv'))
-#summarymode('./trace/episode')
+
