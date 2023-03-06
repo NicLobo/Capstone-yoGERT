@@ -7,9 +7,10 @@
 import overpy
 import pandas as pd
 import ActivityLocation
-import Point
 import Transformation
 import csv
+import logging
+
 
 
 ## @brief This function takes latitude and longitude values of a stop point and a tolerance 
@@ -93,6 +94,7 @@ def fetchALForIndividualPoint(stopPoint, tol):
                     data_frame.drop(row.Index, inplace=True) 
             return (stopPoint, activityLocationList)
     else:
+        logging.warning("Stop point: "+ str(stopPoint.lat)+ ", "+ str(stopPoint.lon) + " activity locations not found due to sever being unavailable")
         return None
 
     
@@ -117,8 +119,6 @@ def fetchActivityLocations(inPath, outPath,  tol=25):
     convertedResult = Transformation.convertActivityLocation(list_of_stops_AL)
     listActivities.append(convertedResult)
 
-    print(convertedResult)
-
     # Write result to a csv file
     with open(outPath, 'w', newline='') as outputFile:
         fileWriter = csv.writer(outputFile)
@@ -130,5 +130,5 @@ def fetchActivityLocations(inPath, outPath,  tol=25):
             fileWriter.writerow([i[0],i[1],i[2]])
 
     return 0
-
-#fetchActivityLocations("trace/stop/stops.csv","trace/activitylocations/trace-activityLocation.csv", 500)
+    
+# fetchActivityLocations("trace/stop/stops.csv","trace/activitylocations/trace-activityLocation.csv", 500)
