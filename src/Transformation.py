@@ -9,6 +9,7 @@ import statistics
 from statistics import mode
 import glob
 import pandas as pd  
+import ActivityLocation
 
 #trace file path
 def tracerelated(tracepath): 
@@ -80,7 +81,7 @@ def convertActivityLocation(ActvityLoactionList):
     for i in ActvityLoactionList:
         activityList = []
         for j in i[1]: # The list with all nearby locations
-            activityList.append([j.name, float(j.lat), float(j.lon)])
+            activityList.append([j.name, float(j.lat), float(j.lon), j.amenity])
         # Append to final list
         convertedList.append([i[0].lat, i[0].lon, activityList])
     return convertedList
@@ -93,9 +94,17 @@ def convertActivityCSV(userFile):
         next(fileReader) # Skip Header
         for row in fileReader:
             nearbyList = ast.literal_eval(row[2])
-            convertedList.append([float(row[0]),float(row[1]),nearbyList])
-    #print(convertedList)
+            activityObjectList = []
+            for activiyList in nearbyList:
+                activityObjectList.append(convertListToActivityLocationObject(activiyList))
+            convertedList.append([float(row[0]),float(row[1]),activityObjectList])
+    print(convertedList)
     return convertedList
+
+def convertListToActivityLocationObject(activityLocationList):
+    newActivityLocation = ActivityLocation.ActivityLocation(activityLocationList[0],float(activityLocationList[1]),float(activityLocationList[2]), activityLocationList[3])
+    return newActivityLocation
+
 
 #trace file path          
 def summarymode(tracefilepath):
@@ -129,3 +138,4 @@ def summarymode(tracefilepath):
 
 
 
+convertActivityCSV("trace/trace1/activitylocations/trace-activityLocation.csv")
