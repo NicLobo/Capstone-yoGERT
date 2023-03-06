@@ -123,4 +123,27 @@ def convertActivityCSV(userFile):
         writer_object.writerow(['Summary Mode'])
         writer_object.writerow([str(mode(modes)) ])
 
+def summarymode(filepath):
+    data = csv.reader(open(filepath))
+    li = ""
+    for line in data:
+        
+        if c>0: 
+            li+=str(line[0])
+
+        
+        c = c+1
+
+    return li
+
+def summaryModeTrace(traceFilePath):
+    deconstructedPath = traceFilePath.split("/")
+    summaryModeFilePath = ""
+    for i in range(0, len(deconstructedPath)-1):
+        if i == 0:
+            summaryModeFilePath += deconstructedPath[i]
+        else:
+            summaryModeFilePath += "/" + deconstructedPath[i]
+    summaryModeFilePath += "/summaryMode.csv"
+    return summarymode(summaryModeFilePath) #print(summaryModeFilePath)
 

@@ -41,7 +41,7 @@ class NetworkGraph:
                     self.mode = networkMode
                 else:
                     points = tracerelated(filePath)
-                    self.mode = networkMode
+                    self.mode = summaryModeTrace(filePath).split('.')[1].lower()
                 self.stCoord = (points[0].lat, points[0].lon)
                 self.endCoord = (points[-1].lat, points[-1].lon)
                 self.dist = self.findDistance(self.stCoord, self.endCoord, points)
