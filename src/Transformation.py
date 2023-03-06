@@ -10,7 +10,7 @@ from statistics import mode
 import glob
 import pandas as pd  
 
-#give trace path
+#trace file path
 def tracerelated(filepath): 
     data = csv.reader(open(filepath))
 
@@ -29,7 +29,7 @@ def tracerelated(filepath):
 
     return li
 
-#give stop and related trace path
+#stop file path, trace file path
 def stoprelated(filepath1,filepath2): 
     data = csv.reader(open(filepath1))
 
@@ -42,8 +42,10 @@ def stoprelated(filepath1,filepath2):
         if c>0: 
             dt = datetime.strptime(line[4], '%Y-%m-%d %H:%M:%S.%f')
             coord = pandas.read_csv(filepath2)
-            lat = float(coord.iloc[float(line[9]),0])
-            long = float(coord.iloc[float(line[9]),1])
+            print(float(line[9]))
+            lat = float(coord.iloc[int(float(line[9])):int(float(line[9]))+1,0])
+            long = float(coord.iloc[int(float(line[9])):int(float(line[9]))+1,1])
+            print(lat,long)
             li.append(Point(lat,long,dt, line[8],float(line[9])))
 
         
@@ -51,6 +53,7 @@ def stoprelated(filepath1,filepath2):
 
     return li
 
+#episode path
 def episoderelated(filepath): 
     data = csv.reader(open(filepath))
 
@@ -92,9 +95,9 @@ def convertActivityCSV(userFile):
             convertedList.append([float(row[0]),float(row[1]),nearbyList])
     #print(convertedList)
     return convertedList
-            
-    #give episode folder path
-    def summarymode(filepath):
+
+#episode folder path          
+def summarymode(filepath):
     modes = []
 
 
@@ -123,27 +126,6 @@ def convertActivityCSV(userFile):
         writer_object.writerow(['Summary Mode'])
         writer_object.writerow([str(mode(modes)) ])
 
-def summarymode(filepath):
-    data = csv.reader(open(filepath))
-    li = ""
-    for line in data:
-        
-        if c>0: 
-            li+=str(line[0])
 
-        
-        c = c+1
-
-    return li
-
-def summaryModeTrace(traceFilePath):
-    deconstructedPath = traceFilePath.split("/")
-    summaryModeFilePath = ""
-    for i in range(0, len(deconstructedPath)-1):
-        if i == 0:
-            summaryModeFilePath += deconstructedPath[i]
-        else:
-            summaryModeFilePath += "/" + deconstructedPath[i]
-    summaryModeFilePath += "/summaryMode.csv"
-    return summarymode(summaryModeFilePath) #print(summaryModeFilePath)
-
+#print(stoprelated('./trace/stop/stops.csv','./trace/trace.csv'))
+#summarymode('./trace/episode')
