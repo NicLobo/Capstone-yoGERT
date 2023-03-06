@@ -127,5 +127,19 @@ def summarymode(tracefilepath):
         writer_object.writerow(['Summary Mode'])
         writer_object.writerow([str(mode(modes)) ])
 
+def summaryModeTrace(tracefilepath):
+    summarymodefilepath = os.path.dirname(tracefilepath)+'/summarymode.csv'
+    c=0
+    data = csv.reader(open(summarymodefilepath))
+    li=""
+    for line in data:
+        
+        if c>0: 
+            
+            li += line[0]
 
+        
+        c = c+1
+
+    return li
 
