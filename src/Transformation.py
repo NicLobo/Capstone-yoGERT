@@ -4,6 +4,11 @@ from datetime import datetime
 from Point import Point
 import os
 import pandas
+from csv import writer
+import statistics
+from statistics import mode
+import glob
+import pandas as pd  
 
 def tracerelated(filepath): 
     data = csv.reader(open(filepath))
@@ -87,19 +92,34 @@ def convertActivityCSV(userFile):
     return convertedList
             
 def summarymode(filepath):
-    data = csv.reader(open(filepath))
-    li = ""
-    for line in data:
-        
-        if c>0: 
-            li+=str(line[4])
+    modes = []
 
-        
-        c = c+1
 
-    with open(filepath+'/summarymode.csv', 'w') as f1:
+    changec = 0
+    filepath = filepath
+    files = glob.glob(os.path.dirname(filepath)+ "/*.csv")
+    print(files)
+    
+    for f in files:
+        data = csv.reader(open(f))
+        c = 0
+        
+        for line in data:
+            
+            if c>0: 
+                
+                modes.append(line[4])
+                
+                break
+            
+            c = c+1
+    
+    stats=os.path.dirname(os.path.dirname(filepath))+'/summarymode.csv'
+    with open(stats, 'w') as f1:
         writer_object = writer(f1)
-        writer_object.writerow(['Mode'])
-        writer_object.writerow(li)
+        writer_object.writerow(['Summary Mode'])
+        writer_object.writerow([str(mode(modes)) ])
+
 
 #episoderelated('./trace/episode/0_episode.csv')
+summarymode('./trace/episode/1_episode.csv')
