@@ -7,6 +7,7 @@ import osmnx as ox
 import h3
 from CustomExceptions import *
 from Point import *
+from Transformation import *
 
 # exported constants 
 DISTANCETOL = 200
@@ -17,22 +18,38 @@ DISTANCETOL = 200
 class NetworkGraph:
     ## @brief Constructor for NetworkGraph
     #  @details Contructor accepts 4 parameters for start and end GPS coordinates, list of stop GPS coordinates, and mode of transportation.
-    #  @param points list of Point type consisting of the GPS pings for an episode or trace. 
-    #  @param networkMode string for the entity's mode of transportations for ex: drive or walk.  
+    #  @param filePath string of the path to the csv file consisting of the GPS pings for an episode or trace. 
+    #  @param networkMode string for the entity's mode of transportations for ex: drive or walk.
+    #  @param episodeAnalysis boolean to know the type of inputted GPS pings. Defaulted to True
+    #  @param alternativeAnalysis boolean to know the type of inputted GPS pings. Defaulted to False
     #  @throws InvalidModeException Raised when the input value is not a subset of {drive, walk}
-    def __init__(self, points, networkMode):
+    #  @throws EmptyFilePathException "Raised when input file path is empty"
+    def __init__(self, filePath, networkMode = None, episodeAnalysis = True, alternativeAnalysis = False):
         # check inputs
         try: 
-            if networkMode not in ["drive", "walk", "bike"]:
+            if networkMode not in ["drive", "walk", "bike", None]:
                 raise InvalidModeException
+            elif filePath == "":
+                raise EmptyFilePathException
             else:
+                if episodeAnalysis:
+                    points = episoderelated(filePath)
+                    tempMode = points[0].mode
+                    self.mode = tempMode.split('.')[1].lower()
+                elif alternativeAnalysis:
+                    points = stoprelated(filePath)
+                    self.mode = networkMode
+                else:
+                    points = tracerelated(filePath)
+                    self.mode = networkMode
                 self.stCoord = (points[0].lat, points[0].lon)
                 self.endCoord = (points[-1].lat, points[-1].lon)
                 self.dist = self.findDistance(self.stCoord, self.endCoord, points)
-                self.graph = ox.graph_from_point(self.stCoord, dist=self.dist, network_type=networkMode, simplify=False)
-                self.mode = networkMode
+                self.graph = ox.graph_from_point(self.stCoord, dist=self.dist, network_type=self.mode, simplify=False)
         except InvalidModeException:
             print("InvalidModeException: Invalid network mode! Enter either drive or walk for mode.")
+        except EmptyFilePathException:
+            print("EmptyFilePathException: Input file path is empty. Please enter a file path to a trace or episode.")
         
     ## @brief Returns the nearest graph node to a GPS coordinate
     #  @param coord (lat, long) tuple for the latitude and longitude of the GPS coordinate of interest. 
@@ -78,4 +95,4 @@ class NetworkGraph:
 # for point in inputTwo:
 #     inputTwoTuples.append((point.lat,point.lon))
 # NetworkGraphTwo = NetworkGraph(inputTwo, "drive")
-
+# NG1 = NetworkGraph("C:/Users/sweet/anaconda3/envs/capstone/data/trace1.csv", "drive", False)

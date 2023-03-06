@@ -10,6 +10,7 @@ from NetworkGraph  import *
 # from IPython.display import IFrame
 from CustomExceptions  import *
 from Point import *
+from Transformation import *
 
 ## @brief A class representing an object that represents the shortest route for a trace. 
 #  @details This representation of the shortest route will include the epsiode's important stop points 
@@ -18,16 +19,16 @@ class ShortestRouteTrace:
     ## @brief Constructor for ShortestRouteTrace
     #  @details Contructor accepts 3 parameters for map network, stop GPS coordinates, and weight type.
     #  @param networkGraph NetworkGraph for the map network of street, roads, and walkways for the entire trace. 
-    #  @param listOfPoints list of Points consisting of GPS Points representing the stop episodes of the trace. --change later to filepath to needed csv
+    #  @param filePath string for the path to the csv file consisting of GPS Points representing the stop episodes of the trace.
     #  @param optimizer string for the weight type on the graph's edges.  
     #  @throws InvalidWeightException Raised when the inputted optimizer is not a subset of {time, length}
-    def __init__(self, networkGraph, listOfPoints, optimizer = "time"):
+    def __init__(self, networkGraph, filePath, optimizer = "time"):
         try:
             if optimizer not in ["time", "length"]:
                 raise InvalidWeightException
             else:
                 self.graph = networkGraph
-                self.inputData = listOfPoints #this needs to be changed to tranform csvfile to a list of Points 
+                self.inputData = stoprelated(filePath) #listOfPoints #this needs to be changed to tranform csvfile to a list of Points 
                 self.nodes = self.findNodes(self.inputData, networkGraph)
                 self.wt = optimizer
                 self.routes = self.shortestPath(networkGraph, self.nodes, optimizer)
@@ -89,6 +90,6 @@ class ShortestRouteTrace:
 # route_map2T = ox.plot_route_folium(NetworkGraphTwo.graph, ShortestRouteTraceOne.routes[0], route_map=baseT, color='#005eff', opacity=0.7)
 # for i in range(1,len(ShortestRouteTraceOne.routes)):
 #      route_map2T = ox.plot_route_folium(NetworkGraphTwo.graph, ShortestRouteTraceOne.routes[i], route_map=route_map2T, color='#005eff', opacity=0.7)
-# filepath = "C:/Users/sweet/anaconda3/envs/capstone/data/traceroute_test_graph2withmarkers.html"
+# filepath = "C:/Users/sweet/anaconda3/envs/capstone/data/Ttraceroute_test_graph2withmarkers.html"
 # route_map2T.save(filepath)
 # IFrame(filepath, width=600, height=500)

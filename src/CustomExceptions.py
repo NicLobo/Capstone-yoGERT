@@ -24,3 +24,7 @@ class InvalidInputDataException(Exception):
 class InvalidSamplingException(Exception):
     "Raised when input value is not a subset of (stop, distance)"
     pass
+
+class EmptyFilePathException(Exception):
+    "Raised when input file path is empty"
+    pass

@@ -10,6 +10,7 @@ from NetworkGraph  import *
 # from IPython.display import IFrame
 from CustomExceptions  import *
 from Point import *
+from Transformation import *
 
 ## @brief A class representing an object that represents the shortest route for a travel epsiode of mode type walk or drive. 
 #  @details This representation of the shortest route will include the epsiode's sampled GPS pings or the start and end point.
@@ -17,23 +18,23 @@ class ShortestRouteEpisode:
     ## @brief Constructor for ShortestRouteEpisode
     #  @details Contructor accepts 5 parameters for map network, GPS coordinates, weight type, sampling condtion, and sampling distance variable.
     #  @param networkGraph NetworkGraph for the map network of street, roads, and walkways. 
-    #  @param listOfPoints list of Points consisting of GPS Points. --change later to filepath to needed csv
+    #  @param filePath string of the path to the csv file consisting of GPS Points for one episode. 
     #  @param optimizer string for the weight type on the graph's edges.  
     #  @param sampling boolean to decide when data sampling is needed to make a pings' subset by selecting a ping every specified distance
     #  @param samplingDist integer for the sampling distance variable in m.
     #  @throws InvalidWeightException Raised when the inputted optimizer is not a subset of {time, length}
     #  @throws InvalidSamplingException Raised when the inputted sampling is not a subset of {stop, distance}
-    def __init__(self, networkGraph, listOfPoints, optimizer = "time", sampling = True, samplingDist = 50):
+    def __init__(self, networkGraph, filePath, optimizer = "time", sampling = True, samplingDist = 50):
         try:
             if optimizer not in ["time", "length"]:
                 raise InvalidWeightException
             else:
                 self.graph = networkGraph
-                self.inputData = listOfPoints #this needs to be changed to tranform csvfile to a list of Points 
+                self.inputData = episoderelated(filePath) #listOfPoints #this needs to be changed to tranform csvfile to a list of Points 
                 if (sampling):
-                    self.sampledData = self.findSamples(listOfPoints, samplingDist)
+                    self.sampledData = self.findSamples(self.inputData, samplingDist)
                 else:
-                    self.sampledData = [listOfPoints[0], listOfPoints[-1]]
+                    self.sampledData = [self.inputData[0], self.inputData[-1]]
                 #self.sampledData = self.findSamples(listOfPoints, sampling, samplingDist)
                 self.nodes = self.findNodes(self.sampledData, networkGraph)
                 self.wt = optimizer
