@@ -3,6 +3,7 @@ import ast
 from datetime import datetime
 from Point import Point
 import os
+import pandas
 
 def tracerelated(filepath): 
     data = csv.reader(open(filepath))
@@ -22,8 +23,8 @@ def tracerelated(filepath):
 
     return li
     
-def stoprelated(filepath): 
-    data = csv.reader(open(filepath))
+def stoprelated(filepath1,filepath2): 
+    data = csv.reader(open(filepath1))
 
     li = []
  
@@ -33,7 +34,10 @@ def stoprelated(filepath):
         
         if c>0: 
             dt = datetime.strptime(line[4], '%Y-%m-%d %H:%M:%S.%f')
-            li.append(Point(float(line[2]),float(line[3]),dt, line[8],float(line[9])))
+            coord = pandas.read_csv(filepath2)
+            lat = float(coord.iloc[float(line[9]),0])
+            long = float(coord.iloc[float(line[9]),1])
+            li.append(Point(lat,long,dt, line[8],float(line[9])))
 
         
         c = c+1
@@ -63,13 +67,11 @@ def episoderelated(filepath):
 def convertActivityLocation(ActvityLoactionList):
     convertedList = []
     for i in ActvityLoactionList:
-        if i != None:
-            activityList = []
-            for j in i[1]: # The list with all nearby locations
-                if j != None:
-                    activityList.append([j.name, float(j.lat), float(j.lon)])
-            # Append to final list
-            convertedList.append([i[0].lat, i[0].lon, activityList])
+        activityList = []
+        for j in i[1]: # The list with all nearby locations
+            activityList.append([j.name, float(j.lat), float(j.lon)])
+        # Append to final list
+        convertedList.append([i[0].lat, i[0].lon, activityList])
     return convertedList
 
 # Convert CSV file(i.e. fetchOutput.csv) into a nested list for mapping
