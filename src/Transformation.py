@@ -97,7 +97,7 @@ def summarymode(filepath):
 
     changec = 0
     filepath = filepath
-    files = glob.glob(os.path.dirname(filepath)+ "/*.csv")
+    files = glob.glob(filepath+ "/*.csv")
     print(files)
     
     for f in files:
@@ -114,7 +114,7 @@ def summarymode(filepath):
             
             c = c+1
     
-    stats=os.path.dirname(os.path.dirname(filepath))+'/summarymode.csv'
+    stats=os.path.dirname(filepath)+'/summarymode.csv'
     with open(stats, 'w') as f1:
         writer_object = writer(f1)
         writer_object.writerow(['Summary Mode'])
