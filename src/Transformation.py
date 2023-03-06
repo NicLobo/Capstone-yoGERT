@@ -86,7 +86,7 @@ def convertActivityLocation(ActvityLoactionList):
         convertedList.append([i[0].lat, i[0].lon, activityList])
     return convertedList
 
-# Convert CSV file(i.e. fetchOutput.csv) into a nested list for mapping
+# Convert CSV file(i.e. fetchOutput.csv) into a list of activity location objects
 def convertActivityCSV(userFile):
     convertedList = []
     with open(userFile, 'r') as inputFile:
@@ -94,11 +94,8 @@ def convertActivityCSV(userFile):
         next(fileReader) # Skip Header
         for row in fileReader:
             nearbyList = ast.literal_eval(row[2])
-            activityObjectList = []
             for activiyList in nearbyList:
-                activityObjectList.append(convertListToActivityLocationObject(activiyList))
-            convertedList.append([float(row[0]),float(row[1]),activityObjectList])
-    print(convertedList)
+                convertedList.append(convertListToActivityLocationObject(activiyList))
     return convertedList
 
 def convertListToActivityLocationObject(activityLocationList):
@@ -151,5 +148,3 @@ def summaryModeTrace(tracefilepath):
         c = c+1
 
     return li
-
-convertActivityCSV("trace/trace1/activitylocations/trace-activityLocation.csv")
