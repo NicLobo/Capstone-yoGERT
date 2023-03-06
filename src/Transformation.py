@@ -92,11 +92,14 @@ def summarymode(filepath):
     for line in data:
         
         if c>0: 
-            li+=str(line[0])
+            li+=str(line[4])
 
         
         c = c+1
 
-    return li
+    with open(filepath+'/summarymode.csv', 'w') as f1:
+        writer_object = writer(f1)
+        writer_object.writerow(['Mode'])
+        writer_object.writerow(li)
 
 #episoderelated('./trace/episode/0_episode.csv')
