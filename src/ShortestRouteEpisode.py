@@ -85,7 +85,7 @@ class ShortestRouteEpisode:
             try:
                 listOfRoutes.append(nx.shortest_path(graphInput.graph,nodesInput[i], nodesInput[i+1], weight=weightType))
             except nx.exception.NetworkXNoPath:
-                print("No Path Here:(")
+                print("NetworkXNoPath: No Path Here:(")
         return listOfRoutes
 
 

@@ -1,4 +1,4 @@
-## @file ALternativeRoute.py
+## @file AlternativeRoute.py
 #  @title AlternativeRoute
 #  @author Abeer Alyasiri 400198787
 #  @date January 31 2023
@@ -33,4 +33,4 @@ class AlternativeRoute:
 
 # alternativeOne = AlternativeRoute(inputTwoStops)
 # MapRoute(alternativeOne.network, alternativeOne.path, "C:/Users/sweet/anaconda3/envs/capstone/data/Alterroute_test_graph.html")
-alternativeOne = AlternativeRoute("C:/Users/sweet/anaconda3/envs/capstone/data/stops.csv")
+# alternativeOne = AlternativeRoute("C:/Users/sweet/anaconda3/envs/capstone/data/stops.csv")
