@@ -37,7 +37,7 @@ class NetworkGraph:
                     tempMode = points[0].mode
                     self.mode = tempMode.split('.')[1].lower()
                 elif alternativeAnalysis:
-                    points = stoprelated(filePath)
+                    points = tracerelated(filePath)
                     self.mode = networkMode
                 else:
                     points = tracerelated(filePath)
