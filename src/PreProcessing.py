@@ -3,10 +3,10 @@
 #  @author Moksha Srinivasan 400181518
 #  @date Feb 1st, 2023
 
-import csv
 import pandas as pd
 from CustomExceptions import *
 import re
+import os
 
 global path_p1 
 path_p1 = "traces/trace"
@@ -31,6 +31,7 @@ def ValidateCSV(csvpath):
                 df = df.rename({col: 'time'}, axis='columns')
                 counter+=1
 
+        os.mkdir("traces")
         
         if counter == 3:
             df = df.dropna(subset=['lat', 'long', 'time'])
@@ -54,7 +55,7 @@ def ValidateCSV(csvpath):
             if 'ID' in df:
                 dfs = [group[1] for group in df.groupby('ID')]
                 for i, each_df in dfs.items():
-                    filenameFinal = path_p1+str(i)+path_p2
+                    filenameFinal = path_p1+str(i)
                     df = df[['lat', 'long', 'time']]
                     each_df.to_csv(filenameFinal)
                     return True
@@ -62,7 +63,7 @@ def ValidateCSV(csvpath):
             #remove unused columns
             df = df[['lat', 'long', 'time']]
             newFilename = str(1)
-            filenameFinal = path_p1+newFilename+path_p2
+            filenameFinal = path_p1+newFilename
             df.to_csv(filenameFinal)
             return True 
 
