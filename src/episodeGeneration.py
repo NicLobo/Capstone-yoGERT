@@ -186,6 +186,7 @@ def cleanStops(csv_path, timetol, distol):
     stops.to_csv(csv_path+"/stop/stops.csv", index=False)
     createEpisodes(csv_path)
 
+###
 def createEpisodes(csv_path):
       stops= pd.read_csv(csv_path+"/stop/stops.csv") 
       trace= pd.read_csv(csv_path+"/trace.csv") 
@@ -210,7 +211,7 @@ def createEpisodes(csv_path):
             newepisode["mode"] = mode.STOP
             newepisode.to_csv(csv_path+"/episode/"+str(eid)+"_episode.csv", index=False)
             eid+=1
-            startindex = row['end_index'] + 1   
+            startindex = row['end_index'] + 1
 
 
 
