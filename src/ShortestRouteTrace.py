@@ -19,7 +19,7 @@ class ShortestRouteTrace:
     ## @brief Constructor for ShortestRouteTrace
     #  @details Contructor accepts 3 parameters for map network, stop GPS coordinates, and weight type.
     #  @param networkGraph NetworkGraph for the map network of street, roads, and walkways for the entire trace. 
-    #  @param filePath string for the path to the csv file consisting of GPS Points representing the stop episodes of the trace.
+    #  @param filePath string for the path to the csv file consisting of GPS Points representing of the trace.
     #  @param optimizer string for the weight type on the graph's edges.  
     #  @throws InvalidWeightException Raised when the inputted optimizer is not a subset of {time, length}
     def __init__(self, networkGraph, filePath, optimizer = "time"):
@@ -28,7 +28,7 @@ class ShortestRouteTrace:
                 raise InvalidWeightException
             else:
                 self.graph = networkGraph
-                self.inputData = stoprelated(filePath) #listOfPoints #this needs to be changed to tranform csvfile to a list of Points 
+                self.inputData = episoderelated(filePath) #listOfPoints #this needs to be changed to tranform csvfile to a list of Points 
                 self.nodes = self.findNodes(self.inputData, networkGraph)
                 self.wt = optimizer
                 self.routes = self.shortestPath(networkGraph, self.nodes, optimizer)
