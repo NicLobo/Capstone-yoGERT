@@ -17,7 +17,7 @@ from Point import *
 class AlternativeRoute:
     ## @brief Constructor for AlternativeRoute
     #  @details Contructor accepts 2 parameters for list of stop GPS coordinates, and weight type.
-    #  @param filePath list of Point type consisting of the stop points GPS coordinates for the trace. 
+    #  @param filePath list of Point type consisting of the GPS coordinates for the trace. 
     #  @param optimizer string for the weight type on the graph's edges.  
     #  @throws InvalidWeightException Raised when the inputted optimizer is not a subset of {time, length}
     def __init__(self, filePath, optimizer = "length"):
