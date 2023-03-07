@@ -20,7 +20,7 @@ def ValidateCSV(csvpath):
         #check to see if it has fields latitude, longitude, and time in column titles
         counter = 0
         for col in df.columns:
-            print("The column name is:"+ col + "and counter value is" + str(counter))
+            #print("The column name is:"+ col + "and counter value is" + str(counter))
             if col == 'lat' or col == 'latitude' or col == "Latitude":
                 df = df.rename({col: 'lat'}, axis='columns')
                 counter+=1
@@ -31,18 +31,19 @@ def ValidateCSV(csvpath):
                 df = df.rename({col: 'time'}, axis='columns')
                 counter+=1
 
-        os.mkdir("traces")
-        
         if counter == 3:
+            os.mkdir("trace")
             df = df.dropna(subset=['lat', 'long', 'time'])
 
             dmslat = re.compile('/^[\+-]?(([1-8]?\d)\D+([1-5]?\d|60)\D+([1-5]?\d|60)(\.\d+)?|90\D+0\D+0)\D+[NSns]?$/')
             dmslong = re.compile('/^[\+-]?([1-7]?\d{1,2}\D+([1-5]?\d|60)\D+([1-5]?\d|60)(\.\d+)?|180\D+0\D+0)\D+[EWew]?$/')
 
             #convert to DD from DMS if DMS format detected
-            if dmslat.match(df.iloc[0]['lat']):
+            print(df.iloc[0]['lat'])
+            print(type(df.iloc[0]['lat']))
+            if dmslat.match(str(df.iloc[0]['lat'])):
                 df['lat'] = df['lat'].apply(DMStoDD)
-            if dmslong.match(df.iloc[0]['long']):
+            if dmslong.match(str(df.iloc[0]['long'])):
                 df['long'] = df['long'].apply(DMStoDD)
 
             #Invalid Latitude: max/min 90.0000000 to -90.0000000
@@ -51,18 +52,19 @@ def ValidateCSV(csvpath):
             df = df[(df['long'] >= -180.0) & (df['long'] <= 180.0)]           
             
             dfs = []
-            #if there's an ID column, split based on ID
-            if 'ID' in df:
+
+            #case 1: multiple IDs in a trace
+            if ('id' or 'ID' or 'fid' or 'FID') in df:
                 dfs = [group[1] for group in df.groupby('ID')]
                 for i, each_df in dfs.items():
-                    filenameFinal = path_p1+str(i)
+                    filenameFinal = path_p1+str(i)+".csv"
                     df = df[['lat', 'long', 'time']]
                     each_df.to_csv(filenameFinal)
                     return True
 
-            #remove unused columns
+            #case 2: one ID in a trace
             df = df[['lat', 'long', 'time']]
-            newFilename = str(1)
+            newFilename = str(1)+".csv"
             filenameFinal = path_p1+newFilename
             df.to_csv(filenameFinal)
             return True 
@@ -83,3 +85,7 @@ def DMStoDD(dmsstring):
 #print(DMStoDD('78°55\'44.29458\"N'))
 #print(DMStoDD('124° 4\' 58\" W'))
 #print(DMStoDD('cookie'))
+
+#ValidateCSV("/home/moksha/4G06/Capstone-yoGERT/src/exampleDataset/trace_1.csv")
+
+
