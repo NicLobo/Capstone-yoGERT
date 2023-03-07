@@ -2,17 +2,18 @@
 # @author Team GIS Gang
 # @brief This notebook aims to generate Trip Episodes based on the given datasets of points
 
-import pandas as pd
+import datetime
 import os
 import subprocess
-import geopandas as gpd
 import time
-import datetime
 from os.path import join
-import numpy as np
+
+import geopandas as gpd
+import geopy as gp
 #import h3
 import geopy.distance
-import geopy as gp
+import numpy as np
+import pandas as pd
 
 #os.chdir("../src/")
 path = os.path.dirname(os.path.abspath(__file__))
@@ -95,6 +96,8 @@ def createSegments(csv_path):
 
 
 from enum import Enum
+
+
 class mode(Enum):
     STOP = 0
     WALK = 1.7
@@ -201,62 +204,81 @@ def createEpisodes(csv_path):
 
       for index, row in stops.iterrows():
           endindex = row['start_index']
+          if (row['start_index'] == 0):
+            
+            newepisode = trace.loc[row['start_index']:row['end_index']].copy()
+            newepisode["mode"] = mode.STOP
+            newepisode.to_csv(csv_path+"/episode/"+str(eid)+"_episode.csv", index=False)
+            eid+=1
+            startindex = row['end_index'] + 1   
 
-          newepisode = trace.loc[startindex:endindex-1].copy()
-          
 
-          medvelocity = segments.loc[(segments["start_index"] > startindex) & (segments["start_index"] < endindex),['velocity']].copy()
-          print(medvelocity)
-          medvelocity = medvelocity["velocity"].median()
-   
-          if( medvelocity < mode.DRIVE.value):
-            finalmode = mode.WALK
+
           else:
-            finalmode = mode.DRIVE
+            newepisode = trace.loc[startindex:endindex-1].copy()
+            
 
-          newepisode["mode"] = finalmode
-          newepisode.to_csv(csv_path+"/episode/"+str(eid)+"_episode.csv", index=False)
-          startindex = row['end_index'] + 1
-          eid+=1
+            medvelocity = segments.loc[(segments["start_index"] > startindex) & (segments["start_index"] < endindex),['velocity']].copy()
+   
+            medvelocity = medvelocity["velocity"].median()
+    
+            if( medvelocity < mode.DRIVE.value):
+                finalmode = mode.WALK
+            else:
+                finalmode = mode.DRIVE
+
+            newepisode["mode"] = finalmode
+            newepisode.to_csv(csv_path+"/episode/"+str(eid)+"_episode.csv", index=False)
+            startindex = row['end_index'] + 1
+            eid+=1
+
+            
+            newepisode = trace.loc[ row['start_index']: row['end_index']].copy()
+            newepisode["mode"] = mode.STOP
+            newepisode.to_csv(csv_path+"/episode/"+str(eid)+"_episode.csv", index=False)
+            eid+=1
+      
 
       if (startindex == endindex == 1):
-          endindex = len(trace)
+        endindex = len(trace)
+        newepisode = trace.loc[startindex:endindex]
+        
 
-          newepisode = trace.loc[startindex:endindex]
-          
-
-          medvelocity = segments.loc[(segments["start_index"] > startindex) & (segments["start_index"] < endindex),['velocity']]
-          print(medvelocity)
-          medvelocity = medvelocity["velocity"].median()
+        medvelocity = segments.loc[(segments["start_index"] > startindex) & (segments["start_index"] < endindex),['velocity']]
    
-          if( medvelocity < mode.DRIVE.value):
+        medvelocity = medvelocity["velocity"].median()
+
+        if( medvelocity < mode.DRIVE.value):
             finalmode = mode.WALK
-          else:
+        else:
             finalmode = mode.DRIVE
 
-          newepisode["mode"] = finalmode
-          newepisode.to_csv(csv_path+"/episode/"+str(eid)+"_episode.csv", index=False)
-          startindex = row['end_index'] + 1   
-          eid+=1    
+        newepisode["mode"] = finalmode
+        newepisode.to_csv(csv_path+"/episode/"+str(eid)+"_episode.csv", index=False)
+        startindex = row['end_index'] + 1   
+        eid+=1    
 
-      if(endindex != len(trace)):
-          endindex = len(trace)
-          newepisode = trace.loc[startindex:endindex]
-          
+      elif(endindex != len(trace)):
+        endindex = len(trace)
+        newepisode = trace.loc[startindex:endindex]
+        
 
-          medvelocity = segments.loc[(segments["start_index"] > startindex) & (segments["start_index"] < endindex),['velocity']]
-          print(medvelocity)
-          medvelocity = medvelocity["velocity"].median()
-   
-          if( medvelocity < mode.DRIVE.value):
+        medvelocity = segments.loc[(segments["start_index"] > startindex) & (segments["start_index"] < endindex),['velocity']]
+
+        medvelocity = medvelocity["velocity"].median()
+
+        if( medvelocity < mode.DRIVE.value):
             finalmode = mode.WALK
-          else:
+        else:
             finalmode = mode.DRIVE
 
-          newepisode["mode"] = finalmode
-          newepisode.to_csv(csv_path+"/episode/"+str(eid)+"_episode.csv", index=False)
-          startindex = row['end_index'] + 1   
-          eid+=1            
+        newepisode["mode"] = finalmode
+        newepisode.to_csv(csv_path+"/episode/"+str(eid)+"_episode.csv", index=False)
+        startindex = row['end_index'] + 1   
+        eid+=1         
+                
+
+
 
 
           
