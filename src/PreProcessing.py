@@ -11,9 +11,6 @@ import re
 global path_p1 
 path_p1 = "traces/trace"
 
-global path_p2
-path_p2 = "_processed.csv"
-
 #@brief this function confirms that CSV is valid and updates to correct column names, removing invalid data
 #@param csvpath - a full path to the input CSV file
 #@return Bool - if the data is valid -> true, if valid, the data is processed and written to a new file with the name of the original file concatenated with _processed
@@ -60,6 +57,7 @@ def ValidateCSV(csvpath):
                     filenameFinal = path_p1+str(i)+path_p2
                     df = df[['lat', 'long', 'time']]
                     each_df.to_csv(filenameFinal)
+                    return True
 
             #remove unused columns
             df = df[['lat', 'long', 'time']]
