@@ -8,6 +8,12 @@ import pandas as pd
 from CustomExceptions import *
 import re
 
+global path_p1 
+path_p1 = "traces/trace"
+
+global path_p2
+path_p2 = "_processed.csv"
+
 #@brief this function confirms that CSV is valid and updates to correct column names, removing invalid data
 #@param csvpath - a full path to the input CSV file
 #@return Bool - if the data is valid -> true, if valid, the data is processed and written to a new file with the name of the original file concatenated with _processed
@@ -30,12 +36,11 @@ def ValidateCSV(csvpath):
 
         
         if counter == 3:
-            #remove unused columns
-            df = df[['lat', 'long', 'time']]
             df = df.dropna(subset=['lat', 'long', 'time'])
 
             dmslat = re.compile('/^[\+-]?(([1-8]?\d)\D+([1-5]?\d|60)\D+([1-5]?\d|60)(\.\d+)?|90\D+0\D+0)\D+[NSns]?$/')
             dmslong = re.compile('/^[\+-]?([1-7]?\d{1,2}\D+([1-5]?\d|60)\D+([1-5]?\d|60)(\.\d+)?|180\D+0\D+0)\D+[EWew]?$/')
+
             #convert to DD from DMS if DMS format detected
             if dmslat.match(df.iloc[0]['lat']):
                 df['lat'] = df['lat'].apply(DMStoDD)
@@ -45,13 +50,24 @@ def ValidateCSV(csvpath):
             #Invalid Latitude: max/min 90.0000000 to -90.0000000
             #Invalid Longitude: max/min 180.0000000 to -180.0000000
             df = df[(df['lat'] >= -90.0) & (df['lat'] <= 90.0)]
-            df = df[(df['long'] >= -180.0) & (df['long'] <= 180.0)]
+            df = df[(df['long'] >= -180.0) & (df['long'] <= 180.0)]           
             
-            newFilename = csvpath.split('.csv')
-            filenameFinal = newFilename[0]+"_processed"+".csv"
+            dfs = []
+            #if there's an ID column, split based on ID
+            if 'ID' in df:
+                dfs = [group[1] for group in df.groupby('ID')]
+                for i, each_df in dfs.items():
+                    filenameFinal = path_p1+str(i)+path_p2
+                    df = df[['lat', 'long', 'time']]
+                    each_df.to_csv(filenameFinal)
+
+            #remove unused columns
+            df = df[['lat', 'long', 'time']]
+            newFilename = str(1)
+            filenameFinal = path_p1+newFilename+path_p2
             df.to_csv(filenameFinal)
             return True 
-            
+
         raise InvalidInputDataException
 
     except InvalidInputDataException: 
@@ -67,3 +83,4 @@ def DMStoDD(dmsstring):
 
 #print(DMStoDD('78°55\'44.29458\"N'))
 #print(DMStoDD('124° 4\' 58\" W'))
+#print(DMStoDD('cookie'))
