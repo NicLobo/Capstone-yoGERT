@@ -187,7 +187,7 @@ def MapEpisodePoints(GPSCoordsFile, savePath):
     GPSCoords = episoderelated(GPSCoordsFile)
     base = folium.Map(location=[GPSCoords[0].lat, GPSCoords[0].lon], zoom_start=10)
     for point in GPSCoords:
-        tooltip = "EpisodeID: " + str(point.episodeID) + ", T: " + point.time
+        tooltip = "EpisodeID: " + str(point.episodeID) + ", T: " + str(point.time)
         if point.mode == "drive" or point.mode == "mode.DRIVE":
             color = "green"
             icon="car-side"
