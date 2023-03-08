@@ -88,6 +88,10 @@ def numberoftrips(trace):
     print(t.head(2))
     t.to_csv(trace+"/stats.csv", index=False)
 
-ping_frequency('./trace')
-#numberoftrips('./trace')
-mode_change('./trace')
+def statstarter(filepath):
+    # ping_frequency('./trace')
+    # numberoftrips('./trace')
+    # mode_change('./trace')
+    ping_frequency(filepath)
+    numberoftrips(filepath)
+    mode_change(filepath)
