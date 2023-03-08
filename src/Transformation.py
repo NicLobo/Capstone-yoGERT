@@ -79,11 +79,12 @@ def episoderelated(episodepath):
 def convertActivityLocation(ActvityLoactionList):
     convertedList = []
     for i in ActvityLoactionList:
-        activityList = []
-        for j in i[1]: # The list with all nearby locations
-            activityList.append([j.name, float(j.lat), float(j.lon), j.amenity])
-        # Append to final list
-        convertedList.append([i[0].lat, i[0].lon, activityList])
+        if i is not None:
+            activityList = []
+            for j in i[1]: # The list with all nearby locations
+                activityList.append([j.name, float(j.lat), float(j.lon), j.amenity])
+            # Append to final list
+            convertedList.append([i[0].lat, i[0].lon, activityList])
     return convertedList
 
 # Convert CSV file(i.e. fetchOutput.csv) into a list of activity location objects
@@ -103,36 +104,7 @@ def convertListToActivityLocationObject(activityLocationList):
     return newActivityLocation
 
 
-#trace file path          
-def summarymode(tracefilepath):
-    modes = []
-
-
-    changec = 0
-    
-    files = glob.glob(os.path.dirname(tracefilepath)+'/episode'+ "/*.csv")
-    print(files)
-    
-    for f in files:
-        data = csv.reader(open(f))
-        c = 0
-        
-        for line in data:
-            
-            if c>0: 
-                
-                modes.append(line[4])
-                
-                break
-            
-            c = c+1
-    
-    stats=os.path.dirname(tracefilepath)+'/summarymode.csv'
-    with open(stats, 'w') as f1:
-        writer_object = writer(f1)
-        writer_object.writerow(['Summary Mode'])
-        writer_object.writerow([str(mode(modes)) ])
-
+#Summary mode which takes in filepath and gives mode string
 def summaryModeTrace(tracefilepath):
     summarymodefilepath = os.path.dirname(tracefilepath)+'/summarymode.csv'
     c=0
