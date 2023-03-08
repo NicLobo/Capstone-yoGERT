@@ -39,7 +39,6 @@ def test_exceptionRaisedWhenOutputIsInvalid(capsys):
     captured = capsys.readouterr()
     assert "Error writing to output file" in captured.out
 
-
 # def test_isApiErrorLogged(mocker,capsys):
 #     mock_exception = overpy.exception.OverpassGatewayTimeout
 #     mock_exception2 = overpy.exception.OverpassGatewayTimeout
@@ -48,14 +47,21 @@ def test_exceptionRaisedWhenOutputIsInvalid(capsys):
 #     captured = capsys.readouterr()
 #     assert "Error writing to output file" in captured.out
 
-
 def test_listOfActivityLocationsCorrect():
-  fetchActivityLocations("trace/stop/stops.csv","trace/trace1/activitylocations/trace-activityLocation.csv", 100)
-  with open("trace/trace1/activitylocations/trace-activityLocation.csv") as myfile:
-     if 'String' in myfile.read():
-         assert True
-#check if output file is generated
-#check exceptions for input file
-#check exceptions for 
-#check if server unavialable outputs logs
-#check if lists out points and 
+  outputPath = "trace/trace1/activitylocations/trace-activityLocation.csv"
+  testOutputFile = "../test/csvdata/activityLocationOutputTest.csv"
+  if os.path.exists(outputPath):
+      print("removed")
+      os.remove(outputPath)
+  fetchActivityLocations("trace/stop/stops.csv",outputPath, 500)
+  with open(outputPath,'r') as f1, open(testOutputFile, 'r') as f2:
+      if f1.read() == f2.read():
+        assert True
+      else:
+        assert False
+
+
+
+#test if input file given is incorrect in content
+#tests if output file syntax is correct
+#test with different radiuss
