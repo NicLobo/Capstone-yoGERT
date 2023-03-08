@@ -11,7 +11,7 @@ from csv import writer
 def ping_frequency(trace): 
     filepath = trace
     
-    files = glob.glob(filepath + "/*.csv")
+    files = glob.glob(filepath + "/*e.csv")
     print(files)
     for f in files:
         df = pd.read_csv(f)
