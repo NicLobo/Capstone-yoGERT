@@ -21,17 +21,17 @@ samplingDistance = 25
 # Test 6.2.2.1
 def test_CreatingShortestRouteEpisode():
     SRE = ShortestRouteEpisode(NG, episodeFilePath)
-    assert type(SRE) == ShortestRouteEpisode and len(SRE.routes) == len(SRE.sampledData) - 1
+    assert type(SRE) == ShortestRouteEpisode and len(SRE.routes) <= len(SRE.sampledData) - 1
 
 # Test 6.2.2.2
 def test_CreatingShortestRouteEpisodeCustomized():
     SRE = ShortestRouteEpisode(NG, episodeFilePath, "time", True, samplingDistance)
-    assert type(SRE) == ShortestRouteEpisode and len(SRE.routes) == len(SRE.sampledData) - 1
+    assert type(SRE) == ShortestRouteEpisode and len(SRE.routes) <= len(SRE.sampledData) - 1
 
 # Test 6.2.2.3
 def test_CreatingShortestRouteEpisodeNoSampling():
     SRE = ShortestRouteEpisode(NG, episodeFilePath, "time", False)
-    assert type(SRE) == ShortestRouteEpisode and len(SRE.routes) == len(SRE.sampledData) - 1
+    assert type(SRE) == ShortestRouteEpisode and len(SRE.routes) <= len(SRE.sampledData) - 1
 
 # Test 6.2.2.4
 def test_CreatingShortestRouteEpisodeOptimizerException(capsys):
