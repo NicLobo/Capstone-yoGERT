@@ -79,11 +79,12 @@ def episoderelated(episodepath):
 def convertActivityLocation(ActvityLoactionList):
     convertedList = []
     for i in ActvityLoactionList:
-        activityList = []
-        for j in i[1]: # The list with all nearby locations
-            activityList.append([j.name, float(j.lat), float(j.lon), j.amenity])
-        # Append to final list
-        convertedList.append([i[0].lat, i[0].lon, activityList])
+        if i is not None:
+            activityList = []
+            for j in i[1]: # The list with all nearby locations
+                activityList.append([j.name, float(j.lat), float(j.lon), j.amenity])
+            # Append to final list
+            convertedList.append([i[0].lat, i[0].lon, activityList])
     return convertedList
 
 # Convert CSV file(i.e. fetchOutput.csv) into a list of activity location objects

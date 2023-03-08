@@ -13,6 +13,19 @@ import logging
 
 
 
+def getResult(api, built_query):
+    serverFree = 1
+    try:
+        # get result from API by sending the query to overpass servers
+        result = api.query(built_query)               
+    except overpy.exception.OverpassGatewayTimeout:
+        serverFree = 0
+        print("Overpass server is at capacity! Please try again later")
+    except overpy.exception.OverpassTooManyRequests:
+        serverFree = 0
+        print("Overpass server is at capacity! Please try again later")
+    return result, serverFree
+
 ## @brief This function takes latitude and longitude values of a stop point and a tolerance 
 #  @param latitude float the latitude of the stop point
 #  @param longitude float the latitude of the stop point
@@ -48,15 +61,8 @@ def fetchALForIndividualPoint(stopPoint, tol):
 
     #check if the api is available
     serverFree = 1
-    try:
-        # get result from API by sending the query to overpass servers
-        result = api.query(built_query)               
-    except overpy.exception.OverpassGatewayTimeout:
-        serverFree = 0
-        print("Overpass server is at capacity! Please try again later")
-    except overpy.exception.OverpassTooManyRequests:
-        serverFree = 0
-        print("Overpass server is at capacity! Please try again later")
+
+    result, serverFree = getResult(api, built_query)
 
     if (serverFree == 1):
         # initializing empty list , we'll use it to form a dataframe.
@@ -106,8 +112,11 @@ def fetchALForIndividualPoint(stopPoint, tol):
 #  @return a list of tuples consisting of Point object and a list of ActivityLocation objects)
 def fetchActivityLocations(inPath, outPath,  tol=25):
     # creating a list of points based on csv file path provided
-    listStops = Transformation.stoprelated(inPath)
-
+    listStops =[]
+    try:
+        listStops = Transformation.stoprelated(inPath)
+    except:
+        print("Input file is invalid")
     # initializing empty list, we'll use it to append stop Point object and list of ActivityLocation objects
     list_of_stops_AL = []
     for i in listStops:
@@ -120,14 +129,17 @@ def fetchActivityLocations(inPath, outPath,  tol=25):
     listActivities.append(convertedResult)
 
     # Write result to a csv file
-    with open(outPath, 'w', newline='') as outputFile:
-        fileWriter = csv.writer(outputFile)
-        # Create Header
-        fileWriter.writerow(['Latitude', 'Longitude', 'Nearby Activity Locations'])
+    try:
+        with open(outPath, 'w', newline='') as outputFile:
+            fileWriter = csv.writer(outputFile)
+            # Create Header
+            fileWriter.writerow(['Latitude', 'Longitude', 'Nearby Activity Locations'])
 
-        # Write each rows
-        for i in convertedResult:
-            fileWriter.writerow([i[0],i[1],i[2]])
+            # Write each rows
+            for i in convertedResult:
+                fileWriter.writerow([i[0],i[1],i[2]])
+    except:
+        print("Error writing to output file")
 
     return 0
     
