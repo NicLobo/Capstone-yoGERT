@@ -70,9 +70,9 @@ def ValidateCSV(csvpath, directoryname):
             df = df[['lat', 'long', 'time']]
             newFilename = os.path.join(os.path.abspath(directoryname), "trace"+str(0)+".csv")
             df.to_csv(newFilename)
-            return True 
-
-        raise InvalidInputDataException
+            return True
+        else: 
+            raise InvalidInputDataException 
 
     except InvalidInputDataException: 
         raise Exception("InvalidInputDataException: invalid input, you do not have all required columns (latitude, longitude, time)") 
