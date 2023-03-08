@@ -8,13 +8,10 @@ from CustomExceptions import *
 import re
 import os
 
-global path_p1 
-path_p1 = "traces/trace"
-
 #@brief this function confirms that CSV is valid and updates to correct column names, removing invalid data
 #@param csvpath - a full path to the input CSV file
 #@return Bool - if the data is valid -> true, if valid, the data is processed and written to a new file with the name of the original file concatenated with _processed
-def ValidateCSV(csvpath):
+def ValidateCSV(csvpath, directoryname):
     df = pd.read_csv(csvpath)
     try: 
         #check to see if it has fields latitude, longitude, and time in column titles
@@ -32,15 +29,15 @@ def ValidateCSV(csvpath):
                 counter+=1
 
         if counter == 3:
-            os.mkdir("trace")
+            os.mkdir(directoryname)
             df = df.dropna(subset=['lat', 'long', 'time'])
 
             dmslat = re.compile('/^[\+-]?(([1-8]?\d)\D+([1-5]?\d|60)\D+([1-5]?\d|60)(\.\d+)?|90\D+0\D+0)\D+[NSns]?$/')
             dmslong = re.compile('/^[\+-]?([1-7]?\d{1,2}\D+([1-5]?\d|60)\D+([1-5]?\d|60)(\.\d+)?|180\D+0\D+0)\D+[EWew]?$/')
 
             #convert to DD from DMS if DMS format detected
-            print(df.iloc[0]['lat'])
-            print(type(df.iloc[0]['lat']))
+            #print(df.iloc[0]['lat'])
+            #print(type(df.iloc[0]['lat']))
             if dmslat.match(str(df.iloc[0]['lat'])):
                 df['lat'] = df['lat'].apply(DMStoDD)
             if dmslong.match(str(df.iloc[0]['long'])):
@@ -54,19 +51,22 @@ def ValidateCSV(csvpath):
             dfs = []
 
             #case 1: multiple IDs in a trace
-            if ('id' or 'ID' or 'fid' or 'FID') in df:
-                dfs = [group[1] for group in df.groupby('ID')]
-                for i, each_df in dfs.items():
-                    filenameFinal = path_p1+str(i)+".csv"
-                    df = df[['lat', 'long', 'time']]
-                    each_df.to_csv(filenameFinal)
-                    return True
+            idnames = ['id','ID','fid','FID']
+            for id_name in idnames: 
+                if id_name in df:
+                    dfs = [group[1] for group in df.groupby(id_name)]
+                    for i, each_df in enumerate(dfs):
+                        filenameFinal = os.path.join(os.path.abspath(directoryname), "trace"+str(i)+".csv")
+                        df = df[['lat', 'long', 'time']]
+                        each_df.to_csv(filenameFinal)
+                        return True
+                else: 
+                    pass
 
             #case 2: one ID in a trace
             df = df[['lat', 'long', 'time']]
-            newFilename = str(1)+".csv"
-            filenameFinal = path_p1+newFilename
-            df.to_csv(filenameFinal)
+            newFilename = os.path.join(os.path.abspath(directoryname), "trace"+str(0)+".csv")
+            df.to_csv(newFilename)
             return True 
 
         raise InvalidInputDataException
@@ -86,6 +86,7 @@ def DMStoDD(dmsstring):
 #print(DMStoDD('124° 4\' 58\" W'))
 #print(DMStoDD('cookie'))
 
-#ValidateCSV("/home/moksha/4G06/Capstone-yoGERT/src/exampleDataset/trace_1.csv")
+ValidateCSV("/home/moksha/4G06/Capstone-yoGERT/src/exampleDataset/trace_1.csv", "testdir")
+
 
 
