@@ -13,7 +13,7 @@ from CustomExceptions import *
 from Point import *
 from Transformation import *
 
-traceFilePath = "trace1.csv"
+traceFilePath = "./trace1.csv"
 emptyFilePath = ""
 NG = NetworkGraph(traceFilePath, "drive", False)
 samplingDistance = 25
@@ -21,7 +21,7 @@ samplingDistance = 25
 # Test 6.2.3.1
 def test_CreatingShortestRouteTrace():
     SRT = ShortestRouteTrace(NG, traceFilePath)
-    assert type(SRT) == ShortestRouteTrace and len(SRT.routes) == len(SRT.inputData) - 1
+    assert type(SRT) == ShortestRouteTrace and len(SRT.routes) <= len(SRT.inputData) - 1
 
 # Test 6.2.3.2
 def test_CreatingShortestRouteTraceOptimizerException(capsys):

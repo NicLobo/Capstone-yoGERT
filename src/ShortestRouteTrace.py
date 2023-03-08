@@ -28,7 +28,8 @@ class ShortestRouteTrace:
                 raise InvalidWeightException
             else:
                 self.graph = networkGraph
-                self.inputData = episoderelated(filePath) #listOfPoints #this needs to be changed to tranform csvfile to a list of Points 
+                # self.inputData = episoderelated(filePath) #listOfPoints #this needs to be changed to tranform csvfile to a list of Points 
+                self.inputData = tracerelated(filePath)
                 self.nodes = self.findNodes(self.inputData, networkGraph)
                 self.wt = optimizer
                 self.routes = self.shortestPath(networkGraph, self.nodes, optimizer)
