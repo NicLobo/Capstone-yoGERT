@@ -12,6 +12,9 @@
     linkcolor=red,
     urlcolor=blue
 }
+\usepackage{xcolor}
+\usepackage{ulem}
+\usepackage{cancel}
 \usepackage[round]{natbib}
 \usepackage{multirow}
 
@@ -38,6 +41,7 @@
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
 November 2, 2022 & 1.0 & Longwei: Sec 3; Moksha: Sec 6,7; Smita: Sec 6,7; Abeer: Sec 3,4,formatting; Niyatha: 5.2; Nicholas: Sec 5.2,5.3 \\
+\textcolor{blue}{March 6, 2023} & \textcolor{blue}{2.0} & \textcolor{blue}{Abeer: Unit Test (6.2.1-6.2.5)} \textcolor{blue}{Moksha: Unit Test (6.2.9)} \textcolor{blue}{Longwei Ye: Non-functional Tests (6.3)}\textcolor{blue}{Nicholas: Unit Test (6.2.5)} \textcolor{blue}{Smita  Singh: Unit Tests (6.7, 6.10, 6.11)} \\
 % Date 2 & 1.1 & Notes\\
 \bottomrule
 \end{tabularx}
@@ -80,6 +84,8 @@ November 2, 2022 & 1.0 & Longwei: Sec 3; Moksha: Sec 6,7; Smita: Sec 6,7; Abeer:
   Activity Locations (ALs) & ALs are trip stops \\
   FR & Functional Requirement \\
   NFR & Non-Functional Requirement \\
+  DD & Decimal degrees (DD) is a notation for expressing latitude and longitude geographic coordinates as decimal fractions of a degree \\
+  DMS & DMS is a notation for expressing altitude and longitude as degrees (°), minutes ('), seconds ('')\\
 
 
   \bottomrule
@@ -166,8 +172,8 @@ need to be actively aware of each testing plan and involved in all aspects of th
 testing process. All team members are involved because this is a capstone project
 that requires students to participate in all the project's stages. Therefore, the
 team aims to evenly split testing and preparing for automated testing. The table
-below shows the division of responsibilities. It assigns leaders for different
-testing milestones. This way the team is sure that every testing stage is on
+below shows the division of responsibilities. \sout{It assigns leaders for different
+testing milestones.} This way the team is sure that every testing stage is on
 track.  
 \newpage
 \begin{table}[h!]
@@ -175,12 +181,12 @@ track.
  \hline
  \textbf{Team Member} & \textbf{Testing Role} & \textbf{Responsibilities}  \\ 
  \hline
- Abeer Alyasiri & SRS and Design Verification and Acceptance Testing & Leads document and code walkthroughs and inspections. Leads user and business acceptance testing using black box techniques. \\ 
- Longwei Ye & Integration Testing & Leads regression testing using black box techniques. \\ 
- Moksha Srinivasan & Unit Testing & Leads implementation of white box testing techniques. \\
+ Abeer Alyasiri & SRS and Design Verification and \sout{Acceptance} \textcolor{blue}{Unit} Testing & Leads document and code walkthroughs and inspections. Leads user testing and \sout{business acceptance} \textcolor{blue}{SRS verification} using black box techniques and white box techniques for automated tests. \\ 
+ Longwei Ye & Integration Testing, \textcolor{blue}{Stress Testing, Regression Testing, and Performance Testing} & Leads regression, \textcolor{blue}{integration, and stress testing} using black box techniques. \\ 
+ Moksha Srinivasan & Unit Testing \textcolor{blue}{, system testing, and user testing} & Leads implementation of white box testing techniques \textcolor{blue}{for automated testing. Black box technique for manual testing}. \\
  Smita Singh & Unit Testing & Leads implementation of white box testing techniques. \\
- Nicholas Lobo & System Testing & Leads functional requirements testing. \\
- Niyatha Rangarajan & System Testing & Leads non-functional requirements testing. \\
+ Nicholas Lobo & \sout{System} \textcolor{blue}{Unit} Testing & \sout{Leads functional requirements testing.} \textcolor{blue}{Leads implementation of white box testing techniques.} \\
+ Niyatha Rangarajan & \sout{System} \textcolor{blue}{Unit} Testing & \sout{Leads non-functional requirements testing.} \textcolor{blue}{Leads implementation of white box testing techniques.} \\
  \hline
 \end{tabular}
     \caption{Verification and Validation Team.}
@@ -199,7 +205,7 @@ testing technique that includes structured and unstructured reviews, walkthrough
 Part one is the unstructured feedback received from 
 classmates in the form of GitHub issues. These reviews provide technical
 improvements on the document from outside the team. It is helpful because it 
-improves the document's information flow to professional individuals in the
+improves the document's information flow to  professionals in the
 field, such as software engineers.\\ 
 Part two is the structured review received from the TA. The TA follows a checklist in the form of a rubric. The feedback is beneficial because the SRS is reviewed
 from an industry standard perspective. Hence, the document will be
@@ -228,7 +234,7 @@ to the document before the design document deliverable.
 
 Design verification will be similar to the SRS verification part one and
 part two. In addition it will include a formal review by teammates using
-a checklist. The checklist will consist of Dr. Spencer's MG and MIS checklists and the following points:
+a checklist. The checklist will consist of Dr. Smith's MG and MIS checklists and the following points:
 \begin{itemize}
     \item Each design decision maps to one or more requirements. 
     \item Each design specification has one output. 
@@ -254,7 +260,7 @@ architectural model. Dynamic testing will include unit testing, white box testin
 \subsection{Verification and Validation Plan Verification Plan}
 
 Verification and validation plan will be verified through reviews. It is important to highlight that it is difficult to proof the correctness of the test cases. Therefore, the combination multiple verification techniques induct that the verification and validation plan  approximately tested critical points of the system.\\ 
-First, it will be verified against Dr. Spencer's VnV-checklist by \emph{yoGERT} team members. It will verify the completeness of the test cases. It is done by tracing at least one requirement to a test case and examining the requirement across different types of inputs.\\ 
+First, it will be verified against Dr. Smith's VnV-checklist by \emph{yoGERT} team members. It will verify the completeness of the test cases. It is done by tracing at least one requirement to a test case and examining the requirement across different types of inputs.\\ 
 Second, it will be reviewed by classmates in an informal way. This feedback is beneficial because it is outside the team professional opinion on what information is missing from the document.\\ 
 Third, it will be reviewed by the TA in a standard way using the rubric as a checklist. The review will focus on the accuracy of information used to formulate the plan and if the plan is appropriate to the project. The plan is appropriate if it is feasible within the capstone timeline and test cases are complete within its requirement scope. 
 
@@ -280,10 +286,10 @@ techniques. It includes code inspections to test code
 readability and code walkthroughs to verify 
 implementation meets that design specification. \\
 The other stages of the implementation verification plan will rely on dynamic 
-testing techniques. These tests will be driven by white box testing and 
-integration testing techniques. Both these techniques are focused on proving that 
-the system follows the design specification and is consistent with the addition of
-new components. Also, The verification plan must encapsulate testing scenarios of how the system reacts to faulty inputs. It can be tested by inputting irrational data points and observing if a safe output will be produced instead of system failure. Therefore, it is important that the testing cases will include boundary and edge inputs to the system's safe outputs and consistent behaviour.
+testing techniques. These tests will be driven by white box testing, \textcolor{blue}{stress testing, regression testing,} and 
+integration testing techniques. These techniques are focused on proving that 
+the system follows the design specification \textcolor{blue}{and requirements specification} and is consistent with the addition of
+new components. Also, The verification plan must encapsulate testing scenarios of how the system reacts to faulty inputs. It can be tested by inputting irrational data points and observing if a safe output will be produced instead of system failure. Therefore, it is important that the test cases will include boundary and edge inputs to the system's safe outputs and consistent behaviour.
 
 
 % \wss{In this section you would also give any details of any plans for static verification of
@@ -571,6 +577,23 @@ These tests will have a focus on verifying the internal workings of the system. 
 
 \textbf{Associated Functional Requirement}: R15
 
+\item{test-ST-10\\}
+
+\textbf{Control}: Manual
+					
+\textbf{Initial State}: Overpy API Server unavailable
+					
+\textbf{Input}: Valid input and output file paths and valid input CSV
+file
+					
+\textbf{Output}: Log warning displaying for which stop points the server
+was not able to fetch activity locations
+
+\textbf{Test Case Derivation}: The user wants to be informed if there are stop points for which activity locations are not fetched
+
+\textbf{How test will be performed}: The tester will disconnect from the internet, and run fetch Activity Locations module with valid inputs and checks that all the stop points in log warnings do not show up in the generated output CSV file
+
+\textbf{Associated Functional Requirement}: R8, R14
 \end{enumerate}
 
 
@@ -578,25 +601,24 @@ These tests will have a focus on verifying the internal workings of the system. 
 \subsection{Tests for Nonfunctional Requirements}
 
 % \paragraph{* Storing user information is now considered as a stretch goal. This conclusion was reached after a dicussion with our stakeholders. Hence, the SRS will be revised to avoid including such information. The following tests do not involve storing user information while the rest of SRS NFR related information remains unchanged. }
-\subsubsection{UI/UX Component Readability }
-\paragraph{The information must be presented to the user in readable format. Hence, there will be UI/UX related tests.}
+\subsubsection{Appearance Tests}
+\paragraph{The information must be presented to the user in readable format. Hence, there will be appearance related tests.}
 
 \begin{enumerate}
 
 \item{test-id1\\}
 
-\textbf{Type}: Regression testing
+\textbf{Type}: Static/Manual Testing
 					
-\textbf{Initial State}: Word document is present in the directory. Various functions to perform on the GPS data are shown to the user.
+\textbf{Initial State}: User messages are present and users can easily see what errors occurred in a clear and uncomplicated way.
 					
-\textbf{Input/Condition}: The user types a function to call for the system to organize the
-inputted data (word document) into episodes giving a word document as input. 
+\textbf{Input/Condition}: The user applies a function to some incorrect data.
 					
-\textbf{Output/Result}: An error stating that the input file provided is not of the correct format.
+\textbf{Output/Result}: The user can easily decipher the error message provided
 					
-\textbf{How test will be performed}: Since, different functions require different inputs, it is important to see if the current modules functionality changes when the format of the input file changes.
+\textbf{How test will be performed}: The user will be provided incorrect input and told to explain what went wrong and how they could fix it in the future. If successful, error messages are easily decipherable. 
 
-\textbf{Associated NFR}: 11
+\textbf{Associated NFR}: 6, 7, 21
 \item{test-id2\\}
 
 \textbf{Type}: Manual testing
@@ -611,6 +633,12 @@ inputted data into episodes
 \textbf{How test will be performed}: This works like VS code, were as you type a function, a function description hovers over the function call, depciting the required user input for that function. One can try this test with different function calls to check its validity.
 
 \textbf{Associated NFR}: 1, 2, 3, 4, 5, 6, 7 
+
+
+
+
+\textbf{Associated NFR}: 1, 2, 3, 4, 5, 6, 7 
+
 \end{enumerate}
 
 \subsubsection{Large Data Memory and Performance}
@@ -618,7 +646,7 @@ inputted data into episodes
 
 \begin{enumerate}
 
-\item{test-id3\\}
+\item{test-id4\\}
 
 \textbf{Type}: Regression testing
 					
@@ -634,7 +662,7 @@ as speed, duration, distance, and change in direction within 6000 seconds upon r
 
 \textbf{Associated NFR}: 9, 11, 12
 
-\item{test-id4\\}
+\item{test-id5\\}
 
 \textbf{Type}: Unit testing
 					
@@ -658,7 +686,7 @@ inputted data into episodes
 
 \begin{enumerate}
 
-\item{test-id5\\}
+\item{test-id6\\}
 
 \textbf{Type}: Manual
 					
@@ -673,7 +701,7 @@ inputted data into episodes
 
 \textbf{Associated NFR}: 19
 
-\item{test-id6\\}
+\item{test-id7\\}
 
 \textbf{Type}: Dynamic testing
 					
@@ -696,7 +724,7 @@ inputted data into episodes
 
 \begin{enumerate}
 
-\item{test-id7\\}
+\item{test-id8\\}
 
 \textbf{Type}: Unit testing
 					
@@ -711,7 +739,7 @@ inputted data into episodes.
 
 \textbf{Associated NFR}: 15
 
-\item{test-id8\\}
+\item{test-id9\\}
 
 \textbf{Type}: Unit testing
 					
@@ -729,7 +757,7 @@ as speed, duration, distance, and change in direction
 
 \subsubsection{Accessibility issues}
 
-\item{test-id9\\}
+\item{test-id10\\}
 
 \textbf{Type}: Manual testing
 					
@@ -747,7 +775,7 @@ as speed, duration, distance, and change in direction in a csv file format to al
 
 \subsubsection{Scalability issues}
 
-\item{test-id10\\}
+\item{test-id11\\}
 
 \textbf{Type}: Manual testing
 					
@@ -844,14 +872,836 @@ Route choice analysis variable modules will be verified for correct functionalit
 
 \subsection{Tests for Functional Requirements}
 
-This section will be completed once the MIS has been updated and there is greater clarity on specific modules. 
+\sout{This section will be completed once the MIS has been updated and there is greater clarity on specific modules.}
+
+\textcolor{blue}{
+\subsubsection{Network Graph Module Test Cases}
+\begin{tabular}{|l|p{10cm}|}
+    \hline
+    \bf{Test} 6.2.1.1: & Creating Network Graph from GPS pings of a trace. \\
+    \bf{Requirements}: & R11,R4 \\
+    \bf{Description}: & Tests if the network graph functionality works when given a trace with GPS pings. \\
+    \bf{Type}: & Unit test (static, automated) \\
+    \bf{Initial State}: & The user has ran preprocessing on their initial GPS data set and episode generation on the output from the preprocessing module. \\
+    \bf{Input}: & File path to the preprocessing trace CSV output and mode of transportation. \\
+    \bf{Output}: & NetworkGraph object. \\
+    \bf{Pass}: & NetworkGraph object contains an attribute for a successfully created networkx.MultiDiGraph object. \\
+    \hline
+\end{tabular}
+\begin{tabular}{|l|p{10cm}|}
+    \hline
+    \bf{Test} 6.2.1.2: & Creating Network Graph from GPS pings of episode. \\
+    \bf{Requirements}: &  R11,R4\\
+    \bf{Description}: & Tests if the network graph functionality works when given a episode with GPS pings. \\
+    \bf{Type}: & Unit test (static, automated) \\
+    \bf{Initial State}: & The user has ran preprocessing on their initial GPS data set and episode generation on the output from the preprocessing module. \\
+    \bf{Input}: & File path to the episode CSV output and mode of transportation. \\
+    \bf{Output}: & NetworkGraph object. \\
+    \bf{Pass}: & NetworkGraph object contains an attribute for a successfully created networkx.MultiDiGraph object. \\
+    \hline
+\end{tabular}
+\begin{tabular}{|l|p{10cm}|}
+    \hline
+    \bf{Test} 6.2.1.3: & Getting nearest graph node of a GPS coordinate \\
+    \bf{Requirements}: & R11,R4 \\
+    \bf{Description}: & Tests if the network graph get function works in getting the nearest node when the coordinate is included in the graph's area. \\
+    \bf{Type}: & Unit test (static, automated) \\
+    \bf{Initial State}: & The user has ran preprocessing on their initial GPS data set, episode generation on the output from the preprocessing module, and created a network graph object using a trace or episode csv file. \\
+    \bf{Input}: & Network Graph object and GPS coordinate as a tuple of (latitude, longitude). \\
+    \bf{Output}: & Node number in integers. \\
+    \bf{Pass}: & Node number is within the Network Graph networkx.MultiDiGraph object. \\
+    \hline
+\end{tabular}
+\begin{tabular}{|l|p{10cm}|}
+    \hline
+    \bf{Test} 6.2.1.4: & Getting mode of Network Graph object \\
+    \bf{Requirements}: &  R11,R4\\
+    \bf{Description}: & Tests if the network graph get function works in getting the graph's mode of transportation. \\
+    \bf{Type}: & Unit test (static, automated) \\
+    \bf{Initial State}: & The user has ran preprocessing on their initial GPS data set, episode generation on the output from the preprocessing module, and created a network graph object using a trace or episode csv file. \\
+    \bf{Input}: & Network Graph object. \\
+    \bf{Output}: & string for the network transportation mode. \\
+    \bf{Pass}: & Output is the same input entered when the Network Graph object was created. \\
+    \hline
+\end{tabular}
+\begin{tabular}{|l|p{10cm}|}
+    \hline
+    \bf{Test} 6.2.1.5: & Finds nearest node of GPS coordinate outside the Network Graph. \\
+    \bf{Requirements}: &  R11,R4\\
+    \bf{Description}: & Tests if the functiona catches the out of bound exception. \\
+    \bf{Type}: & Unit test (static, automated) \\
+    \bf{Initial State}: & The user has ran preprocessing on their initial GPS data set, episode generation on the output from the preprocessing module, and created a network graph object using a trace or episode csv file. \\
+    \bf{Input}: & Network Graph object and GPS coordinate as a tuple of (latitude, longitude). \\
+    \bf{Output}: & Exception. \\
+    \bf{Pass}: & Output is an exception of type OutOfBoundsCoordException. \\
+    \hline
+\end{tabular}
+\begin{tabular}{|l|p{10cm}|}
+    \hline
+    \bf{Test} 6.2.1.6: & Creating Network Graph from GPS pings with incorrect transportation mode \\
+    \bf{Requirements}: &  R11,R4\\
+    \bf{Description}: & Tests if the function catches the exception for the incorrect transportation mode. \\
+    \bf{Type}: & Unit test (static, automated) \\
+    \bf{Initial State}: & The user has ran preprocessing on their initial GPS data set and episode generation on the output from the preprocessing module. \\
+    \bf{Input}: & File path to the preprocessing trace CSV output and mode of transportation. \\
+    \bf{Output}: & Exception. \\
+    \bf{Pass}: & Output is an exception of type InvalidModeException. \\
+    \hline
+\end{tabular}
+\begin{tabular}{|l|p{10cm}|}
+    \hline
+    \bf{Test} 6.2.1.7: & Creating Network Graph from GPS pings with empty file path. \\
+    \bf{Requirements}: & R11,R4 \\
+    \bf{Description}: & Tests if the function catches the exception for the empty file path. \\
+    \bf{Type}: & Unit test (static, automated) \\
+    \bf{Initial State}: & The user has ran preprocessing on their initial GPS data set and episode generation on the output from the preprocessing module. \\
+    \bf{Input}: & File path to the preprocessing trace CSV output and mode of transportation. \\
+    \bf{Output}: & Exception. \\
+    \bf{Pass}: & Output is an exception of type EmptyFilePathException. \\
+    \hline
+\end{tabular}
+\subsubsection{Episode Shortest Route Module Test Cases}
+\begin{tabular}{|l|p{10cm}|}
+    \hline
+    \bf{Test} 6.2.2.1: & Creating Episode Shortest Route from Network Graph, algorithm optimizer type, and GPS pings \\
+    \bf{Requirements}: & R11,R4 \\
+    \bf{Description}: & Tests if the episode shortest route functionality to find routes when given a network graph, optimizer, and GPS pings of an episode. \\
+    \bf{Type}: & Unit test (static, automated) \\
+    \bf{Initial State}: & The user has ran preprocessing on their initial GPS data set, episode generation on the output from the preprocessing module, and created a network graph object for a generated episode output. \\
+    \bf{Input}: & NetwrokGraph object, string for optimizer type, string for file path to the episode GPS ping CSV file. \\
+    \bf{Output}: & ShortestRouteEpisode object. \\
+    \bf{Pass}: & ShortestRouteEpisode object contains an attribute for list of subroutes where its length less than or equals the number of GPS coordinates - 1 used to created ShortestRouteEpisode object. \\
+    \hline
+\end{tabular}
+\begin{tabular}{|l|p{10cm}|}
+    \hline
+    \bf{Test} 6.2.2.2: & Creating Episode Shortest Route from Network Graph, algorithm optimizer type, and GPS pings with sampling customization. \\
+    \bf{Requirements}: & R11,R4 \\
+    \bf{Description}: & Tests if the episode shortest route functionality to find routes when given a network graph, optimizer, GPS pings of an episode, and sampling parameters. \\
+    \bf{Type}: & Unit test (static, automated) \\
+    \bf{Initial State}: & The user has ran preprocessing on their initial GPS data set, episode generation on the output from the preprocessing module, and created a network graph object for a generated episode output. \\
+    \bf{Input}: & NetwrokGraph object, string for optimizer type, string for file path to the episode GPS ping CSV file, boolean for sampling, integer for sampling distance. \\
+    \bf{Output}: & ShortestRouteEpisode object. \\
+    \bf{Pass}: & ShortestRouteEpisode object contains an attribute for list of subroutes where its length less than or equals the number of GPS coordinates - 1 used to created ShortestRouteEpisode object. \\
+    \hline
+\end{tabular}
+\begin{tabular}{|l|p{10cm}|}
+    \hline
+    \bf{Test} 6.2.2.3: & Creating Episode Shortest Route from Network Graph, algorithm optimizer type, and GPS pings without sampling. \\
+    \bf{Requirements}: & R11,R4 \\
+    \bf{Description}: & Tests if the episode shortest route functionality to find routes when given a network graph, optimizer, GPS pings of an episode, and sampling condition. \\
+    \bf{Type}: & Unit test (static, automated) \\
+    \bf{Initial State}: & The user has ran preprocessing on their initial GPS data set, episode generation on the output from the preprocessing module, and created a network graph object for a generated episode output. \\
+    \bf{Input}: & NetwrokGraph object, string for optimizer type, string for file path to the episode GPS ping CSV file, boolean for sampling. \\
+    \bf{Output}: & ShortestRouteEpisode object. \\
+    \bf{Pass}: & ShortestRouteEpisode object contains an attribute for list of subroutes where its length less than or equals the number of GPS coordinates - 1 used to created ShortestRouteEpisode object. \\
+    \hline
+\end{tabular}
+\begin{tabular}{|l|p{10cm}|}
+    \hline
+    \bf{Test} 6.2.2.4: & Creating Episode Shortest Route from Network Graph, incorrect algorithm optimizer type, and GPS pings \\
+    \bf{Requirements}: &  R11,R4\\
+    \bf{Description}: & Tests if the episode shortest route catches the exception for invalid optimizer type. \\
+    \bf{Type}: & Unit test (static, automated) \\
+    \bf{Initial State}: & The user has ran preprocessing on their initial GPS data set, episode generation on the output from the preprocessing module, and created a network graph object for a generated episode output. \\
+    \bf{Input}: & NetwrokGraph object, string for optimizer type, string for file path to the episode GPS ping CSV file. \\
+    \bf{Output}: & Exception. \\
+    \bf{Pass}: & Output is an exception of type InvalidWeightException. \\
+    \hline
+\end{tabular}
+\subsubsection{Trace Shortest Route Module Test Cases}
+\begin{tabular}{|l|p{10cm}|}
+    \hline
+    \bf{Test} 6.2.3.1: & Creating Trace Shortest Route from Network Graph, algorithm optimizer type, and GPS pings. \\
+    \bf{Requirements}: & R11,R4 \\
+    \bf{Description}: & Tests if the trace shortest route functionality to find routes works when given a network graph, optimizer, and GPS pings of a trace. \\
+    \bf{Type}: & Unit test (static, automated) \\
+    \bf{Initial State}: & The user has ran preprocessing on their initial GPS data set, episode generation on the output from the preprocessing module, and created a network graph object for a generated episode output. \\
+    \bf{Input}: & NetwrokGraph object, string for optimizer type, string for file path to the trace GPS ping CSV file. \\
+    \bf{Output}: & ShortestRouteTrace object. \\
+    \bf{Pass}: & ShortestRouteTrace object contains an attribute for list of subroutes where its length less than or equals the number of GPS coordinates - 1 used to created ShortestRouteTrace object. \\
+    \hline
+\end{tabular}
+\begin{tabular}{|l|p{10cm}|}
+    \hline
+    \bf{Test} 6.2.3.2: & Creating Trace Shortest Route from Network Graph, incorrect algorithm optimizer type, and GPS pings \\
+    \bf{Requirements}: & R11,R4 \\
+    \bf{Description}: & Tests if the trace shortest route catches the exception for invalid optimizer type. \\
+    \bf{Type}: & Unit test (static, automated) \\
+    \bf{Initial State}: & The user has ran preprocessing on their initial GPS data set, episode generation on the output from the preprocessing module, and created a network graph object for a generated episode output. \\
+    \bf{Input}: & NetwrokGraph object, string for optimizer type, string for file path to the episode GPS ping CSV file. \\
+    \bf{Output}: & Exception. \\
+    \bf{Pass}: & Output is an exception of type InvalidWeightException. \\
+    \hline
+\end{tabular}
+\subsubsection{Alternative Route Module Test Cases}
+\begin{tabular}{|l|p{10cm}|}
+    \hline
+    \bf{Test} 6.2.4.1: & Creating Alternative Route from algorithm optimizer type, and GPS pings \\
+    \bf{Requirements}: & R12,R4 \\
+    \bf{Description}: & Tests if the alternative route functionality to find routes when given an optimizer, and GPS pings of an trace. \\
+    \bf{Type}: & Unit test (static, automated) \\
+    \bf{Initial State}: & The user has ran preprocessing on their initial GPS data set. \\
+    \bf{Input}: & string for optimizer type, string for file path to the trace GPS ping CSV file. \\
+    \bf{Output}: & AlternativeRoute object. \\
+    \bf{Pass}: & AlternativeRoute object contains an attribute for list of subroutes where its length equals the number of GPS coordinates - 1 used to created AlternativeRoute object. \\
+    \hline
+\end{tabular}
+\begin{tabular}{|l|p{10cm}|}
+    \hline
+    \bf{Test} 6.2.4.2: & Creating Alternative Route from incorrect algorithm optimizer type, and GPS pings \\
+    \bf{Requirements}: & R12,R4 \\
+    \bf{Description}: & Tests if the alternative route catches the exception for invalid optimizer type. \\
+    \bf{Type}: & Unit test (static, automated) \\
+    \bf{Initial State}: & The user has ran preprocessing on their initial GPS data set. \\
+    \bf{Input}: & string for optimizer type, string for file path to the trace GPS ping CSV file. \\
+    \bf{Output}: & Exception. \\
+    \bf{Pass}: & Output is an exception of type InvalidWeightException. \\
+    \hline
+\end{tabular}
+\subsubsection{Mapping Module Test Cases}
+\begin{tabular}{|l|p{10cm}|}
+    \hline
+    \bf{Test} 6.2.5.1: & Creating a map object for mapping trace route and saving it as a html file.\\
+    \bf{Requirements}: & R3 \\
+    \bf{Description}: & Tests if the map object is created successfully as html file. \\
+    \bf{Type}: & Unit test (static, manual) \\
+    \bf{Initial State}: & The user has ran preprocessing on their initial GPS data set, created a network graph object for the preprocessing output, and created a trace shortest route. \\
+    \bf{Input}: & Network Graph object, ShorstestRouteTrace object, string for file path to save the mapping file. \\
+    \bf{Output}: & html file object. \\
+    \bf{Pass}: & html file displays a map with route and point markers as expected from the trace behaviour if mapped on another mapping API. \\
+    \hline
+\end{tabular}
+\begin{tabular}{|l|p{10cm}|}
+    \hline
+    \bf{Test} 6.2.5.2: & Creating a map object for mapping episode route and saving it as a html file.\\
+    \bf{Requirements}: &  R3\\
+    \bf{Description}: & Tests if the map object is created successfully as html file. \\
+    \bf{Type}: & Unit test (static, manual) \\
+    \bf{Initial State}: & The user has ran preprocessing on their initial GPS data set, ran episode generation on the output from the preprocessing module, created a network graph object for a generated episode output, and created a episode shortest route. \\
+    \bf{Input}: & Network Graph object, ShorstestRouteEpisode object, string for file path to save the mapping file. \\
+    \bf{Output}: & html file object. \\
+    \bf{Pass}: & html file displays a map with route and point markers as expected from the episode behaviour if mapped on another mapping API. \\
+    \hline
+\end{tabular}
+\begin{tabular}{|l|p{10cm}|}
+    \hline
+    \bf{Test} 6.2.5.3: & Creating a map object for mapping alternative route and saving it as a html file.\\
+    \bf{Requirements}: &  R3\\
+    \bf{Description}: & Tests if the map object is created successfully as html file. \\
+    \bf{Type}: & Unit test (static, manual) \\
+    \bf{Initial State}: & The user has ran preprocessing on their initial GPS data set, created a network graph object for the preprocessing output, and created a alternative route. \\
+    \bf{Input}: & Network Graph object, ShorstestRouteTrace object, string for file path to save the mapping file. \\
+    \bf{Output}: & html file object. \\
+    \bf{Pass}: & html file displays a map with route and point markers as expected from the trace behaviour if mapped on another mapping API. \\
+    \hline
+\end{tabular}
+\begin{tabular}{|l|p{10cm}|}
+    \hline
+    \bf{Test} 6.2.5.4: & Creating a map object for mapping activity location markers and saving it as a html file.\\
+    \bf{Requirements}: &  R3\\
+    \bf{Description}: & Tests if the map object is created successfully as html file. \\
+    \bf{Type}: & Unit test (static, manual) \\
+    \bf{Initial State}: & The user has ran preprocessing module on their initial GPS data set, ran episode generation module, ran activity location module. \\
+    \bf{Input}: & string for file path to the saved activity location, string for file path to the stop points used for activity location, string for file path to save the mapping file. \\
+    \bf{Output}: & html file object. \\
+    \bf{Pass}: & html file displays a map with activity location markers and point markers as expected from the trace behaviour if mapped on another mapping API. \\
+    \hline
+\end{tabular}
+\begin{tabular}{|l|p{10cm}|}
+    \hline
+    \bf{Test} 6.2.5.5: & Creating a map object for mapping markers for episode points and saving it as a html file.\\
+    \bf{Requirements}: &  R3\\
+    \bf{Description}: & Tests if the map object is created successfully as html file. \\
+    \bf{Type}: & Unit test (static, manual) \\
+    \bf{Initial State}: & The user has ran preprocessing module on their initial GPS data set, ran episode generation module. \\
+    \bf{Input}: & string for file path to the episode points, string for file path to save the mapping file. \\
+    \bf{Output}: & html file object. \\
+    \bf{Pass}: & html file displays a map with episode point markers as expected from the episode behaviour if mapped on another mapping API. \\
+    \hline
+\end{tabular}}
+
+\textcolor{blue}{
+\subsubsection{Episode Generation Module Test Cases}
+\begin{tabular}{|l|p{10cm}|}
+    \hline
+    \bf{Test} 6.2.6.1: & Creating a trace.csv given a trace of gps pings\\
+    \bf{Requirements}: &  R5\\
+    \bf{Description}: & Tests if trace.csv is created successfully. \\
+    \bf{Type}: & Unit test (static, automated) \\
+    \bf{Initial State}: & The user has ran preprocessing on their initial GPS data set. \\
+    \bf{Input}: & File path to the processed trace CSV and name of the folder for the trace. \\
+    \bf{Output}: & A folder with the given name created by the user with the trace.csv inside the folder is created. \\
+    \bf{Pass}: & The folder has been created with the trace.csv has been created successfully . \\
+    \hline
+\end{tabular}
+\begin{tabular}{|l|p{10cm}|}
+    \hline
+    \bf{Test} 6.2.6.2: & Creating the segments.csv given a trace.csv\\
+    \bf{Requirements}: & R7 \\
+    \bf{Description}: & Tests if segments.csv is created successfully. \\
+    \bf{Type}: & Unit test (static, automated) \\
+    \bf{Initial State}: & The user has ran the createTrace method successfully. \\
+    \bf{Input}: & The user runs the createSegment method and gives the path to the trace folder. \\
+    \bf{Output}: & The segment.csv has been created in the trace folder. \\
+    \bf{Pass}: & Segments.csv has been created successfully . \\
+    \hline
+\end{tabular}
+\begin{tabular}{|l|p{10cm}|}
+    \hline
+    \bf{Test} 6.2.6.3: & Creating the stops.csv given a segments.csv\\
+    \bf{Requirements}: &  R7 \\
+    \bf{Description}: & Tests if stops.csv is created successfully. \\
+    \bf{Type}: & Unit test (static, automated) \\
+    \bf{Initial State}: & The user has a segments.csv created using the createSegments method. \\
+    \bf{Input}: & The user runs the createStops method and gives the path to the trace folder. \\
+    \bf{Output}: & The stops.csv has been created in the trace folder in a sub folder named stops. \\
+    \bf{Pass}: & Stops.csv has been created successfully . \\
+    \hline
+\end{tabular}
+\begin{tabular}{|l|p{10cm}|}
+    \hline
+    \bf{Test} 6.2.6.4: & Gets rid of unwanted stops in stops.csv based on stop time \\
+    \bf{Requirements}: &  R9\\
+    \bf{Description}: & Tests if stops.csv  has removed data that does not meet a certain time criteria given by the user. \\
+    \bf{Type}: & Unit test (static, automated) \\
+    \bf{Initial State}: & The user has a stops.csv created using the createStops method. \\
+    \bf{Input}: & The user runs the cleanStops method and passes the minimum amount of time each stop has to occur. \\
+    \bf{Output}: & The stops.csv has been cleaned to remove any stops that do not meet the time tolerance given by the user. \\
+    \bf{Pass}: & Stops.csv has been dropped all stops that do not have the minimum time tolerance. \\
+    \hline
+\end{tabular}
+\begin{tabular}{|l|p{10cm}|}
+    \hline
+    \bf{Test} 6.2.6.5: & Gets rid of unwanted stops in stops.csv based on stop distance \\
+    \bf{Requirements}: &  R9\\
+    \bf{Description}: & Tests if stops.csv  has removed data that does not meet a certain distance criteria given by the user. \\
+    \bf{Type}: & Unit test (static, automated) \\
+    \bf{Initial State}: & The user has a stops.csv created using the createStops method. \\
+    \bf{Input}: & The user runs the cleanStops method and passes the minimum amount of time each stop has to occur. \\
+    \bf{Output}: & The stops.csv has been cleaned to remove any stops that do not meet the time tolerance given by the user. \\
+    \bf{Pass}: & Stops.csv has been dropped all stops that do not have the minimum time tolerance. \\
+    \hline
+\end{tabular}
+\begin{tabular}{|l|p{10cm}|}
+    \hline
+    \bf{Test} 6.2.6.6: & Create episode given a stop.csv and trace.csv \\
+    \bf{Requirements}: &  R6 \\
+    \bf{Description}: & Tests if episodes are generated based on trace.csv given the stop.csv as parameters. \\
+    \bf{Type}: & Unit test (static, automated) \\
+    \bf{Initial State}: & The user has used the cleanStops method on the stops.csv. \\
+    \bf{Input}: & The user runs the createEpisode method and passes the path to the trace which has the stop.csv. \\
+    \bf{Output}: & A folder that contains episode.csv. \\
+    \bf{Pass}: & The correct amount of episode.csv's are created based on the stop.csv. \\
+    \hline
+\end{tabular}
+\begin{tabular}{|l|p{10cm}|}
+    \hline
+    \bf{Test} 6.2.6.7: & Create summary mode given a trace with generated episodes \\
+    \bf{Requirements}: & R15 \\
+    \bf{Description}: & Tests if the summary mode csv is created successfully. \\
+    \bf{Type}: & Unit test (static, automated) \\
+    \bf{Initial State}: & The user has created and generated episodes from a given gps trace. \\
+    \bf{Input}: & The user runs the summarymode method and passes the path to the trace folder. \\
+    \bf{Output}: & The summary mode csv file in the trace folder. \\
+    \bf{Pass}: & Summarymode.csv has been created sucessfully. \\
+    \hline
+\end{tabular}
+\begin{tabular}{|l|p{10cm}|}
+    \hline
+    \bf{Test} 6.2.6.8: & Create statistics file given a trace with generated episodes \\
+    \bf{Requirements}: & R16  \\
+    \bf{Description}: & Tests if the statistic csv is create successfully \\
+    \bf{Type}: & Unit test (static, automated) \\
+    \bf{Initial State}: & he user has created and generated episodes from a given gps trace. \\
+    \bf{Input}: & The user runs the createStats method on the trace folder path. \\
+    \bf{Output}: & Stats.csv has been created in the trace folder. \\
+    \bf{Pass}: & Stats.csv has been created successfully. \\
+    \hline
+\end{tabular}}
+
+\textcolor{blue}{
+\subsubsection{Fetch Activity Locations Module}
+\begin{tabular}{|l|p{10cm}|}
+    \hline
+    \bf{Test} 6.2.7.1: & Output file is generated when fetchActivityLocation is called\\
+    \bf{Requirements}: &  R14\\
+    \bf{Description}: & Tests specified output file (CSV) is generated when fetchActivityLocation is called\\
+    \bf{Type}: & Unit test (static, automated) \\
+    \bf{Initial State}: & The user has run episode generation\\
+    \bf{Input}: & a path to input CSV containing stop point information and a path to output CSV file \\
+    \bf{Output}: & Output CSV file containing each stop point and corresponding list of Activity locations\\
+    \bf{Pass}: & A specified output CSV file is generated at path given by user \\
+    \hline
+\end{tabular}
+\begin{tabular}{|l|p{10cm}|}
+    \hline
+    \bf{Test} 6.2.7.2: & Input file invalid error generated\\
+    \bf{Requirements}: &  R8\\
+    \bf{Description}: & Tests error message is generated when invalid input path is given\\
+    \bf{Type}: & Unit test (static, automated) \\
+    \bf{Initial State}: & The user has run episode generation\\
+    \bf{Input}: & Invalid input file path \\
+    \bf{Output}: & Error message "Input file is invalid" \\
+    \bf{Pass}: & "Input file is invalid" is outputted in console \\
+    \hline
+\end{tabular}
+\begin{tabular}{|l|p{10cm}|}
+    \hline
+    \bf{Test} 6.2.7.3: & Input file invalid error is not generated\\
+    \bf{Requirements}: & R8\\
+    \bf{Description}: & Tests error message is not generated when input path is valid\\
+    \bf{Type}: & Unit test (static, automated) \\
+    \bf{Initial State}: & The user has run episode generation\\
+    \bf{Input}: & Valid input and output  file paths and valid input csv   \\
+    \bf{Output}: & An output file csv\\
+    \bf{Pass}: & "Input file is invalid" is not outputted in console \\
+    \hline
+\end{tabular}
+\begin{tabular}{|l|p{10cm}|}
+    \hline
+    \bf{Test} 6.2.7.4: & Output file path invalid error generated\\
+    \bf{Requirements}: &  R14\\
+    \bf{Description}: & Tests error message is generated when invalid output path is given\\
+    \bf{Type}: & Unit test (static, automated) \\
+    \bf{Initial State}: & The user has run episode generation\\
+    \bf{Input}: & Invalid output file path and valid input file path \\
+    \bf{Output}: & Error message "Output file is invalid" \\
+    \bf{Pass}: & "Output file is invalid" is outputted in console \\
+    \hline
+\end{tabular}
+\begin{tabular}{|l|p{10cm}|}
+    \hline
+    \bf{Test} 6.2.7.5: & Output file invalid error is not generated\\
+    \bf{Requirements}: & R14 \\
+    \bf{Description}: & Tests error message is not generated when output path is valid\\
+    \bf{Type}: & Unit test (static, automated) \\
+    \bf{Initial State}: & The user has run episode generation\\
+    \bf{Input}: & Valid input and output  file paths and valid input csv   \\
+    \bf{Output}: & An output file csv\\
+    \bf{Pass}: & "Output file is invalid" is not outputted in console and output file is generated\\
+    \hline
+\end{tabular}
+\begin{tabular}{|l|p{10cm}|}
+    \hline
+    \bf{Test} 6.2.7.6: & Output CSV data contains correct information\\
+    \bf{Requirements}: &  R8, R13, R14\\
+    \bf{Description}: & Tests if output CSV file contains the correct list of stop points and activity locations within radius of the tolerance set by user\\
+    \bf{Type}: & Unit test\\
+    \bf{Initial State}: & User has run episode generation\\
+    \bf{Input}: & Valid input and output file paths and valid input CSV file \\
+    \bf{Output}: & Output CSV generated where user has specified\\
+    \bf{Pass}: & CSV contains all the correct information about each stop point including latitude longitude and the list of activity locations near by \\
+    \hline
+\end{tabular}}
+
+\textcolor{blue}{
+\subsubsection{Transformation Module Test Cases}
+%NFR19: The system will only modify necessary data
+% – Rationale: The system would be wasting resources and time if
+% any other modification or unnecessary calculations occur. It would
+% also be unethical to use the data in a way that the user is unaware
+% of and has not consented to.
+% – Fit Criterion: The user is aware at all times of the system mod-
+% ifications
+% NFR18: The system shall output correct calculated or modified data
+% – Rationale: The user should not have to question the accuracy
+% of the data outputted. If the data is not accurate or correctly
+% calculated it is contrary to the goal of the system.
+% – Fit Criterion: The system will test along side a reliable comput-
+% ing software such as Matlab.
+%NFR17: The system shall allow access to all system services and data outputs.
+% 30
+% – Rationale: This is the main objective to the application to satisfy
+% user goals. If a problem occurs, the system will be completely
+% ineffective and not workable
+% NFR16: The system must allow users to have access to read and modify the
+% data they’ve uploaded
+% – Rationale: This would allow users to edit inputted data and
+% make any necessary changes. If a problem occurs, the user should
+% be able to retrieve their data instead of having to restart the pro-
+% cess or software which would be time consuming
+\begin{tabular}{|l|p{10cm}|}
+    \hline
+    \bf{Test} 6.2.8.1: & Incorrect file path error message is generated.\\
+    \bf{Requirements}: & NFR 18, 21,26,27 \\
+    \bf{Description}: & Tests if only correct file paths are accepted. \\
+    \bf{Type}: & Unit test (static, automated) \\
+    \bf{Initial State}: & The user has ran preprocessing on their initial GPS data set and has ran episodeGeneration. \\
+    \bf{Input}: & Using an incorrect file path for using the stoprelated function of the Transformation module.\\
+    \bf{Output}: & A statement is shown to the user explaining the format of the required filepath. \\
+    \bf{Pass}: & An exception has been thrown \\
+    \hline 
+\end{tabular}
+\begin{tabular}{|l|p{10cm}|}
+    \hline
+    \bf{Test} 6.2.8.2: & A list of Point type objects representing the stop GPS points are created.\\
+    \bf{Requirements}: & NFR 8,9,11,12,16,17,18,19 \\
+    \bf{Description}: & Tests if a csv file containing stop GPS traces are converted into Point objects. \\
+    \bf{Type}: & Unit test (static, automated) \\
+    \bf{Initial State}: & The user has ran preprocessing on their initial GPS data set and has ran episodeGeneration. \\
+    \bf{Input}: & Pass the filepath to the csv containing stop GPS data.\\
+    \bf{Output}: & A list of Point objects containing latitude,longitude, time and mode of travel.\\
+    \bf{Pass}: & A list of Point Objects is returned with the same length of csv data.\\
+    \hline
+\end{tabular}
+\begin{tabular}{|l|p{10cm}|}
+    \hline
+    \bf{Test} 6.2.8.3: & A list of Point type objects representing the episode GPS points are created.\\
+    \bf{Requirements}: & NFR 8,9,11,12,16,17,18,19 \\
+    \bf{Description}: & Tests if a csv file containing episode GPS traces are converted into Point objects. \\
+    \bf{Type}: & Unit test (static, automated) \\
+    \bf{Initial State}: & The user has ran preprocessing on their initial GPS data set and has ran episodeGeneration. \\
+    \bf{Input}: & Pass the filepath to the csv containing episode GPS data.\\
+    \bf{Output}: & A list of Point objects containing latitude,longitude, time and mode of travel.\\
+    \bf{Pass}: & A list of Point Objects is returned with the same length of csv data.\\
+    \hline
+\end{tabular}
+\begin{tabular}{|l|p{10cm}|}
+    \hline
+    \bf{Test} 6.2.8.4: & A list of Point type objects representing the trace GPS points are created.\\
+    \bf{Requirements}: & R17, NFR 8,9,11,12,16,17,18,19\\
+    \bf{Description}: & Tests if a csv file containing trace GPS traces are converted into Point objects. \\
+    \bf{Type}: & Unit test (static, automated) \\
+    \bf{Initial State}: & The user has ran preprocessing on their initial GPS data set and has ran episodeGeneration. \\
+    \bf{Input}: & Pass the filepath to the csv containing episode GPS data.\\
+    \bf{Output}: & A list of Point objects containing latitude,longitude, time and mode of travel.\\
+    \bf{Pass}: & A list of Point Objects is returned with the same length of csv data.\\
+    \hline
+\end{tabular}
+\begin{tabular}{|l|p{10cm}|}
+    \hline
+    \bf{Test} 6.2.8.5: & The most frequent mode of travelled is returned.\\
+    \bf{Requirements}: & R16, NFR 8,9,11,12,16,17,18,19 \\
+    \bf{Description}: & Given a trace filepath to summary mode function, the most travelled mode of transportation is returned.\\
+    \bf{Type}: & Unit test (static, automated) \\
+    \bf{Initial State}: & The user has ran preprocessing on their initial GPS data set and has ran episodeGeneration. \\
+    \bf{Input}: & Pass the filepath to the csv containing trace GPS data.\\
+    \bf{Output}: & The mode of travelled used the most is returned.\\
+    \bf{Pass}: & A string of mode type is returned.\\
+    \hline
+\end{tabular}
+\begin{tabular}{|l|p{10cm}|}
+    \hline
+    \bf{Test} 6.2.8.6: & Incorrect file path error message is generated.\\
+    \bf{Requirements}: &  NFR 18, 21,26,27\\
+    \bf{Description}: & Tests if only correct file paths are accepted. \\
+    \bf{Type}: & Unit test (static, automated) \\
+    \bf{Initial State}: & The user has ran preprocessing on their initial GPS data set and has ran episodeGeneration. \\
+    \bf{Input}: & Using an incorrect file path for using the tracerelated function of the Transformation module.\\
+    \bf{Output}: & A statement is shown to the user explaining the format of the required filepath. \\
+    \bf{Pass}: & An exception has been thrown \\
+    \hline
+\end{tabular}
+\begin{tabular}{|l|p{10cm}|}
+    \hline
+    \bf{Test} 6.2.8.7: & Incorrect file path error message is generated.\\
+    \bf{Requirements}: & NFR 18, 21,26,27 \\
+    \bf{Description}: & Tests if only correct file paths are accepted. \\
+    \bf{Type}: & Unit test (static, automated) \\
+    \bf{Initial State}: & The user has ran preprocessing on their initial GPS data set and has ran episodeGeneration. \\
+    \bf{Input}: & Using an incorrect file path for using the episoderelated function of the Transformation module.\\
+    \bf{Output}: & A statement is shown to the user explaining the format of the required filepath. \\
+    \bf{Pass}: & An exception has been thrown \\
+    \hline
+\end{tabular}
+\begin{tabular}{|l|p{10cm}|}
+    \hline
+    \bf{Test} 6.2.8.8: & Incorrect file path error message is generated.\\
+    \bf{Requirements}: & NFR 18, 21,26,27 \\
+    \bf{Description}: & Tests if only correct file paths are accepted. \\
+    \bf{Type}: & Unit test (static, automated) \\
+    \bf{Initial State}: & The user has ran preprocessing on their initial GPS data set and has ran episodeGeneration. \\
+    \bf{Input}: & Using an incorrect file path for using the summarymode function of the Transformation module.\\
+    \bf{Output}: & A statement is shown to the user explaining the format of the required filepath. \\
+    \bf{Pass}: & An exception has been thrown \\
+    \hline
+\end{tabular}
+\begin{tabular}{|l|p{10cm}|}
+    \hline
+    \bf{Test} 6.2.8.9: & Incorrect input error message for convertActivityLocation(ActvityLoactionList) is generated.\\
+    \bf{Requirements}: &  R 8,NFR 18, 21,26,27  \\
+    \bf{Description}: & Tests if only correct input which is a list of stop points and their associated activitylocation objects, are accepted. \\
+    \bf{Type}: & Unit test (static, automated) \\
+    \bf{Initial State}: & The user has ran preprocessing on their initial GPS data set and has ran episodeGeneration. \\
+    \bf{Input}: & Using an incorrect file path for using the convertActivityLocation function of the Transformation module.\\
+    \bf{Output}: & A statement is shown to the user explaining the input is incorrect \\
+    \bf{Pass}: & An exception has been thrown \\
+    \hline
+\end{tabular}
+\begin{tabular}{|l|p{10cm}|}
+    \hline
+    \bf{Test} 6.2.8.10: & Stop related activity list is returned by convertActivityLocation(ActvityLoactionList).\\
+    \bf{Requirements}: &  R 8,13, NFR 8,9,11,12,16,17,18,19\\
+    \bf{Description}: & Tests if the required list containing stop points and their associated attributes are returned.\\
+    \bf{Type}: & Unit test (static, automated) \\
+    \bf{Initial State}: & The user has ran preprocessing on their initial GPS data set and has ran episodeGeneration. \\
+    \bf{Input}: & Using an incorrect file path for using the convertActivityLocation function of the Transformation module.\\
+    \bf{Output}: & list of [point lat, point lon,[nested list of activity locations attributes]] is returned\\
+    \bf{Pass}: & list of [point lat, point lon,[nested list of activity locations attributes]] is returned \\
+    \hline
+\end{tabular}
+\begin{tabular}{|l|p{10cm}|}
+    \hline
+    \bf{Test} 6.2.8.11: & Invalid file error for  convertActivityCSV is returned.\\
+    \bf{Requirements}:  & R8, NFR 18, 21,26,27  \\
+    \bf{Description}: & Tests if the required file is an outputted file from fetchActivitylocation\\
+    \bf{Type}: & Unit test (static, automated) \\
+    \bf{Initial State}: & The user has ran preprocessing on their initial GPS data set and has ran episodeGeneration. \\
+    \bf{Input}: & Using an incorrect file path for using the convertActivityCSV function of the Transformation module.\\
+    \bf{Output}: & Invalid file error is returned\\
+    \bf{Pass}: & Exception is thrown \\
+    \hline
+\end{tabular}
+\begin{tabular}{|l|p{10cm}|}
+    \hline
+    \bf{Test} 6.2.8.12: & Activity objects in the right format to be used are created by convertActivityCSV\\
+    \bf{Requirements}: &  R 8,NFR 8,9,11,12,16,17,18,19  \\
+    \bf{Description}: & Tests if the required list of activity objects are generated\\
+    \bf{Type}: & Unit test (static, automated) \\
+    \bf{Initial State}: & The user has ran preprocessing on their initial GPS data set and has ran episodeGeneration. \\
+    \bf{Input}: & the required file, an outputted file from fetchActivitylocation is passed\\
+    \bf{Pass}: & list of activity location objects are returned \\
+    \hline
+\end{tabular}
+\begin{tabular}{|l|p{10cm}|}
+    \hline
+    \bf{Test} 6.2.8.13: & Invalid input error for  convertListToActivityLocationObject(activityLocationList) is returned.\\
+    \bf{Requirements}: &  R 8,NFR 18, 21,26,27  \\
+    \bf{Description}: & Tests if the required input is passed\\
+    \bf{Type}: & Unit test (static, automated) \\
+    \bf{Initial State}: & The user has ran preprocessing on their initial GPS data set and has ran episodeGeneration. \\
+    \bf{Input}: & Using an incorrect input for using the convertListToActivityLocationObject function of the Transformation module.\\
+    \bf{Output}: & Invalid input error is returned\\
+    \bf{Pass}: & Exception is thrown \\
+    \hline
+\end{tabular}
+\begin{tabular}{|l|p{10cm}|}
+    \hline
+    \bf{Test} 6.2.8.14: & list Activity objects of activity location type are generated.\\
+    \bf{Requirements}: &  R 8,NFR 8,9,11,12,16,17,18,19 \\
+    \bf{Description}: & activity Location List of required parameters are converted to an activity location class type\\
+    \bf{Type}: & Unit test (static, automated) \\
+    \bf{Initial State}: & The user has ran preprocessing on their initial GPS data set and has ran episodeGeneration. \\
+    \bf{Input}: & Using an activity Location List of required parameters for using the convertListToActivityLocationObject function of the Transformation module.\\
+    \bf{Output}: & list Activity objects of activity location type are generated.\\
+    \bf{Pass}: & list Activity objects of activity location type are generated. \\
+    \hline
+\end{tabular}}
+
+\textcolor{blue}{
+\subsubsection{PreProcessing Module Test Cases}
+\begin{tabular}{|l|p{10cm}|}
+    \hline
+    \bf{Test} 6.2.9.1: & Creating processed trace file from raw user trace input. \\
+    \bf{Requirements}: & R1, R2, R3, R4, R17 \\
+    \bf{Description}: & Tests if the preprocessing module creates a correctly processed trace file given an input \\
+    \bf{Initial State}: &  User inputs csv file with lat,long,time values. Lat and Long are in DD format. \\
+    \bf{Input}: & File path to the input trace CSV output and name of goal directory. \\
+    \bf{Output}: & processed trace csv. \\
+    \bf{Pass}: & goal directory contains a processed trace csv. \\
+    \hline
+\end{tabular}
+\begin{tabular}{|l|p{10cm}|}
+    \hline
+    \bf{Test} 6.2.9.2: & Creating processed trace file from DMS lat/long user trace input. \\
+    \bf{Requirements}: &  R1, R2, R3, R4 \\
+    \bf{Description}: & Tests if the preprocessing module creates a correctly processed trace file given DMS input \\
+    \bf{Initial State}: &  User inputs csv file with lat,long,time values. lat and long are in DMS format\\\\
+    \bf{Input}: & File path to the input trace CSV output and name of goal directory. \\
+    \bf{Output}: & processed trace csv. \\
+    \bf{Pass}: & goal directory contains a processed trace csv with DD lat/long output. \\
+    \hline
+\end{tabular}
+\begin{tabular}{|l|p{10cm}|}
+    \hline
+    \bf{Test} 6.2.9.3: & Creating processed trace file from DMS lat/long user trace input. \\
+    \bf{Requirements}: & R1, R2, R3, R4\\
+    \bf{Description}: & Tests if the preprocessing module outputs a processed csv without invalid data points \\
+    \bf{Initial State}: & User inputs csv file with some invalid lat,long,time values. \\
+    \bf{Input}: & File path to the input trace CSV output and name of goal directory. \\
+    \bf{Output}: & processed trace csv. \\
+    \bf{Pass}: & goal directory contains a processed trace csv without invalid data points. \\
+    \hline
+\end{tabular}
+\begin{tabular}{|l|p{10cm}|}
+    \hline
+    \bf{Test} 6.2.9.4: & Converting DMS lat/long values to DD \\
+    \bf{Requirements}: & R4\\
+    \bf{Description}: & Tests if DMStoDD function converts DMS values correctly \\
+    \bf{Initial State}: &  \\
+    \bf{Input}: & list of DMS latitude and longitude values. \\
+    \bf{Output}: & list of converted DD values. \\
+    \bf{Pass}: & output contains correctly coverted DD values. \\
+    \hline
+\end{tabular}
+\begin{tabular}{|l|p{10cm}|}
+    \hline
+    \bf{Test} 6.2.9.5: & Raising invalid input exception \\
+    \bf{Requirements}: & R2 \\
+    \bf{Description}: & Tests if invalid input exception is raised with data that does not contain lat,long, and time fields \\
+    \bf{Initial State}: &  User has inputted csv file without all of lat,long,time values.\\
+    \bf{Input}: & File path to the invalid input trace CSV output and name of goal directory. \\
+    \bf{Output}: & invalidInputDataException \\
+    \bf{Pass}: & invalidInputDataException raised \\
+    \hline
+\end{tabular}
+\subsubsection{Activity Locations Module}
+\begin{tabular}{|l|p{10cm}|}
+    \hline
+    \bf{Test} 6.2.10.1: & Activity Location object is created when parameters are passed to Activity Location constructor\\
+    \bf{Requirements}: &  R8,R13,R14\\
+    \bf{Description}: & Tests that ActivityLocation object is able to be created\\
+    \bf{Type}: & Unit test (static, automated) \\
+    \bf{Initial State}: & \\
+    \bf{Input}: & ("Lemon Bar", 43.651504, -79.386657, "Juice") \\
+    \bf{Output}: & ActivityLocation Object\\
+    \bf{Pass}: & Activity Location Object created of type Activity Location \\
+    \hline
+\end{tabular}
+\begin{tabular}{|l|p{10cm}|}
+    \hline
+    \bf{Test} 6.2.10.2: & Can fetch ActivityLocation Objects Name\\
+    \bf{Requirements}: &  R8,R13,R14,R3\\
+    \bf{Description}: & Tests getting activity location object name\\
+    \bf{Type}: & Unit test (static, automated) \\
+    \bf{Initial State}: & An activity location object has been created\\
+    \bf{Input}: & \\
+    \bf{Output}: & Name of activity location\\
+    \bf{Pass}: & Name of activity location matches name passed as a parameter \\
+    \hline
+\end{tabular}
+\begin{tabular}{|l|p{10cm}|}
+    \hline
+    \bf{Test} 6.2.10.3: & Can fetch ActivityLocation Objects Latitude\\
+    \bf{Requirements}: &  R8,R13,R14,R3\\
+    \bf{Description}: & Tests getting activity location object latitude\\
+    \bf{Type}: & Unit test (static, automated) \\
+    \bf{Initial State}: & An activity location object has been created\\
+    \bf{Input}: & \\
+    \bf{Output}: & Latitude of activity location\\
+    \bf{Pass}: & Latitude of activity location matches latitude passed as a parameter \\
+    \hline
+\end{tabular}
+\begin{tabular}{|l|p{10cm}|}
+    \hline
+    \bf{Test} 6.2.10.4: & Can fetch ActivityLocation Objects Longitude\\
+    \bf{Requirements}: &  R8,R13,R14,R3\\
+    \bf{Description}: & Tests getting activity location object longitude\\
+    \bf{Type}: & Unit test (static, automated) \\
+    \bf{Initial State}: & An activity location object has been created\\
+    \bf{Input}: & \\
+    \bf{Output}: & Longitude of activity location\\
+    \bf{Pass}: & Longitude of activity location matches longitude passed as a parameter \\
+    \hline
+\end{tabular}
+\begin{tabular}{|l|p{10cm}|}
+    \hline
+    \bf{Test} 6.2.10.5: & Can fetch ActivityLocation Objects Amenity\\
+    \bf{Requirements}: &  R8,R13,R14,R3\\
+    \bf{Description}: & Tests getting activity location object amenity\\
+    \bf{Type}: & Unit test (static, automated) \\
+    \bf{Initial State}: & An activity location object has been created with amenity\\
+    \bf{Input}: & \\
+    \bf{Output}: & Amenity of activity location\\
+    \bf{Pass}: & Amenity of activity location matches amenity passed as a parameter \\
+    \hline
+\end{tabular}
+\begin{tabular}{|l|p{10cm}|}
+    \hline
+    \bf{Test} 6.2.10.6: & Creating an ActivityLocation Object with default parameters not specified\\
+    \bf{Requirements}: &  R8,R13,R14\\
+    \bf{Description}: & Tests if ActivityLocation Object can be created without amenity parameter passed in \\
+    \bf{Initial State}: & An activity location object has been created without amenity\\
+    \bf{Input}: & \\
+    \bf{Output}: & Activity Location Ojbect\\
+    \bf{Pass}: & Amenity of ActivityLocation object is equal to "None"\\
+    \hline
+\end{tabular}
+\subsubsection{Point Module}
+\begin{tabular}{|l|p{10cm}|}
+    \hline
+    \bf{Test} 6.2.11.1: & Point object is created when parameters are passed to Point class constructor\\
+    \bf{Requirements}: & R8, R13, R11, R12\\
+    \bf{Description}: & Tests that Point object is able to be created\\
+    \bf{Type}: & Unit test (static, automated) \\
+    \bf{Initial State}: & \\
+    \bf{Input}: & (43.651605, -79.386759,"17:22:02", "mode.DRIVE") \\
+    \bf{Output}: & Point Object\\
+    \bf{Pass}: & Point Object created of type Point \\
+    \hline
+\end{tabular}
+\begin{tabular}{|l|p{10cm}|}
+    \hline
+    \bf{Test} 6.2.11.2: & Can fetch Point Objects Latitude\\
+    \bf{Requirements}: &  R8,R13,R14, R11, R12\\
+    \bf{Description}: & Tests getting Point object latitude\\
+    \bf{Type}: & Unit test (static, automated) \\
+    \bf{Initial State}: & A Point object has been created\\
+    \bf{Input}: & \\
+    \bf{Output}: & Latitude of Point\\
+    \bf{Pass}: & Latitude of Point matches latitude passed as a parameter \\
+    \hline
+\end{tabular}
+\begin{tabular}{|l|p{10cm}|}
+    \hline
+    \bf{Test} 6.2.11.3: & Can fetch Point Objects Longitude\\
+    \bf{Requirements}: &  R8,R13,R14, R11, R12\\
+    \bf{Description}: & Tests getting Point object longitude\\
+    \bf{Type}: & Unit test (static, automated) \\
+    \bf{Initial State}: & An Point object has been created\\
+    \bf{Input}: & \\
+    \bf{Output}: & Longitude of Point\\
+    \bf{Pass}: & Longitude of Point matches longitude passed as a parameter \\
+    \hline
+\end{tabular}
+\begin{tabular}{|l|p{10cm}|}
+    \hline
+    \bf{Test} 6.2.11.4: & Can fetch Point Object Time\\
+    \bf{Requirements}: &  R8,R13,R14, R11, R12\\
+    \bf{Description}: & Tests getting Point Object Time\\
+    \bf{Type}: & Unit test (static, automated) \\
+    \bf{Initial State}: & A Point object has been created with time\\
+    \bf{Input}: & \\
+    \bf{Output}: & Time of Point Object\\
+    \bf{Pass}: & Time of Point matches time passed as a parameter \\
+    \hline
+\end{tabular}
+\begin{tabular}{|l|p{10cm}|}
+    \hline
+    \bf{Test} 6.2.11.5: & Can fetch Point Object Mode\\
+    \bf{Requirements}: &  R8,R13,R14, R11, R12\\
+    \bf{Description}: & Tests getting Point Object Mode\\
+    \bf{Type}: & Unit test (static, automated) \\
+    \bf{Initial State}: & A Point object has been created with mode\\
+    \bf{Input}: & \\
+    \bf{Output}: & Mode of Point Object\\
+    \bf{Pass}: & Mode of Point matches mode passed as a parameter \\
+    \hline
+    \hline
+    \bf{Test} 6.2.11.6: & Point object is created when default parameters are not passed to Point class constructor\\
+    \bf{Requirements}: & R8, R13, R11, R12\\
+    \bf{Description}: & Tests that Point object is able to be created\\
+    \bf{Type}: & Unit test (static, automated) \\
+    \bf{Initial State}: & \\
+    \bf{Input}: & (43.651605, -79.386759) \\
+    \bf{Output}: & Point Object\\
+    \bf{Pass}: & Point Object created of type Point with point.time = None and point.mode = None \\
+    \hline
+\end{tabular}}
+
 
 \subsection{Tests for Non-Functional Requirements}
 
-This section will be completed once the MIS has been updated and there is greater clarity on specific modules. 
+\sout{This section will be completed once the MIS has been updated and there is greater clarity on specific modules. }
+\textcolor{blue}{
+This is section will be evaluated manually or be tested through Automated tests such as Stress Testing.
+}
 
 \subsection{Traceability Between Test Cases and Modules}
-This section will be completed once the MIS has been updated and there is greater clarity on specific modules. 
+This section will be completed once the MIS has been updated and there is greater clarity on specific modules.
+
+
 %\wss{Provide evidence that all of the modules have been considered.}
 				
 \bibliographystyle{plainnat}
@@ -921,6 +1771,5 @@ Niyatha will be creating unit testing module for travel episode verification and
 
 \noindent Nicholas Lobo: \\
 Nicholas has always been interested in learning about data analysis and normalization. Within the scope of this project, he has taken on the responsibility of learning about GPS data standards to help provide a wide range of inputs for all tests. He will ensure that the preprocessing unit can handle various types of GPS data as well as inform decisions about edge cases related to incorrect data. He can complete this task by consulting academic papers that detail the characteristics of and how to parse GPS data.\\
-
 
 \end{document}

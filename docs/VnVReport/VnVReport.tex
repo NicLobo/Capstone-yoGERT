@@ -11,13 +11,15 @@
     urlcolor=blue
 }
 \usepackage[round]{natbib}
+\usepackage{array}
 
-\input{../Comments}
+% \input{../Comments}
 
 \begin{document}
 
-\title{Test Report: Project Title} 
-\author{Author Name}
+\title{Test Report: yoGERT Toolbox} 
+
+\author{Team 19: Abeer Al-Yasiri, Nicholas Lobo,\\ Niyatha Rangarajan, Smita Singh,\\ Moksha Srinivasan, Longwei Ye}
 \date{\today}
 	
 \maketitle
@@ -29,8 +31,13 @@
 \begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
-Date 1 & 1.0 & Notes\\
-Date 2 & 1.1 & Notes\\
+Date 2023-03-08 & 1.0 & Abeer: Section 3.3-3.4,3.11-3.12 ,Section 4, Section 6.1-6.5, Section 8.1, Section 9, Section 11 \\
+Date 2023-03-08 & 1.0 & Longwei: Section 3.18, Section 8.2-8.4\\
+Date 2023-03-08 & 1.0 & Moksha: Sections 3.1-2, 3.17, 5, 6.8, 6.5, 8.1, 11\\
+Date 2023-03-08 & 1.0 & Nicholas: Sections 3.5-7, 3.9-10,3.15 , 6.9, 7.5, 8.1\\
+Date 2023-03-08 & 1.0 & Smita: Sections 3, 6.7,6.10,6.11\\
+Date 2023-03-08 & 1.0 & Niyatha: Sections 3, 6.6, 6.9, 8 \\
+Date 3 & 1.2 & Notes\\
 \bottomrule
 \end{tabularx}
 
@@ -38,12 +45,31 @@ Date 2 & 1.1 & Notes\\
 
 \section{Symbols, Abbreviations and Acronyms}
 
-\renewcommand{\arraystretch}{1.2}
-\begin{tabular}{l l} 
+%\renewcommand{\arraystretch}{1.2}
+%\begin{tabular}{l l} 
+%  \toprule		
+%  \textbf{symbol} & \textbf{description}\\
+%  \midrule 
+%  T & Test\\
+%  \bottomrule
+%\end{tabular}\\
+
+\begin{tabular}{l p{6cm}} 
   \toprule		
-  \textbf{symbol} & \textbf{description}\\
+  \textbf{term} & \textbf{description}\\
   \midrule 
-  T & Test\\
+  Activity Locations (ALs) & ALs are trip stops \\
+  ArcGIS & an online geographic information system software that is command line based system for manipulating and visualization data.\\
+  CSV/.csv & Comma Separated Values is a file type that contains large amounts of data separated by commas. \\
+  Episode & Session\\
+  GERT & GIS-based episode reconstruction toolkit \\
+  GIS & Geographical Information Systems\\
+  GPS & Global Positioning Systems\\
+  Mode Detection (MD) & Detection of transportation type being used \\
+  Route & Object path to get from position A to position B\\
+  Trace & Collection of GPS points for one travel behaviour/one user. Each trace is not connected to another.\\
+  REV1 & Revision 1\\
+  
   \bottomrule
 \end{tabular}\\
 
@@ -61,33 +87,646 @@ Date 2 & 1.1 & Notes\\
 
 \pagenumbering{arabic}
 
-This document ...
+This document describes the results from completing the tests and evaluations described in the VnV plan. Some of the tests and evaluations were not completed by this revision but are on track to be completed for the next revision. 
 
 \section{Functional Requirements Evaluation}
+\subsection{R1}
+\subsubsection{Transformation Module}
+The system successfully uploads a csv format file and notifies the user as seen in the Transformation module which creates a standardized Point object for map functions.
+\subsubsection{PreProcessing Module}
+The system allows users to upload various formats of GPS data in CSV file formats.
+\subsection{R2}
+\subsubsection{PreProcessing Module}
+The system successfully processes GPS data points of multiple user traces.
+\subsection{R3}
+\subsubsection{Mapping Module}
+The requirement is satisfied as the module creates a transferable HTML file format for interactive maps to be displayed on. 
+\subsection{R4}
+\subsubsection{Network Module}
+The requirement is satisfied as it handles GPS coordinates as an abstract data type and accepts GPS coordinate as inputs of type tuple.
+\subsubsection{ShortestRouteTrace Module}
+The requirement is satisfied as it handles GPS coordinates as an abstract data type.
+\subsubsection{ShortestRouteEpisode Module}
+The requirement is satisfied as it handles GPS coordinates as an abstract data type
+\subsubsection{Alternative Module}
+The requirement is satisfied as it handles GPS coordinates as an abstract data type
+\subsection{R5}
+\subsubsection{Episode Generation Module}
+The requirement is satisfied as it stores the speed duration distance and status points for each trace
+
+\subsection{R6}
+\subsubsection{Episode Generation Module}
+The requirement is satisfied as it extracts the trace into different types of episode which include stop, drive, and walk
+\subsection{R7}
+\subsubsection{Episode Generation Module}
+The requirement is satisfied as it decomposes the episode trace into segments of type stop and trip
+\subsection{R8}
+\subsubsection{Transformation Module}
+The system successfully identifies available activity locations given the csv from fetchactivitylocations function.
+\subsubsection{Fetch Activity Location Module}
+The system successfully fetches available activity locations for stop points given to the module
+
+\subsubsection{Point Module}
+Point Module is used to fetch the activity location from api
+
+\subsubsection{Activity Location Module}
+The system successfully create Activity Location Object with specified parameters
+
+\subsection{R9}
+\subsubsection{Episode Generation Module}
+The requirement is satisfied as it generates the EBA variables 
+\subsection{R10}
+\subsubsection{Episode Generation Module}
+The requirement is satisfied as the generated EBA variables are stored in a csv
+\subsection{R11}
+\subsubsection{Network Module}
+The requirement is satisfied as it creates the intermediate object used to build a route from. The object is directed edge graph that can be with routing algorithms.
+\subsubsection{ShortestRouteTrace Module}
+The requirement is satisfied as it finds shortest route for a given trace input along with the option to customize how the module is called.
+\subsubsection{ShortestRouteEpisode Module}
+The requirement is satisfied as it finds shortest route for a given episode input along with the option to customize how the module is called. 
+\subsection{R12}
+\subsubsection{Alternative Module}
+The requirement is satisfied as it finds shortest route for a bus transportation type along with he option to customize how the module is called. 
+\subsection{R13}
+\subsubsection{Fetch Activity Location Module}
+The system successfully produces a output CSV file which includes a description of each activity location
+
+\subsubsection{Activity Location Module}
+The system successfully create Activity Location Object has description attribute called amenity
+
+\subsubsection{Point Module}
+The system outputs Point latitude and longitude for each stop point in activity locations csv
+
+\subsection{R14}
+\subsubsection{Fetch Activity Location Module}
+The system successfully produces a output CSV file which includes a description of each activity location
+
+\subsubsection{Activity Location Module}
+The system successfully create Activity Location Object that can be stored in csv files
+
+\subsubsection{Activity Location Module}
+The system successfully ouputs point attributes in csv
+
+\subsection{R15}
+\subsubsection{Episode Generation Module}
+The requirement is satisfied as it generates the the trip segments csv file for a given GPS data set.
+\subsection{R16}
+\subsubsection{Transformation Module}
+The system successfully produces a standard output CSV file with the requested detail as part of the stats function in episodeGeneration. It displays number of mode changes, ping frequency and number of trips taken.
+\subsection{R17}
+\subsubsection{PreProcessing Module}
+The system successfully identifies different traces from the user input CSV, segmenting input based on deviceID if ID is provided by the user.
+\subsection{R18}
+This requirement will be fulfilled by packaging all modules into a python library so that the user can call the functions integrated in his/her own code. \textbf{This will be statisfied and documented in the REV1 version of VnV-Report.}
 
 \section{Nonfunctional Requirements Evaluation}
 
 \subsection{Usability}
+These NFRs are in the process of being evaluated by asking supervisor Dr. Paez to test the system out along with a testing guide and questionnaire. This review is tentatively scheduled for March 13th. 
+
+\subsubsection{NFR1}
+This will be evaluated in REV1 by testing the toolbox as a python library. 
+\subsubsection{NFR2}
+This will be evaluated in REV1 through the use testing done by Dr. Paez. 
+\subsubsection{NFR3}
+This will be evaluated in REV1 through the use testing done by Dr. Paez especially when using the interactive maps outputted by the toolbox.
+\subsubsection{NFR4}
+This will be evaluated in REV1 through the use testing done by Dr. Paez.
+\subsubsection{NFR6}
+This will be evaluated in REV1 through the use testing done by Dr. Paez.
+%The system provides information dialogues for complex components of the system that users are able to follow the instructions presented during use is met. This is because the user follows a jupyter notebook outlining instructions and exceptions for incorrect inputs.
+\subsubsection{NFR8}
+It is satisfied because the system is able to process a request using previously requested GPS data upon user’s request. Since all files created are transferrable, the user can continue or analyse data at any point.
+\subsubsection{NFR26}
+It is satisfied because any transferable entities or communication dialogues use no violate words. The system uses English language to stay consistent.
+\subsubsection{NFR27}
+Internally the toolbox ensures the any data is clean and ready to be passed for any analysis functions. On the other hand any external data is cleaned by the preprocessing module by ignoring the incorrect GPS coordinates. 
 		
 \subsection{Performance}
+The performance of the program is determined by the \emph{Main Module} if it can:
+\begin{itemize}
+    \item Correctly calls the functions in the sub-modules are return correct outputs
+    \item Handles Stress Testing.
+\end{itemize}
 
-\subsection{etc.}
-	
+\subsubsection{NFR9}
+It is satisfied since the run-time measured in Stress Testing is less than 6000 seconds, plus the edge cases also pass.
+%This requirement will be satisfied if the program can handle Stress Test and the time used is less than 6000 seconds.
+\subsubsection{NFR11}
+It is satisfied as the manual testing done for the mapping module showed the exact behaviour when mapped with a reliable mapping tool (Google Maps). This enforces that the toolbox mapping is accurate to 80\% because the human eye would notice irregularities when the accuracy percentage is below 80\%. 
+%This is fulfilled since the test cases shows that the actual output of the program matches our expected output.
+\subsubsection{NFR12}
+Even though the program handles stress testing, the edge case(i.e. process through 47.3 million data points) will be evaluated in REV1.
+%This requirement is met since the data we use for testing are GPS data-points. As the test cases pass, our system is able to process GPS data.
+\subsection{Operation and Environmental}
+Many operation and environmental tests depend on the completely packaged python library. As such, we do not have robust operation and environmental testing. Currently, we have tested that the library works and unit tests pass on Windows, OSX, and Linux operating systems.
+
+\subsubsection{NFR14}
+As we have tested that the toolbox works on different kinds of operating systems, this requirement is fulfilled. %Our jupyter notebook also installs the required libraries before starting.
+
+\subsection{Maintainability and Support}
+
+\subsubsection{NFR15}
+ This will be evaluated in REV1 after testing the toolbox as a library. 
+%Since we are using a jupyter notebook, the system can work online so its platform independent.
+
+\subsection{Security}
+The toolbox stores all the data analyzed locally, which keeps user data secure.
+
+\subsubsection{NFR16}
+It is satisfied as long as the user has the authority of editing the raw data, this requirement is always fulfilled and has the appropriate applications to open the data files. 
+\subsubsection{NFR17} 
+It is fulfilled since all files generated are transferrable and all the functionalities are accessible through function calls. 
+\subsubsection{NFR18}
+It is satisfied as the mathematical computations of the system are reliable under the assumption that Python has reliable computation services. 
+%The data outputed are stored in either .csv or .html file, which is readable can the data is tested correct in unit tests, thus this requirment is met.
+\subsubsection{NFR19} 
+It is satisfied as the system only modifies files that the user passes in the function call by providing the file path.
+%The user passes the filepaths to the required files in the Transfomation module. Hence, it is sattisfied. 
+\subsubsection{NFR20} 
+It is satisfied as the manual testing done for the mapping module showed the exact behaviour when mapped with a reliable mapping tool (Google Maps). This enforces that the toolbox mapping is accurate to 80\% because the human eye would notice irregularities when the accuracy percentage is below 80\%. 
+\subsubsection{NFR21} It is satisfied because the toolbox displays the exceptions handled.
+\subsubsection{NFR22} 
+This will be evaluated in REV1.
+\subsubsection{NFR23}
+Since all the data are stored locally on the user's computer only, this requirement is met.
+\subsubsection{NFR24}
+Since all the data are stored locally on the user's computer only, this requirement is met.
+\subsubsection{NFR25}
+This will be evaluated by REV1 through the use of Pytest and manual verification methods. 
+%We are using testing standards like pytest to verify the system's correctness.
+%\subsubsection{NFR26}
+%It is fulfilled since the program is using formal English language for all comments and documentation.
+%The system is built on Jupyter notebook which is quite user friendly. We are using formal English language for all comments and documentation.
+%\subsubsection{NFR27}
+%It is satisfied since the unreasonable data gets filtered out by the preProcessing module so that the data are kept in correct format.
+%If the data is unreasonable, it gets filtered out by the processing module to conform to the data format required.
+
+\newpage 
+
 \section{Comparison to Existing Implementation}	
 
-This section will not be appropriate for every project.
+The existing implementation of the GERT toolbox has no unit or integration testing, no code coverage metrics, and very little formal documentation. Integration testing of the original GERT toolbox is reliant on the ARCGIS software and there is no existing method to test each of the components of the toolbox. \\
+
+\noindent Given the open source nature of the yoGERT toolbox. The yoGERT team ensured that each piece of functionality within the toolbox was accessible to developers and thoroughly documented and tested. This makes it easier for future developers to easily jump in and test their changes. There was a focus on scalability of the tests because when more open source developers contribute, the tests should be easily extendible to these new cases. Additionally, the developers used more traditional software testing methods such as statement and branch coverage to measure how robust the tests are and ensure they stay up to a certain metric.  \\
+
+\noindent Furthermore, compared to the implementation of the original toolbox, yoGERT masks less of the intermediate steps allowing users to explore intermediate data themselves. For example, rather than just generating activity locations, users can also view the data at each step of the way, easily understanding the prerequisites to generating activity locations. This transparency made testing extra important, because it parameterized and allows user input for many assumptions that the original toolbox made and hence opens the doors to lots of invalid/undefined inputs. 
 
 \section{Unit Testing}
 
+\subsection{Network Graph Module}
+\begin{tabular}{ | m{3.5em} | m{4cm}| m{4cm} | m{4cm} | m{1.2cm} | } 
+  \hline
+  \textbf{Test Id}& \textbf{Inputs} & \textbf{Expected Values} & \textbf{Actual Values} & \textbf{Result} \\ 
+  \hline
+  6.2.1.1 & \textit{"trace1.csv", "drive", False} & \textit{networkx.classes.- multidigraph.MultiDiGraph} object & \textit{networkx.classes.- multidigraph.MultiDiGraph} object & \textcolor{green}{Pass} \\ 
+  \hline
+  6.2.1.2 & \textit{"1\_episode.csv"} & \textit{networkx.classes.- multidigraph.MultiDiGraph} object & \textit{networkx.classes.- multidigraph.MultiDiGraph} object & \textcolor{green}{Pass} \\
+  \hline
+  6.2.1.3 & \textit{"trace1.csv", "drive", False, (43.60902479751416, -79.69011484642793)} & 3742825813 & 3742825813 & \textcolor{green}{Pass} \\
+  \hline
+  6.2.1.4 & \textit{"trace1.csv", "drive", False} & "drive" & "drive" & \textcolor{green}{Pass} \\
+  \hline
+  6.2.1.5 & \textit{"trace1.csv", "drive", False, (43.59937567752286, -79.67924717546673)} & \textit{OutOfBoundsCoord- Exception} & \textit{OutOfBoundsCoord- Exception} & \textcolor{green}{Pass} \\
+  \hline
+  6.2.1.6 & \textit{"trace1.csv", "stop", False} & \textit{InvalidModeException} & \textit{InvalidModeException} & \textcolor{green}{Pass} \\
+  \hline
+  6.2.1.7 & \textit{"", "drive", False} & \textit{EmptyFilePath- Exception} & \textit{EmptyFilePath- Exception} & \textcolor{green}{Pass} \\
+  \hline
+\end{tabular}
+\subsection{Shortest Route Trace Module}
+\begin{tabular}{ | m{3.5em} | m{4cm}| m{4cm} | m{4cm} | m{1.2cm} | } 
+  \hline
+  \textbf{Test Id}& \textbf{Inputs} & \textbf{Expected Values} & \textbf{Actual Values} & \textbf{Result} \\ 
+  \hline
+  6.2.3.1 & \textit{NetworkGraph object, "1\_episode.csv"} & \textit{ShortestRouteTrace, 30} & \textit{ShortestRouteTrace, 30} & \textcolor{green}{Pass} \\ 
+  \hline
+  6.2.3.2 & \textit{NetworkGraph object, "1\_episode.csv", "distance"} & \textit{InvalidWeightException} & \textit{InvalidWeightException} & \textcolor{green}{Pass} \\
+  \hline
+\end{tabular}
+\subsection{Shortest Route Episode Module}
+\begin{tabular}{ | m{3.5em} | m{4cm}| m{4cm} | m{4cm} | m{1.2cm} | } 
+  \hline
+  \textbf{Test Id}& \textbf{Inputs} & \textbf{Expected Values} & \textbf{Actual Values} & \textbf{Result} \\ 
+  \hline
+  6.2.2.1 & \textit{NetworkGraph object, "1\_episode.csv"} & \textit{ShortestRouteEpisode, 26} & \textit{ShortestRouteEpisode, 26} & \textcolor{green}{Pass} \\ 
+  \hline
+  6.2.2.2 & \textit{NetworkGraph object, "1\_episode.csv", "time", True, 25} & \textit{ShortestRouteEpisode, 28} & \textit{ShortestRouteEpisode, 28} & \textcolor{green}{Pass} \\
+  \hline
+  6.2.2.3 & \textit{NetworkGraph object, "1\_episode.csv", "time", False} & \textit{ShortestRouteEpisode, 1} & \textit{ShortestRouteEpisode, 1} & \textcolor{green}{Pass} \\
+  \hline
+  6.2.2.4 & \textit{NetworkGraph object, "1\_episode.csv", "distance"} & \textit{InvalidWeightException} & \textit{InvalidWeightException} & \textcolor{green}{Pass} \\
+  \hline
+\end{tabular}
+\subsection{Alternative Route Module}
+\begin{tabular}{ | m{3.5em} | m{4cm}| m{4cm} | m{4cm} | m{1.2cm} | } 
+  \hline
+  \textbf{Test Id}& \textbf{Inputs} & \textbf{Expected Values} & \textbf{Actual Values} & \textbf{Result} \\ 
+  \hline
+  6.2.4.1 & "trace1.csv" & \textit{ShortestRouteTrace, 30} & \textit{ShortestRouteTrace, 30} & \textcolor{green}{Pass} \\ 
+  \hline
+  6.2.4.2 & "trace1.csv", "distance" & \textit{InvalidWeightException} & \textit{InvalidWeightException} & \textcolor{green}{Pass} \\
+  \hline
+\end{tabular}
+\subsection{Mapping Module}
+\begin{tabular}{ | m{3.5em} | m{4cm}| m{4cm} | m{4cm} | m{1.2cm} | }
+  \hline
+  \textbf{Test Id}& \textbf{Inputs} & \textbf{Expected State} & \textbf{Actual State} & \textbf{Result} \\ 
+  \hline
+  6.2.5.1 & \textit{NetworkGraph object, ShortestRouteTrace object, "test\_TraceRouteMap- .html"} & Creation of test\_TraceRouteMap- .html file & Creation of test\_TraceRouteMap- .html file & \textcolor{green}{Pass} \\ 
+  \hline
+  6.2.5.2 & \textit{NetworkGraph object, ShortestRouteEpisode object, "test\_EpisodeRoute- Map.html"} & Creation of test\_EpisodeRoute- Map.html file & Creation of test\_EpisodeRoute- Map.html file & \textcolor{green}{Pass} \\
+  \hline
+  6.2.5.3 & \textit{NetworkGraph object, ShortestRouteTrace object, "test\_AlternativeRoute- Map.html"} & Creation of test\_AlternativeRoute- Map.html file & Creation of test\_AlternativeRoute- Map.html file & \textcolor{green}{Pass} \\
+  \hline
+  6.2.5.4 & "trace-activityLocation.csv", "stops.csv", "test\_ActivityLocation- Map.html" & Creation of test\_ActivityLocation- Map.html file & Creation of test\_ActivityLocation- Map.html file & \textcolor{green}{Pass} \\
+  \hline
+  6.2.5.5 & "1\_episode.csv", "test\_EpisodeMap.html" & Creation of test\_EpisodeMap.html file & Creation of test\_EpisodeMap.html file & \textcolor{green}{Pass} \\
+  \hline
+\end{tabular}
+
+\subsection{Transformation Module}
+\begin{tabular}[H]{ | m{3.5em} | m{4cm}| m{4cm} | m{4cm} | m{1.2cm} | }
+  \hline
+  \textbf{Test Id}& \textbf{Inputs} & \textbf{Expected State} & \textbf{Actual State} & \textbf{Result} \\ 
+  \hline
+  6.2.8.1 & \textit{Incorrect filepath not to the stop.csv passed to stoprelated function} & InvalidFilePath exception thrown& InvalidFilePath exception thrown & \textcolor{green}{Pass} \\ 
+  \hline
+
+    6.2.8.2 & \textit{FilePath to stop GPS data passed to stoprelated function} & List of Point type Objects generated& List of Point type Objects generated& \textcolor{green}{Pass} \\ 
+  \hline
+
+  6.2.8.3 & \textit{FilePath to episode GPS data passed to episoderelated function} & List of Point type Objects generated& List of Point type Objects generated& \textcolor{green}{Pass} \\ 
+  \hline
+
+  6.2.8.4 & \textit{FilePath to trace GPS data passed to tracerelated function} & List of Point type Objects generated& List of Point type Objects generated& \textcolor{green}{Pass} \\ 
+  \hline
+
+  6.2.8.5 & \textit{FilePath to trace GPS data passed to summarymode function} & string value of most frequent mode of travel&  string value of most frequent mode of travel& \textcolor{green}{Pass} \\ 
+  \hline
+
+    6.2.8.6 & \textit{Incorrect filepath not to the trace.csv passed to tracerelated function} & InvalidFilePath exception thrown& InvalidFilePath exception thrown & \textcolor{green}{Pass} \\ 
+  \hline
+ 6.2.8.7 & \textit{Incorrect filepath not to the episode.csv passed to episoderelated function} & InvalidFilePath exception thrown& InvalidFilePath exception thrown & \textcolor{green}{Pass} \\ 
+  \hline
+
+   6.2.8.8 & \textit{Incorrect filepath not to the trace.csv passed to summarymode function} & InvalidFilePath exception thrown& InvalidFilePath exception thrown & \textcolor{green}{Pass} \\ 
+  \hline
+
+  6.2.8.9 & \textit{Incorrect input error message for convertActivityLoca-
+tion(ActvityLoactionList) is generated} & InvalidInput Error exception thrown& InvalidInout Error exception thrown & \textcolor{green}{Pass} \\ 
+  \hline
+
+    6.2.8.10 & \textit{Incorrect input error message for convertActivityLoca-
+tion(ActvityLoactionList) is generated} & list of [point lat, point lon,[nested list of activity locations attributes]] is returned&list of [point lat, point lon,[nested list of activity locations attributes]] is returned&\textcolor{green}{Pass} \\ 
+  \hline
+\end{tabular}
+\begin{tabular}{ | m{3.5em} | m{4cm}| m{4cm} | m{4cm} | m{1.2cm} | }
+\hline
+  6.2.8.11 & \textit{Incorrect file error message for convertActivityCSVis generated} & Invalid file error is returned &lInvalid file error is returned&\textcolor{green}{Pass} \\ 
+  \hline
+  
+ 6.2.8.12 & \textit{Activity objects in the right format to be used are created by convertActivityCSV} &list of activity location objects are returned&list of activity location objects are returned&\textcolor{green}{Pass} \\ 
+  \hline
+  6.2.8.13 & \textit{Incorrect input error message for convertListToActivityLocationObject(activityLocationList) is generated} & InvalidInput Error exception thrown& InvalidInout Error exception thrown & \textcolor{green}{Pass} \\ 
+  \hline
+  6.2.8.14 & \textit{ist Activity objects of activity location type are generated} & list Activity objects of activity location type are generatedn& list Activity objects of activity location type are generated & \textcolor{green}{Pass} \\ 
+  \hline
+
+  
+\end{tabular}
+\subsection{Fetch Activity Location Module}
+\begin{tabular}{ | m{3.5em} | m{4cm}| m{4cm} | m{4cm} | m{1.2cm} | } 
+  \hline
+  \textbf{Test Id}& \textbf{Inputs} & \textbf{Expected Values} & \textbf{Actual Values} & \textbf{Result} \\ 
+  \hline
+  6.2.7.1 & \textit{"stops.csv", "trace/trace1/trace-activityLocation.csv"} & \textit{trace-activityLocation.csv} & \textit{"trace/trace1/trace-activityLocation.csv"} & \textcolor{green}{Pass} \\ 
+  \hline
+  6.2.7.2 & \textit{"", "trace/trace1/trace-activityLocation.csv"} & \textit{ "Input file is invalid"} & \textit{"Input file is invalid"} & \textcolor{green}{Pass} \\ 
+  \hline
+  6.2.7.3 & \textit{"stops.csv", "trace/trace1/trace-activityLocation.csv"} & \textit{No error message in output} & \textit{No error message in output} & \textcolor{green}{Pass} \\ 
+  \hline 
+  6.2.7.4 & \textit{"stops.csv", ""} & \textit{ "Output file is invalid"} & \textit{"Output file is invalid"} & \textcolor{green}{Pass} \\ 
+  \hline
+  6.2.7.5 & \textit{"", "trace/trace1/trace-activityLocation.csv"} & \textit{No error message about output file} & \textit{No error message about output file} & \textcolor{green}{Pass} \\ 
+  \hline 
+  test-ST-10 & \textit{"stops.csv", "trace/trace1/trace-activityLocation.csv" (server is also unavailable)} &  Log warning in output displaying "Stop point activity locations not found due to sever being unavailable") & Log warning in output displaying "Stop point activity locations not found due to sever being unavailable" & \textcolor{green}{Pass}\\ 
+  \hline
+  6.2.7.6 & \textit{"stops.csv", "trace/trace1/trace-activityLocation.csv"} & trace/trace1/trace-activityLocation.csv generated with correct file content & trace/trace1/trace-activityLocation.csv generated& \textcolor{green}{Pass} \\ \hline
+\end{tabular}
+
+\subsection{PreProcessing Module}
+\begin{tabular}{ | m{3.5em} | m{4cm}| m{4cm} | m{4cm} | m{1.2cm} | } 
+  \hline
+  \textbf{Test Id}& \textbf{Inputs} & \textbf{Expected Values} & \textbf{Actual Values} & \textbf{Result} \\ 
+  \hline
+  6.2.9.1 & \textit{trace1.csv test\_ExpectedInput} & \textit{trace0.csv in test\_ExpectedInput} & \textit{trace0.csv in test\_ExpectedInput} & \textcolor{green}{Pass} \\ 
+  \hline
+  6.2.9.2 & \textit{trace1.csv test\_DMSInput} & \textit{trace0.csv without DMS values in test\_DMSInput} & \textit{parsing error} & \textcolor{red}{Fail} \\ 
+  \hline
+   6.2.9.3 & \textit{trace1\_InvalidLL.csv test\_InvalidLL} & \textit{trace0.csv in test\_InvalidLL without invalid rows} & \textit{trace0.csv in test\_InvalidLL without invalid rows} & \textcolor{green}{Pass} \\ 
+  \hline 
+   6.2.9.4 & [78°55'44.29458"N, 124° 4' 58" W] & [78.92897071666667, 124.08277777777778] & [78.92897071666667, 124.08277777777778] & \textcolor{green}{Pass} \\ 
+   \hline
+   6.2.9.5 & \textit{trace1\_InvalidLL.csv test\_InvalidLL} & InvalidInputException & InvalidInputException & \textcolor{green}{Pass} \\ 
+   \hline
+\end{tabular}
+
+\subsection{Episode Generation Module}
+\begin{tabular}{ | m{3.5em} | m{4cm}| m{4cm} | m{4cm} | m{1.2cm} | } 
+  \hline
+  \textbf{Test Id}& \textbf{Inputs} & \textbf{Expected Values} & \textbf{Actual Values} & \textbf{Result} \\ 
+  \hline
+   6.2.6.1 & \textit{trace\_1.csv in test\_csv} & \textit{Creation of trace.csv in test\_trace} & \textit{Creation of segments.csv in test\_trace} & \textcolor{green}{Pass} \\ 
+  \hline
+  6.2.6.2 & \textit{trace.csv in test\_trace} & \textit{Creation of segments.csv in test\_trace} & \textit{Creation of segments.csv in test\_trace} & \textcolor{green}{Pass} \\ 
+  \hline
+  6.2.6.3 & \textit{segments.csv in test\_trace} & \textit{Creation of stops.csv in test\_trace} & \textit{Creation of stops.csv in test\_trace} & \textcolor{green}{Pass} \\  
+  \hline
+  6.2.6.4 & \textit{stops.csv in test\_trace, time\_tolerance} & \textit{stops.csv in test\_trace} & \textit{stops.csv in test\_trace} & \textcolor{green}{Pass} \\  
+  \hline
+   6.2.6.5 & \textit{stops.csv in test\_trace, distance\_tolerance} & \textit{stops.csv in test\_trace} & \textit{stops.csv in test\_trace} & \textcolor{green}{Pass} \\
+  \hline
+   6.2.6.6 & \textit{stops.csv in test\_trace} & \textit{episode in test\_trace} & \textit{episode.csv in test\_trace} & \textcolor{green}{Pass} \\ 
+   \hline
+   6.2.6.7 & \textit{test\_trace folder} & \textit{summarymode.csv in test\_trace} & \textit{summarymode.csv in test\_trace} & \textcolor{green}{Pass} \\ 
+   \hline
+   6.2.6.8 & \textit{test\_trace folder} & \textit{stats.csv in test\_trace} & \textit{stats.csv in test\_trace} & \textcolor{green}{Pass} \\ 
+   \hline
+\end{tabular}
+
+\subsection{Activity Location Module}
+\begin{tabular}{ | m{3.5em} | m{5cm}| m{3cm} | m{4cm} | m{1.2cm} | } 
+  \hline
+  \textbf{Test Id}& \textbf{Inputs} & \textbf{Expected Values} & \textbf{Actual Values} & \textbf{Result} \\ 
+  \hline
+   6.2.10.1 & \textit{ActivityLocation("Lemon Bar”, 43.651504, -79.386657, ”Juice”)} & \textit{Activity Location Object} & \textit{Activity Object} & \textcolor{green}{Pass} \\ 
+  \hline
+  6.2.10.2 & \textit{ActivityLocation("Lemon Bar”, 43.651504, -79.386657, ”Juice”)} & \textit{Lemon Bar} & \textit{Lemon Bar} & \textcolor{green}{Pass} \\ 
+  \hline
+  6.2.10.3 & \textit{ActivityLocation("Lemon Bar”, 43.651504, -79.386657, ”Juice”)} & \textit{43.651504} & \textit{43.651504} & \textcolor{green}{Pass} \\  
+  \hline
+  6.2.10.4 & \textit{ActivityLocation("Lemon Bar”, 43.651504, -79.386657, ”Juice”)} & \textit{-79.386657} & \textit{-79.386657} & \textcolor{green}{Pass} \\  
+  \hline
+   6.2.10.5 & \textit{ActivityLocation("Lemon Bar”, 43.651504, -79.386657, ”Juice”)} & \textit{”Juice”} & \textit{”Juice”} & \textcolor{green}{Pass} \\
+  \hline
+   6.2.10.6 & \textit{ActivityLocation("Lemon Bar”, 43.651504, -79.386657)} & \textit{"None"} & \textit{"None"} & \textcolor{green}{Pass} \\ 
+   \hline
+\end{tabular}
+\subsection{Point Module}
+\begin{tabular}{ | m{3.5em} | m{4cm}| m{4cm} | m{4cm} | m{1.2cm} | } 
+  \hline
+  \textbf{Test Id}& \textbf{Inputs} & \textbf{Expected Values} & \textbf{Actual Values} & \textbf{Result} \\ 
+  \hline
+   6.2.11.1 & \textit{Point(43.651605, -79.386759,"17:22:02", "mode.DRIVE")} & \textit{Point Object} & \textit{Point Object} & \textcolor{green}{Pass} \\ 
+  \hline
+  6.2.11.2 & \textit{Point(43.651605, -79.386759,"17:22:02", "mode.DRIVE")} & \textit{43.651605} & \textit{43.651605} & \textcolor{green}{Pass} \\ 
+  \hline
+  6.2.11.3 & \textit{Point(43.651605, -79.386759,"17:22:02", "mode.DRIVE")} & \textit{-79.386759} & \textit{-79.386759} & \textcolor{green}{Pass} \\  
+  \hline
+  6.2.11.4 & \textit{Point(43.651605, -79.386759,"17:22:02", "mode.DRIVE")} & \textit{"17:22:02"} & \textit{"17:22:02"} & \textcolor{green}{Pass} \\  
+  \hline
+   6.2.11.5 & \textit{Point(43.651605, -79.386759,"17:22:02", "mode.DRIVE")} & \textit{"mode.DRIVE"} & \textit{"mode.DRIVE"} & \textcolor{green}{Pass} \\
+  \hline
+   6.2.11.6 & \textit{Point(43.651605, -79.386759)} & \textit{Point Object where pointOjbect.time = None and pointObject.mode = None} & \textit{Point Object where pointOjbect.time = None and pointObject.mode = None} & \textcolor{green}{Pass} \\ 
+   \hline
+\end{tabular}
+
+
+% \subsection{Main Module}
+% Since the Main Module highly depends on all the sub-modules(i.e. Main Module directly calls the function in the sub-modules,) if all sub-modules passes the test, the Main Module also passes the test.
+
 \section{Changes Due to Testing}
 
+\subsection{Network Graph Module}
+\begin{itemize}
+    \item New exceptions to handle system failure for boundary cases and unexpected inputs.
+\end{itemize}
+\subsection{Shortest Route Trace Module}
+\begin{itemize}
+    \item Descriptive exception print statements. 
+\end{itemize}
+\subsection{Shortest Route Episode Module}
+\begin{itemize}
+    \item Handling different inputs when customization parameters are inputted
+    \item Descriptive exception print statements.
+\end{itemize}
+\subsection{Mapping Module Module}
+\begin{itemize}
+    \item Fixing bugs when formatting text to be displayed on the interactive object.
+    \item Handling variations of mapping different routes using on type of function call.
+\end{itemize}
+\subsection{Episode Generation Module}
+\begin{itemize}
+    \item Folder creation for each method has an exception to catch duplicate file creation\
+    \item Added helper function for episode generation to create trace and all other sub-folders together
+\end{itemize}
+\subsection{Fetch Activity Location Module}
+\begin{itemize}
+    \item Updated to account for input file path error (with descriptive error message)
+    \item Updated to account for output file path error (with descriptive error message)
+    \item Updated to account for server unavailable error(with descriptive error message)
+\end{itemize}
+\subsection{PreProcessing Module}
+\begin{itemize}
+    \item Updated to account for multiple IDs in an input trace.
+    \item Updated regular expression for DMS detection (needs to be further updated).
+    \item Updated to account for user inputted trace folder
+\end{itemize}
+\subsection{Main Module}
+\begin{itemize}
+    \item Main Module has been removed since the user can directly call the functions in the sub-modules. Some pieces of code have been moved to the sub-modules.
+\end{itemize}
+
 \section{Automated Testing}
+
+\subsection{Unit Tests - PyTest}
+All unit test cases were implemented using the PyTest library. This allowed for clear formatted reports and the ability to easily check coverage metrics. 
+
+\subsection{Stress Testing}
+As mentioned in \emph{Section 4.2,} the Stress Testing is used to determine to performance of the program. We test the functions in each module under heavy loads via an encapsulated file(i.e. main.py) to stimulate that the user directly call the functions.\\
+
+\noindent The test case is set as the following: for each function in the code file, the automated test run 10 times and record: total run-time, average run-time, and the number of correct outputs.\\
+
+\noindent Notes: the run-time is fulfilled by python's built-in timeit.default\_timer() method.
+
+\subsubsection{Results for \emph{preProcessing} module}
+Currently this section has not been covered. This test will be performed in REV1.
+
+\subsubsection{Results for \emph{episodeGeneration()}}
+The test file contains 3830 travel points and a total number of 12 calcualted stop points in the corresponding generated stop.csv file. The result of running 10 times is:
+\begin{itemize}
+    \item 10/10 cases successfully calculate 10 stop points and stored in the stops.csv file.
+    \item Total run-time for 10 cases: 3.7565 seconds.
+    \item Average run-time for 1 case: 0.3757 seconds.
+\end{itemize}
+
+\subsubsection{Results for \emph{findActivityLocations()}}
+The test file(stops.csv) has 3 stop points in downtown area of San Jose, California, USA, with a searching radius of 500 metres. The \emph{findActivityLocations()} function should return more than 50 possible nearby-locations. The result after running the test case is at the following:
+\begin{itemize}
+    \item 10/10 cases successfully generated all possible nearby-locations
+    \item Total run-time for 10 cases: 20.0785 seconds.
+    \item Average run-time for 1 case: 2.0079 seconds.
+\end{itemize}
+However, it should be noted that this function highly depends on the public server we are pulling responds(i.e. information of the nearbyy-location). In other words, if the server is under heavy load, the performance may become poorer or even fail to response.
+
+\subsubsection{Results for \emph{generateShortestEpisodeRoute()}}
+For this testing, we use the file that contains a total number of 324 travel episodes and the result is:
+\begin{itemize}
+    \item 10/10 cases successfully the \emph{NetworkGraph} and \emph{ShorestRouteEpisode} type of data
+    \item Total run-time for 10 cases: 275.2367 seconds.
+    \item Average run-time for 1 case: 27.5237 seconds.
+\end{itemize}
+
+\subsubsection{Results for \emph{generateShortestTraceRoute()}}
+By using the test file that has 476 trace points, and the trace-mode set as "drive", the result is at the following:
+\begin{itemize}
+    \item 10/10 cases successfully the \emph{NetworkGraph} and \emph{ShorestRouteTrace} type of data
+    \item Total run-time for 10 cases: 860.8367 seconds.
+    \item Average run-time for 1 case: 86.0837 seconds.
+\end{itemize}
+
+\subsubsection{Results for \emph{generateAlternativeRoute()}}
+Similar to \emph{Section 8.2.4, } we used the same trace file for testing this function. The result is listed below:
+\begin{itemize}
+    \item 10/10 cases generates \emph{AlternvativeRoute} type of data correctly.
+    \item Total run-time for 10 cases: 1158.3500 seconds
+    \item Average run-time for 1 case: 115.8350 seconds
+\end{itemize}
+
+\subsubsection{Summary of Stress Testing}
+
+\subsection{Integration Testing}
+As the goal of Integration Testing is to determine whether the modules are integrated properly, the encapsulated functions in main.py file, which connects all the sub-modules, should tested through Integration Testing. By referring to \emph{Section 8,} as all the functions in the file pass Stress Testing, this indicates that all modules for the program are integrated properly and working as a group, therefore the Integration Testing should be considered as a pass.
+
+\subsection{Regression Testing}
+First of all, the changes of the Code are listed in \emph{Section 7.}\\
+
+\noindent During the processing of changing the code, comparing to the output between two versions, the expected outputs matches the actual outputs. In other words, the stability of the program is remain unchanged during this process.
 		
 \section{Trace to Requirements}
-		
-\section{Trace to Modules}		
 
+\begin{tabular}{| m{5cm} | m{5cm}|}
+    \hline
+    \textbf{Test Cases} & \textbf{Covered FR and NFRS} \\
+    \hline
+     Stress Testing, Integration Testing & NFR9, NFR11, NFR12, NFR18, NFR19, NFR25, NFR27  \\
+     \hline
+     Regression Testing & NFR4, NFR9, NFR11, NFR12, NFR18, NFR19, NFR21, NFR24, NFR25\\
+     \hline
+\end{tabular}
+
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+    \hline
+     FR/T &1 &2 &3 &4 &5 &6 &7 &8 &9 &10 &11 &12 &13 &14 &15 &16 &17 &18 \\
+    \hline
+     6.2.1.1 & & & &X & & & & & & &X & & & & & & & \\
+     6.2.1.2 & & & &X & & & & & & &X & & & & & & & \\
+     6.2.1.3 & & & &X & & & & & & &X & & & & & & & \\
+     6.2.1.4 & & & &X & & & & & & &X & & & & & & & \\
+     6.2.1.5 & & & &X & & & & & & &X & & & & & & & \\
+     6.2.1.6 & & & &X & & & & & & &X & & & & & & & \\
+     6.2.1.7 & & & &X & & & & & & &X & & & & & & & \\
+     6.2.4.1 & & & &X & & & & & & &X & & & & & & & \\
+     6.2.4.2 & & & &X & & & & & & &X & & & & & & & \\
+     6.2.4.3 & & & &X & & & & & & &X & & & & & & & \\
+     6.2.4.4 & & & &X & & & & & & &X & & & & & & & \\
+     6.2.3.1 & & & &X & & & & & & &X & & & & & & & \\
+     6.2.3.2 & & & &X & & & & & & &X & & & & & & & \\
+     6.2.4.1 & & & &X & & & & & & & &X & & & & & & \\
+     6.2.4.2 & & & &X & & & & & & & &X & & & & & & \\
+     6.2.5.1 & & &X & & & & & & & & & & & & & & & \\
+     6.2.5.2 & & &X & & & & & & & & & & & & & & & \\
+     6.2.5.3 & & &X & & & & & & & & & & & & & & & \\
+     6.2.5.4 & & &X & & & & & & & & & & & & & & & \\
+     6.2.5.5 & & &X & & & & & & & & & & & & & & & \\
+     6.2.6.1 & & & & &X & & & & & & & & & & & & & \\
+     6.2.6.2 & & & & & & &X & & & & & & & & & & & \\
+     6.2.6.3 & & & & & & &X & & & & & & & & & & & \\
+     6.2.6.4 & & & & & & & & &X & & & & & & & & & \\
+     6.2.6.5 & & & & & & & & &X & & & & & & & & & \\
+     6.2.6.6 & & & & & & & & &X & & & & & & & & & \\
+     6.2.6.7 & & & & & & & & & & & & & & &X & & & \\
+     6.2.6.7 & & & & & & & & & & & & & & & &X & & \\
+     6.2.7.1 & & & & & & & & & & & & & &X & & & & \\
+     6.2.7.2 & & & & & & & &X & & & & & & & & & & \\
+     6.2.7.3 & & & & & & & &X & & & & & & & & & & \\
+     6.2.7.4 & & & & & & & & & & & & & &X & & & & \\
+     6.2.7.5 & & & & & & & & & & & & & &X & & & & \\
+     6.2.7.6 & & & & & & & & & & & & & &X & & & & \\
+     6.2.8.1 & & & & & & & & & & & & & & & & & & \\
+     6.2.8.2 & & & & & & & & & & & & & & & & & & \\
+     6.2.8.3 & & & & & & & & & & & & & & & & & & \\
+     6.2.8.4 & & & & & & & & & & & & & & & & &X & \\
+     6.2.8.5 & & & & & & & & & & & & & & & &X & & \\
+     6.2.8.6 & & & & & & & & & & & & & & & & & & \\
+     \hline
+\end{tabular}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+    \hline
+    FR/T &1 &2 &3 &4 &5 &6 &7 &8 &9 &10 &11 &12 &13 &14 &15 &16 &17 &18 \\
+    \hline
+     6.2.8.7 & & & & & & & & & & & & & & & & & & \\
+     6.2.8.8 & & & & & & & & & & & & & & & & & & \\
+     6.2.8.9 & & & & & & & &X & & & & & & & & & & \\
+     6.2.8.10 & & & & & & & &X & & & & & & & & & & \\
+     6.2.8.11 & & & & & & & &X & & & & & & & & & & \\
+     6.2.8.12 & & & & & & & &X & & & & & & & & & & \\
+     6.2.8.13 & & & & & & & &X & & & & & & & & & & \\
+     6.2.8.14 & & & & & & & &X & & & & & & & & & & \\
+     6.2.9.1 &X &X &X &X & & & & & & & & & & & & &X & \\
+     6.2.9.2 &X &X &X &X & & & & & & & & & & & & & & \\
+     6.2.9.3 &X &X &X &X & & & & & & & & & & & & & & \\
+     6.2.9.4 & & & &X & & & & & & & & & & & & & & \\
+     6.2.9.5 & &X & & & & & & & & & & & & & & & & \\
+     6.2.10.1 & & & & & & & &X & & & & &X &X & & & & \\
+     6.2.10.2 & & &X & & & & &X & & & & &X &X & & & & \\
+     6.2.10.3 & & &X & & & & &X & & & & &X &X & & & & \\
+     6.2.10.4 & & &X & & & & &X & & & & &X &X & & & & \\
+     6.2.10.5 & & & & & & & &X & & & & &X &X & & & & \\
+     6.2.10.6 & & & & & & & &X & & & & &X &X & & & & \\
+     6.2.11.1 & & & & & & & &X & & &X &X &X & & & & & \\
+     6.2.11.2 & & & & & & & &X & & &X &X &X &X & & & & \\
+     6.2.11.3 & & & & & & & &X & & &X &X &X &X & & & & \\
+     6.2.11.4 & & & & & & & &X & & &X &X &X &X & & & & \\
+     6.2.11.5 & & & & & & & &X & & &X &X &X &X & & & & \\
+     6.2.11.6 & & & & & & & &X & & &X &X &X & & & & & \\
+     \hline
+\end{tabular}  
+\section{Trace to Modules}
+All unit and stress tests are organized by module. 
+
+\newpage
 \section{Code Coverage Metrics}
+
+The pytest-cov plugin was used to test coverage metrics. The team chose to test both statement and branch coverage, as this allowed developers to see if tests accurately represented all paths within the code. The goal stated in earlier documents was 80\% coverage, initial tests do not meet this metric for branch coverage. However, the team plans to create more tests before the final demonstration to ensure key metrics have been achieved.\\
+
+\begin{tabular}{ | m{5cm} | m{4cm}| m{4cm} | }
+  \hline
+  \textbf{Test Name} & \textbf{Coverage Metric} & \textbf{Result \%} \\ 
+  \hline
+  NetworkGraph & Statement | branch & \textcolor{green}{94\%} | \textcolor{red}{56\%} \\ 
+  \hline
+  ShortestRouteTrace & Statement | branch & \textcolor{green}{94\% | 100\%} \\ 
+  \hline
+  ShortestRouteEpisode & Statement | branch & \textcolor{green}{96\% | 87\%} \\
+  \hline
+  AlternativeRoute & Statement | branch & \textcolor{green}{100\%} | \textcolor{red}{12\%} \\
+  \hline
+  Fetch Activity Location & Statement | branch & \textcolor{green}{89\%} | \textcolor{green}{87\%} \\
+  \hline
+  PreProcessing & Statement | branch & \textcolor{green}{87\%} | \textcolor{green}{84\%} \\
+  \hline
+    EpisodeGeneration & Statement | branch & TBD(Debugging for code coverage) | TBD(Debugging for code coverage)\\
+  \hline
+    Transformation & Statement | branch & TBD(Debugging for code coverage) | TBD(Debugging for code coverage)\\
+  \hline
+  Activity Location & Statement | branch & \textcolor{green}{100\%} | \textcolor{green}{100\%} \\
+  \hline
+  Point & Statement | branch & \textcolor{green}{100\%} | \textcolor{green}{100\%} \\
+  \hline
+\end{tabular}
 
 \bibliographystyle{plainnat}
 

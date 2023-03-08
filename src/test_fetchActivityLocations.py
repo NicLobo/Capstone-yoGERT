@@ -3,39 +3,37 @@ import logging
 import pytest
 
 from fetchActivityLocations import *
-
+outputPath = "trace/trace1/trace-activityLocation.csv"
+inputPath = "trace/trace1/stop/stops.csv"
 def test_outputFileIsGenerated():
-  outputPath = "trace/trace1/activitylocations/trace-activityLocation.csv"
   if os.path.exists(outputPath):
       print("removed")
       os.remove(outputPath)
   if not os.path.exists(outputPath):
       print("deleted")
 
-  fetchActivityLocations("trace/stop/stops.csv",outputPath, 500)
+  fetchActivityLocations(inputPath,outputPath, 500)
   if os.path.exists(outputPath):
       print("worked")
   assert os.path.exists(outputPath)
 
 def test_exceptionNotRaisedWhenInputIsValid(capsys):
-    outputPath = "trace/trace1/activitylocations/trace-activityLocation.csv"
-    fetchActivityLocations("trace/stop/stops.csv",outputPath, 500)
+    fetchActivityLocations(inputPath,outputPath, 500)
     captured = capsys.readouterr()
     assert "Input file is invalid" not in captured.out
 
 def test_exceptionRaisedWhenInputIsInvalid(capsys):
-    outputPath = "trace/trace1/activitylocations/trace-activityLocation.csv"
     fetchActivityLocations("",outputPath, 500)
     captured = capsys.readouterr()
     assert "Input file is invalid" in captured.out
   
 def test_exceptionNotRaisedWhenOutputIsValid(capsys):
-    fetchActivityLocations("","trace/trace1/activitylocations/trace-activityLocation.csv", 500)
+    fetchActivityLocations("",outputPath, 500)
     captured = capsys.readouterr()
     assert "Error writing to output file" not in captured.out
 
 def test_exceptionRaisedWhenOutputIsInvalid(capsys):
-    fetchActivityLocations("trace/stop/stops.csv","", 500)
+    fetchActivityLocations(inputPath,"", 500)
     captured = capsys.readouterr()
     assert "Error writing to output file" in captured.out
 
@@ -48,12 +46,11 @@ def test_exceptionRaisedWhenOutputIsInvalid(capsys):
 #     assert "Error writing to output file" in captured.out
 
 def test_listOfActivityLocationsCorrect():
-  outputPath = "trace/trace1/activitylocations/trace-activityLocation.csv"
   testOutputFile = "../test/csvdata/activityLocationOutputTest.csv"
   if os.path.exists(outputPath):
       print("removed")
       os.remove(outputPath)
-  fetchActivityLocations("trace/stop/stops.csv",outputPath, 500)
+  fetchActivityLocations(inputPath,outputPath, 500)
   with open(outputPath,'r') as f1, open(testOutputFile, 'r') as f2:
       if f1.read() == f2.read():
         assert True

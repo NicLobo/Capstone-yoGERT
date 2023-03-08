@@ -104,36 +104,7 @@ def convertListToActivityLocationObject(activityLocationList):
     return newActivityLocation
 
 
-#trace file path          
-def summarymode(tracefilepath):
-    modes = []
-
-
-    changec = 0
-    
-    files = glob.glob(os.path.dirname(tracefilepath)+'/episode'+ "/*.csv")
-    print(files)
-    
-    for f in files:
-        data = csv.reader(open(f))
-        c = 0
-        
-        for line in data:
-            
-            if c>0: 
-                
-                modes.append(line[4])
-                
-                break
-            
-            c = c+1
-    
-    stats=os.path.dirname(tracefilepath)+'/summarymode.csv'
-    with open(stats, 'w') as f1:
-        writer_object = writer(f1)
-        writer_object.writerow(['Summary Mode'])
-        writer_object.writerow([str(mode(modes)) ])
-
+#Summary mode which takes in filepath and gives mode string
 def summaryModeTrace(tracefilepath):
     summarymodefilepath = os.path.dirname(tracefilepath)+'/summarymode.csv'
     c=0
