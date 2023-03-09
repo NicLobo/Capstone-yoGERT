@@ -80,16 +80,16 @@ October 5, 2022 & 1.0 & Longwei: Sec 1,8; Moksha: Sec 2.1,8; Smita: Sec 2.1,8; A
   GERT & GIS-based episode reconstruction toolkit \\
   GIS & Geographical Information Systems\\
   GPS & Global Positioning Systems\\
-  Mode Detection (MD) & Detection of type of transportation being used \\
+  Mode Detection (MD) & Detection of transportation type being used \\
   Point & location coordinate with time stamp.\\
   Potential Activity Locations (PALS) & PALS are potential trip stops \\
   Route & Object path to get from position A to position B\\
   \sout{Route Choice Analysis (RCA)} & \sout{Analyzes route selection from point a to point b}\\
   Segment & Group of GPS Points combined based on episode attributes .\\
-  .shp & .shp are geospatial data format files\\
+  .shp & geospatial data format files\\
   Session & Object's activity history quantified by GPS points \textcolor{blue}{which is a collection of traces.} \\
-  \textcolor{blue}{Trace} & \textcolor{blue}{Collection of GPS points for one travel behaviour or for one user. Each trace is not connected to another.}\\
-  \sout{Time Use Diary (TUD)} & \sout{Time Use Diary are records of continuous events and actions through a particular period of time (usually 24 to 48 hours)}\\
+  \textcolor{blue}{Trace} & \textcolor{blue}{Collection of GPS points for one travel behaviour/one user. Each trace is not connected to another.}\\
+  \sout{Time Use Diary (TUD)} & \sout{records of continuous events and actions through a particular period of time (usually 24 to 48 hours)}\\
   Trip & GPS points represents an object moving to a different position.\\
   
   \bottomrule
@@ -368,7 +368,7 @@ The product boundary diagram was omitted due to redundancy. There are no externa
 \end{itemize}
 
 \item[R\refstepcounter{reqnum}\thereqnum
-\label{R_Inputs_1}:] \plt{The system shall classify extracted \textcolor{blue}{trace} into different types including stop, \sout{car} \textcolor{blue}{drive, and } walk \sout{, bus, and other travel episodes}.}
+\label{R_Inputs_1}:] \plt{The system shall classify extracted \textcolor{blue}{trace} into different types \textcolor{blue}{of episodes} including stop, \sout{car} \textcolor{blue}{drive, and } walk \sout{, bus, and other travel episodes}.}
 \begin{itemize}
     \item \textbf{Requirement Type}: Functional
     \item \textbf{Rationale}: User need to understand travel behaviour of the object's episode.
@@ -377,7 +377,7 @@ The product boundary diagram was omitted due to redundancy. There are no externa
     \textbf{Event}: UC2
     \item \textbf{Customer Satisfaction}: 5
     \item \textbf{Customer Dissatisfaction}: 5
-    \item \textbf{Conflict}: R6,7,\textcolor{blue}{19}
+    \item \textbf{Conflict}: R6,\sout{7},\textcolor{blue}{19}
     \item \textbf{Planned Date}: \sout{November} \textcolor{blue}{February} 14, 2022
 \end{itemize}
 
@@ -388,25 +388,25 @@ The product boundary diagram was omitted due to redundancy. There are no externa
     \item \textbf{Rationale}: User need to understand the object's behaviour during a segment.
     \item \textbf{Fit Criterion}: System successfully categorize a moving object in a trip segment and a static object in stop segment.
     \item \textbf{Priority}: 5
-    \item \textbf{Event}: UC3
+    \item \textbf{Event}:UC3
     \item \textbf{Customer Satisfaction}: 5
     \item \textbf{Customer Dissatisfaction}: 5
     \item \textbf{Conflict}: R8,\textcolor{blue}{19}
     \item \textbf{Planned Date}: \sout{November} \textcolor{blue}{February} 14, 2022
 \end{itemize}
 
-\item[R\refstepcounter{reqnum}\thereqnum
-\label{R_Inputs_1}:] \plt{The system shall identify trip trajectory for extracted \textcolor{blue}{trip} segments.}
+\item[\sout{R8}
+\label{R_Inputs_1}:] \plt{\sout{The system shall identify trip trajectory for extracted \textcolor{blue}{trip} segments.}}
 \begin{itemize}
-    \item \textbf{Requirement Type}: Functional
-    \item \textbf{Rationale}: The system needs trip trajectory for \sout{route} \textcolor{blue}{object's behaviour} analysis. 
-    \item \textbf{Fit Criterion}: The system successfully identifies the \sout{change in the} \textcolor{blue}{different} trajectories when the object changes direction. 
-    \item \textbf{Priority}: 5
-    \item \textbf{Event}: UC3,4
-    \item \textbf{Customer Satisfaction}: 5
-    \item \textbf{Customer Dissatisfaction}: 5
-    \item \textbf{Conflict}: R9
-    \item \textbf{Planned Date}: \sout{November} \textcolor{blue}{February 20}, 2022
+    \item \textbf{Requirement Type}: \sout{Functional}
+    \item \textbf{Rationale}: \sout{The system needs trip trajectory for route \textcolor{blue}{object's behaviour} analysis. }
+    \item \textbf{Fit Criterion}: \sout{The system successfully identifies the \sout{change in the} \textcolor{blue}{different} trajectories when the object changes direction.} 
+    \item \textbf{Priority}: \sout{5}
+    \item \textbf{Event}: \sout{UC3,4}
+    \item \textbf{Customer Satisfaction}: \sout{5}
+    \item \textbf{Customer Dissatisfaction}: \sout{5}
+    \item \textbf{Conflict}: \sout{R9}
+    \item \textbf{Planned Date}: \sout{November \textcolor{blue}{February 20}, 2022}
 \end{itemize}
 
 \item[R\refstepcounter{reqnum}\thereqnum
@@ -453,7 +453,7 @@ The product boundary diagram was omitted due to redundancy. There are no externa
 \end{itemize}
 
 \item[R\refstepcounter{reqnum}\thereqnum
-\label{R_Inputs_1}:] \plt{The system shall automate routes from position A to position B based on \sout{RCA} \textcolor{blue}{EBA} set for each extracted trace.}
+\label{R_Inputs_1}:] \plt{The system shall automate routes from position A to position B based on \sout{RCA} \textcolor{blue}{EBA} set for each extracted trace \textcolor{blue}{or episode along with input customization to handle input analysis.}}
 \begin{itemize}
     \item \textbf{Requirement Type}: Functional
     \item \textbf{Rationale}: The user wants to request routes from position A to position B.
@@ -491,21 +491,21 @@ The product boundary diagram was omitted due to redundancy. There are no externa
     \item \textbf{Customer Satisfaction}: 4
     \item \textbf{Customer Dissatisfaction}: 2
     \item \textbf{Conflict}: R11
-    \item \textbf{Planned Date}: \sout{November} \textcolor{blue}{February 20), 2022
+    \item \textbf{Planned Date}: \sout{November} \textcolor{blue}{February 20}, 2022
 \end{itemize}
 
-\item[R\refstepcounter{reqnum}\thereqnum
-\label{R_Inputs_1}:] \plt{The system shall classify \sout{RCA patterns by route} \textcolor{blue}{trace episodes by} \sout{purpose} \textcolor{blue}{by movement behaviour; which includes details on peak times, peak locations, and stop behaviour}.}
+\item[\sout{R14}
+\label{R_Inputs_1}:] \plt{\sout{The system shall classify \sout{RCA patterns by route} \textcolor{blue}{trace episodes by} \sout{purpose} \textcolor{blue}{by movement behaviour; which includes details on peak times, peak locations, and stop behaviour}. } }
 \begin{itemize}
-    \item \textbf{Requirement Type}: Functional
-    \item \textbf{Rationale}: The system needs to define trip \sout{purpose} \textcolor{blue}{ behaviour attributes}. 
-    \item \textbf{Fit Criterion}: The system successfully defines purpose of a route from position A to position B.
-    \item \textbf{Priority}: 2
-    \item \textbf{Event}: UC4,6
-    \item \textbf{Customer Satisfaction}: 5
-    \item \textbf{Customer Dissatisfaction}: 2
-    \item \textbf{Conflict}: R16,13,\textcolor{blue}{19}
-    \item \textbf{Planned Date}: \sout{November} \textcolor{blue}{February 20}, 2022
+    \item \textbf{Requirement Type}: \sout{Functional}
+    \item \textbf{Rationale}: \sout{The system needs to define trip purpose \textcolor{blue}{ behaviour attributes}}. 
+    \item \textbf{Fit Criterion}: \sout{The system successfully defines purpose of a route from position A to position B.}
+    \item \textbf{Priority}: \sout{2}
+    \item \textbf{Event}: \sout{UC4,6}
+    \item \textbf{Customer Satisfaction}: \sout{5}
+    \item \textbf{Customer Dissatisfaction}: \sout{2}
+    \item \textbf{Conflict}: \sout{R16,13,\textcolor{blue}{19}}
+    \item \textbf{Planned Date}: \sout{November \textcolor{blue}{February 20}, 2022}
 \end{itemize}
 
 \item[R\refstepcounter{reqnum}\thereqnum
@@ -523,7 +523,7 @@ The product boundary diagram was omitted due to redundancy. There are no externa
 \end{itemize}
 
 \item[R\refstepcounter{reqnum}\thereqnum
-\label{R_Inputs_1}:] \plt{The system shall \sout{allow users to request} \textcolor{blue}{output} trip segments' description for a given GPS data set \textcolor{blue}{to the user upon their request}.}
+\label{R_Inputs_1}:] \plt{The system shall \sout{allow users to request} \textcolor{blue}{output csv file for} trip segments' description for a given GPS data set \textcolor{blue}{to the user upon their request}.}
 \begin{itemize}
     \item \textbf{Requirement Type}: Functional
     \item \textbf{Rationale}: The user needs to review intermediate analysis steps. 
@@ -537,7 +537,7 @@ The product boundary diagram was omitted due to redundancy. There are no externa
 \end{itemize}
 
 \item[R\refstepcounter{reqnum}\thereqnum
-\label{R_Inputs_1}:] \plt{The system shall \sout{allow users to request} \textcolor{blue}{output} episode descriptions of GPS inputs \textcolor{blue}{to the user upon their request}.}
+\label{R_Inputs_1}:] \plt{The system shall \sout{allow users to request} \textcolor{blue}{output csv file for} episode descriptions of GPS inputs \textcolor{blue}{to the user upon their request}.}
 \begin{itemize}
     \item \textbf{Requirement Type}: Functional
     \item \textbf{Rationale}: The user needs to access intermediate details about episode attributes.
@@ -564,6 +564,20 @@ The product boundary diagram was omitted due to redundancy. There are no externa
     \item \textbf{Planned Date}: \textcolor{blue}{February 14, 2022}
 \end{itemize}
 
+\item[R\refstepcounter{reqnum}\thereqnum
+\label{R_Inputs_1}:] \plt{\textcolor{blue}{The system shall be utilized as single package}.}
+\begin{itemize}
+    \item \textbf{Requirement Type}: \textcolor{blue}{Functional}
+    \item \textbf{Rationale}: \textcolor{blue}{The user needs to be able to use and access the toolbox functionalities from a single use function call.}
+    \item \textbf{Fit Criterion}: \textcolor{blue}{The system is successfully stored as a package.}
+    \item \textbf{Priority}: \textcolor{blue}{3}
+    \item \textbf{Event}: \textcolor{blue}{UC1-7}
+    \item \textbf{Customer Satisfaction}: \textcolor{blue}{5}
+    \item \textbf{Customer Dissatisfaction}: \textcolor{blue}{2}
+    \item \textbf{Conflict}: \textcolor{blue}{R1-17}
+    \item \textbf{Planned Date}: \textcolor{blue}{March 10, 2022}
+\end{itemize}
+
 \end{itemize}
 
 
@@ -586,9 +600,9 @@ The product boundary diagram was omitted due to redundancy. There are no externa
     \item \textbf{Conflict}: None
 \end{itemize}
 \item[NFR\refstepcounter{freqnum}\thefreqnum
-\label{NFR}:] \plt{The system shall display episodes through informative descriptions.}
+\label{NFR}:] \plt{The system shall display \sout{episodes through} informative descriptions \textcolor{blue}{on the interactive maps}.}
 \begin{itemize}
-    \item \textbf{Rationale}:
+    \item \textbf{Rationale}: \textcolor{blue}{The user needs to understand the icons and information presented on the maps.}
     \item \textbf{Fit Criterion}: The system is successful if it shows appropriate images of the travel along with appropriate descriptions of its objects on its route.
     \item \textbf{Priority}: 5
     \item \textbf{Event}: UC1 %usecase it relates to
@@ -652,7 +666,7 @@ The product boundary diagram was omitted due to redundancy. There are no externa
 \end{itemize}
 \subsubsection{Understandability and Politeness Requirements}
 \item[NFR\refstepcounter{freqnum}\thefreqnum
-\label{NFR}:] \plt{The system's must provide a respectful session to the user with salutation greetings.  }
+\label{NFR}:] \plt{\sout{The system's must provide a respectful session to the user with salutation greetings.  }}
 \begin{itemize}
     \item \textbf{Rationale}: In the case of first time users, the system must display more dialogues for showing the spatial arrangements of icons. \sout{After more use of the system, the system must greet the on return}.
     \item \textbf{Fit Criterion}: The system should display dialogues near icons on first use of the software\sout{ and allow these icon dialogues to be clickable for future uses}. 
@@ -987,7 +1001,7 @@ N/A
 \item[NFR\refstepcounter{freqnum}\thefreqnum
 \label{NFR}:] \plt{The system shall generate safe or reasonable outputs. }
 \begin{itemize}
-    \item \textbf{Rationale}: Since some of the data points are lacked of accuracy when the users collect them (e.g. the points in the water or the points that cross the border of the country), the system must ignore those points when processing the data.
+    \item \textbf{Rationale}: Since some of the data points are lacked of accuracy when the users collected them \sout{(e.g. the points in the water or the points that cross the border of the country)}, the system must ignore those points when processing the data.
     \item \textbf{Fit Criterion}: The system should ignore unreasonable data points when generating the outputs.
     \item \textbf{Priority}: 5
     \item \textbf{Event}: UC1-10%usecase it relates to
