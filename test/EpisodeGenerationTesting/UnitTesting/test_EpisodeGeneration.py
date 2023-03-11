@@ -5,11 +5,9 @@
  
 import pytest  
 import geopandas as pd
-from episodeGeneration import *
+import episodeGeneration as EG
 from pandas.testing import *
-
-EG = EpisodeGeneration()
-
+import os 
 
 csv_path = "../src/test/EpisodeGenerationTesting/UnitTesting/test_csv/trace_1.csv"
 full_path= "../src/test/EpisodeGenerationTesting/UnitTesting/test_trace/trace"

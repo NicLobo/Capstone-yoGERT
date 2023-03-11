@@ -20,9 +20,10 @@ os.chdir(path)
 
 
 
-# @param csv_path:
-# @param title:
-# @return an .csv file that consists of points
+## @brief This function that creates assigns a unique id to each GPS ping  point of the inp
+#  @param listOfPoints list of Points consisting of GPS Points with coordinates, time, and mode.
+#  @param distance integer for the sampling distance to select GPS points after certain distance 
+#  @return a list of Points.
 def createTrace(csv_path, tracefolder_fullpath):
 
     #Create a trace folder
@@ -153,10 +154,10 @@ def findStops(tracefolder_fullpath):
     episode['middle_point'] = (episode['start_index'] + episode['end_index'])/2
     try: 
             os.mkdir(tracefolder_fullpath+"/stop")
-            print("Trace folder created ") 
+            print("Stop folder created ") 
 
     except FileExistsError:
-            print("Trace folder already exists")
+            print("Stop folder already exists")
 
     episode.to_csv(tracefolder_fullpath+"/stop/stops.csv", index=False)
 
@@ -203,10 +204,10 @@ def createEpisodes(tracefolder_fullpath):
 
     try: 
             os.mkdir(str(tracefolder_fullpath+"/episode"))
-            print("Trace folder created ") 
+            print("Episode folder created ") 
 
     except FileExistsError:
-            print("Trace folder already exists")
+            print("Episode folder already exists")
 
     for index, row in stops.iterrows():
         endindex = row['start_index']
@@ -411,18 +412,7 @@ def numberoftrips(trace):
     t.to_csv(trace+"/stats.csv", index=False)
 
 
-
-# createVelocities("./Segment/trace1")
-# # generateEpisodes("./Segment/trace1")
-episodeGenerator("../src/exampleDataset/trace_3.csv","../src/trace/","tracetest2")
-#ping_frequency("../src/trace/tracetest/episode")
-# createSegments("../src/exampleDataset/trace_2.csv","trace2")
-# createVelocities("./Segment/trace2")
-# generateEpisodes("./Segment/trace2")
-# cleanEpisode("./Segment/trace2")
-
-# createSegments("../src/exampleDataset/trace_3.csv","trace3")
-# createSegments("./exampleDataset/trace_3.csv","trace3") 
-# createVelocities("./Segment/trace3")
-# generateEpisodes("./Segment/trace3")
-# cleanEpisode("./Segment/trace3")
+def createStats(fullpath):
+    numberoftrips(fullpath)
+    mode_change(fullpath)
+    ping_frequency(fullpath)
