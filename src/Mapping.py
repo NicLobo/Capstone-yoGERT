@@ -155,6 +155,7 @@ def MapRoute(networkGraph, route, savePath):
     filepath = savePath
     route_map.save(filepath)
     IFrame(filepath, width=600, height=500)
+    return 0
 
 ## @brief This function plots activity locations as markers on a map and saves it as an interactive file.
 #  @param activityLocationsFile string of path to the csv file containitng the output of ActivityLocation module. 
@@ -179,6 +180,7 @@ def MapActivityLocation(activityLocationsFile, stopPointsFile, savePath):
     filepath = savePath
     base.save(filepath)
     IFrame(filepath, width=600, height=500)
+    return 0
 
 ## @brief This function plots episode GPS coordinates as markers on a map and saves it as an interactive file.
 #  @param GPSCoords string of the path to the csv file consisting of GPS coordinates for an episode. 
@@ -205,6 +207,7 @@ def MapEpisodePoints(GPSCoordsFile, savePath):
     base.get_root().add_child(macro)
     base.save(savePath)
     IFrame(savePath, width=600, height=500)
+    return 0
 
 # # example for activity locations
 # stoppoints = [(-23.546498,-46.691141),(-23.558094,-46.660205),(-23.635039,-46.641239),
