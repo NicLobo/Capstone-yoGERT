@@ -9,24 +9,16 @@ import geopy as gp
 import pandas as pd
 import glob
 import geopy.distance
-#os.chdir("../src/")
+
 path = os.path.dirname(os.path.abspath(__file__))
 os.chdir(path) 
 
 
-
-
-
-
-
-
-## @brief This function that creates assigns a unique id to each GPS ping  point of the inp
-#  @param listOfPoints list of Points consisting of GPS Points with coordinates, time, and mode.
-#  @param distance integer for the sampling distance to select GPS points after certain distance 
-#  @return a list of Points.
+## @brief Assigns a unique ID to each GPS ping point of the inputted trace file and creates a new CSV file, called trace.csv, for the trace’s geo-data in the inputted directory path. 
+#  @param a full path to the input CSV file.
+#  @param a directory path where the new CSV file will be created.
 def createTrace(csv_path, tracefolder_fullpath):
 
-    #Create a trace folder
 
     try: 
         os.mkdir(tracefolder_fullpath)
@@ -42,7 +34,6 @@ def createTrace(csv_path, tracefolder_fullpath):
 
 
 
-    #Calculate stepsize using start and end time of dataset
     starttime = pd.to_datetime(df['time'].iloc[0])
     endtime = pd.to_datetime(df['time'].iloc[-1])
     totaltime = pd.Timedelta(endtime - starttime).seconds 
@@ -52,7 +43,6 @@ def createTrace(csv_path, tracefolder_fullpath):
     else:
         stepsize = (round(len(df)/totaltime)) 
 
-    #Trim points based on step size
     if(stepsize != 0):
         df = df.drop(df[df.index%stepsize !=0].index)
         df = df.reset_index()
@@ -61,15 +51,15 @@ def createTrace(csv_path, tracefolder_fullpath):
     df.reset_index()
     df['id'] = df.index
 
-    #Saves trip points to csv file 
+
     df.to_csv(tracefolder_fullpath+"/trace.csv", index=False)
 
 
-#INPUT Trace.CSV
-#OUTPUT Segments.CSV
+## @brief Finds segments of the trace.csv file and creates a CSV file for segment information, called segments.csv, in the inputted directory path. 
+#  @param  a directory path that contains trace.csv and where the new CSV file will be created.
 def createSegments(tracefolder_fullpath):
     
-    #Join the points cvs file by index n and n+1
+
     df = pd.read_csv(tracefolder_fullpath+"/trace.csv")
     df2= df.iloc[:-1 , :]
     df1 = df.tail(-1)
@@ -89,13 +79,13 @@ def createSegments(tracefolder_fullpath):
     velocities["end_index"] =  df1['id']
     velocities['velocity'] = velocities['total_distance'] / (velocities['total_time'])
 
-    #Saves trip segement to csv file
+
     velocities.to_csv(tracefolder_fullpath+"/segments.csv", index=False)
 
 
 
-#INPUT VELOCITY.CSV
-#OUTPUT EPISODE.CSV
+## @brief Analyzes segments in segments.csv file and creates a CSV file for stop points, called stops.csv, in a newly created directory, called stop, within the input directory path. 
+#  @param  a directory path that contains trace.csv and where the new CSV file will be created.
 def findStops(tracefolder_fullpath):
 
     from enum import Enum
@@ -109,9 +99,6 @@ def findStops(tracefolder_fullpath):
     df = pd.read_csv(tracefolder_fullpath+"/segments.csv") 
     episode= pd.DataFrame(columns= ["start_lat","start_long","end_lat","end_long","start_time","end_time","start_index","end_index","mode"])
 
-
-
-    #get starting mode 
     startVel = df['velocity'].iloc[0] 
 
     startIndex = 0
@@ -120,8 +107,6 @@ def findStops(tracefolder_fullpath):
         currMode = mode.STOP
     else:
         currMode = mode.MOVING
-
-
 
     for index in range(1,len(df)):
 
@@ -163,7 +148,10 @@ def findStops(tracefolder_fullpath):
 
 
 
-
+## @brief Updates stops.csv file at the stop directory within the inputted directory path with the inputted filtering parameters. It removes any stop points that don’t satisfy the filtering tolerances. 
+#  @param  a directory path that contains the  directory called stop that has stops.csv.
+#  @param  a value to filter stops based on distance
+#  @param  a value to filter stops based on time
 def cleanStops(tracefolder_fullpath, timetol, distol):
     stops= pd.read_csv(tracefolder_fullpath+"/stop/stops.csv") 
     droplist = []
@@ -184,7 +172,9 @@ def cleanStops(tracefolder_fullpath, timetol, distol):
     stops.to_csv(tracefolder_fullpath+"/stop/stops.csv", index=False)
 
 
-###
+
+## @brief Analyzes segments in segments.csv file and creates a CSV file for stop points, called stops.csv, in a newly created directory, called stop, within the input directory path. 
+#  @param  a directory path that contains the  directory called stop that has stops.csv.
 def createEpisodes(tracefolder_fullpath):
 
     from enum import Enum
@@ -285,6 +275,11 @@ def createEpisodes(tracefolder_fullpath):
         eid+=1         
                 
 
+
+## @brief Generates episodes for the inputted geo-data and creates new directories and CSV files to store information on segments, stops, and episodes for the inputted trace information. 
+#  @param  a file path for the trace’s geo-data.
+#  @param  a directory path that contains the user’s geo-data.
+#  @param  a directory name where all the trace’s information should be stored.
 def episodeGenerator(csv_path,tracefolder_path,title):
     tracefolder_fullpath = tracefolder_path+title
 
@@ -295,7 +290,8 @@ def episodeGenerator(csv_path,tracefolder_path,title):
     cleanStops(tracefolder_fullpath,60,60)
     createEpisodes(tracefolder_fullpath)
 
-
+## @brief Finds the most used travel mode for the inputted trace.csv file and creates a new CSV file containing the summary mode.  
+#  @param  a file path that contains trace.csv and where the new CSV file will be created.
 def summarymode(tracefilepath):
     from enum import Enum
     class mode(Enum):
@@ -330,6 +326,9 @@ def summarymode(tracefilepath):
         writer_object.writerow(['Summary Mode'])
         writer_object.writerow([str(mode(modes)) ])
 
+
+## @brief Analyzes the trace’s information and creates a new CSV file, called stats.csv, of ping frequency.
+#  @param   a directory path that contains trace.csv and where the new CSV file will be created.
 def ping_frequency(trace): 
     filepath = trace +'/episode'
 
@@ -337,16 +336,16 @@ def ping_frequency(trace):
     print(files)
     for f in files:
         df = pd.read_csv(f)
-    #print(df.head(10))
+
 
         df['time']= pd.to_datetime(df['time'])
 
 
 
-        #Calculate stepsize using start and end time of dataset
+
         starttime = pd.to_datetime(df['time'].iloc[0])
         endtime = pd.to_datetime(df['time'].iloc[-1])
-        #print(starttime,endtime)
+
         totaltime = pd.Timedelta(endtime - starttime).seconds 
         print(totaltime)
         stepsize1 = 1
@@ -360,7 +359,8 @@ def ping_frequency(trace):
             writer_object.writerow(['Ping Frequency'])
             writer_object.writerow([str(stepsize1) ])
 
-
+## @brief Analyzes the trace’s information and creates a new CSV file, called stats.csv of mode change count.
+#  @param a directory path that contains trace.csv and where the new CSV file will be created.
 def mode_change(trace): 
 
     modes = []
@@ -380,7 +380,7 @@ def mode_change(trace):
             if c>0: 
                 
                 modes.append(line[4])
-                #print(modes)
+
                 filecount+=1
                 if filecount >=2:
                     if modes[-1]!=modes[-2]:
@@ -396,7 +396,8 @@ def mode_change(trace):
     t.insert(1, column = "Mode Change", value = str(changec))  
     t.to_csv(trace+"/stats.csv", index=False)
 
-
+## @brief Analyzes the trace’s information and creates a new CSV file, called stats.csv, of number of trips
+#  @param   a directory path that contains trace.csv and where the new CSV file will be created.
 def numberoftrips(trace): 
     count = 0
     dir_path = trace
@@ -411,7 +412,8 @@ def numberoftrips(trace):
     print(t.head(2))
     t.to_csv(trace+"/stats.csv", index=False)
 
-
+## @brief Analyzes the trace’s information and creates a new CSV file, called stats.csv, of ping frequency, mode change count, number of trips, and trace period in the input directory path.
+#  @param   a directory path that contains trace.csv and where the new CSV file will be created.
 def createStats(fullpath):
     numberoftrips(fullpath)
     mode_change(fullpath)
