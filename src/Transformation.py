@@ -1,3 +1,11 @@
+
+## @file Transformation.py
+#  @title Transformation module
+#  @author Niyatha Rangarajan
+#  @date Mar 14, 2023
+
+
+#imports
 import csv
 import ast
 from datetime import datetime
@@ -11,18 +19,23 @@ import glob
 import pandas as pd  
 import ActivityLocation
 
-
+## @brief A class representing a file exception
+#  @details Will be used as a file exception class for all functions in Tranformation.py
 class FilePathException(Exception):
     "File path passed is not the correct path"
     pass
 
+## @brief A class representing a list exception
+#  @details Will be used as a list exception class for all functions in Tranformation.py
 class WrongList(Exception):
     "List passed is incorrect"
     pass
 
 
 
-#trace file path
+## @brief This function to convert the given csv to a list of Point objects.
+#  @param tracepath, The file path to the trace file
+#  @return List of Point objects representing the given trace
 def tracerelated(tracepath): 
     try:
         data = csv.reader(open(tracepath))
@@ -45,7 +58,9 @@ def tracerelated(tracepath):
         print("File path passed is not the correct path")
         raise FilePathException from None
 
-#stop file path
+## @brief This function to convert the given csv to a list of Point objects.
+#  @param stopfilepath, The file path to the stop file
+#  @return List of Point objects representing the given stop csv
 def stoprelated(stopfilepath): 
     try:
         data = csv.reader(open(stopfilepath))
@@ -74,7 +89,9 @@ def stoprelated(stopfilepath):
         print("File path passed is not the correct path")
         raise FilePathException from None
 
-#episode path
+## @brief This function to convert the given csv to a list of Point objects.
+#  @param episodepath, The file path to the episode file
+#  @return List of Point objects representing the given episode
 def episoderelated(episodepath): 
     try:
         data = csv.reader(open(episodepath))
@@ -99,7 +116,13 @@ def episoderelated(episodepath):
         print("File path passed is not the correct path")
         raise FilePathException from None
 
-def convertActivityLocation(ActvityLoactionList):
+
+## @brief Converts a list of stop point and activity location objects tuples into a list with their class attributes
+#  @param ActvityLoactionList, a list of stop point and activity location objects tuples of 
+# form [(Point stop, [activitylocation object1,activitylocation object2]), (Point stop2, [activitylocation object1,activitylocation object2])]
+#  @return a list of stop point lat, stop point long and activity location objects attributes in tuple form
+# of form [(stop.lat, stop.lon, [[activitylocation.name,activitylocation.lat,activitylocation.lon,activitylocation.amenity],
+# [activitylocation2.name,activitylocation2.lat,activitylocation2.lon,activitylocation2.amenity]])....]
     if(len(ActvityLoactionList) == 0):
         
         print("List is not correct")
@@ -119,7 +142,9 @@ def convertActivityLocation(ActvityLoactionList):
             convertedList.append([i[0].lat, i[0].lon, activityList])
     return convertedList
 
-# Convert CSV file(i.e. fetchOutput.csv) into a list of activity location objects
+## @brief Converts a csv file into a list of activity location objects
+#  @param userFile, output file of fetchactivitylocation
+#  @return list of activity location objects
 def convertActivityCSV(userFile):
     try:
         convertedList = []
@@ -135,6 +160,10 @@ def convertActivityCSV(userFile):
         print("File path passed is not the correct path")
         raise FilePathException from None
 
+## @brief Converts a list of activity location attributes into an activity location object
+#  @param activityLocationList, an activity location attribute list of form [activitylocation.name,
+# activitylocation.lat,activitylocation.lon,activitylocation.amenity] 
+#  @return an activity location object
 def convertListToActivityLocationObject(activityLocationList):
     if(len(activityLocationList) == 0):
         print("List is not correct")
@@ -147,7 +176,10 @@ def convertListToActivityLocationObject(activityLocationList):
     return newActivityLocation
 
 
-#Summary mode which takes in filepath and gives mode string
+## @brief Gives the most used mode for a given trace file
+#  @param tracefilepath, File path to the trace file
+#  @return string value of most frequently used mode
+
 def summaryModeTrace(tracefilepath):
     try:
         summarymodefilepath = os.path.dirname(tracefilepath)+'/summarymode.csv'
