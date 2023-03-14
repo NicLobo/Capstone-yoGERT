@@ -123,6 +123,7 @@ def episoderelated(episodepath):
 #  @return a list of stop point lat, stop point long and activity location objects attributes in tuple form
 # of form [(stop.lat, stop.lon, [[activitylocation.name,activitylocation.lat,activitylocation.lon,activitylocation.amenity],
 # [activitylocation2.name,activitylocation2.lat,activitylocation2.lon,activitylocation2.amenity]])....]
+def convertActivityLocation(ActvityLoactionList):
     if(len(ActvityLoactionList) == 0):
         
         print("List is not correct")
