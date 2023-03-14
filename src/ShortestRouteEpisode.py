@@ -23,11 +23,13 @@ class ShortestRouteEpisode:
     #  @param sampling boolean to decide when data sampling is needed to make a pings' subset by selecting a ping every specified distance
     #  @param samplingDist integer for the sampling distance variable in m.
     #  @throws InvalidWeightException Raised when the inputted optimizer is not a subset of {time, length}
-    #  @throws InvalidSamplingException Raised when the inputted sampling is not a subset of {stop, distance}
+    #  @throws EmptyFilePathException Raised when input file path is empty
     def __init__(self, networkGraph, filePath, optimizer = "time", sampling = True, samplingDist = 50):
         try:
             if optimizer not in ["time", "length"]:
                 raise InvalidWeightException
+            elif filePath == "":
+                raise EmptyFilePathException
             else:
                 self.graph = networkGraph
                 self.inputData = episoderelated(filePath) #listOfPoints #this needs to be changed to tranform csvfile to a list of Points 
@@ -41,8 +43,11 @@ class ShortestRouteEpisode:
                 self.sampling = sampling
                 self.samplingDist = samplingDist
                 self.routes = self.shortestPath(networkGraph, self.nodes, optimizer)
+                print("Shortest Route Episode was successfully created!")
         except InvalidWeightException:
             print("InvalidWeightException: Invalid input for weight type! Enter either time or length.")
+        except EmptyFilePathException:
+            print("EmptyFilePathException: Input file path is empty. Please enter a file path to a episode.")
     
     ## @brief This function finds sampled data points for a given list of GPS pings. 
     #  @param listOfPoints list of Points consisting of GPS Points with coordinates, time, and mode.

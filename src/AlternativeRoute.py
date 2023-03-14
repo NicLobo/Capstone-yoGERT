@@ -20,15 +20,21 @@ class AlternativeRoute:
     #  @param filePath list of Point type consisting of the GPS coordinates for the trace. 
     #  @param optimizer string for the weight type on the graph's edges.  
     #  @throws InvalidWeightException Raised when the inputted optimizer is not a subset of {time, length}
+    #  @throws EmptyFilePathException Raised when input file path is empty
     def __init__(self, filePath, optimizer = "length"):
         try:
             if optimizer not in ["time", "length"]:
                 raise InvalidWeightException
+            elif filePath == "":
+                raise EmptyFilePathException
             else:
                 self.network = NetworkGraph(filePath, "bike", False, True)
                 self.path = ShortestRouteTrace(self.network, filePath, optimizer)
+                print("Alternative Route was successfully created!")
         except InvalidWeightException:
             print("InvalidWeightException: Invalid input for weight type! Enter either time or length.")
+        except EmptyFilePathException:
+            print("EmptyFilePathException: Input file path is empty. Please enter a file path to a trace.")
     
 
 # alternativeOne = AlternativeRoute(inputTwoStops)

@@ -23,7 +23,7 @@ class NetworkGraph:
     #  @param episodeAnalysis boolean to know the type of inputted GPS pings. Defaulted to True
     #  @param alternativeAnalysis boolean to know the type of inputted GPS pings. Defaulted to False
     #  @throws InvalidModeException Raised when the input value is not a subset of {drive, walk}
-    #  @throws EmptyFilePathException "Raised when input file path is empty"
+    #  @throws EmptyFilePathException Raised when input file path is empty
     def __init__(self, filePath, networkMode = None, episodeAnalysis = True, alternativeAnalysis = False):
         # check inputs
         try: 
@@ -46,6 +46,7 @@ class NetworkGraph:
                 self.endCoord = (points[-1].lat, points[-1].lon)
                 self.dist = self.findDistance(self.stCoord, self.endCoord, points)
                 self.graph = ox.graph_from_point(self.stCoord, dist=self.dist, network_type=self.mode, simplify=False)
+                print("Network Graph was successfully created!")
         except InvalidModeException:
             print("InvalidModeException: Invalid network mode! Enter either drive or walk for mode.")
         except EmptyFilePathException:
@@ -96,3 +97,4 @@ class NetworkGraph:
 #     inputTwoTuples.append((point.lat,point.lon))
 # NetworkGraphTwo = NetworkGraph(inputTwo, "drive")
 # NG1 = NetworkGraph("C:/Users/sweet/anaconda3/envs/capstone/data/trace1.csv", "drive", False)
+# NG1 = NetworkGraph("./data/trace1.csv", "drive",False)
