@@ -22,10 +22,13 @@ class ShortestRouteTrace:
     #  @param filePath string for the path to the csv file consisting of GPS Points representing of the trace.
     #  @param optimizer string for the weight type on the graph's edges.  
     #  @throws InvalidWeightException Raised when the inputted optimizer is not a subset of {time, length}
+    #  @throws EmptyFilePathException Raised when input file path is empty
     def __init__(self, networkGraph, filePath, optimizer = "time"):
         try:
             if optimizer not in ["time", "length"]:
                 raise InvalidWeightException
+            elif filePath == "":
+                raise EmptyFilePathException
             else:
                 self.graph = networkGraph
                 # self.inputData = episoderelated(filePath) #listOfPoints #this needs to be changed to tranform csvfile to a list of Points 
@@ -33,8 +36,11 @@ class ShortestRouteTrace:
                 self.nodes = self.findNodes(self.inputData, networkGraph)
                 self.wt = optimizer
                 self.routes = self.shortestPath(networkGraph, self.nodes, optimizer)
+                print("Shortest Route Trace was created successfully")
         except InvalidWeightException:
             print("InvalidWeightException: Invalid input for weight type! Enter either time or length.")
+        except EmptyFilePathException:
+            print("EmptyFilePathException: Input file path is empty. Please enter a file path to a trace.")
     ## @brief This function finds nodes on the network graph for the episode's GPS Points. 
     #  @param listOfStopPoints list of Points consisting of stop points representation for the entire trace. 
     #  @param graphInput NetworkGraph for the map network of street, roads, and walkways. 

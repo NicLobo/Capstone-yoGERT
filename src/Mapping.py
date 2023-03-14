@@ -9,6 +9,7 @@ import h3
 import NetworkGraph
 from ShortestRouteEpisode import *
 from ShortestRouteTrace import *
+from AlternativeRoute import *
 from ActivityLocation import *
 from IPython.display import IFrame
 import folium
@@ -114,100 +115,144 @@ template = """
 #  @param networkGraph NetworkGraph object that represents the base streats, roads, and walkways for the map.
 #  @param route ShortestRoute object that has information of the route and details of how it was created.
 #  @param savePath string of where the interactive map will be saved. 
+#  @return a boolean to indicate if the mapping file was successfully created. 
+#  @throws InvalidRouteTypeException Raised when the input route type is not ShortestRouteTrace or ShortestRouteEpisode
+#  @throws EmptyFilePathException Raised when input file path is empty
+#  @throws InvalidMappingFilePathException Raised when the input file path does not have the file name.html
 def MapRoute(networkGraph, route, savePath):
-    if networkGraph.getMode() == "drive" or networkGraph.getMode() == "mode.DRIVE":
-        colorR = '#00FF00'
-    elif networkGraph.getMode() == "walk" or networkGraph.getMode() == "mode.WALK":
-        colorR = '#0000FF'
-    elif networkGraph.getMode() == "bike" or networkGraph.getMode() == "mode.BIKE":
-        colorR = '#800080'
-    else:
-        colorR = '#FF00FF'
-    # plot the points used 
-    print(type(route))
-    if isinstance(route, ShortestRouteEpisode):
-        usedPoints = route.sampledData
-    else: 
-        usedPoints = route.inputData
-    base = folium.Map(location=[usedPoints[0].lat, usedPoints[0].lon], zoom_start=10)
-    for point in usedPoints:
-        tooltip = "ID:" + str(point.episodeID) + ", T:" + str(point.time)
-        if point.mode == "mode.DRIVE":
-            color = "green"
-            icon="car-side"
-        elif point.mode == "mode.WALK":
-            color = "blue"
-            icon="person-walking"
+    try:
+        if not (isinstance(route, ShortestRouteTrace) or isinstance(route, ShortestRouteEpisode)):
+            raise InvalidRouteTypeException
+        elif savePath == "":
+            raise EmptyFilePathException
+        elif ".html" not in savePath:
+            raise InvalidMappingFilePathException
+        elif networkGraph.getMode() == "drive" or networkGraph.getMode() == "mode.DRIVE":
+            colorR = '#00FF00'
+        elif networkGraph.getMode() == "walk" or networkGraph.getMode() == "mode.WALK":
+            colorR = '#0000FF'
+        elif networkGraph.getMode() == "bike" or networkGraph.getMode() == "mode.BIKE":
+            colorR = '#800080'
         else:
-            color = "red"
-            icon="circle-stop"
-        base.add_child(folium.Marker([point.lat,point.lon], 
-                                     tooltip=tooltip, icon=folium.Icon(color=color, icon=icon, prefix="fa")))
-    # plot the routes on top of it 
-    routes = route.routes
-    route_map = ox.plot_route_folium(networkGraph.graph, routes[0], route_map=base, color=colorR, opacity=0.7)
-    for i in range(1,len(routes)):
-        route_map = ox.plot_route_folium(networkGraph.graph, routes[i], route_map=route_map, color=colorR, opacity=0.5)
-    # place the legend
-    macro = MacroElement()
-    macro._template = Template(template)
-    route_map.get_root().add_child(macro)
-    filepath = savePath
-    route_map.save(filepath)
-    IFrame(filepath, width=600, height=500)
-    return 0
+            colorR = '#FF00FF'
+        # plot the points used 
+        if isinstance(route, ShortestRouteEpisode):
+            usedPoints = route.sampledData
+        else: 
+            usedPoints = route.inputData
+        base = folium.Map(location=[usedPoints[0].lat, usedPoints[0].lon], zoom_start=10)
+        for point in usedPoints:
+            tooltip = "ID:" + str(point.episodeID) + ", T:" + str(point.time)
+            if point.mode == "mode.DRIVE":
+                color = "green"
+                icon="car-side"
+            elif point.mode == "mode.WALK":
+                color = "blue"
+                icon="person-walking"
+            else:
+                color = "red"
+                icon="circle-stop"
+            base.add_child(folium.Marker([point.lat,point.lon], 
+                                            tooltip=tooltip, icon=folium.Icon(color=color, icon=icon, prefix="fa")))
+        # plot the routes on top of it 
+        routes = route.routes
+        route_map = ox.plot_route_folium(networkGraph.graph, routes[0], route_map=base, color=colorR, opacity=0.7)
+        for i in range(1,len(routes)):
+            route_map = ox.plot_route_folium(networkGraph.graph, routes[i], route_map=route_map, color=colorR, opacity=0.5)
+        # place the legend
+        macro = MacroElement()
+        macro._template = Template(template)
+        route_map.get_root().add_child(macro)
+        filepath = savePath
+        route_map.save(filepath)
+        IFrame(filepath, width=600, height=500)
+        print("Route was mapped successfully and saved at " + savePath)
+        return True
+    except InvalidRouteTypeException:
+        print("InvalidRouteTypeException: invalid route input type. Please input with ShortestRouteTrace or ShortestRouteEpisode")
+    except EmptyFilePathException:
+        print("EmptyFilePathException: Input file path is empty. Please enter a file path where the map should be save.")
+    except InvalidMappingFilePathException:
+        print("InvalidMappingFilePathException: Input file path does not include the file name .html. Please include the name, for example: ./dir/dir/fileName.html")
 
 ## @brief This function plots activity locations as markers on a map and saves it as an interactive file.
 #  @param activityLocationsFile string of path to the csv file containitng the output of ActivityLocation module. 
 #  @param stopPointsFile string of path to the csv file of the GPS coordinates used to find the identified stop points from the episode generation.
 #  @param savePath string of where the interactive will be saved. 
+#  @return a boolean to indicate if the mapping file was successfully created. 
+#  @throws EmptyFilePathException Raised when input file path is empty
+#  @throws InvalidMappingFilePathException Raised when the input file path does not have the file name.html
 def MapActivityLocation(activityLocationsFile, stopPointsFile, savePath):
-    activityLocations = convertActivityCSV(activityLocationsFile)
-    stopPoints = stoprelated(stopPointsFile)
-    base = folium.Map(location=[stopPoints[0].lat, stopPoints[0].lon], zoom_start=10)
-    tooltip = "Activity Location"
-    for point in stopPoints:
-        base.add_child(folium.Marker([point.lat,point.lon], 
-                        tooltip="Episode"+str(point.episodeID), icon=folium.Icon(color="red", icon="stop", prefix="fa")))
-    if (len(activityLocations) > 0):
-        for ACL in activityLocations:
-            base.add_child(folium.Marker([ACL.lat,ACL.lon], popup="Name:" + ACL.name + ", Amenity:" + ACL.amenity, 
-                        tooltip=tooltip, icon=folium.Icon(color="orange", icon="info-sign")))
-    #place legend
-    macro = MacroElement()
-    macro._template = Template(template)
-    base.get_root().add_child(macro)
-    filepath = savePath
-    base.save(filepath)
-    IFrame(filepath, width=600, height=500)
-    return 0
+    try:
+        if activityLocationsFile == "" or savePath == "": 
+            raise EmptyFilePathException
+        elif ".html" not in savePath:
+            raise InvalidMappingFilePathException 
+        activityLocations = convertActivityCSV(activityLocationsFile)
+        stopPoints = stoprelated(stopPointsFile)
+        base = folium.Map(location=[stopPoints[0].lat, stopPoints[0].lon], zoom_start=10)
+        tooltip = "Activity Location"
+        for point in stopPoints:
+            base.add_child(folium.Marker([point.lat,point.lon], 
+                            tooltip="Episode"+str(point.episodeID), icon=folium.Icon(color="red", icon="stop", prefix="fa")))
+        if (len(activityLocations) > 0):
+            for ACL in activityLocations:
+                base.add_child(folium.Marker([ACL.lat,ACL.lon], popup="Name:" + ACL.name + ", Amenity:" + ACL.amenity, 
+                            tooltip=tooltip, icon=folium.Icon(color="orange", icon="info-sign")))
+        #place legend
+        macro = MacroElement()
+        macro._template = Template(template)
+        base.get_root().add_child(macro)
+        filepath = savePath
+        base.save(filepath)
+        IFrame(filepath, width=600, height=500)
+        print("Activity locations was mapped successfully and saved at " + savePath)
+        return True
+    except EmptyFilePathException:
+        print("EmptyFilePathException: Input file path is empty. Please enter a file path for the activity location data or for where the map should be save.")
+    except InvalidMappingFilePathException:
+        print("InvalidMappingFilePathException: Input file path does not include the file name .html. Please include the name, for example: ./dir/dir/fileName.html")
 
 ## @brief This function plots episode GPS coordinates as markers on a map and saves it as an interactive file.
 #  @param GPSCoords string of the path to the csv file consisting of GPS coordinates for an episode. 
 #  @param savePath string of where the interactive will be saved. 
+#  @return a boolean to indicate if the mapping file was successfully created. 
+#  @throws EmptyFilePathException Raised when input file path is empty
+#  @throws InvalidMappingFilePathException Raised when the input file path does not have the file name.html
 def MapEpisodePoints(GPSCoordsFile, savePath):
-    GPSCoords = episoderelated(GPSCoordsFile)
-    base = folium.Map(location=[GPSCoords[0].lat, GPSCoords[0].lon], zoom_start=10)
-    for point in GPSCoords:
-        tooltip = "EpisodeID: " + str(point.episodeID) + ", T: " + str(point.time)
-        if point.mode == "drive" or point.mode == "mode.DRIVE":
-            color = "green"
-            icon="car-side"
-        elif point.mode == "walk" or point.mode == "mode.WALK":
-            color = "blue"
-            icon="person-walking"
-        else:
-            color = "red"
-            icon="circle-stop"
-        base.add_child(folium.Marker([point.lat,point.lon], 
-                        tooltip=tooltip, icon=folium.Icon(color=color, icon=icon, prefix="fa")))
-    #place legend
-    macro = MacroElement()
-    macro._template = Template(template)
-    base.get_root().add_child(macro)
-    base.save(savePath)
-    IFrame(savePath, width=600, height=500)
-    return 0
+    try:
+        if GPSCoordsFile == "" or savePath == "": 
+            raise EmptyFilePathException
+        elif ".html" not in savePath:
+            raise InvalidMappingFilePathException 
+        GPSCoords = episoderelated(GPSCoordsFile)
+        base = folium.Map(location=[GPSCoords[0].lat, GPSCoords[0].lon], zoom_start=10)
+        for point in GPSCoords:
+            tooltip = "EpisodeID: " + str(point.episodeID) + ", T: " + str(point.time)
+            if point.mode == "drive" or point.mode == "mode.DRIVE":
+                color = "green"
+                icon="car-side"
+            elif point.mode == "walk" or point.mode == "mode.WALK":
+                color = "blue"
+                icon="person-walking"
+            else:
+                color = "red"
+                icon="circle-stop"
+            base.add_child(folium.Marker([point.lat,point.lon], 
+                            tooltip=tooltip, icon=folium.Icon(color=color, icon=icon, prefix="fa")))
+        #place legend
+        macro = MacroElement()
+        macro._template = Template(template)
+        base.get_root().add_child(macro)
+        base.save(savePath)
+        IFrame(savePath, width=600, height=500)
+        print("Episodes were mapped successfully and saved at " + savePath)
+        return True
+    except EmptyFilePathException:
+        print("EmptyFilePathException: Input file path is empty. Please enter a file path for the episode data or for where the map should be save.")
+    except InvalidMappingFilePathException:
+        print("InvalidMappingFilePathException: Input file path does not include the file name .html. Please include the name, for example: ./dir/dir/fileName.html")
+
 
 # # example for activity locations
 # stoppoints = [(-23.546498,-46.691141),(-23.558094,-46.660205),(-23.635039,-46.641239),
