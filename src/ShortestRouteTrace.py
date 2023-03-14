@@ -13,7 +13,7 @@ from Point import *
 from Transformation import *
 
 ## @brief A class representing an object that represents the shortest route for a trace. 
-#  @details This representation of the shortest route will include the epsiode's important stop points 
+#  @details This representation of the shortest route will include the trace's points 
 #  from the start point to end point. 
 class ShortestRouteTrace:
     ## @brief Constructor for ShortestRouteTrace
