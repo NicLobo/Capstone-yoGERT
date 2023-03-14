@@ -11,72 +11,104 @@ import glob
 import pandas as pd  
 import ActivityLocation
 
+
+class FilePathException(Exception):
+    "File path passed is not the correct path"
+    pass
+
+class WrongList(Exception):
+    "List passed is incorrect"
+    pass
+
+
+
 #trace file path
 def tracerelated(tracepath): 
-    data = csv.reader(open(tracepath))
+    try:
+        data = csv.reader(open(tracepath))
 
-    li = []
- 
-    c=0
+        li = []
     
-    for line in data:
+        c=0
         
-        if c>0: 
-            dt = datetime.strptime(line[2], '%Y-%m-%d %H:%M:%S.%f')
-            li.append(Point(float(line[0]),float(line[1]),dt, None,float(line[3])))
+        for line in data:
+            
+            if c>0: 
+                dt = datetime.strptime(line[2], '%Y-%m-%d %H:%M:%S.%f')
+                li.append(Point(float(line[0]),float(line[1]),dt, None,float(line[3])))
 
-        
-        c = c+1
+            
+            c = c+1
 
-    return li
+        return li
+    except:
+        print("File path passed is not the correct path")
+        raise FilePathException from None
 
 #stop file path
 def stoprelated(stopfilepath): 
-    data = csv.reader(open(stopfilepath))
+    try:
+        data = csv.reader(open(stopfilepath))
 
-    li = []
- 
-    c=0
+        li = []
     
-    for line in data:
+        c=0
         
-        if c>0: 
-            dt = datetime.strptime(line[4], '%Y-%m-%d %H:%M:%S.%f')
-            tracepath = os.path.dirname(os.path.dirname(stopfilepath))
-            coord = pandas.read_csv(tracepath+'/trace.csv')
-            print(float(line[9]))
-            lat = float(coord.iloc[int(float(line[9])):int(float(line[9]))+1,0])
-            long = float(coord.iloc[int(float(line[9])):int(float(line[9]))+1,1])
-            print(lat,long)
-            li.append(Point(lat,long,dt, line[8],float(line[9])))
+        for line in data:
+            
+            if c>0: 
+                dt = datetime.strptime(line[4], '%Y-%m-%d %H:%M:%S.%f')
+                tracepath = os.path.dirname(os.path.dirname(stopfilepath))
+                coord = pandas.read_csv(tracepath+'/trace.csv')
+                print(float(line[9]))
+                lat = float(coord.iloc[int(float(line[9])):int(float(line[9]))+1,0])
+                long = float(coord.iloc[int(float(line[9])):int(float(line[9]))+1,1])
+                print(lat,long)
+                li.append(Point(lat,long,dt, line[8],float(line[9])))
 
-        
-        c = c+1
+            
+            c = c+1
 
-    return li
+        return li
+    except:
+        print("File path passed is not the correct path")
+        raise FilePathException from None
 
 #episode path
 def episoderelated(episodepath): 
-    data = csv.reader(open(episodepath))
+    try:
+        data = csv.reader(open(episodepath))
 
-    li = []
-    filename = os.path.basename(episodepath)
-    idname = os.path.splitext(filename)[0]
+        li = []
+        filename = os.path.basename(episodepath)
+        idname = os.path.splitext(filename)[0]
 
-    c=0
-    
-    for line in data:
+        c=0
         
-        if c>0:
-            dt = datetime.strptime(line[2], '%Y-%m-%d %H:%M:%S.%f')
-            li.append(Point(float(line[0]),float(line[1]),dt,line[4],float(idname[0])))
+        for line in data:
+            
+            if c>0:
+                dt = datetime.strptime(line[2], '%Y-%m-%d %H:%M:%S.%f')
+                li.append(Point(float(line[0]),float(line[1]),dt,line[4],float(idname[0])))
 
-        
-        c = c+1
+            
+            c = c+1
 
-    return li
+        return li
+    except:
+        print("File path passed is not the correct path")
+        raise FilePathException from None
 
 def convertActivityLocation(ActvityLoactionList):
+    if(len(ActvityLoactionList) == 0):
+        
+        print("List is not correct")
+        raise WrongList from None
+    
+    if(len(ActvityLoactionList[0]) != 2):
+        print("List is not correct")
+        raise WrongList from None
+    
     convertedList = []
     for i in ActvityLoactionList:
         if i is not None:
@@ -89,34 +121,50 @@ def convertActivityLocation(ActvityLoactionList):
 
 # Convert CSV file(i.e. fetchOutput.csv) into a list of activity location objects
 def convertActivityCSV(userFile):
-    convertedList = []
-    with open(userFile, 'r') as inputFile:
-        fileReader = csv.reader(inputFile)
-        next(fileReader) # Skip Header
-        for row in fileReader:
-            nearbyList = ast.literal_eval(row[2])
-            for activiyList in nearbyList:
-                convertedList.append(convertListToActivityLocationObject(activiyList))
-    return convertedList
+    try:
+        convertedList = []
+        with open(userFile, 'r') as inputFile:
+            fileReader = csv.reader(inputFile)
+            next(fileReader) # Skip Header
+            for row in fileReader:
+                nearbyList = ast.literal_eval(row[2])
+                for activiyList in nearbyList:
+                    convertedList.append(convertListToActivityLocationObject(activiyList))
+        return convertedList
+    except:
+        print("File path passed is not the correct path")
+        raise FilePathException from None
 
 def convertListToActivityLocationObject(activityLocationList):
+    if(len(activityLocationList) == 0):
+        print("List is not correct")
+        raise WrongList from None
+    
+    if(len(activityLocationList) != 4):
+        print("List is not correct")
+        raise WrongList from None
     newActivityLocation = ActivityLocation.ActivityLocation(activityLocationList[0],float(activityLocationList[1]),float(activityLocationList[2]), activityLocationList[3])
     return newActivityLocation
 
 
 #Summary mode which takes in filepath and gives mode string
 def summaryModeTrace(tracefilepath):
-    summarymodefilepath = os.path.dirname(tracefilepath)+'/summarymode.csv'
-    c=0
-    data = csv.reader(open(summarymodefilepath))
-    li=""
-    for line in data:
-        
-        if c>0: 
+    try:
+        summarymodefilepath = os.path.dirname(tracefilepath)+'/summarymode.csv'
+        c=0
+        data = csv.reader(open(summarymodefilepath))
+        li=""
+        for line in data:
             
-            li += line[0]
+            if c>0: 
+                
+                li += line[0]
 
-        
-        c = c+1
+            
+            c = c+1
 
-    return li
+        return li
+    except:
+        print("File path passed is not the correct path")
+        raise FilePathException from None
+
