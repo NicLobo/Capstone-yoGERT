@@ -74,7 +74,7 @@ def stoprelated(stopfilepath):
             if c>0: 
                 dt = datetime.strptime(line[4], '%Y-%m-%d %H:%M:%S.%f')
                 tracepath = os.path.dirname(os.path.dirname(stopfilepath))
-                coord = pandas.read_csv(tracepath+'/trace.csv')
+                coord = pandas.read_csv(os.path.join(tracepath,'trace.csv'))
                 print(float(line[9]))
                 lat = float(coord.iloc[int(float(line[9])):int(float(line[9]))+1,0])
                 long = float(coord.iloc[int(float(line[9])):int(float(line[9]))+1,1])
@@ -183,7 +183,7 @@ def convertListToActivityLocationObject(activityLocationList):
 
 def summaryModeTrace(tracefilepath):
     try:
-        summarymodefilepath = os.path.dirname(tracefilepath)+'/summarymode.csv'
+        summarymodefilepath = os.path.join(os.path.dirname(tracefilepath),'summarymode.csv')
         c=0
         data = csv.reader(open(summarymodefilepath))
         li=""
