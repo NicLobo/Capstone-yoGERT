@@ -22,13 +22,13 @@ def test_CreatingAlternativeRoute():
     AR = AlternativeRoute(traceFilePath)
     assert type(AR) == AlternativeRoute and len(AR.path.routes) <= len(AR.path.inputData) - 1
 
-# Test 6.2.3.2
+# Test 6.2.4.2
 def test_CreatingAlternativeRouteOptimizerException(capsys):
     AlternativeRoute(traceFilePath, "distance")
     captured = capsys.readouterr()
     assert "InvalidWeightException" in captured.out
 
-# Test 6.2.3.3
+# Test 6.2.4.3
 def test_CreatingAlternativeRouteFileException(capsys):
     AlternativeRoute(emptyFilePath)
     captured = capsys.readouterr()
