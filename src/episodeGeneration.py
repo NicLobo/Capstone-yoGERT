@@ -14,11 +14,17 @@ path = os.path.dirname(os.path.abspath(__file__))
 os.chdir(path) 
 
 
+from enum import Enum
+class mode(Enum):
+    STOP = 0
+    WALK = 1.7
+    DRIVE = 12
+    MOVING = 99
+
 ## @brief Assigns a unique ID to each GPS ping point of the inputted trace file and creates a new CSV file, called trace.csv, for the trace’s geo-data in the inputted directory path. 
 #  @param a full path to the input CSV file.
 #  @param a directory path where the new CSV file will be created.
 def createTrace(csv_path, tracefolder_fullpath):
-
 
     try: 
         os.mkdir(tracefolder_fullpath)
@@ -27,13 +33,10 @@ def createTrace(csv_path, tracefolder_fullpath):
     except FileExistsError:
         print("Trace folder already exists")
 
-    #Reads csv and store in data frame
+
     df = pd.read_csv(csv_path)
     df = df[["lat","long","time"]]
     df['time']= pd.to_datetime(df['time'])
-
-
-
     starttime = pd.to_datetime(df['time'].iloc[0])
     endtime = pd.to_datetime(df['time'].iloc[-1])
     totaltime = pd.Timedelta(endtime - starttime).seconds 
@@ -50,21 +53,16 @@ def createTrace(csv_path, tracefolder_fullpath):
     
     df.reset_index()
     df['id'] = df.index
-
-
-    df.to_csv(tracefolder_fullpath+"/trace.csv", index=False)
-
+    df.to_csv(os.path.join(tracefolder_fullpath,"trace.csv"), index=False)
 
 ## @brief Finds segments of the trace.csv file and creates a CSV file for segment information, called segments.csv, in the inputted directory path. 
 #  @param  a directory path that contains trace.csv and where the new CSV file will be created.
 def createSegments(tracefolder_fullpath):
     
-
-    df = pd.read_csv(tracefolder_fullpath+"/trace.csv")
+    df = pd.read_csv(os.path.join(tracefolder_fullpath,"trace.csv"))
     df2= df.iloc[:-1 , :]
     df1 = df.tail(-1)
     df1 = df1.reset_index()
-
 
     velocities = pd.DataFrame(columns= ["start_lat","start_long","end_lat","end_long","start_time","end_time","total_time","total_distance","velocity","start_index","end_index"])
     velocities["start_lat"] = df1["lat"]
@@ -79,30 +77,18 @@ def createSegments(tracefolder_fullpath):
     velocities["end_index"] =  df1['id']
     velocities['velocity'] = velocities['total_distance'] / (velocities['total_time'])
 
-
-    velocities.to_csv(tracefolder_fullpath+"/segments.csv", index=False)
-
-
+    velocities.to_csv(os.path.join(tracefolder_fullpath,"segments.csv"), index=False)
 
 ## @brief Analyzes segments in segments.csv file and creates a CSV file for stop points, called stops.csv, in a newly created directory, called stop, within the input directory path. 
 #  @param  a directory path that contains trace.csv and where the new CSV file will be created.
 def findStops(tracefolder_fullpath):
 
-    from enum import Enum
-    class mode(Enum):
-        STOP = 0
-        WALK = 1.7
-        DRIVE = 12
-        MOVING = 99
-
-
-    df = pd.read_csv(tracefolder_fullpath+"/segments.csv") 
+    df = pd.read_csv(os.path.join(tracefolder_fullpath,"segments.csv"))
     episode= pd.DataFrame(columns= ["start_lat","start_long","end_lat","end_long","start_time","end_time","start_index","end_index","mode"])
-
     startVel = df['velocity'].iloc[0] 
-
     startIndex = 0
     currMode = mode.STOP
+    
     if( startVel < mode.WALK.value):
         currMode = mode.STOP
     else:
@@ -117,7 +103,6 @@ def findStops(tracefolder_fullpath):
             endMode = mode.STOP
         else:
             endMode = mode.MOVING
-
 
         if(currMode != endMode):
     
@@ -134,17 +119,18 @@ def findStops(tracefolder_fullpath):
             currMode = endMode
             startIndex =index
 
-
     episode = episode.loc[(episode['mode'] == mode.STOP)]
     episode['middle_point'] = (episode['start_index'] + episode['end_index'])/2
+    stopfolder = os.path.join(tracefolder_fullpath,"stop")
+
     try: 
-            os.mkdir(tracefolder_fullpath+"/stop")
+            os.mkdir(stopfolder)
             print("Stop folder created ") 
 
     except FileExistsError:
             print("Stop folder already exists")
 
-    episode.to_csv(tracefolder_fullpath+"/stop/stops.csv", index=False)
+    episode.to_csv(os.path.join(stopfolder,"stops.csv"), index=False)
 
 
 
@@ -153,23 +139,21 @@ def findStops(tracefolder_fullpath):
 #  @param  a value to filter stops based on distance
 #  @param  a value to filter stops based on time
 def cleanStops(tracefolder_fullpath, timetol, distol):
-    stops= pd.read_csv(tracefolder_fullpath+"/stop/stops.csv") 
-    droplist = []
 
+    stopfolder = os.path.join(tracefolder_fullpath,"stop")
+    stops= pd.read_csv(os.path.join(stopfolder,"stops.csv")) 
+    droplist = []
 
     for index in range(len(stops)):
         starttime = pd.to_datetime(stops['start_time'].iloc[index]) 
         endtime = pd.to_datetime(stops['end_time'].iloc[index])
         timePassed = pd.Timedelta(endtime - starttime).seconds 
-        if(timePassed > timetol and index < len(stops)-1):
+        distance =  gp.distance.distance((stops['start_lat'].iloc[index], stops['start_long'].iloc[index]), (stops['end_lat'].iloc[index], stops['end_long'].iloc[index])).m
+        if(timePassed > timetol and index < len(stops)-1 and distol < distance):
             droplist.append(index)
         
-
-
     stops = stops.drop(droplist)
-
-
-    stops.to_csv(tracefolder_fullpath+"/stop/stops.csv", index=False)
+    stops.to_csv(os.path.join(stopfolder,"stops.csv"), index=False)
 
 
 
@@ -177,23 +161,16 @@ def cleanStops(tracefolder_fullpath, timetol, distol):
 #  @param  a directory path that contains the  directory called stop that has stops.csv.
 def createEpisodes(tracefolder_fullpath):
 
-    from enum import Enum
-    class mode(Enum):
-        STOP = 0
-        WALK = 1.7
-        DRIVE = 12
-        MOVING = 99
-
-    stops= pd.read_csv(tracefolder_fullpath+"/stop/stops.csv") 
-    trace= pd.read_csv(tracefolder_fullpath+"/trace.csv") 
-    segments = pd.read_csv(tracefolder_fullpath+"/segments.csv") 
-    
+    stopfolder = os.path.join(tracefolder_fullpath,"stop")
+    stops= pd.read_csv(os.path.join(stopfolder,"stops.csv")) 
+    trace= pd.read_csv(os.path.join(tracefolder_fullpath,"trace.csv")) 
+    segments = pd.read_csv(os.path.join(tracefolder_fullpath,"segments.csv"))  
     startindex = 0
     endindex = 0
     eid = 0
 
     try: 
-            os.mkdir(str(tracefolder_fullpath+"/episode"))
+            os.mkdir(os.path.join(tracefolder_fullpath,"episode"))
             print("Episode folder created ") 
 
     except FileExistsError:
@@ -205,18 +182,13 @@ def createEpisodes(tracefolder_fullpath):
             
             newepisode = trace.loc[row['start_index']:row['end_index']].copy()
             newepisode["mode"] = mode.STOP
-            newepisode.to_csv(tracefolder_fullpath+"/episode/"+str(eid)+"_episode.csv", index=False)
+            newepisode.to_csv(os.path.join(tracefolder_fullpath,"episode",str(eid)+"_episode.csv"), index=False)
             eid+=1
             startindex = row['end_index'] + 1
 
-
-
         else:
             newepisode = trace.loc[startindex:endindex-1].copy()
-            
-
             medvelocity = segments.loc[(segments["start_index"] > startindex) & (segments["start_index"] < endindex),['velocity']].copy()
-
             medvelocity = medvelocity["velocity"].median()
     
             if( medvelocity < mode.DRIVE.value):
@@ -225,24 +197,20 @@ def createEpisodes(tracefolder_fullpath):
                 finalmode = mode.DRIVE
 
             newepisode["mode"] = finalmode
-            newepisode.to_csv(tracefolder_fullpath+"/episode/"+str(eid)+"_episode.csv", index=False)
+            newepisode.to_csv(os.path.join(tracefolder_fullpath,"episode",str(eid)+"_episode.csv"), index=False)
             startindex = row['end_index'] + 1
             eid+=1
 
-            
             newepisode = trace.loc[ row['start_index']: row['end_index']].copy()
             newepisode["mode"] = mode.STOP
-            newepisode.to_csv(tracefolder_fullpath+"/episode/"+str(eid)+"_episode.csv", index=False)
+            newepisode.to_csv(os.path.join(tracefolder_fullpath,"episode",str(eid)+"_episode.csv"), index=False)
             eid+=1
     
 
     if (startindex == endindex == 1):
         endindex = len(trace)
         newepisode = trace.loc[startindex:endindex]
-        
-
         medvelocity = segments.loc[(segments["start_index"] > startindex) & (segments["start_index"] < endindex),['velocity']]
-
         medvelocity = medvelocity["velocity"].median()
 
         if( medvelocity < mode.DRIVE.value):
@@ -251,17 +219,14 @@ def createEpisodes(tracefolder_fullpath):
             finalmode = mode.DRIVE
 
         newepisode["mode"] = finalmode
-        newepisode.to_csv(tracefolder_fullpath+"/episode/"+str(eid)+"_episode.csv", index=False)
+        newepisode.to_csv(os.path.join(tracefolder_fullpath,"episode",str(eid)+"_episode.csv"), index=False)
         startindex = row['end_index'] + 1   
         eid+=1    
 
     elif(endindex != len(trace)):
         endindex = len(trace)
         newepisode = trace.loc[startindex:endindex]
-        
-
         medvelocity = segments.loc[(segments["start_index"] > startindex) & (segments["start_index"] < endindex),['velocity']]
-
         medvelocity = medvelocity["velocity"].median()
 
         if( medvelocity < mode.DRIVE.value):
@@ -270,7 +235,7 @@ def createEpisodes(tracefolder_fullpath):
             finalmode = mode.DRIVE
 
         newepisode["mode"] = finalmode
-        newepisode.to_csv(tracefolder_fullpath+"/episode/"+str(eid)+"_episode.csv", index=False)
+        newepisode.to_csv(os.path.join(tracefolder_fullpath,"episode",str(eid)+"_episode.csv"), index=False)
         startindex = row['end_index'] + 1   
         eid+=1         
                 
@@ -281,10 +246,8 @@ def createEpisodes(tracefolder_fullpath):
 #  @param  a directory path that contains the user’s geo-data.
 #  @param  a directory name where all the trace’s information should be stored.
 def episodeGenerator(csv_path,tracefolder_path,title):
-    tracefolder_fullpath = tracefolder_path+title
-
+    tracefolder_fullpath = os.path.join(tracefolder_path,title)
     createTrace(csv_path,tracefolder_fullpath)
-
     createSegments(tracefolder_fullpath)
     findStops(tracefolder_fullpath)
     cleanStops(tracefolder_fullpath,60,60)
@@ -293,17 +256,9 @@ def episodeGenerator(csv_path,tracefolder_path,title):
 ## @brief Finds the most used travel mode for the inputted trace.csv file and creates a new CSV file containing the summary mode.  
 #  @param  a file path that contains trace.csv and where the new CSV file will be created.
 def summarymode(tracefilepath):
-    from enum import Enum
-    class mode(Enum):
-        STOP = 0
-        WALK = 1.7
-        DRIVE = 12
-        MOVING = 99
+
     modes = []
-
-
-    
-    files = glob.glob(os.path.dirname(tracefilepath)+'/episode'+ "/*.csv")
+    files = glob.glob(os.path.join(os.path.dirname(tracefilepath),'episode','/*.csv'))
     print(files)
     
     for f in files:
@@ -320,7 +275,7 @@ def summarymode(tracefilepath):
             
             c = c+1
     
-    stats=os.path.dirname(tracefilepath)+'/summarymode.csv'
+    stats=os.path.join(os.path.dirname(tracefilepath),'summarymode.csv')
     with open(stats, 'w') as f1:
         writer_object = writer(f1)
         writer_object.writerow(['Summary Mode'])
@@ -330,35 +285,28 @@ def summarymode(tracefilepath):
 ## @brief Analyzes the trace’s information and creates a new CSV file, called stats.csv, of ping frequency.
 #  @param   a directory path that contains trace.csv and where the new CSV file will be created.
 def ping_frequency(trace): 
-    
-    if (os.path.exists(trace+'/stats.csv')):
-        os.remove(trace+'/stats.csv')
-    
-    filepath = trace +'/episode'
 
-    files = glob.glob(filepath + "/*.csv")
+    if (os.path.exists(os.path.join(trace,'stats.csv'))):
+        os.remove(os.path.join(trace,'stats.csv'))
+    
+    filepath = os.path.join(trace,'.csv')
+    files = glob.glob( os.path.join(filepath,"/*.csv"))
  
     for f in files:
+
         df = pd.read_csv(f)
-
-
         df['time']= pd.to_datetime(df['time'])
-
-
-
-
         starttime = pd.to_datetime(df['time'].iloc[0])
         endtime = pd.to_datetime(df['time'].iloc[-1])
-
         totaltime = pd.Timedelta(endtime - starttime).seconds 
-        
         stepsize1 = 1
+
         if(totaltime == 0):
             stepsize1 = 1
         else:
             stepsize1 = (round(len(df)/totaltime)) 
 
-        with open(trace+'/stats.csv', 'w') as f1:
+        with open( os.path.join(trace,'stats.csv'), 'w') as f1:
             writer_object = writer(f1)
             writer_object.writerow(['Ping Frequency'])
             writer_object.writerow([str(stepsize1) ])
@@ -368,37 +316,28 @@ def ping_frequency(trace):
 def mode_change(trace): 
 
     modes = []
-
-
     changec = 0
-    filepath = trace + '/episodes'
-    files = glob.glob(filepath + "/*.csv")
-  
+    filepath =  os.path.join(trace,'/episodes')
+    files = glob.glob( os.path.join(filepath,"/*.csv"))
     filecount = 0
+
     for f in files:
         data = csv.reader(open(f))
-        c = 0
-        
+        c = 0   
         for line in data:
-            
             if c>0: 
-                
                 modes.append(line[4])
-
                 filecount+=1
                 if filecount >=2:
                     if modes[-1]!=modes[-2]:
-                        changec +=1
-                   
+                        changec +=1                  
                     print(changec)
-                break
-            
+                break    
             c = c+1
-  
-    stats=trace+'/stats.csv'
+    stats= os.path.join(trace,'stats.csv')
     t = pd.read_csv(stats)  
     t.insert(1, column = "Mode Change", value = str(changec))  
-    t.to_csv(trace+"/stats.csv", index=False)
+    t.to_csv( os.path.join(trace,"stats.csv"), index=False)
 
 ## @brief Analyzes the trace’s information and creates a new CSV file, called stats.csv, of number of trips
 #  @param   a directory path that contains trace.csv and where the new CSV file will be created.
@@ -408,12 +347,9 @@ def numberoftrips(trace):
     for path in os.scandir(dir_path):
         if path.is_file():
             count += 1
-
-    t = pd.read_csv(trace+"/stats.csv")  
-    
+    t = pd.read_csv(os.path.join(trace,"stats.csv"))  
     t.insert(1, column = "Number of trips", value = str(count))  
-    
-    t.to_csv(trace+"/stats.csv", index=False)
+    t.to_csv( os.path.join(trace+"stats.csv"), index=False)
 
 ## @brief Analyzes the trace’s information and creates a new CSV file, called stats.csv, of ping frequency, mode change count, number of trips, and trace period in the input directory path.
 #  @param   a directory path that contains trace.csv and where the new CSV file will be created.
@@ -422,3 +358,8 @@ def createStats(fullpath):
     numberoftrips(fullpath)
     mode_change(fullpath)
     
+
+csv_path = os.path.join("..","src","exampleDataset","trace_1.csv")
+full_path= os.path.join("..","src","checkcheck123")
+title = "checkcheck123"
+createStats(full_path)

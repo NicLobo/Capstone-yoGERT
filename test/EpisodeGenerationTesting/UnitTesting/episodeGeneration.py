@@ -61,7 +61,7 @@ def createTrace(csv_path, tracefolder_fullpath):
     df['id'] = df.index
 
     #Saves trip points to csv file 
-    df.to_csv(tracefolder_fullpath+"/trace.csv", index=False)
+    df.to_csv(os.path.join(tracefolder_fullpath,"trace.csv"), index=False)
 
 
 #INPUT Trace.CSV
