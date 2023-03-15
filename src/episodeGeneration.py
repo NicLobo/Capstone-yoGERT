@@ -253,13 +253,16 @@ def episodeGenerator(csv_path,tracefolder_path,title):
     cleanStops(tracefolder_fullpath,60,60)
     createEpisodes(tracefolder_fullpath)
 
+    print(tracefolder_fullpath)
+    summarymode(tracefolder_fullpath)
+
 ## @brief Finds the most used travel mode for the inputted trace.csv file and creates a new CSV file containing the summary mode.  
 #  @param  a file path that contains trace.csv and where the new CSV file will be created.
 def summarymode(tracefilepath):
 
     modes = []
-    files = glob.glob(os.path.join(os.path.dirname(tracefilepath),'episode','/*.csv'))
-    print(files)
+    files = glob.glob(os.path.join(tracefilepath,'episode','*.csv'))
+
     
     for f in files:
         data = csv.reader(open(f))
@@ -279,7 +282,7 @@ def summarymode(tracefilepath):
     with open(stats, 'w') as f1:
         writer_object = writer(f1)
         writer_object.writerow(['Summary Mode'])
-        writer_object.writerow([str(mode(modes)) ])
+        writer_object.writerow([str(mode(modes))])
 
 
 ## @brief Analyzes the trace’s information and creates a new CSV file, called stats.csv, of ping frequency.
@@ -360,6 +363,9 @@ def createStats(fullpath):
     
 
 csv_path = os.path.join("..","src","exampleDataset","trace_1.csv")
-full_path= os.path.join("..","src","checkcheck123")
-title = "checkcheck123"
-createStats(full_path)
+full_path= os.path.join("..","src")
+title = "correct_trace"
+
+episodeGenerator(csv_path,full_path,title)
+
+
