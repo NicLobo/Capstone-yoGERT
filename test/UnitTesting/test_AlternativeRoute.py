@@ -28,8 +28,8 @@ def test_CreatingAlternativeRouteOptimizerException(capsys):
     captured = capsys.readouterr()
     assert "InvalidWeightException" in captured.out
 
-# Test 6.2.3.2
-def test_CreatingAlternativeRouteOptimizerException(capsys):
+# Test 6.2.3.3
+def test_CreatingAlternativeRouteFileException(capsys):
     AlternativeRoute(emptyFilePath)
     captured = capsys.readouterr()
     assert "EmptyFilePathException" in captured.out
