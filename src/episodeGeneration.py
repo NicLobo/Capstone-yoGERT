@@ -330,10 +330,14 @@ def summarymode(tracefilepath):
 ## @brief Analyzes the trace’s information and creates a new CSV file, called stats.csv, of ping frequency.
 #  @param   a directory path that contains trace.csv and where the new CSV file will be created.
 def ping_frequency(trace): 
+    
+    if (os.path.exists(trace+'/stats.csv')):
+        os.remove(trace+'/stats.csv')
+    
     filepath = trace +'/episode'
 
     files = glob.glob(filepath + "/*.csv")
-    print(files)
+ 
     for f in files:
         df = pd.read_csv(f)
 
@@ -347,7 +351,7 @@ def ping_frequency(trace):
         endtime = pd.to_datetime(df['time'].iloc[-1])
 
         totaltime = pd.Timedelta(endtime - starttime).seconds 
-        print(totaltime)
+        
         stepsize1 = 1
         if(totaltime == 0):
             stepsize1 = 1
@@ -367,9 +371,9 @@ def mode_change(trace):
 
 
     changec = 0
-    filepath = trace
+    filepath = trace + '/episodes'
     files = glob.glob(filepath + "/*.csv")
-    print(files)
+  
     filecount = 0
     for f in files:
         data = csv.reader(open(f))
@@ -385,12 +389,12 @@ def mode_change(trace):
                 if filecount >=2:
                     if modes[-1]!=modes[-2]:
                         changec +=1
-                    print(modes)
+                   
                     print(changec)
                 break
             
             c = c+1
-    print(changec)
+  
     stats=trace+'/stats.csv'
     t = pd.read_csv(stats)  
     t.insert(1, column = "Mode Change", value = str(changec))  
@@ -405,16 +409,16 @@ def numberoftrips(trace):
         if path.is_file():
             count += 1
 
-    print(count)
     t = pd.read_csv(trace+"/stats.csv")  
     
     t.insert(1, column = "Number of trips", value = str(count))  
-    print(t.head(2))
+    
     t.to_csv(trace+"/stats.csv", index=False)
 
 ## @brief Analyzes the trace’s information and creates a new CSV file, called stats.csv, of ping frequency, mode change count, number of trips, and trace period in the input directory path.
 #  @param   a directory path that contains trace.csv and where the new CSV file will be created.
 def createStats(fullpath):
+    ping_frequency(fullpath)
     numberoftrips(fullpath)
     mode_change(fullpath)
-    ping_frequency(fullpath)
+    
