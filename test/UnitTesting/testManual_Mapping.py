@@ -10,7 +10,7 @@ import NetworkGraph
 from ShortestRouteEpisode import *
 from ShortestRouteTrace import *
 from AlternativeRoute import *
-from ActivityLocation import *
+from src.ActivityLocation import *
 from IPython.display import IFrame
 import folium
 from Point import * 
@@ -27,8 +27,28 @@ AR = AlternativeRoute(traceFilePath)
 activityFilePath = "./data/trace-activityLocation.csv"
 stopFilePath = "./data/stops.csv"
 
+# 6.2.5.1
 MapRoute(NGT, SRT, "test_TraceRouteMap.html")
+# 6.2.5.2
 MapRoute(NGE, SRE, "test_EpisodeRouteMap.html")
+# 6.2.5.3
 MapRoute(AR.network, AR.path, "test_AlternativeRouteMap.html")
-#MapActivityLocation(activityFilePath, stopFilePath, "test_ActivityLocationMap.html")
+# 6.2.5.4
+MapActivityLocation(activityFilePath, stopFilePath, "test_ActivityLocationMap.html")
+# 6.2.5.5
 MapEpisodePoints(episodeFilePath, "test_EpisodeMap.html")
+
+# 6.2.5.6
+MapRoute(NGT, AR, "test_AlternativeRouteMap.html")
+# 6.2.5.7
+MapRoute(NGT, SRT, "")
+# 6.2.5.8
+MapRoute(NGT, SRT, "testmappingtrace")
+# 6.2.5.9
+MapActivityLocation("", stopFilePath, "test_ActivityLocationMap.html")
+# 6.2.5.10
+MapActivityLocation(activityFilePath, stopFilePath, "testmappingactivitylocations")
+# 6.2.5.11
+MapEpisodePoints("", "test_EpisodeMap.html")
+# 6.2.5.12
+MapEpisodePoints(episodeFilePath, "testmappingepisode")
