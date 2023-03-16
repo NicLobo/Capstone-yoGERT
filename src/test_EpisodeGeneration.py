@@ -69,15 +69,15 @@ def test_createEpisodes(full_path):
     assert episode_len == 6
 
 # Test 6.2.6.7
-def test_createStats(full_path):
-    EG.createStats(full_path)
-    dfc = pd.read_csv(os.path.join(full_path,"stats.csv"))
-    dft = pd.read_csv(correct_stats) 
-    assert_frame_equal(dfc, dft)
-
-# Test 6.2.6.8
 def test_createSummaryMode(full_path):
     EG.summarymode(full_path)
     dfc = pd.read_csv(os.path.join(full_path,"summary_mode.csv"))
     dft = pd.read_csv(correct_summarymode) 
+    assert_frame_equal(dfc, dft)
+
+# Test 6.2.6.8
+def test_createStats(full_path):
+    EG.createStats(full_path)
+    dfc = pd.read_csv(os.path.join(full_path,"stats.csv"))
+    dft = pd.read_csv(correct_stats) 
     assert_frame_equal(dfc, dft)
