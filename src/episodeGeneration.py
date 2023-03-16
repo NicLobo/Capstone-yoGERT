@@ -402,12 +402,6 @@ def createStats(fullpath):
         raise FilePathException from None
     
 
-csv_path= os.path.join("..","src","exampleDataset","trace_1.csv")
-full_path= os.path.join("..","src")
-title = "correct_trace"
-
-complete_path =  os.path.join("..","src","correct_trace")
-cleanStops(complete_path,500,50)
 
 
 
