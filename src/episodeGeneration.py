@@ -400,8 +400,3 @@ def createStats(fullpath):
     except:
         print("File path passed is not the correct path")
         raise FilePathException from None
-    
-
-
-
-
