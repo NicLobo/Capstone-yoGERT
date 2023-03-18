@@ -11,6 +11,7 @@ import os
 #@brief this function confirms that CSV is valid and updates to correct column names, removing invalid data
 #@param csvpath - a full path to the input CSV file
 #@param directoryname - directory that will be created to store processed traces
+#@return fileNameFinal - the full path of the file written to
 #@return Bool - if the data is valid -> true, if valid, the data is processed and written to a new file within the specified directory
 def ValidateCSV(csvpath, directoryname):
     df = pd.read_csv(csvpath)
@@ -18,7 +19,7 @@ def ValidateCSV(csvpath, directoryname):
         #check to see if it has fields latitude, longitude, and time in column titles
         counter = 0
         for col in df.columns:
-            #print("The column name is:"+ col + "and counter value is" + str(counter))
+            #print("The column name is:" + col + "and counter value is" + str(counter))
             if col == 'lat' or col == 'latitude' or col == "Latitude":
                 df = df.rename({col: 'lat'}, axis='columns')
                 counter+=1
@@ -33,15 +34,15 @@ def ValidateCSV(csvpath, directoryname):
             os.mkdir(directoryname)
             df = df.dropna(subset=['lat', 'long', 'time'])
 
-            #regular expressions must be updated
-            dmslat = re.compile('/^[\+-]?(([1-8]?\d)\D+([1-5]?\d|60)\D+([1-5]?\d|60)(\.\d+)?|90\D+0\D+0)\D+[NSns]?$/')
-            dmslong = re.compile('/^[\+-]?([1-7]?\d{1,2}\D+([1-5]?\d|60)\D+([1-5]?\d|60)(\.\d+)?|180\D+0\D+0)\D+[EWew]?$/')
+            #creating regexps to match lat and long, avoids constant recompilation
+            lat_regex = re.compile(r'^(-?\d{1,2}(?:\.\d+)?)[°\s](\d{1,2}(?:\.\d+)?)[\'\s](\d{1,2}(?:\.\d+)?)["\s]?([NSns])?$')
+            lon_regex = re.compile(r'^(-?\d{1,3}(?:\.\d+)?)[°\s](\d{1,2}(?:\.\d+)?)[\'\s](\d{1,2}(?:\.\d+)?)["\s]?([EWew])?$')
 
             #convert to DD from DMS if DMS format detected
-            if dmslat.match(str(df.iloc[0]['lat'])):
-                df['lat'] = df['lat'].apply(DMStoDD)
-            if dmslong.match(str(df.iloc[0]['long'])):
-                df['long'] = df['long'].apply(DMStoDD)
+            if re.match(lat_regex, str(df.iloc[0]['lat'])):
+                df['lat'] = df['lat'].apply(dmstodd, args=(lat_regex,))
+            if re.match(lon_regex, (str(df.iloc[0]['long']))):
+                df['long'] = df['long'].apply(dmstodd, args=(lon_regex,))
 
             df = df.astype({'lat':'float'})
             df = df.astype({'long':'float'})
@@ -70,7 +71,7 @@ def ValidateCSV(csvpath, directoryname):
             df = df[['lat', 'long', 'time']]
             newFilename = os.path.join(os.path.abspath(directoryname), "trace"+str(0)+".csv")
             df.to_csv(newFilename)
-            return True
+            return str(newFilename), True
         else: 
             raise InvalidInputDataException 
 
@@ -79,11 +80,19 @@ def ValidateCSV(csvpath, directoryname):
 
 #@brief this function converts DMS format lat/long to DD
 #@param dmsstring - a string containing the dms value
+#@param regex - the corresponding regex value for the lat or long
 #@return float with the correct dd representation
-def DMStoDD(dmsstring):
-    deg, minutes, seconds, direction =  re.split('[°\'"]', dmsstring)
-    return (float(deg) + float(minutes)/60 + float(seconds)/(60*60)) * (-1 if direction in ['W', 'S'] else 1)
-
-
-
-
+def dmstodd(dms_string, regex):
+    match = regex.match(dms_string)
+    if not match:
+        raise ValueError(f"{dms_string} is not a valid DMS string")
+        
+    degrees = float(match.group(1))
+    minutes = float(match.group(2))
+    seconds = float(match.group(3))
+    hemisphere = match.group(4)
+    
+    dd = degrees + (minutes / 60) + (seconds / 3600)
+    if hemisphere in ['S', 's', 'W', 'w']:
+        dd *= -1     
+    return dd
