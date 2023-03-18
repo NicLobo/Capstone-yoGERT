@@ -1,6 +1,7 @@
-# @file createEpisode.ipynb
-# @author Team GIS Gang
-# @brief This notebook aims to generate Trip Episodes based on the given datasets of points
+## @file Episode Generation.py
+#  @title Episode Generation
+#  @author Nicholas Lobo 400179304
+#  @date March 18, 2023
 
 import csv
 import os
@@ -98,7 +99,7 @@ def findStops(tracefolder_fullpath):
         startVel = df['velocity'].iloc[0] 
         startIndex = 0
         currMode = mode.STOP
-        
+        #moving mode used to isolate for stop episodes 
         if( startVel < mode.WALK.value):
             currMode = mode.STOP
         else:
@@ -194,6 +195,8 @@ def createEpisodes(tracefolder_fullpath):
 
         for index, row in stops.iterrows():
             endindex = row['start_index']
+
+            #special case if first episode is a stop episode 
             if (row['start_index'] == 0):
                 
                 newepisode = trace.loc[row['start_index']:row['end_index']].copy()
@@ -222,7 +225,7 @@ def createEpisodes(tracefolder_fullpath):
                 newepisode.to_csv(os.path.join(tracefolder_fullpath,"episode",str(eid)+"_episode.csv"), index=False)
                 eid+=1
         
-
+        #special case if there are no stop episodes 
         if (startindex == endindex == 1):
             endindex = len(trace)
             newepisode = trace.loc[startindex:endindex]
@@ -238,7 +241,7 @@ def createEpisodes(tracefolder_fullpath):
             newepisode.to_csv(os.path.join(tracefolder_fullpath,"episode",str(eid)+"_episode.csv"), index=False)
             startindex = row['end_index'] + 1   
             eid+=1    
-
+        #special case if last episode is a stop episode 
         elif(endindex != len(trace)):
             endindex = len(trace)
             newepisode = trace.loc[startindex:endindex]
