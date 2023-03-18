@@ -33,14 +33,14 @@ class NetworkGraph:
                 raise EmptyFilePathException
             else:
                 if episodeAnalysis:
-                    points = episoderelated(filePath)
+                    points = episodeRelated(filePath)
                     tempMode = points[0].mode
                     self.mode = tempMode.split('.')[1].lower()
                 elif alternativeAnalysis:
-                    points = tracerelated(filePath)
+                    points = traceRelated(filePath)
                     self.mode = networkMode
                 else:
-                    points = tracerelated(filePath)
+                    points = traceRelated(filePath)
                     self.mode = summaryModeTrace(filePath).split('.')[1].lower()
                 self.stCoord = (points[0].lat, points[0].lon)
                 self.endCoord = (points[-1].lat, points[-1].lon)

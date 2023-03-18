@@ -1,7 +1,6 @@
-
 ## @file Transformation.py
 #  @title Transformation module
-#  @author Niyatha Rangarajan
+#  @author Niyatha Rangarajan, Longwei Ye
 #  @date Mar 14, 2023
 
 
@@ -36,7 +35,8 @@ class WrongList(Exception):
 ## @brief This function to convert the given csv to a list of Point objects.
 #  @param tracepath, The file path to the trace file
 #  @return List of Point objects representing the given trace
-def tracerelated(tracepath): 
+# Used to be 'tracerelated'
+def traceRelated(tracepath): 
     try:
         data = csv.reader(open(tracepath))
 
@@ -61,7 +61,7 @@ def tracerelated(tracepath):
 ## @brief This function to convert the given csv to a list of Point objects.
 #  @param stopfilepath, The file path to the stop file
 #  @return List of Point objects representing the given stop csv
-def stoprelated(stopfilepath): 
+def stopRelated(stopfilepath): 
     try:
         data = csv.reader(open(stopfilepath))
 
@@ -92,7 +92,7 @@ def stoprelated(stopfilepath):
 ## @brief This function to convert the given csv to a list of Point objects.
 #  @param episodepath, The file path to the episode file
 #  @return List of Point objects representing the given episode
-def episoderelated(episodepath): 
+def episodeRelated(episodepath): 
     try:
         data = csv.reader(open(episodepath))
 

@@ -122,7 +122,7 @@ def fetchActivityLocations(inPath, outPath,  tol=25):
     listStops =[]
     try:
         try:
-            listStops = Transformation.stoprelated(inPath)
+            listStops = Transformation.stopRelated(inPath)
         except:
            raise InvalidInputFileException
     except:

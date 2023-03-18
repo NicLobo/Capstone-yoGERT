@@ -32,7 +32,7 @@ class ShortestRouteEpisode:
                 raise EmptyFilePathException
             else:
                 self.graph = networkGraph
-                self.inputData = episoderelated(filePath) #listOfPoints #this needs to be changed to tranform csvfile to a list of Points 
+                self.inputData = episodeRelated(filePath) #listOfPoints #this needs to be changed to tranform csvfile to a list of Points 
                 if (sampling):
                     self.sampledData = self.findSamples(self.inputData, samplingDist)
                 else:
