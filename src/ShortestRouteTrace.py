@@ -17,7 +17,7 @@ from Transformation import *
 #  from the start point to end point. 
 class ShortestRouteTrace:
     ## @brief Constructor for ShortestRouteTrace
-    #  @details Contructor accepts 3 parameters for map network, stop GPS coordinates, and weight type.
+    #  @details Contructor accepts 3 parameters for map network, GPS coordinates, and weight type.
     #  @param networkGraph NetworkGraph for the map network of street, roads, and walkways for the entire trace. 
     #  @param filePath string for the path to the csv file consisting of GPS Points representing of the trace.
     #  @param optimizer string for the weight type on the graph's edges.  
@@ -32,7 +32,7 @@ class ShortestRouteTrace:
             else:
                 self.graph = networkGraph
                 # self.inputData = episoderelated(filePath) #listOfPoints #this needs to be changed to tranform csvfile to a list of Points 
-                self.inputData = traceRelated(filePath)
+                self.inputData = tracerelated(filePath)
                 self.nodes = self.findNodes(self.inputData, networkGraph)
                 self.wt = optimizer
                 self.routes = self.shortestPath(networkGraph, self.nodes, optimizer)
@@ -49,9 +49,9 @@ class ShortestRouteTrace:
         listOfNodes = []
         for point in listOfStopPoints:
             examine = graphInput.getNearestNode((point.lat, point.lon))
-            if (len(listOfNodes)>0 and examine != listOfNodes[-1]):
+            if (len(listOfNodes) > 0 and examine != listOfNodes[-1]):
                 listOfNodes.append(examine)
-            elif (len(listOfNodes)==0):
+            elif (len(listOfNodes) == 0):
                 listOfNodes.append(examine)
         return listOfNodes
     ## @brief Function that finds the shortest path for a list of must hit nodes.

@@ -9,6 +9,7 @@ import h3
 import NetworkGraph
 from ShortestRouteEpisode import *
 from ShortestRouteTrace import *
+from ShortestRouteStop import *
 from AlternativeRoute import *
 from ActivityLocation import *
 from IPython.display import IFrame
@@ -121,7 +122,7 @@ template = """
 #  @throws InvalidMappingFilePathException Raised when the input file path does not have the file name.html
 def MapRoute(networkGraph, route, savePath):
     try:
-        if not (isinstance(route, ShortestRouteTrace) or isinstance(route, ShortestRouteEpisode)):
+        if not (isinstance(route, ShortestRouteTrace) or isinstance(route, ShortestRouteEpisode) or isinstance(route, ShortestRouteStop)):
             raise InvalidRouteTypeException
         elif savePath == "":
             raise EmptyFilePathException
