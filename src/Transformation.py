@@ -18,18 +18,8 @@ from statistics import mode
 import glob
 import pandas as pd  
 import ActivityLocation
+from CustomExceptions import *
 
-## @brief A class representing a file exception
-#  @details Will be used as a file exception class for all functions in Tranformation.py
-class FilePathException(Exception):
-    "File path passed is not the correct path"
-    pass
-
-## @brief A class representing a list exception
-#  @details Will be used as a list exception class for all functions in Tranformation.py
-class WrongList(Exception):
-    "List passed is incorrect"
-    pass
 
 
 
@@ -55,8 +45,8 @@ def tracerelated(tracepath):
 
         return li
     except:
-        print("File path passed is not the correct path")
-        raise FilePathException from None
+        print("FileException: File passed is not valid")
+        raise FileException from None
 
 ## @brief This function to convert the given csv to a list of Point objects.
 #  @param stopfilepath, The file path to the stop file
@@ -86,8 +76,8 @@ def stoprelated(stopfilepath):
 
         return li
     except:
-        print("File path passed is not the correct path")
-        raise FilePathException from None
+        print("FileException: File passed is not valid")
+        raise FileException from None
 
 ## @brief This function to convert the given csv to a list of Point objects.
 #  @param episodepath, The file path to the episode file
@@ -113,8 +103,8 @@ def episoderelated(episodepath):
 
         return li
     except:
-        print("File path passed is not the correct path")
-        raise FilePathException from None
+        print("FileException: File passed is not valid")
+        raise FileException from None
 
 
 ## @brief Converts a list of stop point and activity location objects tuples into a list with their class attributes
@@ -158,8 +148,8 @@ def convertActivityCSV(userFile):
                     convertedList.append(convertListToActivityLocationObject(activiyList))
         return convertedList
     except:
-        print("File path passed is not the correct path")
-        raise FilePathException from None
+        print("FileException: File passed is not valid")
+        raise FileException from None
 
 ## @brief Converts a list of activity location attributes into an activity location object
 #  @param activityLocationList, an activity location attribute list of form [activitylocation.name,
@@ -198,6 +188,6 @@ def summaryModeTrace(tracefilepath):
 
         return li
     except:
-        print("File path passed is not the correct path")
-        raise FilePathException from None
+        print("FileException: File passed is not valid")
+        raise FileException from None
 
