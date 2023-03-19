@@ -5,7 +5,7 @@
  
 
 import geopandas as pd
-import episodeGeneration as EG
+import EpisodeGeneration as EG
 from pandas.testing import *
 import os 
 
