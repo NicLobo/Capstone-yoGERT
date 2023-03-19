@@ -1,6 +1,7 @@
+
 ## @file Transformation.py
 #  @title Transformation module
-#  @author Niyatha Rangarajan, Longwei Ye
+#  @author Niyatha Rangarajan
 #  @date Mar 14, 2023
 
 
@@ -25,8 +26,7 @@ from CustomExceptions import *
 ## @brief This function to convert the given csv to a list of Point objects.
 #  @param tracepath, The file path to the trace file
 #  @return List of Point objects representing the given trace
-# Used to be 'tracerelated'
-def traceRelated(tracepath): 
+def tracerelated(tracepath): 
     try:
         data = csv.reader(open(tracepath))
 
@@ -43,15 +43,16 @@ def traceRelated(tracepath):
             
             c = c+1
 
+        print("File is converted to Point type objects\n")
         return li
     except:
-        print("FileException: File passed is not valid")
+        print("FileException: File passed is not valid\n")
         raise FileException from None
 
 ## @brief This function to convert the given csv to a list of Point objects.
 #  @param stopfilepath, The file path to the stop file
 #  @return List of Point objects representing the given stop csv
-def stopRelated(stopfilepath): 
+def stoprelated(stopfilepath): 
     try:
         data = csv.reader(open(stopfilepath))
 
@@ -65,24 +66,23 @@ def stopRelated(stopfilepath):
                 dt = datetime.strptime(line[4], '%Y-%m-%d %H:%M:%S.%f')
                 tracepath = os.path.dirname(os.path.dirname(stopfilepath))
                 coord = pandas.read_csv(os.path.join(tracepath,'trace.csv'))
-                print(float(line[9]))
                 lat = float(coord.iloc[int(float(line[9])):int(float(line[9]))+1,0])
                 long = float(coord.iloc[int(float(line[9])):int(float(line[9]))+1,1])
-                print(lat,long)
                 li.append(Point(lat,long,dt, line[8],float(line[9])))
 
             
             c = c+1
 
+        print("File is converted to Point type objects\n")
         return li
     except:
-        print("FileException: File passed is not valid")
+        print("FileException: File passed is not valid\n")
         raise FileException from None
 
 ## @brief This function to convert the given csv to a list of Point objects.
 #  @param episodepath, The file path to the episode file
 #  @return List of Point objects representing the given episode
-def episodeRelated(episodepath): 
+def episoderelated(episodepath): 
     try:
         data = csv.reader(open(episodepath))
 
@@ -101,9 +101,10 @@ def episodeRelated(episodepath):
             
             c = c+1
 
+        print("File is converted to Point type objects\n")
         return li
     except:
-        print("FileException: File passed is not valid")
+        print("FileException: File passed is not valid\n")
         raise FileException from None
 
 
@@ -116,11 +117,11 @@ def episodeRelated(episodepath):
 def convertActivityLocation(ActvityLoactionList):
     if(len(ActvityLoactionList) == 0):
         
-        print("List is not correct")
+        print("List is not correct\n")
         raise WrongList from None
     
     if(len(ActvityLoactionList[0]) != 2):
-        print("List is not correct")
+        print("List is not correct\n")
         raise WrongList from None
     
     convertedList = []
@@ -131,6 +132,8 @@ def convertActivityLocation(ActvityLoactionList):
                 activityList.append([j.name, float(j.lat), float(j.lon), j.amenity])
             # Append to final list
             convertedList.append([i[0].lat, i[0].lon, activityList])
+
+    print("activity location objects tuples into a list with their class attributes is returned\n")
     return convertedList
 
 ## @brief Converts a csv file into a list of activity location objects
@@ -146,9 +149,11 @@ def convertActivityCSV(userFile):
                 nearbyList = ast.literal_eval(row[2])
                 for activiyList in nearbyList:
                     convertedList.append(convertListToActivityLocationObject(activiyList))
+        print("list of activity location objects returned\n")
         return convertedList
+        
     except:
-        print("FileException: File passed is not valid")
+        print("FileException: File passed is not valid\n")
         raise FileException from None
 
 ## @brief Converts a list of activity location attributes into an activity location object
@@ -157,13 +162,14 @@ def convertActivityCSV(userFile):
 #  @return an activity location object
 def convertListToActivityLocationObject(activityLocationList):
     if(len(activityLocationList) == 0):
-        print("List is not correct")
+        print("List is not correct\n")
         raise WrongList from None
     
     if(len(activityLocationList) != 4):
-        print("List is not correct")
+        print("List is not correct\n")
         raise WrongList from None
     newActivityLocation = ActivityLocation.ActivityLocation(activityLocationList[0],float(activityLocationList[1]),float(activityLocationList[2]), activityLocationList[3])
+    print("an activity location object is returned\n")
     return newActivityLocation
 
 
@@ -188,6 +194,7 @@ def summaryModeTrace(tracefilepath):
 
         return li
     except:
-        print("FileException: File passed is not valid")
+        print("FileException: File passed is not valid\n")
         raise FileException from None
 
+summaryModeTrace('./trace/trace1/trace.csv')
