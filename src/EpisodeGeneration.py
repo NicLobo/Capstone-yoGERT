@@ -18,7 +18,7 @@ os.chdir(path)
 from enum import Enum
 class mode(Enum):
     STOP = 0
-    WALK = 1.7
+    WALK = 2
     DRIVE = 12
     MOVING = 99
 
@@ -298,10 +298,10 @@ def summarymode(tracefilepath):
             
             for line in data:
                 
-                if c>0: 
+                if c>0 and line[4] != "mode.STOP": 
                     
                     modes.append(line[4])
-                    
+                    print(line[4])
                     break
                 
                 c = c+1
@@ -408,3 +408,5 @@ def createStats(fullpath):
         print("FileException: File passed is not valid")
         raise FileException from None
     
+
+
