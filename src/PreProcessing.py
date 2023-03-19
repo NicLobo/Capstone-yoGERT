@@ -30,7 +30,11 @@ def ValidateCSV(csvpath, directory_name):
                 counter+=1
 
         if counter == 3:
-            os.mkdir(directory_name)
+            try: 
+                os.mkdir(directory_name)
+            except OSError:
+                raise Exception('Failed to create directory') 
+
             df = df.dropna(subset=['lat', 'long', 'time'])
 
             #creating regexps to match lat and long, avoids constant recompilation
@@ -65,7 +69,9 @@ def ValidateCSV(csvpath, directory_name):
                         filename_final = os.path.join(os.path.abspath(directory_name), "trace"+str(i)+".csv")
                         df = df[['lat', 'long', 'time']]
                         each_df.to_csv(filename_final)
-                        return str(filename_final), True
+                        
+                    print("Success: Your processed files now reside in: " + str(os.path.join(os.path.abspath(directory_name))))
+                    return str(os.path.join(os.path.abspath(directory_name))), True
                 else: 
                     pass
 
