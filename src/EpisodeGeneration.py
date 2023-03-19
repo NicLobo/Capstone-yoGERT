@@ -9,8 +9,8 @@ from csv import writer
 import geopy as gp
 import pandas as pd
 import glob
-import geopy.distance
 import statistics
+from CustomExceptions import *
 path = os.path.dirname(os.path.abspath(__file__))
 os.chdir(path) 
 
@@ -22,9 +22,6 @@ class mode(Enum):
     DRIVE = 12
     MOVING = 99
 
-class FilePathException(Exception):
-    "File path passed is not the correct path"
-    pass
 
 ## @brief Assigns a unique ID to each GPS ping point of the inputted trace file and creates a new CSV file, called trace.csv, for the trace’s geo-data in the inputted directory path. 
 #  @param a full path to the input CSV file.
@@ -59,9 +56,10 @@ def createTrace(csv_path, tracefolder_fullpath):
         df.reset_index()
         df['id'] = df.index
         df.to_csv(os.path.join(tracefolder_fullpath,"trace.csv"), index=False)
+        print("Trace.csv created") 
     except:
-        print("File path passed is not the correct path")
-        raise FilePathException from None
+        print("FileException: File passed is not valid")
+        raise FileException from None
 
 ## @brief Finds segments of the trace.csv file and creates a CSV file for segment information, called segments.csv, in the inputted directory path. 
 #  @param  a directory path that contains trace.csv and where the new CSV file will be created.
@@ -86,9 +84,10 @@ def createSegments(tracefolder_fullpath):
         velocities['velocity'] = velocities['total_distance'] / (velocities['total_time'])
 
         velocities.to_csv(os.path.join(tracefolder_fullpath,"segments.csv"), index=False)
+        print("Segments csv created") 
     except:
-        print("File path passed is not the correct path")
-        raise FilePathException from None
+        print("FileException: File passed is not valid")
+        raise FileException from None
 
 ## @brief Analyzes segments in segments.csv file and creates a CSV file for stop points, called stops.csv, in a newly created directory, called stop, within the input directory path. 
 #  @param  a directory path that contains trace.csv and where the new CSV file will be created.
@@ -142,9 +141,10 @@ def findStops(tracefolder_fullpath):
                 print("Stop folder already exists")
 
         episode.to_csv(os.path.join(stopfolder,"stops.csv"), index=False)
+        print("Stops.csv created") 
     except:
-        print("File path passed is not the correct path")
-        raise FilePathException from None
+        print("FileException: File passed is not valid")
+        raise FileException from None
 
 
 
@@ -168,9 +168,10 @@ def cleanStops(tracefolder_fullpath, timetol, distol):
             
         stops = stops.drop(droplist)
         stops.to_csv(os.path.join(stopfolder,"stops.csv"), index=False)
+        print("Stops csv filtered with distance tolerance of " +str(distol)+" time tolerance of"+ str(timetol)) 
     except:
-        print("File path passed is not the correct path")
-        raise FilePathException from None
+        print("FileException: File passed is not valid")
+        raise FileException from None
 
 
 
@@ -259,7 +260,7 @@ def createEpisodes(tracefolder_fullpath):
             eid+=1         
     except:
         print("File path passed is not the correct path")
-        raise FilePathException from None
+        raise FileException from None
           
 
 
@@ -267,18 +268,21 @@ def createEpisodes(tracefolder_fullpath):
 #  @param  a file path for the trace’s geo-data.
 #  @param  a directory path that contains the user’s geo-data.
 #  @param  a directory name where all the trace’s information should be stored.
-def episodeGenerator(csv_path,tracefolder_path,title):
+#  @param  a time tolerance for the stops default value at 60 seconds.
+#  @param  a distance tolerence for stops defaykt value of 60 meters.
+def episodeGenerator(csv_path,tracefolder_path,title,disttol = 60, timetol = 60):
     try:
         tracefolder_fullpath = os.path.join(tracefolder_path,title)
         createTrace(csv_path,tracefolder_fullpath)
         createSegments(tracefolder_fullpath)
         findStops(tracefolder_fullpath)
-        cleanStops(tracefolder_fullpath,60,60)
+        cleanStops(tracefolder_fullpath,disttol,timetol)
         createEpisodes(tracefolder_fullpath)
         summarymode(tracefolder_fullpath)
+        print("Episodes generated successfully")
     except:
         print("File path passed is not the correct path")
-        raise FilePathException from None
+        raise FileException from None
    
 ## @brief Finds the most used travel mode for the inputted trace.csv file and creates a new CSV file containing the summary mode.  
 #  @param  a file path that contains trace.csv and where the new CSV file will be created.
@@ -307,9 +311,10 @@ def summarymode(tracefilepath):
             writer_object = writer(f1)
             writer_object.writerow(['Summary Mode'])
             writer_object.writerow([str(statistics.mode(modes))])
+        print("Summarymodes.csv created successfully")
     except:
         print("File path passed is not the correct path")
-        raise FilePathException from None
+        raise FileException from None
 
 
 ## @brief Analyzes the trace’s information and creates a new CSV file, called stats.csv, of ping frequency.
@@ -342,7 +347,7 @@ def ping_frequency(trace):
                 writer_object.writerow([str(stepsize1) ])
     except:
         print("File path passed is not the correct path")
-        raise FilePathException from None
+        raise FileException from None
 
 ## @brief Analyzes the trace’s information and creates a new CSV file, called stats.csv of mode change count.
 #  @param a directory path that contains trace.csv and where the new CSV file will be created.
@@ -373,7 +378,7 @@ def mode_change(trace):
         t.to_csv( os.path.join(trace,"stats.csv"), index=False)
     except:
         print("File path passed is not the correct path")
-        raise FilePathException from None
+        raise FileException from None
 
 ## @brief Analyzes the trace’s information and creates a new CSV file, called stats.csv, of number of trips
 #  @param   a directory path that contains trace.csv and where the new CSV file will be created.
@@ -389,18 +394,17 @@ def numberoftrips(trace):
         t.to_csv( os.path.join(trace,"stats.csv"), index=False)
     except:
         print("File path passed is not the correct path")
-        raise FilePathException from None
+        raise FileException from None
 
 ## @brief Analyzes the trace’s information and creates a new CSV file, called stats.csv, of ping frequency, mode change count, number of trips, and trace period in the input directory path.
 #  @param   a directory path that contains trace.csv and where the new CSV file will be created.
 def createStats(fullpath):
     try:
-       
         ping_frequency(fullpath)
         numberoftrips(fullpath)
         mode_change(fullpath)
-
+        print("Stats.csv created successfully")
     except:
-        print("File path passed is not the correct path")
-        raise FilePathException from None
+        print("FileException: File passed is not valid")
+        raise FileException from None
     
