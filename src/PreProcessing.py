@@ -1,20 +1,22 @@
 ## @file PreProcessing.py
 #  @title PreProcessing
 #  @author Moksha Srinivasan 400181518
-#  @date Feb 1st, 2023
+#  @date March 18th, 2023
 
 import pandas as pd
 from CustomExceptions import *
 import re
 import os
+import datetime
+from dateutil.parser import parse
 
 #@brief this function confirms that CSV is valid and updates to correct column names, removing invalid data
 #@param csvpath - a full path to the input CSV file
-#@param directoryname - directory that will be created to store processed traces
+#@param directory_name - directory that will be created to store processed traces
 #@return fileNameFinal - the full path of the file written to
 #@return Bool - if the data is valid -> true, if valid, the data is processed and written to a new file within the specified directory
-def ValidateCSV(csvpath, directory_name):
-    df = pd.read_csv(csvpath)
+def Validate_CSV(csv_path, directory_name):
+    df = pd.read_csv(csv_path)
     try: 
         #check to see if it has fields latitude, longitude, and time in column titles
         counter = 0
@@ -43,9 +45,9 @@ def ValidateCSV(csvpath, directory_name):
 
             #convert to DD from DMS if DMS format detected
             if re.match(lat_regex, str(df.iloc[0]['lat'])):
-                df['lat'] = df['lat'].apply(dmstodd, args=(lat_regex,))
+                df['lat'] = df['lat'].apply(dms_to_dd, args=(lat_regex,))
             if re.match(lon_regex, (str(df.iloc[0]['long']))):
-                df['long'] = df['long'].apply(dmstodd, args=(lon_regex,))
+                df['long'] = df['long'].apply(dms_to_dd, args=(lon_regex,))
 
             df = df.astype({'lat':'float'})
             df = df.astype({'long':'float'})
@@ -53,13 +55,12 @@ def ValidateCSV(csvpath, directory_name):
             #Invalid Latitude: max/min 90.0000000 to -90.0000000
             #Invalid Longitude: max/min 180.0000000 to -180.0000000
             df = df[(df['lat'] >= -90.0) & (df['lat'] <= 90.0)]
-            df = df[(df['long'] >= -180.0) & (df['long'] <= 180.0)]           
-            
+            df = df[(df['long'] >= -180.0) & (df['long'] <= 180.0)]
+
+            #convert time format to %Y-%m-%d %H:%M:%S.%f           
+            df['time'] = df['time'].apply(convert_time_format)
+
             dfs = []
-
-            #convert time format to %Y-%m-%d %H:%M:%S.%f
-            #I will update this tomo, still researching most common time formats, might try to regexp
-
             #case 1: multiple IDs in a trace
             id_names = ['id','ID','fid','FID']
             for id_name in id_names: 
@@ -70,7 +71,7 @@ def ValidateCSV(csvpath, directory_name):
                         df = df[['lat', 'long', 'time']]
                         each_df.to_csv(filename_final)
                         
-                    print("Success: Your processed files now reside in: " + str(os.path.join(os.path.abspath(directory_name))))
+                    print("Success: Your processed file(s) now reside in: " + str(os.path.join(os.path.abspath(directory_name))))
                     return str(os.path.join(os.path.abspath(directory_name))), True
                 else: 
                     pass
@@ -91,7 +92,7 @@ def ValidateCSV(csvpath, directory_name):
 #@param dmsstring - a string containing the dms value
 #@param regex - the corresponding regex value for the lat or long
 #@return float with the correct dd representation
-def dmstodd(dms_string, regex):
+def dms_to_dd(dms_string, regex):
     match = regex.match(dms_string)
     if not match:
         raise ValueError(f"{dms_string} is not a valid DMS string")
@@ -105,3 +106,10 @@ def dmstodd(dms_string, regex):
     if hemisphere in ['S', 's', 'W', 'w']:
         dd *= -1     
     return dd
+
+#@brief this function converts unknown time formats to accepted format for the toolbox "%Y-%m-%d %H:%M:%S.%f"
+#@param time_string - string value to be converted
+#@return string with correct formatting
+def convert_time_format(time_string):
+    dt = parse(time_string)
+    return dt.strftime('%Y-%m-%d %H:%M:%S.%f')
