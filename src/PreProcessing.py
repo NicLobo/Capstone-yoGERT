@@ -13,13 +13,12 @@ import os
 #@param directoryname - directory that will be created to store processed traces
 #@return fileNameFinal - the full path of the file written to
 #@return Bool - if the data is valid -> true, if valid, the data is processed and written to a new file within the specified directory
-def ValidateCSV(csvpath, directoryname):
+def ValidateCSV(csvpath, directory_name):
     df = pd.read_csv(csvpath)
     try: 
         #check to see if it has fields latitude, longitude, and time in column titles
         counter = 0
         for col in df.columns:
-            #print("The column name is:" + col + "and counter value is" + str(counter))
             if col == 'lat' or col == 'latitude' or col == "Latitude":
                 df = df.rename({col: 'lat'}, axis='columns')
                 counter+=1
@@ -31,7 +30,7 @@ def ValidateCSV(csvpath, directoryname):
                 counter+=1
 
         if counter == 3:
-            os.mkdir(directoryname)
+            os.mkdir(directory_name)
             df = df.dropna(subset=['lat', 'long', 'time'])
 
             #creating regexps to match lat and long, avoids constant recompilation
@@ -54,26 +53,30 @@ def ValidateCSV(csvpath, directoryname):
             
             dfs = []
 
+            #convert time format to %Y-%m-%d %H:%M:%S.%f
+            #I will update this tomo, still researching most common time formats, might try to regexp
+
             #case 1: multiple IDs in a trace
-            idnames = ['id','ID','fid','FID']
-            for id_name in idnames: 
+            id_names = ['id','ID','fid','FID']
+            for id_name in id_names: 
                 if id_name in df:
                     dfs = [group[1] for group in df.groupby(id_name)]
                     for i, each_df in enumerate(dfs):
-                        filenameFinal = os.path.join(os.path.abspath(directoryname), "trace"+str(i)+".csv")
+                        filename_final = os.path.join(os.path.abspath(directory_name), "trace"+str(i)+".csv")
                         df = df[['lat', 'long', 'time']]
-                        each_df.to_csv(filenameFinal)
-                        return True
+                        each_df.to_csv(filename_final)
+                        return str(filename_final), True
                 else: 
                     pass
 
             #case 2: one ID in a trace
             df = df[['lat', 'long', 'time']]
-            newFilename = os.path.join(os.path.abspath(directoryname), "trace"+str(0)+".csv")
-            df.to_csv(newFilename)
-            return str(newFilename), True
+            new_filename = os.path.join(os.path.abspath(directory_name), "trace"+str(0)+".csv")
+            df.to_csv(new_filename)
+            return str(new_filename), True
         else: 
             raise InvalidInputDataException 
+
 
     except InvalidInputDataException: 
         raise Exception("InvalidInputDataException: invalid input, you do not have all required columns (latitude, longitude, time)") 
