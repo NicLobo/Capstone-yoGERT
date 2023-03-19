@@ -77,7 +77,7 @@ def test_Fileexception(capsys):
         tracerelated("")
     except:
         captured = capsys.readouterr()
-        assert "File path passed is not the correct path" in captured.out
+        assert "FileException: File passed is not valid\n" in captured.out
 
 
 ## @brief tests if the a wrong file path given to stoprelated() is handled
@@ -86,7 +86,7 @@ def test_Fileexception2(capsys):
         stoprelated("")
     except:
         captured = capsys.readouterr()
-        assert "File path passed is not the correct path" in captured.out
+        assert "FileException: File passed is not valid\n" in captured.out
 
 
 ## @brief tests if the a wrong file path given to episoderelated() is handled
@@ -95,7 +95,7 @@ def test_Fileexception3(capsys):
         episoderelated("")
     except:
         captured = capsys.readouterr()
-        assert "File path passed is not the correct path" in captured.out
+        assert "FileException: File passed is not valid\n" in captured.out
 
 
 ## @brief tests if the a wrong file path given to summaryModeTrace() is handled
@@ -104,7 +104,7 @@ def test_Fileexception4(capsys):
         summaryModeTrace("")
     except:
         captured = capsys.readouterr()
-        assert "File path passed is not the correct path" in captured.out
+        assert "FileException: File passed is not valid\n" in captured.out
 
 
 ## @brief tests if the a wrong file path given to  convertActivityCSV() is handled
@@ -113,7 +113,7 @@ def test_Fileexception5(capsys):
         convertActivityCSV("")
     except:
         captured = capsys.readouterr()
-        assert "File path passed is not the correct path" in captured.out
+        assert "FileException: File passed is not valid\n" in captured.out
 
 ## @brief tests if the a wrong file path given to  convertActivityCSV() is handled
 def test_FileException6(capsys):
@@ -121,7 +121,7 @@ def test_FileException6(capsys):
         convertActivityCSV(actlist2)
     except:
         captured = capsys.readouterr()
-        assert "File path passed is not the correct path" in captured.out
+        assert "FileException: File passed is not valid\n" in captured.out
 
 ## @brief tests if the a wrong list  given to  convertActivityLocation() is handled
 def test_ListException1(capsys):
