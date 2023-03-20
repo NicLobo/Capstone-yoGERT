@@ -185,7 +185,7 @@ def convertListToActivityLocationObject(activityLocationList):
 
 def summaryModeTrace(tracefilepath):
     try:
-        summarymodefilepath = os.path.join(os.path.dirname(tracefilepath),'summarymode.csv')
+        summarymodefilepath = os.path.join(os.path.dirname(tracefilepath),'summary_mode.csv')
         c=0
         data = csv.reader(open(summarymodefilepath))
         li=""
