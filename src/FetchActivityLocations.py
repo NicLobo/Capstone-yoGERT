@@ -13,24 +13,21 @@ import logging
 from CustomExceptions import *
 
 
-
+## @brief This function returns the data from the overpy api and returns if the server is free
+#  @param api an instance of overpass api
+#  @param built_query string of query
+#  @return result, serverFree result of the api, serverFree is 0 if server is not free and 1 if it is free
 def getResult(api, built_query):
     serverFree = 1
     try:
         # get result from API by sending the query to overpass servers
         result = api.query(built_query)               
     except overpy.exception.OverpassGatewayTimeout:
-        try:
-            raise OverpassGatewayTimeout
-        except:
-            serverFree = 0
-            print("Overpass server is at capacity! Please try again later")
+        serverFree = 0
+        print("OverpassGatewayTimeout: Overpass server is at capacity! Please try again later")
     except overpy.exception.OverpassTooManyRequests:
-        try:
-            raise OverpassTooManyRequests
-        except:
-            serverFree = 0
-            print("Overpass server is at capacity! Please try again later")
+        serverFree = 0
+        print("OverpassTooManyRequests: Overpass server is at capacity! Please try again later")
     return result, serverFree
 
 ## @brief This function takes latitude and longitude values of a stop point and a tolerance 
@@ -117,16 +114,13 @@ def fetchALForIndividualPoint(stopPoint, tol):
 #  @param list_of_stops list of stops
 #  @param tol int tolerance for the radius of nearby activity locations
 #  @return a list of tuples consisting of Point object and a list of ActivityLocation objects)
-def fetchActivityLocations(inPath, outPath,  tol=25):
+def FetchActivityLocations(inPath, outPath,  tol=25):
     # creating a list of points based on csv file path provided
     listStops =[]
     try:
-        try:
-            listStops = Transformation.stopRelated(inPath)
-        except:
-           raise InvalidInputFileException
+        listStops = Transformation.stoprelated(inPath)
     except:
-         print("Input file is invalid")
+        print("FileException: Input file is invalid")
 
     # initializing empty list, we'll use it to append stop Point object and list of ActivityLocation objects
     list_of_stops_AL = []
@@ -141,24 +135,21 @@ def fetchActivityLocations(inPath, outPath,  tol=25):
 
     # Write result to a csv file
     try:
-        try:
-            with open(outPath, 'w', newline='') as outputFile:
-                fileWriter = csv.writer(outputFile)
-                # Create Header
-                fileWriter.writerow(['Latitude', 'Longitude', 'Nearby Activity Locations'])
+        with open(outPath, 'w', newline='') as outputFile:
+            fileWriter = csv.writer(outputFile)
+            # Create Header
+            fileWriter.writerow(['Latitude', 'Longitude', 'Nearby Activity Locations'])
 
-                # Write each rows
-                for i in convertedResult:
-                    fileWriter.writerow([i[0],i[1],i[2]])
-        except:
-            raise WritingFileException
+            # Write each rows
+            for i in convertedResult:
+                fileWriter.writerow([i[0],i[1],i[2]])
     except:
-            print("Error writing to output file")
+        print("WritingFileException: Error writing to output file")
+        raise WritingFileException
 
 
-    return 0
+    print("Activity Locations were fetched successfully and saved at " + outPath)
+    return True
     
-# fetchActivityLocations("trace/trace1/stop/stops.csv","trace/trace-activityLocation.csv", 500)
+# FetchActivityLocations("trace/mokshatrace3/stop/stops.csv","trace/trace-activityLocation.csv", 500)
 # fetchActivityLocations("../test/csvdata/stops.csv","", 500)
-
-
