@@ -13,23 +13,23 @@ from CustomExceptions import *
 from Point import *
 from Transformation import *
 
-traceFilePath = "./data/trace1.csv"
-stopFilePath = "./data/stops.csv"
+traceFilePath = "./trace1/trace.csv"
+stopFilePath = "./trace1/stop/stops.csv"
 emptyFilePath = ""
 NG = NetworkGraph(traceFilePath, "drive", False)
 
-# Test 
+# Test 6.2.12.1
 def test_CreatingShortestRouteStop():
     SRT = ShortestRouteStop(NG, stopFilePath)
     assert type(SRT) == ShortestRouteStop and len(SRT.routes) <= len(SRT.inputData) - 1
 
-# Test 
+# Test 6.2.12.2
 def test_CreatingShortestRouteStopOptimizerException(capsys):
     ShortestRouteStop(NG, stopFilePath, "distance")
     captured = capsys.readouterr()
     assert "InvalidWeightException" in captured.out
 
-# Test 
+# Test 6.2.12.3
 def test_CreatingShortestRouteStopFileException(capsys):
     ShortestRouteStop(NG, emptyFilePath)
     captured = capsys.readouterr()

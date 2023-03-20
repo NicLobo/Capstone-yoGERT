@@ -13,7 +13,7 @@ from CustomExceptions import *
 from Point import *
 from Transformation import *
 
-episodeFilePath = "./data/1_episode.csv"
+episodeFilePath = "./trace1/episode/1_episode.csv"
 emptyFilePath = ""
 NG = NetworkGraph(episodeFilePath, "drive")
 samplingDistance = 25

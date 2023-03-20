@@ -3,6 +3,7 @@
 #  @author Abeer Alyasiri 400198787
 #  @date March 4 2023
 
+import sys
 import pytest 
 from NetworkGraph import *
 import osmnx as ox
@@ -12,11 +13,11 @@ from CustomExceptions import *
 from Point import *
 from Transformation import *
 
-traceFilePath = "./data/trace1.csv"
+traceFilePath = "./trace1/trace.csv"
 GPSCoord = (43.60902479751416, -79.69011484642793)
 OutGPSCoord = (43.59937567752286, -79.67924717546673)
 incorrectMode = "stop"
-episodeFilePath = "./data/1_episode.csv"
+episodeFilePath = "./trace1/episode/1_episode.csv"
 emptyFilePath = ""
 
 # Test 6.2.1.1
