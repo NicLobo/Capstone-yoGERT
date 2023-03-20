@@ -30,6 +30,9 @@ def tracerelated(tracepath):
     try:
         data = csv.reader(open(tracepath))
 
+        dirName = os.path.dirname(tracepath)
+        traceID = dirName[len(dirName.rstrip('0123456789')):]
+
         li = []
     
         c=0
@@ -38,7 +41,7 @@ def tracerelated(tracepath):
             
             if c>0: 
                 dt = datetime.strptime(line[2], '%Y-%m-%d %H:%M:%S.%f')
-                li.append(Point(float(line[0]),float(line[1]),dt, None,float(line[3])))
+                li.append(Point(float(line[0]),float(line[1]),dt, None,traceID))
 
             
             c = c+1
@@ -56,6 +59,9 @@ def stoprelated(stopfilepath):
     try:
         data = csv.reader(open(stopfilepath))
 
+        dirName = os.path.dirname(os.path.dirname(stopfilepath))
+        traceID = dirName[len(dirName.rstrip('0123456789')):]
+
         li = []
     
         c=0
@@ -68,7 +74,7 @@ def stoprelated(stopfilepath):
                 coord = pandas.read_csv(os.path.join(tracepath,'trace.csv'))
                 lat = float(coord.iloc[int(float(line[9])):int(float(line[9]))+1,0])
                 long = float(coord.iloc[int(float(line[9])):int(float(line[9]))+1,1])
-                li.append(Point(lat,long,dt, line[8],float(line[9])))
+                li.append(Point(lat,long,dt, line[8],traceID))
 
             
             c = c+1
@@ -197,4 +203,6 @@ def summaryModeTrace(tracefilepath):
         print("FileException: File passed is not valid\n")
         raise FileException from None
 
-summaryModeTrace('./trace/trace1/trace.csv')
+# summaryModeTrace('./trace/trace1/trace.csv')
+# test = tracerelated('trace1/trace.csv')
+# test = stoprelated('trace1/stop/stops.csv')

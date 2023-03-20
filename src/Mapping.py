@@ -57,10 +57,11 @@ template = """
 <div class='legend-title'>Legend</div>
 <div class='legend-scale'>
   <ul class='legend-labels'>
-    <li><i class="fa-solid fa-circle-stop" style="font-size:20px;color:red;"></i>Stop</li>
-    <li><i class="fa-solid fa-car-side" style="font-size:20px;color:green;"></i>Drive</li>
-    <li><i class="fa-solid fa-person-walking" style="font-size:20px;color:blue;"></i>Walk</li>
-    <li><i class="fa-solid fa-circle-info" style="font-size:20px;color:orange;"></i>Activity Location</li>
+    <li><i class="fa-solid fa-circle-stop" style="font-size:20px;color:red;"></i> Stop</li>
+    <li><i class="fa-solid fa-car-side" style="font-size:20px;color:green;"></i> Drive</li>
+    <li><i class="fa-solid fa-person-walking" style="font-size:20px;color:blue;"></i> Walk</li>
+    <li><i class="fa-solid fa-map-pin" style="font-size:20px;color:gray;"></i> Ping</li>
+    <li><i class="fa-solid fa-circle-info" style="font-size:20px;color:orange;"></i> Activity Location</li>
     <li><i class="fa fa-route" style="font-size:20px;color:green;"></i> Drive Route</li>
     <li><i class="fa fa-route" style="font-size:20px;color:blue;"></i> Walk Route</li>
     <li><i class="fa fa-route" style="font-size:20px;color:purple;"></i> Bike Route</li>
@@ -150,6 +151,9 @@ def MapRoute(networkGraph, route, savePath):
             elif point.mode == "mode.WALK":
                 color = "blue"
                 icon="person-walking"
+            elif isinstance(route, ShortestRouteTrace):
+                color = "gray"
+                icon="map-pin"
             else:
                 color = "red"
                 icon="circle-stop"
@@ -195,7 +199,7 @@ def MapActivityLocation(activityLocationsFile, stopPointsFile, savePath):
         tooltip = "Activity Location"
         for point in stopPoints:
             base.add_child(folium.Marker([point.lat,point.lon], 
-                            tooltip="Episode"+str(point.episodeID), icon=folium.Icon(color="red", icon="stop", prefix="fa")))
+                            tooltip="TraceID:"+str(point.episodeID), icon=folium.Icon(color="red", icon="stop", prefix="fa")))
         if (len(activityLocations) > 0):
             for ACL in activityLocations:
                 base.add_child(folium.Marker([ACL.lat,ACL.lon], popup="Name:" + ACL.name + ", Amenity:" + ACL.amenity, 
