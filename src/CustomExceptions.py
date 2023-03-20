@@ -37,6 +37,14 @@ class InvalidMappingFilePathException(Exception):
     "Raised when the input file path does not have the file name.html"
     pass
 
+class WritingFileException(Exception):
+    "Raised when an error occurs when writing to file"
+    pass
+
+class InvalidPathException(Exception):
+    "Raised when path is invalid"
+    pass
+
 ## @brief A class representing a file exception
 #  @details Will be used as a file exception class for all functions in Tranformation.py
 class FileException(Exception):
