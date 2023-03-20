@@ -1,4 +1,4 @@
-import main
+import test.PerformanceTesting.main as main
 import ShortestRouteStop
 
 import timeit
