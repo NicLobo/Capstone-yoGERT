@@ -11,6 +11,7 @@ import pandas as pd
 import glob
 import statistics
 from CustomExceptions import *
+import geopy.distance
 path = os.path.dirname(os.path.abspath(__file__))
 os.chdir(path) 
 
