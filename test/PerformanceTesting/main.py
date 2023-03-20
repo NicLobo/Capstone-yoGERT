@@ -108,6 +108,11 @@ def generateShortestStopRoute(traceFilePath, traceMode, stopFilePath):
 
     return generatedShortestStopRoute
 
+def generatePreProcessingCSV(csvFilePath, dirPath):
+    processedFile, isDataValid = PreProcessing.Validate_CSV(csvFilePath, dirPath)
+    
+    return processedFile, isDataValid
+
 # csvPath = "/Users/tommylw/Desktop/University/SE_4G06/Capstone-yoGERT/src/exampleDataset/trace_1.csv"
 # generateEpisodes(csvPath,"trace")
 # episodeFilePath = "/Users/tommylw/Desktop/University/SE_4G06/Capstone-yoGERT/src/1_episode.csv"
