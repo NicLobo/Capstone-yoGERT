@@ -113,3 +113,7 @@ def dms_to_dd(dms_string, regex):
 def convert_time_format(time_string):
     dt = parse(time_string)
     return dt.strftime('%Y-%m-%d %H:%M:%S.%f')
+
+#localtest
+#inputs = ["./exampleDataset/trace_1.csv","./test_ExpectedInput"]
+#Validate_CSV(inputs[0], inputs[1])
