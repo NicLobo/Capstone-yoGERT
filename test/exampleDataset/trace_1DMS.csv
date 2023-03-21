@@ -1,0 +1,2 @@
+long,lat,fid,track_seg_id,track_seg_point_id,ele,time,magvar,geoidheight,name,cmt,desc,src,link1_href,link1_text,link1_type,link2_href,link2_text,link2_type,sym,type,fix,sat,hdop,vdop,pdop,ageofdgpsdata,dgpsid
+124°4'58\"W,78°55'44.29458\"N,1,0,0,17.964,2023/01/12 18:58:22.500,,,,,,,,,,,,,,,,,,,,,
