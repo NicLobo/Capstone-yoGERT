@@ -118,7 +118,7 @@ def FetchActivityLocations(inPath, outPath,  tol=25):
     # creating a list of points based on csv file path provided
     listStops =[]
     try:
-        listStops = Transformation.stoprelated(inPath)
+        listStops = stoprelated(inPath)
     except:
         print("FileException: Input file is invalid")
 
@@ -130,7 +130,7 @@ def FetchActivityLocations(inPath, outPath,  tol=25):
 
 
     listActivities =[]
-    convertedResult = Transformation.convertActivityLocation(list_of_stops_AL)
+    convertedResult = convertActivityLocation(list_of_stops_AL)
     listActivities.append(convertedResult)
 
     # Write result to a csv file

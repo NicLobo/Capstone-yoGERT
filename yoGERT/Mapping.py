@@ -6,7 +6,7 @@
 import osmnx as ox
 import networkx as nx
 import h3
-import NetworkGraph
+from .NetworkGraph import *
 from .ShortestRouteEpisode import *
 from .ShortestRouteTrace import *
 from .ShortestRouteStop import *
