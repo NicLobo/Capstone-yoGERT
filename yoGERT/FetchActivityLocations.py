@@ -95,7 +95,7 @@ def fetchALForIndividualPoint(stopPoint, tol):
             for row in data_frame.itertuples():
                 if str(row.name) != "nan":
                     #creates new activity location object containging name and latitude, longitude information
-                    newActivityLocation = ActivityLocation.ActivityLocation(str(row.name), row.latitude, row.longitude, row.amenity)
+                    newActivityLocation = ActivityLocation(str(row.name), row.latitude, row.longitude, row.amenity)
                     # Add activity location object to list of activity locations
                     activityLocationList.append(newActivityLocation) 
                     # add index of row to indexList to ensure there are not any duplicates
