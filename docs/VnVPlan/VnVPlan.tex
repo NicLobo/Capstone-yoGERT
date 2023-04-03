@@ -60,7 +60,7 @@ November 2, 2022 & 1.0 & Longwei: Sec 3; Moksha: Sec 6,7; Smita: Sec 6,7; Abeer:
 
 \section{Symbols, Abbreviations and Acronyms}
 
-\renewcommand{\arraystretch}{1.2}
+\renewcommand{\arraystretch}{1.1}
 \begin{tabular}{l p{10cm}} 
   \toprule		
   \textbf{symbol} & \textbf{description}\\
@@ -69,22 +69,40 @@ November 2, 2022 & 1.0 & Longwei: Sec 3; Moksha: Sec 6,7; Smita: Sec 6,7; Abeer:
   GPS & Global Positioning Systems\\
   GIS & Geographical Information Systems\\
   GERT & GIS-based episode reconstruction toolkit \\
+  MD & Mode Detection \\
+  TUD & Time Use Diary\\
+  RCA &   Route Choice Analysis \\
+  .shp & .shp are geospatial data format files\\
+  CSV/.csv & Comma Separated Values is a file type that contains large amounts of data separated by commas. \\
+  PALS& Potential Activity Locations \\
+  ALs & Activity Locations \\
+  FR & Functional Requirement \\
+  NFR & Non-Functional Requirement \\
+  DD & Decimal degrees\\
+  \bottomrule
+\end{tabular}\\
+
+\section{Definitions}
+
+\renewcommand{\arraystretch}{1.1}
+\begin{tabular}{l p{9cm}} 
+  \toprule		
+  \textbf{definition} & \textbf{description}\\
+  \midrule 
   Point & location coordinate with time stamp.\\
   Session & Object activity history quantified by GPS points \\
   Episode & Session\\
   Segment & Group of GPS Points combined based on episode attributes.\\
   Trip & GPS points represents an object moving to a different position.\\
   Route & Object path to get from position A to position B\\
-  Mode Detection (MD) & Detection of type of transportation being used \\
-  Time Use Diary (TUD) & Time Use Diary are records of continuous events and actions through a particular period of time (usually 24 to 48 hours) \\
-  Route Choice Analysis (RCA) &  Analyzes route selection from point a to point b\\
+  Mode Detection & Detection of type of transportation being used \\
+  Time Use Diary & Time Use Diary are records of continuous events and actions through a particular period of time (usually 24 to 48 hours) \\
+  Route Choice Analysis &  Analyzes route selection from point a to point b\\
   .shp & .shp are geospatial data format files\\
   CSV/.csv & Comma Separated Values is a file type that contains large amounts of data separated by commas. \\
-  Potential Activity Locations (PALS) & PALS are potential trip stops \\
-  Activity Locations (ALs) & ALs are trip stops \\
-  FR & Functional Requirement \\
-  NFR & Non-Functional Requirement \\
-  DD & Decimal degrees (DD) is a notation for expressing latitude and longitude geographic coordinates as decimal fractions of a degree \\
+  Potential Activity Locations  & Potential trip stops \\
+  Activity Locations & Trip stops \\
+Decimal degrees & Notation for expressing latitude and longitude geographic coordinates as decimal fractions of a degree \\
   DMS & DMS is a notation for expressing altitude and longitude as degrees (°), minutes ('), seconds ('')\\
 
 
@@ -247,9 +265,7 @@ a checklist. The checklist will consist of Dr. Smith's MG and MIS checklists and
 \end{itemize}
 
 The team will conduct the verification against the checklist using 
-static and dynamic testing techniques. Static testing will involve 
-a walkthrough to proof traceability and accuracy of the system 
-architectural model. Dynamic testing will include unit testing, white box testing, black box testing, and integration testing.
+static testing techniques. Static testing will involve a walkthrough to proof traceability and accuracy of the system architectural model. 
 
 % \wss{Plans for design verification}
 
@@ -289,7 +305,7 @@ The other stages of the implementation verification plan will rely on dynamic
 testing techniques. These tests will be driven by white box testing, \textcolor{blue}{stress testing, regression testing,} and 
 integration testing techniques. These techniques are focused on proving that 
 the system follows the design specification \textcolor{blue}{and requirements specification} and is consistent with the addition of
-new components. Also, The verification plan must encapsulate testing scenarios of how the system reacts to faulty inputs. It can be tested by inputting irrational data points and observing if a safe output will be produced instead of system failure. Therefore, it is important that the test cases will include boundary and edge inputs to the system's safe outputs and consistent behaviour.
+new components. Also, The verification plan must encapsulate testing scenarios of how the system reacts to faulty inputs. It can be tested by inputting irrational data points and observing if a safe output will be produced instead of system failure. Therefore, it is important that the test cases will include boundary and edge inputs to the system's safe outputs and consistent behaviour. 
 
 
 % \wss{In this section you would also give any details of any plans for static verification of
@@ -364,7 +380,7 @@ This type of software testing that focuses on verifying the functionality of a s
 
 \textbf{Test Case Derivation}: The user wants the application to read the given CSV file 
 					
-\textbf{How test will be performed}: Different sets of valid CSV data will be uploaded by the tester to see if the computer reads the values correctly
+\textbf{How test will be performed}: Different sets of valid CSV data which will have GPS trace data as content will be uploaded by the tester to see if the computer reads the values correctly by comparing it with a correctly parsed CSV. 
 
 \textbf{Associated Functional Requirement}: FR1 
 
@@ -800,20 +816,20 @@ NFRs 17,18  are not applicable to the \emph{yoGERT} toolbox as it was mentioned 
 \scalebox{0.5}{
 \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
 \hline        
-& FR1 & FR2 & FR3 & FR4 & FR5 & FR6 & FR7& FR8 & FR9 & FR10 & FR11 & FR12 & FR13 & FR14 & FR15 & FR16 & FR17 & FR18 & FR19 & FR20\\ \hline
-test-UT-1  &X & & & &X & & & & & & & & & & & & & & & \\ \hline
-test-UT-2  & &X & & & & & & & & & & & & & & & & & &  \\ \hline
-test-UT-3  & & &X & & & & & & & & & & & & & & & & &  \\ \hline
-test-UT-4  & & & &X & & & & & & & & & & & & & & & & \\ \hline
-test-ST-1  & & & & & &X & & & & & & & & & & & & & &  \\ \hline
-test-ST-2  & & & & & & &X & & & & & & & & & & & & & \\ \hline
-test-ST-3  & & & & & & & &X & & & & & & & & & & & &X\\ \hline
-test-ST-4  & & & & & & & & &X & & & & & & & & & &X & \\ \hline
-test-ST-5  & & & & & & & & & &X & & & & & & & & & & \\ \hline
-test-ST-6  & & & & & & & & & & &X & & & & &X & &X & & \\ \hline
-test-ST-7  & & & & & & & & & & & &X &X & & & & & & & \\ \hline
-test-ST-8  & & & & & & & & & & & & & &X & & &X & & & \\ \hline
-test-ST-9  & & & & & & & & & & & & & & & X& & & & & \\ \hline
+& FR1 & FR2 & FR3 & FR4 & FR5 & FR6 & FR7& FR8 & FR9 & FR10 & FR11 & FR12 & FR13 & FR14 & FR15 & FR16 & FR19 & FR20\\ \hline
+test-UT-1  &X & & & &X & & & & & & & & & & & & & \\ \hline
+test-UT-2  & &X & & & & & & & & & & & & & & & &  \\ \hline
+test-UT-3  & & &X & & & & & & & & & & & & & & &  \\ \hline
+test-UT-4  & & & &X & & & & & & & & & & & & & & \\ \hline
+test-ST-1  & & & & & &X & & & & & & & & & & & &  \\ \hline
+test-ST-2  & & & & & & &X & & & & & & & & & & & \\ \hline
+test-ST-3  & & & & & & & &X & & & & & & & & & &X\\ \hline
+test-ST-4  & & & & & & & & &X & & & & & & & &X & \\ \hline
+test-ST-5  & & & & & & & & & &X & & & & & & & & \\ \hline
+test-ST-6  & & & & & & & & & & &X & & & & &X & & \\ \hline
+test-ST-7  & & & & & & & & & & & &X &X & & & & & \\ \hline
+test-ST-8  & & & & & & & & & & & & & &X & & & & \\ \hline
+test-ST-9  & & & & & & & & & & & & & & & X& & & \\ \hline
 
 
 
@@ -831,17 +847,17 @@ test-ST-9  & & & & & & & & & & & & & & & X& & & & & \\ \hline
 \scalebox{0.5}{
 \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
 \hline        
-& NFR1 & NFR2 & NFR3 & NFR4 & NFR5 & NFR6 & NFR7& NFR8 & NFR9 & NFR10 & NFR11 & NFR12 & NFR13 & NFR14 & NFR15 & NFR16 & NFR17 & NFR18 & NFR19\\ \hline
-test-id1  & & & & & & & & & & &X & & & &  & & & & \\ \hline
-test-id2  &X &X &X &X &X &X &X & & & & & & & &  & & & & \\ \hline
-test-id3  & & & & & & & & &X & &X &X & & &  & & & & \\ \hline
-test-id4  & & & & & & & & & & &X & & & &  & & & & \\ \hline
-test-id5  & & & & & & & & & & & & & & &  & & & &X \\ \hline
-test-id6  & & & & & & & & & &X & & & & &  & & & & \\ \hline
-test-id7  & & & & & & & & & & & & & & &X  & & & & \\ \hline
-test-id8  & & & & & & & & & & & & & &X &X  &X & & & \\ \hline
-test-id9  & & & & & & & &X & & & & & & &  & & & & \\ \hline
-test-id10  & & & & & & & & & & & & &X & &  & & & & \\ \hline
+& NFR1 & NFR2 & NFR3 & NFR4 & NFR5 & NFR6 & NFR7& NFR8 & NFR9 & NFR10 & NFR11 & NFR12 & NFR13 & NFR14 & NFR15 & NFR16 & NFR19\\ \hline
+test-id1  & & & & & & & & & & &X & & & &  & & \\ \hline
+test-id2  &X &X &X &X &X &X &X & & & & & & & &  & & \\ \hline
+test-id3  & & & & & & & & &X & &X &X & & &  & & \\ \hline
+test-id4  & & & & & & & & & & &X & & & &  & & \\ \hline
+test-id5  & & & & & & & & & & & & & & &  & &X \\ \hline
+test-id6  & & & & & & & & & &X & & & & &  & & \\ \hline
+test-id7  & & & & & & & & & & & & & & &X  & & \\ \hline
+test-id8  & & & & & & & & & & & & & &X &X  &X & \\ \hline
+test-id9  & & & & & & & &X & & & & & & &  & & \\ \hline
+test-id10  & & & & & & & & & & & & &X & &  & & \\ \hline
 
 \hline %
 \end{tabular}
@@ -1009,6 +1025,18 @@ Route choice analysis variable modules will be verified for correct functionalit
     \bf{Pass}: & Output is an exception of type InvalidWeightException. \\
     \hline
 \end{tabular}
+\begin{tabular}{|l|p{10cm}|}
+    \hline
+    \bf{Test} 6.2.2.5: & Creating Episode Shortest Route from Network Graph, algorithm optimizer type, and no path to the GPS pings \\
+    \bf{Requirements}: &  R11,R4\\
+    \bf{Description}: & Tests if the episode shortest route catches the exception for empty file path. \\
+    \bf{Type}: & Unit test (static, automated) \\
+    \bf{Initial State}: & The user has ran preprocessing on their initial GPS data set, episode generation on the output from the preprocessing module, and created a network graph object for a generated episode output. \\
+    \bf{Input}: & NetwrokGraph object, string for optimizer type, empty string for file path to the episode GPS ping CSV file. \\
+    \bf{Output}: & Exception. \\
+    \bf{Pass}: & Output is an exception of type EmptyFilePathException. \\
+    \hline
+\end{tabular}
 \subsubsection{Trace Shortest Route Module Test Cases}
 \begin{tabular}{|l|p{10cm}|}
     \hline
@@ -1034,6 +1062,18 @@ Route choice analysis variable modules will be verified for correct functionalit
     \bf{Pass}: & Output is an exception of type InvalidWeightException. \\
     \hline
 \end{tabular}
+\begin{tabular}{|l|p{10cm}|}
+    \hline
+    \bf{Test} 6.2.3.3: & Creating Trace Shortest Route from Network Graph, algorithm optimizer type, and empty path to GPS pings \\
+    \bf{Requirements}: & R11,R4 \\
+    \bf{Description}: & Tests if the trace shortest route catches the exception for empty file path. \\
+    \bf{Type}: & Unit test (static, automated) \\
+    \bf{Initial State}: & The user has ran preprocessing on their initial GPS data set, episode generation on the output from the preprocessing module, and created a network graph object for a generated episode output. \\
+    \bf{Input}: & NetwrokGraph object, string for optimizer type, empty string for file path to the episode GPS ping CSV file. \\
+    \bf{Output}: & Exception. \\
+    \bf{Pass}: & Output is an exception of type EmptyFilePathException. \\
+    \hline
+\end{tabular}
 \subsubsection{Alternative Route Module Test Cases}
 \begin{tabular}{|l|p{10cm}|}
     \hline
@@ -1049,14 +1089,14 @@ Route choice analysis variable modules will be verified for correct functionalit
 \end{tabular}
 \begin{tabular}{|l|p{10cm}|}
     \hline
-    \bf{Test} 6.2.4.2: & Creating Alternative Route from incorrect algorithm optimizer type, and GPS pings \\
+    \bf{Test} 6.2.4.2: & Creating Alternative Route from algorithm optimizer type, and no path to the GPS pings \\
     \bf{Requirements}: & R12,R4 \\
-    \bf{Description}: & Tests if the alternative route catches the exception for invalid optimizer type. \\
+    \bf{Description}: & Tests if the alternative route catches the exception for empty file path. \\
     \bf{Type}: & Unit test (static, automated) \\
     \bf{Initial State}: & The user has ran preprocessing on their initial GPS data set. \\
-    \bf{Input}: & string for optimizer type, string for file path to the trace GPS ping CSV file. \\
+    \bf{Input}: & string for optimizer type, empty string for file path to the trace GPS ping CSV file. \\
     \bf{Output}: & Exception. \\
-    \bf{Pass}: & Output is an exception of type InvalidWeightException. \\
+    \bf{Pass}: & Output is an exception of type EmptyFilePathException. \\
     \hline
 \end{tabular}
 \subsubsection{Mapping Module Test Cases}
@@ -1119,7 +1159,92 @@ Route choice analysis variable modules will be verified for correct functionalit
     \bf{Output}: & html file object. \\
     \bf{Pass}: & html file displays a map with episode point markers as expected from the episode behaviour if mapped on another mapping API. \\
     \hline
-\end{tabular}}
+\end{tabular}
+\begin{tabular}{|l|p{10cm}|}
+    \hline
+    \bf{Test} 6.2.5.6: & Creating a map object for mapping alternative route and saving it as a html file.\\
+    \bf{Requirements}: &  R3\\
+    \bf{Description}: & Tests if mapping catches the exception for invalid route type. \\
+    \bf{Type}: & Unit test (static, manual) \\
+    \bf{Initial State}: & The user has ran preprocessing on their initial GPS data set, created a network graph object for the preprocessing output, and created a alternative route. \\
+    \bf{Input}: & Network Graph object, AlternativeRoute object, string for file path to save the mapping file. \\
+    \bf{Output}: & Exception. \\
+    \bf{Pass}: & Output is an exception of type InvalidRouteTypeException. \\
+    \hline
+\end{tabular}
+\begin{tabular}{|l|p{10cm}|}
+    \hline
+    \bf{Test} 6.2.5.7: & Creating a map object for mapping trace shortest route and saving it as a html file.\\
+    \bf{Requirements}: &  R3\\
+    \bf{Description}: & Tests if mapping catches the exception for empty path to save file. \\
+    \bf{Type}: & Unit test (static, manual) \\
+    \bf{Initial State}: & The user has ran preprocessing on their initial GPS data set, created a network graph object for the preprocessing output, and created a alternative route. \\
+    \bf{Input}: & Network Graph object, Shortest Route Trace object, empty string for file path to save the mapping file. \\
+    \bf{Output}: & Exception. \\
+    \bf{Pass}: & Output is an exception of type EmptyFilePathException. \\
+    \hline
+\end{tabular}
+\begin{tabular}{|l|p{10cm}|}
+    \hline
+    \bf{Test} 6.2.5.8: & Creating a map object for mapping trace shortest route and saving it as a file.\\
+    \bf{Requirements}: &  R3\\
+    \bf{Description}: & Tests if mapping catches the exception for invalid path to save file. \\
+    \bf{Type}: & Unit test (static, manual) \\
+    \bf{Initial State}: & The user has ran preprocessing on their initial GPS data set, created a network graph object for the preprocessing output, and created a alternative route. \\
+    \bf{Input}: & Network Graph object, Shortest Route Trace object, string for invalid file path to save the mapping file. \\
+    \bf{Output}: & Exception. \\
+    \bf{Pass}: & Output is an exception of type InvalidMappingFilePathException. \\
+    \hline
+\end{tabular}
+\begin{tabular}{|l|p{10cm}|}
+    \hline
+    \bf{Test} 6.2.5.9: & Creating a map object for mapping activity location markers and saving it as a html file.\\
+    \bf{Requirements}: &  R3\\
+    \bf{Description}: & Tests if mapping catches the exception for empty file path. \\
+    \bf{Type}: & Unit test (static, manual) \\
+    \bf{Initial State}: & The user has ran preprocessing module on their initial GPS data set, ran episode generation module, ran activity location module. \\
+    \bf{Input}: & empty string for file path to the saved activity location, string for file path to the stop points used for activity location, string for file path to save the mapping file. \\
+    \bf{Output}: & Exception. \\
+    \bf{Pass}: & Output is an exception of type EmptyFilePathException. \\
+    \hline
+\end{tabular}
+\begin{tabular}{|l|p{10cm}|}
+    \hline
+    \bf{Test} 6.2.5.10: & Creating a map object for mapping activity location markers and saving it as a file.\\
+    \bf{Requirements}: &  R3\\
+    \bf{Description}: & Tests if mapping catches the exception for invalid file path to save. \\
+    \bf{Type}: & Unit test (static, manual) \\
+    \bf{Initial State}: & The user has ran preprocessing module on their initial GPS data set, ran episode generation module, ran activity location module. \\
+    \bf{Input}: & string for file path to the saved activity location, string for file path to the stop points used for activity location, string for file path to save the mapping file. \\
+    \bf{Output}: & Exception. \\
+    \bf{Pass}: & Output is an exception of type InvalidMappingFilePathException. \\
+    \hline
+\end{tabular}
+\begin{tabular}{|l|p{10cm}|}
+    \hline
+    \bf{Test} 6.2.5.11: & Creating a map object for mapping markers for episode points and saving it as a html file.\\
+    \bf{Requirements}: &  R3\\
+    \bf{Description}: & Tests if mapping catches the exception for empty file path. \\
+    \bf{Type}: & Unit test (static, manual) \\
+    \bf{Initial State}: & The user has ran preprocessing module on their initial GPS data set, ran episode generation module. \\
+    \bf{Input}: & empty string for file path to the episode points, string for file path to save the mapping file. \\
+    \bf{Output}: & Exception. \\
+    \bf{Pass}: & Output is an exception of type EmptyFilePathException. \\
+    \hline
+\end{tabular}
+\begin{tabular}{|l|p{10cm}|}
+    \hline
+    \bf{Test} 6.2.5.12: & Creating a map object for mapping markers for episode points and saving it as a file.\\
+    \bf{Requirements}: &  R3\\
+    \bf{Description}: & Tests if mapping catches the exception for invalif file path to save. \\
+    \bf{Type}: & Unit test (static, manual) \\
+    \bf{Initial State}: & The user has ran preprocessing module on their initial GPS data set, ran episode generation module. \\
+    \bf{Input}: & string for file path to the episode points, string for file path to save the mapping file. \\
+    \bf{Output}: & Exception. \\
+    \bf{Pass}: & Output is an exception of type InvalidMappingFilePathException. \\
+    \hline
+\end{tabular}
+}
 
 \textcolor{blue}{
 \subsubsection{Episode Generation Module Test Cases}
@@ -1717,7 +1842,7 @@ This section will be completed once the MIS has been updated and there is greate
 The definition of the test cases will call for SYMBOLIC\_CONSTANTS.
 Their values are defined in this section for easy maintenance.
 
-\subsection{Usability Survey Questions?}
+\subsection{Usability Survey Questions}
 
 \begin{enumerate}
 
