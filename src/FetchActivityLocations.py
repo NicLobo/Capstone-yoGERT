@@ -1,6 +1,6 @@
 ## @file fetchActiviyLocations.py
 #  @title Fetch Activiy Locations
-#  @author Smita Singh 400173853
+#  @author Smita Singh
 #  @date Feb 28 2022
 
 #imports
@@ -61,7 +61,6 @@ def fetchALForIndividualPoint(stopPoint, tol):
     
     # creating a overpass API instance 
     api = overpy.Overpass()                      
-
 
     #check if the api is available
     serverFree = 1
@@ -128,7 +127,6 @@ def FetchActivityLocations(inPath, outPath,  tol=25):
         stopALTupple= fetchALForIndividualPoint(i, tol)
         list_of_stops_AL.append(stopALTupple)
 
-
     listActivities =[]
     convertedResult = Transformation.convertActivityLocation(list_of_stops_AL)
     listActivities.append(convertedResult)
@@ -150,6 +148,3 @@ def FetchActivityLocations(inPath, outPath,  tol=25):
 
     print("Activity Locations were fetched successfully and saved at " + outPath)
     return True
-    
-# FetchActivityLocations("trace/mokshatrace3/stop/stops.csv","trace/trace-activityLocation.csv", 500)
-# fetchActivityLocations("../test/csvdata/stops.csv","", 500)

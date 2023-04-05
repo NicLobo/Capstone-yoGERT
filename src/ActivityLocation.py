@@ -1,6 +1,6 @@
 ## @file ActivityLocation.py
 #  @title ActivityLocation
-#  @author Smita Singh 400173853
+#  @author Smita Singh
 #  @date Feb 28 2022
 
 ## @brief A class representing an activity location object
