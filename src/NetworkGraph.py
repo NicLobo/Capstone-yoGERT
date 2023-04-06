@@ -85,16 +85,3 @@ class NetworkGraph:
     #  @return a string of the transportation mode
     def getMode(self):
         return self.mode
-
-
-# inputTwo = [Point(43.651605, -79.386759,"17:22:02", "mode.DRIVE"), Point(43.651484, -79.386665,"17:22:03", "mode.DRIVE"), 
-#          Point(43.652269, -79.387062,"17:22:04", "mode.DRIVE"),Point(43.653047, -79.387406,"17:22:05", "mode.DRIVE"),
-#          Point(43.653523, -79.385977,"17:22:06", "mode.DRIVE"),Point(43.653915, -79.385434,"17:22:07", "mode.DRIVE")]
-#          ,Point(43.655093, -79.385935,"17:22:08", "mode.STOP"), Point(43.655199, -79.385977,"17:22:09", "mode.DRIVE"), 
-#         Point(43.655244, -79.385862,"17:22:10", "mode.DRIVE"), Point(43.655388, -79.385236,"17:22:11", "mode.DRIVE")]
-# inputTwoTuples = []
-# for point in inputTwo:
-#     inputTwoTuples.append((point.lat,point.lon))
-# NetworkGraphTwo = NetworkGraph(inputTwo, "drive")
-# NG1 = NetworkGraph("C:/Users/sweet/anaconda3/envs/capstone/data/trace1.csv", "drive", False)
-# NG1 = NetworkGraph("./data/trace1.csv", "drive",False)
