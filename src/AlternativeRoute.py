@@ -41,7 +41,3 @@ class AlternativeRoute:
         except EmptyFilePathException:
             print("EmptyFilePathException: Input file path is empty. Please enter a file path to a trace.")
     
-
-# alternativeOne = AlternativeRoute(inputTwoStops)
-# MapRoute(alternativeOne.network, alternativeOne.path, "C:/Users/sweet/anaconda3/envs/capstone/data/Alterroute_test_graph.html")
-# alternativeOne = AlternativeRoute("C:/Users/sweet/anaconda3/envs/capstone/data/stops.csv")
