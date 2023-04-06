@@ -259,26 +259,3 @@ def MapEpisodePoints(GPSCoordsFile, savePath):
         print("InvalidMappingFilePathException: Input file path does not include the file name .html. Please include the name, for example: ./dir/dir/fileName.html")
 
 
-# # example for activity locations
-# stoppoints = [(-23.546498,-46.691141),(-23.558094,-46.660205),(-23.635039,-46.641239),
-#                 (-23.645996,-46.641027),(-23.625882,-46.640936),(-23.618245,-46.639139),
-#                 (-23.6130583,-46.637918),(-23.598541,-46.636634),(-23.589342,-46.634677),
-#                 (-23.567615,-46.649027),(-23.56357,-46.653893),(-23.581203,-46.638489),
-#                 (-23.5754,-46.6407),(-23.568521,-46.63990),(-23.561435,-46.638534)]
-# activitypoints = [(-23.546498,-46.691141),(-23.558094,-46.660205),(-23.635039,-46.641239)]
-# activitydescription = ["mall", "park", "school"]
-# MapActivityLocation(activitypoints,activitydescription,stoppoints,"C:/Users/sweet/anaconda3/envs/capstone/data/activity_test_graph.html")
-
-# #example for episode
-# stoppoints = [(-23.546498,-46.691141),(-23.558094,-46.660205),(-23.635039,-46.641239)]
-# timestamps = ["17:10:05", "17:10:05", "17:10:05"]
-# mode = ["drive", "stop", "stop"]
-# MapEpisodePoints(stoppoints, timestamps, mode, "C:/Users/sweet/anaconda3/envs/capstone/data/episodeagain_test_graph.html")
-
-
-# inputTwoStops = [Point(43.651605, -79.386759,"17:22:02", "mode.DRIVE"), 
-#             Point(43.655093, -79.385935,"17:22:08", "mode.STOP"), Point(43.655388, -79.385236,"17:22:11", "mode.DRIVE")]
-# activitypoints = [ActivityLocation("Lemon Bar", 43.651504, -79.386657, "Juice"), 
-#             ActivityLocation("Starbucks", 43.655191, -79.385935, "Coffe Shop"), 
-#             ActivityLocation("High Hills", 43.655388, -79.385222, "Park, Picnic")]
-# MapActivityLocation(activitypoints,inputTwoStops,"C:/Users/sweet/anaconda3/envs/capstone/data/activity_test_graph2.html")
