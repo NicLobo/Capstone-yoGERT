@@ -68,35 +68,3 @@ class ShortestRouteTrace:
             except nx.exception.NetworkXNoPath:
                 print("NetworkXNoPath: No Path Here:(")
         return listOfRoutes
-
-
-# inputTwo = [Point(43.651605, -79.386759,"17:22:02", "mode.DRIVE", 1), Point(43.651484, -79.386665,"17:22:03", "mode.DRIVE", 1), 
-#          Point(43.652269, -79.387062,"17:22:04", "mode.DRIVE", 1),Point(43.653047, -79.387406,"17:22:05", "mode.DRIVE", 1),
-#          Point(43.653523, -79.385977,"17:22:06", "mode.DRIVE, 1"),Point(43.653915, -79.385434,"17:22:07", "mode.DRIVE, 1"),
-#          Point(43.655093, -79.385935,"17:22:08", "mode.STOP, 2"), Point(43.655199, -79.385977,"17:22:09", "mode.DRIVE, 3"), 
-#          Point(43.655244, -79.385862,"17:22:10", "mode.DRIVE, 3"), Point(43.655388, -79.385236,"17:22:11", "mode.DRIVE, 3")]
-# inputTwoStops = [Point(43.651605, -79.386759,"17:22:02", None),Point(43.655093, -79.385935,"17:22:08", None), 
-#                   Point(43.655388, -79.385236,"17:22:11", None)]
-# NetworkGraphTwoTrace = NetworkGraph(inputTwoStops, "drive")
-# ShortestRouteTraceOne = ShortestRouteTrace(NetworkGraphTwoTrace, inputTwoStops, "time") # ShortestRouteTraceone = ShortestRouteTrace(NetworkGraphTwo, inputTwoTuples)
-# baseT = folium.Map(location=[inputTwoStops[0].lat, inputTwoStops[0].lon], zoom_start=10)
-# for point in inputTwoStops:
-#     tooltip = point.time
-#     if point.mode == "mode.DRIVE":
-#         color = "green"
-#         icon="car-side"
-#     elif point.mode == "mode.WALK":
-#         color = "blue"
-#         icon="person-walking"
-#     else:
-#         color = "red"
-#         icon="circle-stop"
-#     baseT.add_child(folium.Marker([point.lat,point.lon], 
-#                     tooltip=tooltip, icon=folium.Icon(color=color, icon=icon, prefix="fa")))
-
-# route_map2T = ox.plot_route_folium(NetworkGraphTwo.graph, ShortestRouteTraceOne.routes[0], route_map=baseT, color='#005eff', opacity=0.7)
-# for i in range(1,len(ShortestRouteTraceOne.routes)):
-#      route_map2T = ox.plot_route_folium(NetworkGraphTwo.graph, ShortestRouteTraceOne.routes[i], route_map=route_map2T, color='#005eff', opacity=0.7)
-# filepath = "C:/Users/sweet/anaconda3/envs/capstone/data/Ttraceroute_test_graph2withmarkers.html"
-# route_map2T.save(filepath)
-# IFrame(filepath, width=600, height=500)
