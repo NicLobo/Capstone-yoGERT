@@ -93,32 +93,3 @@ class ShortestRouteEpisode:
                 print("NetworkXNoPath: No Path Here:(")
         return listOfRoutes
 
-
-# inputTwo = [Point(43.651605, -79.386759,"17:22:02", "mode.DRIVE"), Point(43.651484, -79.386665,"17:22:03", "mode.DRIVE"), 
-#          Point(43.652269, -79.387062,"17:22:04", "mode.DRIVE"),Point(43.653047, -79.387406,"17:22:05", "mode.DRIVE"),
-#          Point(43.653523, -79.385977,"17:22:06", "mode.DRIVE"),Point(43.653915, -79.385434,"17:22:07", "mode.DRIVE"),
-#          Point(43.655093, -79.385935,"17:22:08", "mode.STOP"), Point(43.655199, -79.385977,"17:22:09", "mode.DRIVE"), 
-#          Point(43.655244, -79.385862,"17:22:10", "mode.DRIVE"), Point(43.655388, -79.385236,"17:22:11", "mode.DRIVE")]
-# NetworkGraphTwo = NetworkGraph(inputTwo, "drive")
-# ShortestRouteEpisodeOne = ShortestRouteEpisode(NetworkGraphTwo, inputTwo, "time", True, 50) # ShortestRouteEpisodeone = ShortestRouteEpisode(NetworkGraphTwo, inputTwoTuples)
-# base = folium.Map(location=[inputTwo[0].lat, inputTwo[0].lon], zoom_start=10)
-# for point in inputTwo:
-#     tooltip = point.time
-#     if point.mode == "mode.DRIVE":
-#         color = "green"
-#         icon="car-side"
-#     elif point.mode == "mode.WALK":
-#         color = "blue"
-#         icon="person-walking"
-#     else:
-#         color = "red"
-#         icon="circle-stop"
-#     base.add_child(folium.Marker([point.lat,point.lon], 
-#                     tooltip=tooltip, icon=folium.Icon(color=color, icon=icon, prefix="fa")))
-
-# route_map2 = ox.plot_route_folium(NetworkGraphTwo.graph, ShortestRouteEpisodeOne.routes[0], route_map=base, color='#005eff', opacity=0.7)
-# for i in range(1,len(ShortestRouteEpisodeOne.routes)):
-#      route_map2 = ox.plot_route_folium(NetworkGraphTwo.graph, ShortestRouteEpisodeOne.routes[i], route_map=route_map2, color='#005eff', opacity=0.7)
-# filepath = "C:/Users/sweet/anaconda3/envs/capstone/data/eproute_test_graph2withmarkers.html"
-# route_map2.save(filepath)
-# IFrame(filepath, width=600, height=500)
