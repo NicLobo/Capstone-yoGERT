@@ -1,4 +1,4 @@
-# Project Name
+# yoGERT
 
 Developer Names: Smita Singh, Abeer Alyasiri, Niyatha Rangarajan,
 Moksha Srinivasan, Nicholas Lobo, Longwei Ye
