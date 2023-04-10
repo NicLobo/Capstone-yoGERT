@@ -12,9 +12,10 @@ Longwei Ye
 
 Date of project start: 21st September, 2022
 
-# To use: pip install yogert 
+## To use: pip install yogert 
 
 
+## Folder structure
 
 The folders and files for this project are as follows:
 
@@ -26,7 +27,7 @@ src - Source code
 
 test - Test cases
 
-Checkout our project wiki for more info!
+## Checkout our project wiki for more info!
 
 ![MicrosoftTeams-image](https://user-images.githubusercontent.com/59780995/230816032-742e24ba-f757-47a7-a367-eeb4a20e8a44.png)
 
