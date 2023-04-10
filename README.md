@@ -1,12 +1,5 @@
 # yoGERT
 
-![MicrosoftTeams-image](https://user-images.githubusercontent.com/59780995/230815684-007ea657-ade0-4b87-8a81-b081a1517b5f.png)
-
-Check out our project video at: 
-![vidqr](https://user-images.githubusercontent.com/59780995/230815745-836384f7-0e3c-4771-8e21-e0f9a6b71914.png)
-
-
-
 Developer Names: Smita Singh, Abeer Alyasiri, Niyatha Rangarajan,
 Moksha Srinivasan, Nicholas Lobo, Longwei Ye
 
@@ -21,3 +14,9 @@ refs - Reference material used for the project, including papers
 src - Source code
 test - Test cases
 Checkout our project wiki for more info!
+
+![MicrosoftTeams-image](https://user-images.githubusercontent.com/59780995/230816032-742e24ba-f757-47a7-a367-eeb4a20e8a44.png)
+
+Checkout our project video at:
+![vidqr](https://user-images.githubusercontent.com/59780995/230816029-558f6400-c813-4206-b5c5-1b4eee2b9ebe.png)
+
