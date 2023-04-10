@@ -1,5 +1,8 @@
 ## Project name: yoGERT
 
+![MicrosoftTeams-image](https://user-images.githubusercontent.com/59780995/230817195-7d554f40-5cee-4bff-b651-677b526a2dee.png)
+
+
 This project is called yoGERT which is a open source version of modules implemented by ArcGIS Pro. Our solution came to be an open source library that implements the building blocks for geospatial analysis and map matching functionality. Our library is now available on pip. 
 
 ## Developer Names: 
@@ -31,9 +34,9 @@ sample - Sample data to query
 
 test - Test cases
 
-## Checkout our project wiki for more info!
+## Checkout our project!
 
-![MicrosoftTeams-image](https://user-images.githubusercontent.com/59780995/230816032-742e24ba-f757-47a7-a367-eeb4a20e8a44.png)
+Use the wiki for more info
 
 Checkout our project video at:
 
