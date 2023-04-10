@@ -27,6 +27,8 @@ refs - Reference material used for the project, including papers
 
 src - Source code
 
+sample - Sample data to query
+
 test - Test cases
 
 ## Checkout our project wiki for more info!
