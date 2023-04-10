@@ -21,7 +21,8 @@ The library is available on pip. It can be installed on command-line using the c
 ```
 pip install yoGERT 
 ```
-To learn more about the library functions please check out the User Guide wiki page. 
+To learn more about the library functions please refer to the [User Guide](https://github.com/NicLobo/Capstone-yoGERT/blob/main/docs/UserGuide/UserGuide.pdf) document. 
+_To better understand the typical system use case check out the [System End Behaviour](https://github.com/NicLobo/Capstone-yoGERT/wiki/System-End-Behaviour)_
 
 ## Repository Structure:
 
