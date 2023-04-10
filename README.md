@@ -12,7 +12,9 @@ Longwei Ye
 
 Date of project start: 21st September, 2022
 
-## To use: pip install yogert 
+## To use: 
+
+pip install yogert 
 
 
 ## Folder structure
