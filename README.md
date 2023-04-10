@@ -1,6 +1,6 @@
 ## Project name: yoGERT
 
-##Developer Names: 
+## Developer Names: 
 Smita Singh
 Abeer Alyasiri
 Niyatha Rangarajan
@@ -12,7 +12,7 @@ Date of project start: 21st September, 2022
 
 This project is called yoGERT which is a open source version of modules implemented by ArcGIS Pro. Our solution came to be an open source library that implements the building blocks for geospatial analysis and map matching functionality. Our library is now available on pip. 
 
-##To use: pip install yogert 
+## To use: pip install yogert 
 
 
 
