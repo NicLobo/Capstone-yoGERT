@@ -6,7 +6,7 @@
 
 yoGERT is a Python open source library of the reimplementation of the GIS-based Episode Reconstruction Toolkit (GERT) toolbox functionality. It is main purpose is to match GPS traces to a transportation network without the use of any proprietary software such as ArcPro. GPS traces are found in many different applications, including shared bicycle systems, ride hailing applications, and mobility data; matching GPS traces to transportation networks is an important step to analyze mobility data in the geospatial industry.  
 
-_To better understand the project's domain please refer to the Terminology wiki page._
+_To better understand the project's domain please refer to the [Common Terminology](https://github.com/NicLobo/Capstone-yoGERT/wiki/Common-Terminology) wiki page._
 
 ## yoGERT's Functionality:
 - Processing GPS data to clean and reformat data. 
