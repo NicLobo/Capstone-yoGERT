@@ -1,50 +1,42 @@
-## Project name: yoGERT
+## Project Name: yoGERT
 
-![MicrosoftTeams-image](https://user-images.githubusercontent.com/59780995/230817195-7d554f40-5cee-4bff-b651-677b526a2dee.png)
+![MicrosoftTeams-image](https://user-images.githubusercontent.com/59780995/230817195-7d554f40-5cee-4bff-b651-677b526a2dee.png)  
 
+## Introduction
 
-This project is called yoGERT which is a open source version of modules implemented by ArcGIS Pro. Our solution came to be an open source library that implements the building blocks for geospatial analysis and map matching functionality. Our library is now available on pip. 
+yoGERT is a Python open source library of the reimplementation of the GIS-based Episode Reconstruction Toolkit (GERT) toolbox functionality. It is main purpose is to match GPS traces to a transportation network without the use of any proprietary software such as ArcPro. GPS traces are found in many different applications, including shared bicycle systems, ride hailing applications, and mobility data; matching GPS traces to transportation networks is an important step to analyze mobility data in the geospatial industry.  
 
-## Developer Names: 
+_To better understand the project's domain please refer to the Terminology wiki page._
 
-Abeer Alyasiri
+## yoGERT's Functionality:
+- Processing GPS data to clean and reformat data. 
+- Episode generation (stop, walk, or drive mode detection) to faciliate movement behaviour analysis.
+- Activity location generation to identify amenities of interest at stop points. 
+- Route generation (with the entity's detected transportation mode or bus transportation mode) from GPS traces or extracted episodes. 
+- Visualization of outputs on interactive maps. 
 
-Niyatha Rangarajan
+## How To Use
 
-Moksha Srinivasan
+The library is available on pip. It can be installed on command-line using the command:  
+```
+pip install yoGERT 
+```
+To learn more about the library functions please check out the User Guide wiki page. 
 
-Nicholas Lobo
+## Repository Structure:
 
-Longwei Ye
+- [__doc__](https://github.com/NicLobo/Capstone-yoGERT/tree/main/docs): Technical documentation for the project  
+- [__src__](https://github.com/NicLobo/Capstone-yoGERT/tree/main/src): Implementation of the project
+- [__test__](https://github.com/NicLobo/Capstone-yoGERT/tree/main/test): Manual and automated testing for the project
+- [__setup__](https://github.com/NicLobo/Capstone-yoGERT/tree/main/setup): Enviornment dependency information
+- [__refs__](https://github.com/NicLobo/Capstone-yoGERT/tree/main/refs): Project supporting and referenced material
 
-Smita Singh
-
-Date of project start: 21st September, 2022
-
-## To use: 
-
-pip install yogert 
-
-
-## Folder structure
-
-The folders and files for this project are as follows:
-
-docs - Documentation for the project
-
-refs - Reference material used for the project, including papers
-
-src - Source code
-
-sample - Sample data to query
-
-test - Test cases
-
-## Checkout our project!
-
-Use the wiki for more info
-
-Checkout our project video at:
+## Project Video
 
 ![vidqr](https://user-images.githubusercontent.com/59780995/230816029-558f6400-c813-4206-b5c5-1b4eee2b9ebe.png)
+
+## Developers  
+Abeer Alyasiri, Longwei Ye, Moksha Srinivasan, Nicholas Lobo, Niyatha Rangarajan, Smita Singh
+
+__Starting Date of Project__: 21st September, 2022
 
