@@ -18,5 +18,6 @@ Checkout our project wiki for more info!
 ![MicrosoftTeams-image](https://user-images.githubusercontent.com/59780995/230816032-742e24ba-f757-47a7-a367-eeb4a20e8a44.png)
 
 Checkout our project video at:
+
 ![vidqr](https://user-images.githubusercontent.com/59780995/230816029-558f6400-c813-4206-b5c5-1b4eee2b9ebe.png)
 
