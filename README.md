@@ -34,7 +34,7 @@ _To better understand the typical system use case check out the [System End Beha
 
 ## Project Video
 
-![vidqr](https://user-images.githubusercontent.com/59780995/230816029-558f6400-c813-4206-b5c5-1b4eee2b9ebe.png)
+![adobe_express](https://user-images.githubusercontent.com/59780995/232636304-fce7eecf-5fe2-4eea-a610-9d5beec82a6b.png)
 
 ## Developers  
 Abeer Alyasiri, Longwei Ye, Moksha Srinivasan, Nicholas Lobo, Niyatha Rangarajan, Smita Singh
