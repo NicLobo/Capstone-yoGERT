@@ -1,0 +1,948 @@
+\documentclass[12pt, titlepage]{article}
+
+\usepackage{amsmath, mathtools}
+
+\usepackage[round]{natbib}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{colortbl}
+\usepackage{xr}
+\usepackage{hyperref}
+\usepackage{longtable}
+\usepackage{xfrac}
+\usepackage{tabularx}
+\usepackage{float}
+\usepackage{siunitx}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage[section]{placeins}
+\usepackage{caption}
+\usepackage{fullpage}
+\usepackage[normalem]{ulem}   
+\usepackage{xcolor}
+
+\hypersetup{
+bookmarks=true,     % show bookmarks bar?
+colorlinks=true,       % false: boxed links; true: colored links
+linkcolor=red,          % color of internal links (change box color with linkbordercolor)
+citecolor=blue,      % color of links to bibliography
+filecolor=magenta,  % color of file links
+urlcolor=cyan          % color of external links
+}
+
+\usepackage{array}
+
+\externaldocument{../../SRS/SRS}
+
+% \input{../../Comments}
+% \input{../../Common}
+
+\begin{document}
+
+\title{\textbf{yoGERT GIS Toolbox}\\ Capstone 4G06\\Module Interface Specification for \progname{yoGERT}}
+
+\author{Team 19,
+		\\ Smita Singh, Abeer Alyasiri, Niyatha Rangarajan,\\ Moksha Srinivasan, Nicholas Lobo, Longwei Ye \\\\
+}
+
+\date{\today}
+
+\maketitle
+
+\pagenumbering{roman}
+
+\section{Revision History}
+
+\begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
+\toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
+\midrule
+January 18, 2023 & 1.0 & \textbf{Smita}:Generating Activity Locations Module, Main Module, Data Transformation Module. \textbf{Abeer}:Network Graph, Shortest Route, Alternative Route, Route Generation, Mapping. \textbf{Moksha}: Preprocessing, Data Transformation. \textbf{Longwei} Module Decomposition, \textbf{Niyatha} Generating episodes \\
+February 5th, 2023 & 1.1 & \textbf{Smita}: Updating Modules, addressing issues #51 and #52 \textbf{Moksha}: Updating Preprocessing Modules, addressing issues #50 and #53 from Team 14's Review \\
+\bottomrule
+\end{tabularx}
+
+~\newpage
+
+\section{Symbols, Abbreviations and Acronyms}
+
+See \href{https://github.com/NicLobo/Capstone-yoGERT/blob/main/docs/SRS/SRS.pdf}{SRS} 
+
+\newpage
+
+\tableofcontents
+
+\newpage
+
+\pagenumbering{arabic}
+
+\section{Introduction}
+
+The following document details the Module Interface Specifications for
+\wss{the yoGERT toolbox}
+
+Complementary documents include the \href{https://github.com/NicLobo/Capstone-yoGERT/blob/main/docs/SRS/SRS.pdf}{System Requirement Specification}
+and \href{https://github.com/NicLobo/Capstone-yoGERT/blob/main/docs/Design/SoftArchitecture/MG.pdf}{Module Guide}. The full documentation and implementation can be
+found at \url{https://github.com/NicLobo/Capstone-yoGERT}.  %\wss{provide the url for your repo}
+
+\section{Notation}
+The structure of the MIS for modules comes from \citet{HoffmanAndStrooper1995},
+with the addition that template modules have been adapted from
+\cite{GhezziEtAl2003}.  The mathematical notation comes from Chapter 3 of
+\citet{HoffmanAndStrooper1995}.  For instance, the symbol := is used for a
+multiple assignment statement and conditional rules follow the form $(c_1
+\Rightarrow r_1 | c_2 \Rightarrow r_2 | ... | c_n \Rightarrow r_n )$.
+
+The following table summarizes the primitive data types used by \progname. 
+
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\noindent 
+\begin{tabular}{l l p{7.5cm}} 
+\toprule 
+\textbf{Data Type} & \textbf{Notation} & \textbf{Description}\\ 
+\midrule
+character & char & a single symbol or digit\\
+integer & $\mathbb{Z}$ & a number without a fractional component in (-$\infty$, $\infty$) \\
+natural number & $\mathbb{N}$ & a number without a fractional component in [1, $\infty$) \\
+real & $\mathbb{R}$ & any number in (-$\infty$, $\infty$)\\
+\bottomrule
+\end{tabular} 
+\end{center}
+
+\noindent
+The specification of \progname \ uses some derived data types: sequences, strings, and
+tuples. Sequences are lists filled with elements of the same data type. Strings
+are sequences of characters. Tuples contain a list of values, potentially of
+different types. In addition, \progname \ uses functions, which
+are defined by the data types of their inputs and outputs. Local functions are
+described by giving their type signature followed by their specification.
+
+\newpage
+\section{Module Decomposition}
+
+The following table is taken directly from the \href{}{Module Guide} document for this project.
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{p{0.3\textwidth} p{0.6\textwidth}}
+\toprule
+\textbf{Level 1} & \textbf{Level 2}\\
+\midrule
+
+{Hardware-Hiding} & ~ \\
+\midrule
+
+\multirow{7}{0.3\textwidth}{Behaviour-Hiding} & Generate Episode\\
+& Route Generation\\
+& Fetch Activity Locations\\
+& Mapping\\
+& Main\\ 
+\midrule
+
+\multirow{3}{0.3\textwidth}{Software Decision} & Preprocessing Inputs\\
+& Network Graph\\
+& Shortest Route\\
+& Alternative Route\\
+& Data Transformation\\
+
+\bottomrule
+
+\end{tabular}
+\caption{Module Hierarchy}
+\label{TblMH}
+\end{table}
+
+\newpage
+
+\section{MIS of \wss{Module Preprocessing}} \label{Module} 
+
+\subsection{Module}
+Preprocessing Inputs
+
+\subsection{Uses}
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\begin{tabular}{p{3cm} p{4cm} p{4cm} p{3cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+\wss{validateCSV} & CSV & $\mathbb{B}$, CSV & $\mbox{\textcolor{red}{InvalidInput}}$ $\mbox{\textcolor{red}{IOError}}$ \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+None.
+
+\subsubsection{Environment Variables}
+
+IOmanager : it is the access point between the local memory and the 
+application. It is used when saving files locally.
+
+\subsubsection{Assumptions}
+
+\begin{itemize}
+    \item Assume CSV file paths are valid when working within the same directory. 
+\end{itemize}
+
+\subsubsection{Access Routine Semantics}
+
+\noindent \wss{validateCSV}(csvfile):
+\begin{itemize}
+\item transition: \wss{None} 
+\item output: \wss{\textcolor{red}{(\forall columns : str | file \in validateCSV(csvfile) : validateCols(columns)) $\Rightarrow$ \emph{true}}}
+\item output: \wss{\textcolor{red}{$(\forall rows : tuple($\mathbb{R}, \mathbb{R}, str$) | file \in normalizeCSV(csvfile) : validateData(rows))) \Rightarrow \mbox{CSV})$}}
+
+\item exception: \wss{$(\neg(((\forall columns : str | file \in validateCSV(csvfile) : validateCols(columns)) $\Rightarrow$ \mbox{InvalidInput}$} 
+
+\item exception: \wss{\textcolor{red}{$(\neg(\forall rows : tuple($\mathbb{R}, \mathbb{R}, str$) | file \in normalizeCSV(csvfile) : validateData(rows))) \Rightarrow \mbox{IOError})$}} 
+\end{itemize}
+
+\subsubsection{Local Functions}
+
+\textcolor{red}{normalizeCSV : removes any invalid gps and time points from the original CSV data}
+\textcolor{red}{validateCols : Ensures that data has latitude, longitude, and time columns}
+
+\newpage
+
+\section{MIS of \wss{Module Network Graph}} \label{Module} 
+
+\subsection{Template Module}
+Network Graph
+
+\subsection{Uses}
+None.
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+DISTANCETOLERANCE = 200 - tolerance distance (m) added to the radius of the circle for the mapped area that encapsulates all the input GPS coordinates. \\
+EARTHRADIUS = 6371000 - earth's radius (m).
+
+\subsubsection{Exported Type}
+NetworkGraph = ?
+
+\subsubsection{Exported Access Programs}
+
+\begin{tabular}{p{3cm} p{4cm} p{4cm} p{4cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+\wss{new NetworkGraph} & tuple of (latitude: $\mathbb{R}$, longitude: $\mathbb{R}$), tuple of (latitude: $\mathbb{R}$, longitude: $\mathbb{R}$), seq of tuple of (latitude: $\mathbb{R}$, longitude: $\mathbb{R}$), seq of \{drive, walk, bike\} & NetworkGraph & \mbox{InvalidMode} \\
+\hline
+\wss{getNearestNode} & tuple of (latitude: $\mathbb{R}$, longitude: $\mathbb{R}$) & $\mathbb{N}$ & \mbox{OutOfBoundsCoord} \\
+\hline
+\end{tabular}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+\emph{dist} : $\mathbb{R}$ - distance in m for the radius of the network graph using GPS coordinates. \\
+\emph{stcoord} : tuple of (latitude: $\mathbb{R}$, longitude: $\mathbb{R}$) - starting GPS coordinates inputted by the user. \\
+\emph{nodes} : seq of $\mathbb{N}$ - network graph node. \\
+\emph{edges} : seq of tuple of ($\mathbb{N}$, $\mathbb{N}$, $\mathbb{R}$) - network graph edge defined by 2 nodes and weight extracted from.\\
+
+
+\subsubsection{Environment Variables}
+
+onlinenetworkdatabase : connection to online database to retrieve information layers of intersections, roads, and paths initialised within module to build the network graph.  
+
+\subsubsection{Assumptions}
+\begin{itemize}
+    \item Assume the inputted GPS coordinates are valid as they are the output of another module.
+    \item Assume the online network database is always accessible within 10 minutes.
+\end{itemize}
+
+\subsubsection{Access Routine Semantics}
+
+\noindent \wss{new NetworkGraph}(\emph{startcoord, endcoord, stopcoords, networkmode}):
+\begin{itemize}
+\item transition: \wss{The \emph{dist} is set by $finddistance(startcoord, endcoord, stopcoords)$ which is the largest distance between $startcoord$ and any other coordinate given in the input. \emph{stcoord} is set to \emph{startcoord} and sets the rest of the state variables using extracted data from \emph{onlinenetworkdatabase} upon creation of the object \emph{NetworkGraph}.} 
+\item output: \wss{Creates a \emph{NetworkGraph} object with the parameters \emph{startcoord, endcoord, stopcoords, networkmode} and extracted data from \emph{onlinenetworkdatabase}} 
+\item exception: \wss{$(\neg(networkmode \in \{drive, walk, bike\}) \Rightarrow \mbox{InvalidMode}))$} 
+\end{itemize}
+
+\noindent \wss{getNearestNode}(\emph{coord}):
+\begin{itemize}
+\item transition: \wss{None} 
+\item output: \textcolor{red}{\wss{nodes[i] where $i \in [0..|stopcoords|-1] $} }
+\item exception: \wss{$(\neg(findhdistance(coord,stcoord) \leq \mbox{dist}) \Rightarrow \mbox{OutOfBoundsCoord}))$}
+\end{itemize}
+
+
+
+
+%end of shortest
+\subsubsection{Local Functions}
+
+finddistance : tuple of (latitude: $\mathbb{R}$, longitude: $\mathbb{R}$) $\times$ tuple of (latitude: $\mathbb{R}$, longitude: $\mathbb{R}$) $\times$ seq of tuple of (latitude: $\mathbb{R}$, longitude: $\mathbb{R}$) $\rightarrow \mathbb{R}$
+\begin{itemize}
+    \item Description: Computes largest distance using \emph{findhdistance} between starting coordinate and another coordinate, either a destination coordinate or a stop coordinate.
+\end{itemize}
+findhdistance : tuple of (latitude: $\mathbb{R}$, longitude: $\mathbb{R}$) $\times$ tuple of (latitude: $\mathbb{R}$, longitude: $\mathbb{R}$) $\rightarrow \mathbb{R}$
+\begin{itemize}
+    \item Description: finds the distance between two GPS coordinates using Haversine formula. 
+\end{itemize}
+
+
+\newpage
+
+
+
+\section{MIS of \wss{Generate Episodes}} \label{Module} 
+
+\subsection{Template Module}
+Generate Episodes
+
+\subsection{Uses}
+None.
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+N/A
+
+\subsubsection{Exported Type}
+Activityepisode = ?
+
+\subsubsection{Exported Access Programs}
+
+\begin{tabular}{p{2cm} p{3cm} p{4cm} p{4cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+\wss{new Activityepisode} & A full path to a .csv file containing GPS points (Start: Lat, Long, Time, Stop: Lat, Long, Time) & A full path to a .csv file containing preprocessed GPS data & invalidCSV \\ 
+\hline
+
+\end{tabular}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+\emph{points} : columns of csv containing ($\mathbb{R}$, $\mathbb{R}$, ${datetime}$) - latitude, longitude and timestamp for a point.\\
+\emph{finalpoints} : columns of csv containing ($\mathbb{R}$, $\mathbb{R}$, ${datetime}$) - latitude, longitude and timestamp for a point after data has been run with generateEpisodes(csvPath).\\
+\emph{mode} : enum of ($\mathbb{N}$, $\mathbb{N}$, $\mathbb{N}$) - modes for episodes, STOP = 0, WALK = 1, DRIVE = 10\\
+s
+\subsubsection{Environment Variables}
+N/A
+\subsubsection{Assumptions}
+\begin{itemize}
+    \item Assume the values for latitude, longitude and time in the given file are valid.
+\end{itemize}
+
+\subsubsection{Access Routine Semantics}
+
+\noindent \wss{new Activityepisode}(\emph{csvPath}):
+\begin{itemize}
+\item transition: A full path to a .csv file containing GPS points (Start: Lat, Long, Time, Stop: Lat, Long, Time) to a full path to a .csv file containing preprocessed GPS data.
+\item output: \wss{finalpoints[i] where $i \in [0..|len(points)|-1]$
+\item exception: \wss{$(\neg(csvPath) \Rightarrow \mbox{InvalidFile}))$}
+\end{itemize}
+
+
+\noindent \wss{createSegments}(\emph{csvPath, title}):
+\begin{itemize}
+\item transition: \wss{The given csv file is parsed and trimmed based using the average stepsize of the given data points.} 
+\item output: \wss{points[i] where $i \in [0..|len(points)|-1]$ $ \wedge $$ i = i + (points[-1]-points[0])/len(points)$} 
+\item exception: \wss{$(\neg(csvPath) \Rightarrow \mbox{InvalidFile}))$} 
+\end{itemize}
+
+
+\noindent \wss{createVelocities}(\emph{csvPath}):
+\begin{itemize}
+\item transition: \wss{The given csv file is used to create another csv file with the added column velocity} 
+\item output: \wss{points.append(velocity[i] where $(sqrt((i.lat -(i+1).lat)^2+(i.long -(i+1).long)^2)/(i.time - (i+1).time)$} 
+\item exception: \wss{$(\neg(csvPath) \Rightarrow \mbox{InvalidFile}))$} 
+\end{itemize}
+
+
+\noindent \wss{generateEpisodes}(\emph{csvPath}):
+\begin{itemize}
+\item transition: \wss{Generate activity episodes for each mode change in \emph{points} in the csv file.} 
+\item output: \wss{endMode[i] where $(( velocity[i] \>= mode.WALK.value and velocity[i] \< mode.DRIVE.value) \wedge endMode = mode.WALK) \vee (endVel \>= mode.DRIVE.value \wedge endMode = mode.DRIVE)\vee endMode = mode.STOP$
+} 
+\item exception: \wss{$(\neg(csvPath) \Rightarrow \mbox{InvalidFile}))$} 
+\end{itemize}
+
+\newpage
+
+
+\section{MIS of \wss{Data Transformation Module}} \label{Module} 
+
+\subsection{Module}
+
+Data Transformation Module
+
+\subsection{Uses}
+None
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\begin{tabular}{p{4cm} p{4cm} p{4cm} p{4cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+\wss{GenInput} & A full path to a .csv containing travel episodes with mode detected & seq of tuple of (latitude: $\mathbb{R}$, longitude: $\mathbb{R}$) & invalidCSV \\
+\hline
+
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+\subsubsection{State Variables}
+None
+\subsubsection{Environment Variables}
+None
+\subsubsection{Assumptions}
+We assume that the input files are generated from the GenerateEpisodes module.
+
+\subsubsection{Access Routine Semantics}
+
+
+\noindent \wss{GenInput}(travelEpisodes):
+\begin{itemize}
+\item transition: N/A
+\item output: collection of tuple of (latitude: $\mathbb{R}$, longitude: $\mathbb{R}$) provided by genHelper
+\item exception: \wss{invalidCSV} 
+\end{itemize}
+
+
+\subsubsection{Local Functions}
+
+
+genHelper : Path of CSV file(String)
+\begin{itemize}
+    \item Description : Parses file path and reads CSV file content and converts content and returns seq of tuple of $(\mathbb{R}, \mathbb{R})  \rightarrow tuple of (\mathbb{R}, \mathbb{R})$
+\end{itemize}
+
+
+  
+\newpage
+
+\section{MIS of \wss{Module Shortest Route}} \label{ModuleSPath} 
+
+\subsection{Template Module}
+Shortest Route
+
+\subsection{Uses}%what modules it uses 
+Network Graph
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+None.
+
+\subsubsection{Exported Type}
+ShortestRoute = ?
+
+\subsubsection{Exported Access Programs}
+
+\begin{tabular}{p{3cm} p{5cm} p{4cm} p{4cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+\wss{new ShortestRoute} & NetworkGraph, tuple of (latitude: $\mathbb{R}$, longitude: $\mathbb{R}$), tuple of (latitude: $\mathbb{R}$, longitude: $\mathbb{R}$), seq of \{time, distance\} & ShortestRoute & $\mbox{InvalidWeight}$, $\mbox{OutOfBoundsCoord}$ \\
+\hline
+\end{tabular}
+
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+\emph{startnode} : $\mathbb{N}$ - graph node nearest the starting GPS coordinate.\\
+\emph{endnode} : $\mathbb{N}$ - graph node nearest the destination GPS coordinate.
+
+\subsubsection{Environment Variables}
+
+None.
+
+\subsubsection{Assumptions}
+
+\begin{itemize}
+    \item Assume the inputted GPS coordinates are valid as they are the output of another module.
+\end{itemize}
+
+\subsubsection{Access Routine Semantics}
+
+\noindent \wss{new ShortestRoute}(\emph{graph, startcoord, endcoord, weighttype}):
+\begin{itemize}
+\item transition: \wss{Set state variables  $startnode, endnode := findnode(graph, startcoord)$, $findnode(graph, endcoord) $} 
+\item output: \wss{Creates \emph{ShortestRoute} using \emph{DijkstraAlg(graph, weighttype, startnode, endnode)}} 
+\item exception: \wss{$(\neg(weighttype \in \{time, distance\}) \Rightarrow \mbox{InvalidWeight}) \vee (\neg(startnode \in seq of graph.nodes) \Rightarrow \mbox{OutOfBoundsCoord}) \vee (\neg(endnode \in seq of graph.nodes) \Rightarrow \mbox{OutOfBoundsCoord})$} 
+\end{itemize}
+
+\subsubsection{Local Functions}
+
+findnode : \emph{NetworkGraph} $\times$ tuple of $(\mathbb{R}, \mathbb{R})  \rightarrow \mathbb{N}$
+\begin{itemize}
+    \item Description : \emph{NetworkGraph.getNearestNode}(GPS coordinate) using the \emph{NetworkGraph} access routine the function returns node number.
+\end{itemize}
+DijkstraAlg : \emph{NetworkGraph} $\times$ String $\times$ $\mathbb{N} \times \mathbb{N}  \rightarrow seq of \mathbb{N}$
+\begin{itemize}
+    \item Description : using Dijkstra’s Shortest Path Algorithm given graph with weighted edges, source node, and destination node find shortest path as a seq of nodes.
+\end{itemize}
+%done shortest route 
+\newpage
+
+\section{MIS of \wss{Module Alternative Route}} \label{ModuleSPath} 
+
+\subsection{Template Module}
+Alternative Route
+
+\subsection{Uses}%what modules it uses 
+Network Graph
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+None.
+
+\subsubsection{Exported Type}
+AlternativeRoute = ?
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\begin{tabular}{p{2cm} p{4cm} p{4cm} p{2cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+\wss{new AlternativeRoute} & NetworkGraph, tuple of (latitude: $\mathbb{R}$, longitude: $\mathbb{R}$), tuple of (latitude: $\mathbb{R}$, longitude: $\mathbb{R}$) & AlternativeRoute & $\mbox{OutOfBoundsCoord}$ \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+\emph{startnode} : $\mathbb{N}$ - graph node nearest the starting GPS coordinate.\\
+\emph{endnode} : $\mathbb{N}$ - graph node nearest the destination GPS coordinate.
+
+\subsubsection{Environment Variables}
+
+onlinetransitdatabase : connection to online database to retrieve information layers of bus stops initialised within module to deactivate inaccessible edges on the network graph.
+
+\subsubsection{Assumptions}
+
+\begin{itemize}
+    \item Assume the inputted GPS coordinates are valid as they are the output of another module.
+\end{itemize}
+
+\subsubsection{Access Routine Semantics}
+
+\noindent \wss{new AlternativeRoute}(graph, startcoord, endcoord):
+\begin{itemize}
+\item transition: \wss{Set $startnode, endnode, graph := findnode(graph, startcoord)$, $findnode(graph, endcoord) $, \emph{deactivateedges(graph)} at the beginning.} 
+\item output: \wss{Creates \emph{AlternativeRoute} using \emp{pathfinder(graph, startcoord, endcoord)}.} 
+\item exception: \wss{$(\neg(startnode \in seq of graph.nodes) \Rightarrow \mbox{OutOfBoundsCoord}) \vee (\neg(endnode \in seq of graph.nodes) \Rightarrow \mbox{OutOfBoundsCoord})$} 
+\end{itemize}
+
+\subsubsection{Local Functions}
+
+findnode : \emph{NetworkGraph} $\times$ tuple of $(\mathbb{R}, \mathbb{R})  \rightarrow \mathbb{N}$
+\begin{itemize}
+    \item Description : \emph{NetworkGraph.getNearestNode}(GPS coordinate) using the \emph{NetworkGraph} access routine the function returns node number.
+\end{itemize}
+pathfinder : \emph{NetworkGraph} $\times$ String $\times$ $\mathbb{N} \times \mathbb{N}  \rightarrow seq of \mathbb{N}$\\
+deactivateedges : \emph{NetworkGraph} $\times$ \emph{onlinetransitdatabase} $ \rightarrow NetworkGraph$
+\begin{itemize}
+    \item Description : deactivate edges inaccessible by bus according to the exported information.
+\end{itemize}
+%done with alternative path
+\newpage
+
+\section{MIS of \wss{Module Route}} \label{ModuleSPath} 
+
+\subsection{Module} 
+Route Generation
+
+\subsection{Uses}%what modules it uses 
+Shortest Route, Alternative Route, Data Transformation
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+None.
+
+\subsubsection{Exported Type}
+None.
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\begin{tabular}{p{4cm} p{4cm} p{4cm} p{4cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+\wss{GenerateGraph} & seq of tuple of (latitude: $\mathbb{R}$, longitude: $\mathbb{R}$), String: \in \{drive,walk,bike\} & seq of $\mathbb{N}$ & - \\
+\hline
+\wss{GenerateShortest- Routes} & seq of tuple of (latitude: $\mathbb{R}$, longitude: $\mathbb{R}$), $\mathbb{B}$, String: \in \{time, distance\} & seq of $\mathbb{N}$ & - \\
+\hline
+\wss{GenerateAlternative- Routes} & seq of tuple of (latitude: $\mathbb{R}$, longitude: $\mathbb{R}$), $\mathbb{B}$ & seq of $\mathbb{N}$ & - \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+\emph{routes} : seq of seq of $\mathbb{N}$ - list of route segments consisting of traces of nodes. The list represent a connected path for a full episode. \\
+\emph{graph} : \emph{NetworkGraph} - Created for the given GPS input
+
+\subsubsection{Environment Variables}
+
+None
+
+\subsubsection{Assumptions}
+
+\begin{itemize}
+    \item Assume the inputted GPS coordinates are valid as they are the output of another module.
+\end{itemize}
+
+\subsubsection{Access Routine Semantics}
+
+\noindent \wss{GenerateGraph}(gpscoords, mode):
+\begin{itemize}
+\item transition: \wss{Set $graph :=$ \emph{NetworkGraph.new NetworkGraph(getstart(gpscoords), getend(gpscoords), getstops(gpscoords), mode)}}
+\item output: \wss{None} 
+\item exception: \wss{None} 
+\end{itemize}
+
+\noindent \wss{GenerateShortestRoute}(gpscoords, hasstops, weighttype):
+\begin{itemize}
+\item transition: \wss{Update routes with (hasstops $\Rightarrow$ ($\forall$ connection : tuple | connection $\in$ getconnections(gpscoords) : routes || ShortestRoute.new ShortestRoute(graph, connection[0], connection[1], weighttype)))  | ($\neg$ hasstops $\Rightarrow$ routes || ShortestRoute.new ShortestRoute(graph, getstart(gpscoords), getstops(gpscoords), weighttype))} 
+\item output: \wss{None} 
+\item exception: \wss{None} 
+\end{itemize}
+
+\noindent \wss{GenerateAlternativeRoute}(gpscoords, hasstops):
+\begin{itemize}
+\item transition: \wss{Update routes with (hasstops $\Rightarrow$ ($\forall$ connection : tuple | connection $\in$ getconnections(gpscoords) : routes || AlternativeRoute.new AlternativeRoute(graph, connection[0], connection[1] )))  | ($\neg$ hasstops $\Rightarrow$ routes || AlternativeRoute.new AlternativeRoute(graph, getstart(gpscoords), getstops(gpscoords) ))} 
+\item output: \wss{None} 
+\item exception: \wss{None} 
+\end{itemize}
+
+\subsubsection{Local Functions}
+
+getstart : seq of tuple of $(\mathbb{R}, \mathbb{R})  \rightarrow tuple of (\mathbb{R}, \mathbb{R})$
+\begin{itemize}
+    \item Description : returns first coordinate.
+\end{itemize}
+getend : seq of tuple of $(\mathbb{R}, \mathbb{R})  \rightarrow$ tuple of $(\mathbb{R}, \mathbb{R})$
+\begin{itemize}
+    \item Description : returns last coordinate
+\end{itemize}
+getstops : seq of tuple of $(\mathbb{R}, \mathbb{R})  \rightarrow$ seq of tuple of $(\mathbb{R}, \mathbb{R})$
+\begin{itemize}
+    \item Description : returns list of stop coordinates.
+\end{itemize}
+getconnections : seq of tuple of $(\mathbb{R}, \mathbb{R})  \rightarrow$ seq of tuple of (tuple of $(\mathbb{R}, \mathbb{R}),$ tuple of $(\mathbb{R}, \mathbb{R})$)
+\begin{itemize}
+    \item Description : returns list connections of GPS pairs.
+\end{itemize}
+%done route generation
+\newpage
+
+\color{red}
+\section{MIS of \wss{Activity Location}} \label{Module} 
+
+\subsection{Template Module}
+Activity Location
+
+\subsection{Uses}
+None.
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+None
+
+\subsubsection{Exported Type}
+ActivityLocation = ?
+
+\subsubsection{Exported Access Programs}
+
+\begin{tabular}{p{2cm} p{3cm} p{4cm} p{4cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+\wss{new ActivityLocation} & name: String, lat: Latitude ($\mathbb{R}$), lon: Longitude ($\mathbb{R}$) &  Activity Location} \\
+\hline
+
+\end{tabular}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+\emph{name} : String of Activity Location name\\
+\emph{lat} : latitude of Activity Location ($\mathbb{R}$)\\
+\emph{lon} : longitude of Activity Location ($\mathbb{R}$)
+
+\subsubsection{Environment Variables}
+None.
+\subsubsection{Assumptions}
+\begin{itemize}
+    \item Assume the values for latitude, longitude and name provided are valid
+\end{itemize}
+
+\subsubsection{Access Routine Semantics}
+None
+\color{black}
+
+\newpage
+\color{red}
+\section{MIS of \wss{Stop Point}} \label{Module} 
+
+\subsection{Template Module}
+Stop Point
+
+\subsection{Uses}
+None.
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+None
+
+\subsubsection{Exported Type}
+StopPoint = ?
+
+\subsubsection{Exported Access Programs}
+
+\begin{tabular}{p{2cm} p{3cm} p{4cm} p{4cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+\wss{new StopPoint} & lat: Latitude ($\mathbb{R}$), lon: Longitude ($\mathbb{R}$) &  StopPoint} \\
+\hline
+
+\end{tabular}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+\emph{lat} : latitude of Stop Point ($\mathbb{R}$)\\
+\emph{lon} : longitude of Stop Point ($\mathbb{R}$)\\
+
+\subsubsection{Environment Variables}
+None.
+\subsubsection{Assumptions}
+\begin{itemize}
+    \item Assume the values for latitude, longitude  provided are valid
+\end{itemize}
+
+\subsubsection{Access Routine Semantics}
+None
+\color{black}
+\newpage
+
+\section{MIS of \wss{Generating Activity Locations}} \label{ModuleSPath} 
+%\wss{Use labels for cross-referencing}
+
+\subsection{Module}
+Fetch Activity Locations
+\subsection{Uses}%what modules it uses 
+\textcolor{red}{\sout{Uses no other modules}}
+\textcolor{red}{Activity Location, Stop Point}
+
+%make overpy an environemental variable and just name it as online database
+%don't use overpy
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+None.
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\begin{tabular}{p{3cm} p{4cm} p{4cm} p{4cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+\wss{fetchStopAL} & \textcolor{red}{collection of Stop Points}  & \textcolor{red}{collection of tuples (Stop Point, Activity Location)} & EmptyListException \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+\wss{Not applicable}
+
+\subsubsection{Environment Variables}
+
+\wss{onlinenetworkdatabase: connection to online database to retrieve information layers of
+intersections, roads, and paths, and activity locations.}
+\subsubsection{Assumptions}
+
+\begin{itemize}
+\item Collection of stop locations longitudes and latitudes that are correct and valid
+\item Tolerance of 25 meter radius is appropriate for finding activity locations
+\item Onlineworkdatabase is accurate and accessible within 10 minutes
+\end{itemize}
+\subsubsection{Access Routine Semantics}
+
+\noindent \wss{fetchStopAL(listOfStops)}():
+\begin{itemize}
+\item transition: Not applicable
+% \wss{For all stops in list\_of\_stops, calls local auxiliary function fetchActivityLocation() by sending in latitude and longitude parameters to find list of activity locations per stop}
+\item output: \textcolor{red}{collection of tuples (Stop Point, Activity Location)}
+\item exception: \wss{$listOfStops = \{\} \Rightarrow \mbox{EmptyListException}$} 
+\end{itemize}
+
+\subsubsection{Local Functions}
+fetchActivityLocations : tuple of (latitude: $\mathbb{R}$, longitude: $\mathbb{R}$)
+\begin{itemize}
+    \item Description: Computes activity location given the latitude and longitude of a specific stop location by fetching activity locations in a 25 meter radius from onlineworkdatabase and \textcolor{red}{\sout{returns list of activity location names and latitudes and longitudes} returns list of ActivityLocation objects} 
+\end{itemize}
+  
+\newpage
+
+\section{MIS of \wss{Module Mapping}} \label{ModuleMapping} 
+
+\subsection{Template Module}
+Mapping
+
+\subsection{Uses}%what modules it uses 
+Network Graph, Shortest Route, Alternative Route
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+None.
+
+\subsubsection{Exported Type}
+Display = ?
+
+\subsubsection{Exported Access Programs}
+
+\begin{tabular}{p{3cm} p{4cm} p{4cm} p{3cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+\wss{new Mapping} & \emph{NetworkGraph}, seq of \emph{ShortestRoute}, seq of \emph{AlternativeRoute}, seq of $\mathbb{N}$, seq of $\mathbb{N}$ & HTML FILE & - \\
+\hline
+\wss{updateMapping} & seq of \emph{ShortestRoute}, seq of \emph{AlternativeRoute}, seq of $\mathbb{N}$, seq of $\mathbb{N}$ & HTML FILE & - \\
+\hline
+\end{tabular}
+
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+\emph{map} : HTML FILE - displays mapped routes and points. 
+
+\subsubsection{Environment Variables}
+
+IOmanager : it is the access point between the local memory and the application. It is used when saving and updating HTML files locally. 
+
+\subsubsection{Assumptions}
+
+\begin{itemize}
+    \item Assume all the inputs are valid as they are outputs of previous modules. 
+\end{itemize}
+
+\subsubsection{Access Routine Semantics}
+
+\noindent \wss{new Mapping}(graph, shortest, alternative, activitylocations, episodes):
+\begin{itemize}
+\item transition: \wss{None.} 
+\item output: \wss{Create a \emph{Mapping} object and saves it locally with \emph{IOmanager}} 
+\item exception: \wss{None} 
+\end{itemize}
+
+\noindent \wss{updateMapping}(shortest, alternative, activitylocations, episodes):
+\begin{itemize}
+\item transition: \wss{Add new elements to \emph{Mapping} object and saves it locally with \emph{IOmanager}} 
+\item output: \wss{None.} 
+\item exception: \wss{None} 
+\end{itemize}
+
+\subsubsection{Local Functions}
+
+getNode : seq of tuples of $(\mathbb{R}, \mathbb{R}) \Rightarrow $ seq of $\mathbb{N}$
+\begin{itemize}
+    \item Description: converts GPS coordinates to graph nodes. 
+\end{itemize}
+
+%done moving module
+\newpage
+
+\section{MIS of \wss{Main Module}} \label{Module}
+
+\subsection{Module}
+
+\wss{Main}
+
+\subsection{Uses}
+Input Processing Module, Episode Generation and Mode Detection Module, Activity Location Module, Route Generation Module, Data Transformation Module
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+N/A
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\begin{tabular}{p{4cm} p{4cm} p{4cm} p{4cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+\wss{inputProcessing} & $\mathbb{N}$, seq of String & .SHP files & InvalidCoord \\
+\hline
+\wss{episodeGeneration- ModeDetection} & CSV file & CSV file & InvalidFile \\
+\hline
+\wss{findActivityLocations} & CSV file & CSV file & EmptyListException \\
+\hline
+\wss{generateGraph} & CSV file, String $\mathbb{B}$ & $\mathbb{B}$ & \mbox{InvalidMode}, \mbox{OutOfBoundsCoord}\\
+\hline
+\wss{generateShortestPath} & CSV file, String $\mathbb{B}$ & seq of $\mathbb{N}$ & $\mbox{InvalidWeight}$, $\mbox{OutOfBoundsCoord}$\\
+\hline
+\wss{generateAlternative- Path} & CSV file $\mathbb{B}$ & seq of $\mathbb{N}$ & $\mbox{OutOfBoundsCoord}$ \\
+\hline
+\wss{mapEpisodes} & NetworkGraph, CSV file & HTML file & - \\
+\hline
+\wss{mapActivityLocations} & NetworkGraph, CSV file & HTML file & - \\
+\hline
+\wss{mapSRoute} & NetworkGraph, CSV file & HTML file & - \\
+\hline
+\wss{mapARoute} & NetworkGraph, CSV file & HTML file & - \\
+\hline
+
+\end{tabular}
+\end{center}
+
+\newpage
+
+
+\bibliographystyle {plainnat}
+\bibliography{MIS.bib}
+
+\newpage
+
+\section{Appendix} \label{Appendix}
+
+\wss{Extra information if required}
+
+\end{document}

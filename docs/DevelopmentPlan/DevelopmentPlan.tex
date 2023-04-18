@@ -4,6 +4,10 @@
 \usepackage{tabularx}
 \usepackage{graphicx}
 \usepackage{float}
+
+\usepackage{xcolor}
+\usepackage{ulem}
+
 \title{Development Plan\\\prognam}
 
 \author{Smita Singh, Abeer Alyasiri, Niyatha Rangarajan,\\ Moksha Srinivasan, Nicholas Lobo, Longwei Ye}
@@ -27,6 +31,7 @@ Sept. 21, 2022 & Abeer & Introduction, Team Members Roles, Proof of Concept Demo
 Sept. 21, 2022 & Smita & Worked on Team Meeting Plan, Team Communication Plan, Workflow Plan, Technology, Coding Standard\\\\
 Sept. 25, 2022 & Niyatha & Basic edits for grammatical issues. Suggested better 
  development tools and risk mitigation.\\\\
+\textcolor{blue}{Nov. 23, 2022} & \textcolor{blue}{Abeer} & \textcolor{blue}{update POC plan} \\\\
 %... & ... & ...\\
 \bottomrule
 \end{tabularx}
@@ -98,7 +103,7 @@ No, since the project will have all the files available on the git repository as
 Not applicable for the project because no hardware is involved. 
 
 \subsection{Proof of Concept Plan}
-The proof of concept demonstration will be providing a summary of the design architecture of the project and showing the fundamental modules in the form of a use case scenario. The scenarios must provide successful system functionalities to ensure proper design decisions, mitigation method for design risks, and technical feasibility to complete the project scope. The demonstration will showcase all the functional features of the system and re-implementation on a rudimentary level to prove that the system is suitable for scaling and follows a modular design principle. Also, demonstrating 80-90\% of the project's main goals will establish that the team is successful at completing the project end to the end.
+The proof of concept demonstration will be providing \sout{a summary of the design architecture of the project and showing the fundamental modules in the form of a} use case scenario \textcolor{blue}{run through of the input type, input processing, and expected output format}. The scenario\sout{s} must provide successful system functionalities to ensure proper design decisions, mitigation method for design risks, and technical feasibility to complete the project scope. The demonstration will showcase \sout{all} the \textcolor{blue}{rudimentary} functional features of the system \textcolor{blue}{required} for re-implementation \textcolor{blue}{of the toolbox} \sout{on a rudimentary level} to prove that the system is suitable for scaling \sout{and follows a modular design principle}. \sout{Also, demonstrating 80-90\%} \textcolor{blue}{The demonstration will cover 30-40\%} of the project's main goals. \textcolor{blue}{It} will establish that the team is \sout{successful} \textcolor{blue}{on track to implement the open source toolbox functionality by end of April.} \sout{at completing the project end to the end.}
 
 %What will you demonstrate during your proof of concept demonstration to convince yourself that you will be able to overcome this risk?
 
@@ -112,7 +117,7 @@ The proof of concept demonstration will be providing a summary of the design arc
 \section{Technology}%S
 
 \subsection{Programming Language}
-The team will be using Python3 as the main programming language. Python is a great language for handling large data sets and for computing and performing statistical analysis. The team may also use some R for certain features if/when necessary.
+The team will be using Python3 as the main programming language. Python is a great language for handling large data sets and for computing and performing statistical analysis. \sout{The team may also use some R for certain features if/when necessary.}
 
 \subsection{Development Tools}
  The team will also be using VSCode along with RStudio as an IDE. The linting tool that will be used is pylint in order to keep our code consistent and clean. The team will be likely using the R5py python library for routing different types of transportation networks. As well as GeoPandas which makes geo-spatial data easier to work with in Python. The data will be stored and fetched from MongoDB. GitHub is where the repository will be stored and issues will be created and tracked.

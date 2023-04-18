@@ -1,113 +1,1183 @@
-\documentclass{article}
+\documentclass[12pt, titlepage]{article}
 
-\usepackage{tabularx}
 \usepackage{booktabs}
-\usepackage{array,multirow}
+\usepackage{tabularx}
+\usepackage{hyperref}
+\usepackage{float}
 \usepackage{graphicx}
-\title{Problem Statement and Goals\\\progname}
+\usepackage[numbers]{natbib}
 
-\author{Smita Singh, Abeer Alyasiri, Niyatha Rangarajan,\\ Moksha Srinivasan, Nicholas Lobo, Longwei Ye}
+\usepackage{xcolor}
+\usepackage{ulem}
+\usepackage{cancel}
+\usepackage{pdflscape}
 
-\date{}
+\newcounter{ucnum} %use case number
+\newcounter{reqnum} %FRequirement Number
+\newcounter{freqnum} %NFRequirement Number
 
-%\input{../Comments}
-%\input{../Common}
-\date{September 25, 2022}
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=red,
+    urlcolor=blue
+}
+
+\title{\textbf{yoGERT GIS Toolbox}\\ Capstone 4G06\\ Software Requirements Specification}
+
+\author{Team 19,
+		\\ Smita Singh, Abeer Alyasiri, Niyatha Rangarajan,\\ Moksha Srinivasan, Nicholas Lobo, Longwei Ye \\\\
+		\textbf{Modified Volere Template}
+}
+
+\date{\today}
+
+\input{}
 
 \begin{document}
 
+\nocite{*}
 \maketitle
 
-\begin{table}[hp]
-\caption{Revision History} \label{TblRevisionHistory}
-\begin{tabularx}{\textwidth}{llX}
-\toprule
-\textbf{Date} & \textbf{Developer(s)} & \textbf{Change}\\
+\pagenumbering{roman}
+\tableofcontents
+\listoftables
+\listoffigures
+
+\begin{table}[H]
+\caption{\bf Revision History}
+\begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
+\toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
-Sept. 23, 2022 & Nicholas & Problem Statement\\\\
-Sept. 25, 2022 & Longwei Ye & Problem Statement\\\\
-Sept. 23, 2022 & Moksha Srinivasan & Goals, Stretch Goals\\\\
-Sept. 23, 2022 & Niyatha Rangarajan & Added definitions and edited sections for better understanding.\\
-... & ... & ...\\
+October 5, 2022 & 1.0 & Longwei: Sec 1,8; Moksha: Sec 2.1,8; Smita: Sec 2.1,8; Abeer: Sec 2.2,1.4,1.5; Niyatha: Sec 3; Nicholas: Sec 4,5,6,7 \\
+\textcolor{blue}{Nov 23, 2022} & \textcolor{blue}{1.1} & \textcolor{blue}{Longwei: Add new NFRs based on the feedback; Abeer: updated many parts of the document based on rubric feedback.}\\
+\textcolor{blue}{Feb 3, 2023} & \textcolor{blue}{1.2} & \textcolor{blue}{Abeer: updated FR and NFR to clarify project's scope and incorporated the peer feedback.}\\
+\textcolor{blue}{March 13, 2023} & \textcolor{blue}{1.3} & \textcolor{blue}{Abeer: updated terminology and traceability matrix.}\\
+\textcolor{blue}{April 5, 2023} & \textcolor{blue}{2.0} & \textcolor{blue}{Abeer: final changes to the document language.}\\
+%Date 2 & 1.1 & Notes\\
 \bottomrule
 \end{tabularx}
 \end{table}
-\newpage
-\section{Problem Statement}
-
-
-
-\subsection{Problem}
-With the large usage of global positioning systems, software has been created to help researchers develop tools and methods based off exisitng GPS data. 
-One such software is the ArcGIS Pro toolbox that can match GPS traces to transportation networks. This software suffers from specific data requirements that limit usability and functionality. Hence, it can not be extended to larger GPS data sets with newer data manipulation techniques. In order to overcome these weaknesses the ArcPro toolbox must be re-engineered with a focus 
-on transferability, modularity, and scalability as well as being open source without using any proprietary software. 
-
-\subsection{Inputs and Outputs}
-\begin{table}[h]
-    \centering
-    \begin{tabular}{|p{6cm}|p{6cm}|}
-    \hline
-    Input & Output  \\
-    \hline
-    \multirow{2}{5cm}{A dataset of latitude and longitude positions and times based on a person's typical route during the day} & Identify sections of each travelers day based on the location they are at for some period of time.  \\\cline{2-2} 
-    & Identify the traveler's method of transportation that they are using during each episode. (See Definitions)  \\\cline{2-2} 
-    & Estimate the possible route a traveler will take through map-matched routes integrated with route detection and route choice set generation modules.\\\cline{2-2}  
-    \hline
-    \end{tabular}
-\end{table}
-
-\subsection{Stakeholders}
-Potential stakeholders in this project include any researchers and/or companies who are interested in matching GPS data to transportation networks in the context of travel episodes and route estimations analysis. 
-
-\subsection{Environment}
-yoGERT is an open-source toolbox that is able to run on personal laptops and desktops that uses Linux, Windows, and MacOS operating system 
-with Python pre-installed.
 
 \newpage
-\section{Goals}
-\begin{table}[h!]
-    \centering
-        \begin{tabular}{|p{6cm}|p{6cm}|}
-    		\hline
-    		\textbf{Goal} & \textbf{Importance} \\
-    		\hline
-    		The toolbox will be completely open-source without reliance on the proprietary ArcGIS or subsidiary software. & An open-source toolbox will allow a greater audience to process and use the abundance of GPS data that is collected every day. Additionally, it avoids dependency on expensive licensing required for proprietary ArcGIS Pro software. \\
-    		\hline
-    		The toolbox will quickly normalize and process common GPS file formats (GPRMC, GPGGA, GPGLL...) into compatible data types. & Similar to its predecessor, this toolbox aims to be highly flexible, allowing for a variety of input formats. Many existing tools are not input agnostic and as such cannot process a variety of data.  \\
-    		\hline
-    		The toolbox supports fast and accurate route choice model estimations. & Route choice model estimations are models of possible routes a traveler may take based on their intermediary GPS information. These models can be used for a variety of applications. Examples include; forecasting traveler behaviour and predicting future traffic conditions on transportation networks. \\
-    		\hline
-    		The toolbox will be able to extract travel episodes, identify stops, intermediary trip information, potential activity locations (PALs), and assign trip purposes to episodes. & Many existing tools are able to extract travel episodes and assign trip purposes. By extending the functionality to include stop identification, PALs, and parse intermediary trip information, the toolbox provides much requested functionality for researchers. \\
-    		\hline
-    		The toolbox will be able to process 47.3 million points of GPS data within at most 6000 seconds. & Similar to its predecessor, this toolbox aims to be highly scalable, with the ability to process large amounts of data in a short amount of time. This makes it more viable to use GPS data for applications that require regular processing of data.\\
-    		\hline
-    	\end{tabular}
-		
-\end{table}
+
+\pagenumbering{arabic}
+
+%This document describes the requirements for ....  The template for the Software
+%Requirements Specification (SRS) is a subset of the Volere
+%template~\citep{RobertsonAndRobertson2012}.  If you make further modifications
+%to the template, you should explicity state what modifications were made.
+
+\section{Naming Conventions and Terminology}
+\begin{tabular}{l p{6cm}} 
+  \toprule		
+  \textbf{term} & \textbf{description}\\
+  \midrule 
+  Activity Locations (ALs) & \sout{ALs} are trip stops \textcolor{blue}{for amenities} \\
+  ArcGIS & an online geographic information system software that is command line based system for manipulating and visualization data.\\
+  CSV/.csv & Comma Separated Values is a file type that contains large amounts of data separated by commas. \\
+  \textcolor{blue}{Entity} & \textcolor{blue}{A uniquely identified GPS recording device for a person, animal, or object. It is uniquely identified with a device ID number.}\\
+  Episode & \sout{Session} \textcolor{blue}{A collection of segments for one type of transportation mode.}\\
+  \textcolor{blue}{Episode Behaviour Analysis (EBA)} & \textcolor{blue}{Analysis an episode with the following attributes: transportation mode, speed, direction, duration, distance, and trip trajectory.} \\
+  GERT & GIS-based episode reconstruction toolkit \\
+  GIS & Geographical Information Systems\\
+  GPS & Global Positioning Systems\\
+  \textcolor{blue}{GPS Ping} & \textcolor{blue}{A collection of attributes that at a minimum contain an identifier for position in space, GPS coordinate with latitude and longitude, and the time stamp.}\\ 
+  Mode Detection (MD) & Detection of transportation type being used \\
+  \textcolor{blue}{HTML/.html} & \textcolor{blue}{Hyper Text Markup Language file format for data visualization storage.}\\ 
+  \end{tabular}\\
+  \begin{tabular}{l p{6cm}}
+  \toprule		
+  \textbf{term} & \textbf{description}\\
+  \midrule
+  Mode Detection (MD) & Detection of transportation type being used. \\
+  Point & location coordinate with time stamp.\\
+  Potential Activity Locations (PALS) & PALS are potential \sout{trip stops} \textcolor{blue}{activity locations for the stop points of the trip.} \\
+  Route & \sout{Object} \textcolor{blue}{travel} path to get from position A to position B.\\
+  \sout{Route Choice Analysis (RCA)} & \sout{Analyzes route selection from point a to point b}\\
+  Segment & \sout{Group of GPS Points combined based on episode attributes } \textcolor{blue}{a line connecting 2 GPS pings}.\\
+  .shp & geospatial data format files\\
+  Session & Object's activity history quantified by GPS points \textcolor{blue}{which is a collection of traces.} \\
+  \textcolor{blue}{Trace} & \textcolor{blue}{Collection of GPS points for one \sout{travel behaviour/one user} entity. Each trace is not connected to another.}\\
+  \textcolor{blue}{Transportation mode} & \textcolor{blue}{Movement behavior that is identified from a collection of segments. It can be a walk, drive, or stop mode.}\\
+  \sout{Time Use Diary (TUD)} & \sout{records of continuous events and actions through a particular period of time (usually 24 to 48 hours)}\\
+  Trip & GPS points represents an object moving to a different position.\\
+  \bottomrule
+\end{tabular}\\
 
 
-\section{Stretch Goals}
+\section{Project Drivers}
 
-\begin{tabular}{|p{6cm}|p{6cm}|}
-    		\hline
-    		\textbf{Goal} & \textbf{Importance} \\
-    		\hline
-    		The toolbox will contain functionality to teach students about data processing methods, and develop intuition for how episodes are categorized. & This will allow the toolbox to be both a data processor as well as a learning tool for those who are new to GPS data analysis.  \\
-    		\hline
-    		The toolbox will provide an interactive GUI with map overlays for episodes and corresponding information. & The toolbox will not only provide graphs based on inputs and desired outputs, but users will also be able to understand how the density of data points change for different episodes.  \\
-    		\hline
-\end{tabular}
-\section{Definitions}
-%[1] 
-\includegraphics[scale=0.6]{REV0/ProblemStatementAndGoals/gert.jpg}
-\subsection{Episodes}
-In the context of activity analysis, a person’s 24-h (daily) activities can be subdivided into episodes, which are differentiated
-based on location (inside a building or travel mode); hence an
-activity episode can be a stationary episode (stop episode) or a travel episode (e.g., car episode). [1]
+\subsection{The Purpose of the Project}
+Many researchers and companies want to gain information about how people travel, whether that be through the use of personal automobiles, public transit, biking, or even walking. This is because through this data you can derive insights to help inform decisions including but not limited to: public transit design, ad placement, and investment in infrastructure. \\
 
-\section{Bibliography}
+\noindent When the original GERT toolbox was created, there already existed software to match GPS traces to transportation networks, but the tools suffered had limited usability and functionality \cite{GISBASED}. The GERT toolbox solved this problem by extending functionality, and making the toolbox better suited for multiple input data types. Although the project was a success, it was largely inaccessible due to its reliance on the proprietary and expensive ArcGIS software. \\
+
+\noindent The purpose of the project is to re-engineer the toolbox with a focus on on transferability, modularity, and scalability and remove reliance on any proprietary software so it can be used by a wider audience. 
+
+\subsection{The Stakeholders}
+\subsubsection{The Client}
+Our main client is Dr. Antonio Paez, a professor in the School of Earth, Environment & Society at McMaster University. 
+
+\subsubsection{The Customers}
+Researchers who are interested in matching GPS data to transportation networks in the context of travel episodes and route estimation analysis. Furthermore, companies who are interested in matching GPS data for business analysis and managements. 
+
+\subsubsection{Other Stakeholders}
+Developers, testers, and operators of this project. \textcolor{blue}{Also, the capstone professor, Dr. Smith, and the marking teacher assistants are stakeholders as they provide feedback and assess the progress of the project. }
+
+\subsection{Mandated Constraints}
 \begin{itemize}
-    \item $[1]$ R. Dalumpines and D. M. Scott, “GIS-based episode Reconstruction Toolkit (Gert): A transferable, modular, and scalable framework for automated extraction of activity episodes from GPS Data,” Travel Behaviour and Society, vol. 11, pp. 121–130, 2018. 
+    \item This project must be completed by the end of April, 2023.
+    \item The final product must be able to run on personal laptops and desktops that uses Linux, Windows, and MacOS operating systems with Python \textcolor{blue}{3} pre-installed. \textcolor{blue}{The software works with recent versions of operating system that date from 2018-2022. 
+    \item The software requires pre-installed python libraries. These libraries are geopandas, pandas, osmnx, h3, and folium.
+    \item The user will input data points via the software using csv files. This is to keep inline with the original implementation. The software will be processing these csv input filees.}
 \end{itemize}
- 
+
+
+\subsection{Relevant Facts and Assumptions}
+\begin{itemize}
+    \item \sout{As the project is built in python, we assume that the user should be familiar with python.}
+    \item Assume users are familiar with CSV files. \textcolor{blue}{ In other words, users should be able to create such files with sufficient information(e.g. latitude and longitude of the points to be dealed with) for the system to generate data.}
+    \item Assume users are familiar with map files such as .shp.
+\end{itemize}
+%As the project is built under python, we assume that the user should be familiar with python.
+% User characteristics should go under assumptions.
+
+\newpage
+\section{Functional Requirements}
+
+\subsection{The Scope of the Work and the Product}
+
+\subsubsection{The Context of the Work}
+The current GERT toolbox is dependent on ARCGIS libraries including arcgisscripting and arcpy. The toolbox currently supports the processing inputted GPS files into
+\begin{itemize}
+    \item compatible data types
+    \item accurate and fast choice model estimations'
+    \item extracted travel episodes and information on trips
+    \item potential activity locations and stops
+\end{itemize}
+\textcolor{blue}{The toolbox processes} millions of GPS data points quickly \textcolor{blue}{making episode information generation for a large movement session}.
+
+\begin{figure}[!h]
+	    \begin{center}
+    	    \includegraphics[width=0.75\linewidth]{REV0/SRS/images/contextdiagram.drawio.png}
+    	    \caption{Context Diagram \textcolor{blue}{for Existing Toolbox}}
+    	    \label{fig: Context Diagram}
+    	\end{center}
+\end{figure}
+
+\textcolor{blue}{The yoGERT toolbox is the new open source toolbox that will include some of the processing functionality of the GERT toolbox without the use of ArcGIS libraries. The yoGERT will support processing inputted GPS files, CSV formatted, into
+\begin{itemize}
+    \item compatible data types
+    \item extracted travel episodes and information on trips
+    \item potential activity locations and stops
+    \item route generation through map matching
+\end{itemize}}
+
+\begin{figure}[!h]
+	    \begin{center}
+    	    \includegraphics[width=0.75\linewidth]{REV0/SRS/images/contextdiagram-Page-1.drawio.png}
+    	    \caption{\textcolor{blue}{Context Diagram for New Toolbox}}
+    	    \label{fig: Context Diagram}
+    	\end{center}
+\end{figure}
+
+\subsubsection{Work Partitioning}
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|p{4cm}|p{4cm}|p{6cm}|}
+         \hline
+         Event Name & Input and Output & Summary\\
+         \hline
+         User requests processed gps data & Input: CSV file Output: CSV file & System outputs normalized GPS data\\
+         \hline
+         User requests GPS episode extraction and mode detection & Input CSV file of gps data, Output: CSV file of of GPS episodes & System outputs episode extraction and mode detection CSV file\\
+         \hline
+         User requests trip segments based on processed data & Input: CSV file, Output: CSV file & System outputs GPS trip segment with behaviour variables in a readable format for the user\\
+         \hline
+         User requests route \textcolor{blue}{generation} \sout{choice sets} & Input: CSV file, Output: HTML file & System outputs route \textcolor{blue}{for travel paths} \sout{choice sets and allows filtering based on set qualifiers}\\
+         \hline
+         User requests activity locations  & Input: CSV file, Output: CSV file & System generates activity locations \textcolor{blue}{for} stops \\
+         \hline
+         \sout{User requests route choice analysis variables}  & \sout{Input: .shp file, Output: .shp file} & \sout{System outputs the route choice analysis variables along with justification for user perusal} \\
+         \hline
+          User requests activity location identification  & Input: CSV file\sout{, .shp file, .shp file,} Output: \sout{.shp} CSV file& System outputs Activity location \sout{with Land Use and} potential activity locations information \sout{ in .shp file.} \\
+         \hline
+    \end{tabular}
+    \caption{Work Partitioning Diagram\cite{GISBASED}}
+    \label{tab:work_partitioning_diagram}
+\end{table}
+
+\subsubsection{Product Boundary}
+The product boundary diagram was omitted due to redundancy. There are no external services/data sources that the toolbox interacts with. The toolbox may interact with an external open source GIS software, however that is a stretch goal, and should not be factored into initial designs. 
+
+\subsubsection{Product Use Case List}
+\begin{figure}[H]
+	    \begin{center}
+    	    \includegraphics[width=1\linewidth]{REV0/SRS/images/usecasesdiagram.png}
+    	    \caption{Use Case Diagram for Toolbox}
+    	    \label{fig:Toolbox Use Case Diagram}
+    	\end{center}
+\end{figure}
+
+\newpage
+
+\subsubsection{Individual Product Use Cases}
+
+
+\begin{itemize}
+    \item[UC\refstepcounter{ucnum}\theucnum
+\label{UC_Inputs_1}:] \plt{ \textbf{Name}: Process GPS data\\
+        \textbf{Trigger}: User requests processed GPS data of different traces\\
+        \textbf{Preconditions}: User has a CSV file of unprocessed GPS data \\
+        \textbf{Stakeholders}: User, Professor, Geospatial Analyst\\
+        \textbf{Actors}: User, Toolbox\\
+        \textbf{Outcome}: System outputs a CSV file of normalized GPS data\\}
+    \item[UC\refstepcounter{ucnum}\theucnum
+\label{UC_Inputs_2}:] \plt{ \textbf{Name}: Episode extraction and mode detection\\
+        \textbf{Trigger}: User requests GPS episode extraction and mode detection\\
+        \textbf{Preconditions}: User has already requested processed GPS data \\
+        \textbf{Stakeholders}: User, Professor, Geospatial Analyst\\
+        \textbf{Actors}: User, Toolbox\\
+        \textbf{Outcome}: System presents user with a CSV file including all the episodes and mode detection data in a CSV file\\}
+    \item[UC\refstepcounter{ucnum}\theucnum
+\label{UC_Inputs_3}:] \plt{ \textbf{Name}: Trip segment generation\\
+        \textbf{Trigger}: User requests trip segments\\
+        \textbf{Preconditions}: System has preprocessed input GPS data, user may optionally input TUD (time use diary) episodes\\
+        \textbf{Stakeholders}: User, Professor, Geospatial Analyst\\
+        \textbf{Actors}: User, Toolbox\\
+        \textbf{Outcome}: \sout{.shp} \textcolor{blue}{.csv} file with GPS trip \sout{trajectories} \textcolor{blue}{behaviour movement parameters} in a readable format for the user\\}
+    \item[UC\refstepcounter{ucnum}\theucnum
+\label{UC_Inputs_4}:] \plt{ \textbf{Name}: \sout{Route choice set generation}\\
+        \textbf{Trigger}: User requests route \sout{choice sets}\\
+        \textbf{Preconditions}: System has preprocessed input GPS data and generated trip information \sout{ trajectories file}\\
+        \textbf{Stakeholders}: User, Professor, Geospatial Analyst\\
+        \textbf{Actors}: User, Toolbox\\
+        \textbf{Outcome}: \sout{.shp} HTML file with route path mapped\\}
+    \item[UC\refstepcounter{ucnum}\theucnum
+\label{UC_Inputs_5}:] \plt{ \textbf{Name}: Activity locations\\
+        \textbf{Trigger}: User requests activity locations\\
+        \textbf{Preconditions}: System has preprocessed input GPS data and extracted episodes and mode detection CSV file \\
+        \textbf{Stakeholders}: User, Professor, Geospatial Analyst\\
+        \textbf{Actors}: User, Toolbox\\
+        \textbf{Outcome}: System generates \sout{.shp} \textcolor{blue}{.csv} file of activity locations (stops)\\}
+    \item[UC\refstepcounter{ucnum}\theucnum
+\label{UC_Inputs_6}:] \plt{ \textbf{Name}: \sout{Route choice analysis} \textcolor{blue}{Episode behaviour analysis} variable generation\\
+        \textbf{Trigger}: User requests \sout{route choice analysis} \textcolor{blue}{episode behaviour analysis} variables\\
+        \textbf{Preconditions}: System has preprocessed input GPS data and generated trip trajectories file\\
+        \textbf{Stakeholders}: User, Professor, Geospatial Analyst\\
+        \textbf{Actors}: User, Toolbox\\
+        \textbf{Outcome}: .csv file containing \sout{Route choice analysis} \textcolor{blue}{Episode behaviour analysis} variables and variable justification\\}
+    \item[UC\refstepcounter{ucnum}\theucnum
+\label{UC_Inputs_7}:] \plt{ \textbf{Name}: Activity location identification\\
+        \textbf{Trigger}:User has requested activity location identification\\
+        \textbf{Preconditions}: System has preprocessed input GPS data, extracted episodes and mode detection CSV file, and then extracted activity location \sout{.shp} \textcolor{blue}{.csv} file, as well as user has inputted land use \sout{.shp} \textcolor{blue}{.csv} file potential activity location \sout{.shp} \textcolor{blue}{.csv} file \\
+        \textbf{Stakeholders}: User, Professor, Geospatial Analyst\\
+        \textbf{Actors}: User, Toolbox\\
+        \textbf{Outcome}: System outputs a \sout{.shp} \textcolor{blue}{.csv} file of activity location with land use and potential activity location information \sout{.shp} \textcolor{blue}{.csv} file\\}
+\end{itemize}
+
+\subsection{Functional and Data Requirements}
+\noindent \begin{itemize}
+
+\item[R\refstepcounter{reqnum}\thereqnum
+\label{R_Inputs_1}:] \plt{The system shall allow users to upload GPS data in \sout{standard format} \textcolor{blue}{CSV file format}.}
+\begin{itemize}
+    \item \textbf{Requirement Type}: Functional
+    \item \textbf{Rationale}: The user needs to upload GPS data for processing.
+    \item \textbf{Fit Criterion}: The system successfully uploads the file and notifies the user.
+    \item \textbf{Priority}: 5
+    \item \textbf{Event}: UC1
+    \item \textbf{Customer Satisfaction}: 5
+    \item \textbf{Customer Dissatisfaction}: 5
+    \item \textbf{Conflict}: None
+    \item \textbf{Planned Date}: November 14, 2022
+\end{itemize}
+
+\item[R\refstepcounter{reqnum}\thereqnum
+\label{R_Inputs_1}:] \plt{The system shall process GPS data points \textcolor{blue}{of multiple traces}.}
+\begin{itemize}
+    \item \textbf{Requirement Type}: Data
+    \item \textbf{Rationale}: System must analysis activity data.
+    \item \textbf{Fit Criterion}: The system outputs GPS data points as latitude, longtude, and time variables. 
+    \item \textbf{Priority}: 5
+    \item \textbf{Event}: UC1
+    \item \textbf{Customer Satisfaction}: 5
+    \item \textbf{Customer Dissatisfaction}: 5
+    \item \textbf{Conflict}: R1.
+    \item \textbf{Planned Date}: November 14, 2022
+\end{itemize}
+
+\item[\sout{R3}
+\label{R_Inputs_1}:] \plt{\sout{The system shall accept TUD data points.}}
+\begin{itemize}
+    \item \textbf{Requirement Type}: \sout{Data}
+    \item \textbf{Rationale}: \sout{System must analysis activity data.}
+    \item \textbf{Fit Criterion}: \sout{User successfully upload TUD data in standard format such as CSV. }
+    \item \textbf{Priority}: \sout{5}
+    \item \textbf{Event}: \sout{UC3}
+    \item \textbf{Customer Satisfaction}: \sout{5}
+    \item \textbf{Customer Dissatisfaction}: \sout{5}
+    \item \textbf{Conflict}: \sout{None}
+    \item \textbf{Planned Date}:\sout{November 14, 2022}
+\end{itemize}
+
+\item[R\refstepcounter{reqnum}\thereqnum
+\label{R_Output_3}:] \plt{The system shall produce output in a \sout{standard} \textcolor{blue}{CSV} transferable file format \textcolor{blue}{and HTML file format for interactive maps \sout{analyzing display format}}.}
+\begin{itemize}
+    \item \textbf{Requirement Type}: Functional
+    \item \textbf{Rationale}: User must read data and re-use output data across multiple applications.
+    \item \textbf{Fit Criterion}: System successfully outputs data in standard format such as CSV. 
+    \item \textbf{Priority}: 5
+    \item \textbf{Event}: UC1-7
+    \item \textbf{Customer Satisfaction}: 5
+    \item \textbf{Customer Dissatisfaction}: 4
+    \item \textbf{Conflict}: None
+    \item \textbf{Planned Date}: November 14, 2022
+\end{itemize}
+
+\item[R\refstepcounter{reqnum}\thereqnum
+\label{R_Inputs_2}:] \plt{The system shall use longitude, latitude, and time variables from GPS data points.}
+\begin{itemize}
+    \item \textbf{Requirement Type}: Data
+    \item \textbf{Rationale}: System must use general variables to make computations and produce analysis.
+    \item \textbf{Fit Criterion}: System successfully extracts longitude, latitude, and time information from inputs.
+    \item \textbf{Priority}: 5
+    \item \textbf{Event}: UC1-7
+    \item \textbf{Customer Satisfaction}: 5
+    \item \textbf{Customer Dissatisfaction}: 5
+    \item \textbf{Conflict}: R2
+    \item \textbf{Planned Date}: November 14, 2022
+\end{itemize}
+
+\item[R\refstepcounter{reqnum}\thereqnum
+\label{R_Outputs_1}:] \plt{The system shall extract episode attributes including speed, duration, direction, distance,\sout{ change in direction, acceleration,} and status points from GPS data points \textcolor{blue}{for each trace}.}
+\begin{itemize}
+    \item \textbf{Requirement Type}: Functional
+    \item \textbf{Rationale}: System must categorize data points to useful information for the user to read.
+    \item \textbf{Fit Criterion}: System successfully produce reports of episode attributes. 
+    \item \textbf{Priority}: 5
+    \item \textbf{Event}: UC2
+    \item \textbf{Customer Satisfaction}: 5
+    \item \textbf{Customer Dissatisfaction}: 5
+    \item \textbf{Conflict}: R4, \textcolor{blue}{19}
+    \item \textbf{Planned Date}: November 14, 2022
+\end{itemize}
+
+\item[\sout{R6}
+\label{R_Inputs_1}:] \plt{\sout{The system shall extract episode attributes including duration, distance, and change in trajectory from TUD data points.}}
+\begin{itemize}
+    \item \textbf{Requirement Type}: \sout{Functional}
+    \item \textbf{Rationale}: \sout{The system needs to validate  analysis of GPS points.}
+    \item \textbf{Fit Criterion}: \sout{System successfully produce reports of episode attribute.}
+    \item \textbf{Priority}: \sout{5}
+    \item \textbf{Event}: \sout{UC3}
+    \item \textbf{Customer Satisfaction}: \sout{5}
+    \item \textbf{Customer Dissatisfaction}: \sout{4}
+    \item \textbf{Conflict}: \sout{R3}
+    \item \textbf{Planned Date}: \sout{November 14, 2022}
+\end{itemize}
+
+\item[R\refstepcounter{reqnum}\thereqnum
+\label{R_Inputs_1}:] \plt{The system shall classify extracted \textcolor{blue}{trace} into different types \textcolor{blue}{of episodes} including stop, \sout{car} \textcolor{blue}{drive, and } walk \sout{, bus, and other travel episodes}.}
+\begin{itemize}
+    \item \textbf{Requirement Type}: Functional
+    \item \textbf{Rationale}: User need to understand travel behaviour of the object's episode.
+    \item \textbf{Fit Criterion}: System successfully classify known episodes into correct episode types. 
+    \item \textbf{Priority}: 5
+    \textbf{Event}: UC2
+    \item \textbf{Customer Satisfaction}: 5
+    \item \textbf{Customer Dissatisfaction}: 5
+    \item \textbf{Conflict}: R6,\sout{7},\textcolor{blue}{19}
+    \item \textbf{Planned Date}: \sout{November} \textcolor{blue}{February} 14, 2022
+\end{itemize}
+
+\item[R\refstepcounter{reqnum}\thereqnum
+\label{R_Outputs_2}:] \plt{The system shall decompose episode \textcolor{blue}{trace} into output segments of type stop and trip.}
+\begin{itemize}
+    \item \textbf{Requirement Type}: Functional
+    \item \textbf{Rationale}: User need to understand the object's behaviour during a segment.
+    \item \textbf{Fit Criterion}: System successfully categorize a moving object in a trip segment and a static object in stop segment.
+    \item \textbf{Priority}: 5
+    \item \textbf{Event}:UC3
+    \item \textbf{Customer Satisfaction}: 5
+    \item \textbf{Customer Dissatisfaction}: 5
+    \item \textbf{Conflict}: R8,\textcolor{blue}{19}
+    \item \textbf{Planned Date}: \sout{November} \textcolor{blue}{February} 14, 2022
+\end{itemize}
+
+\item[\sout{R8}
+\label{R_Inputs_1}:] \plt{\sout{The system shall identify trip trajectory for extracted \textcolor{blue}{trip} segments.}}
+\begin{itemize}
+    \item \textbf{Requirement Type}: \sout{Functional}
+    \item \textbf{Rationale}: \sout{The system needs trip trajectory for route \textcolor{blue}{object's behaviour} analysis. }
+    \item \textbf{Fit Criterion}: \sout{The system successfully identifies the \sout{change in the} \textcolor{blue}{different} trajectories when the object changes direction.} 
+    \item \textbf{Priority}: \sout{5}
+    \item \textbf{Event}: \sout{UC3,4}
+    \item \textbf{Customer Satisfaction}: \sout{5}
+    \item \textbf{Customer Dissatisfaction}: \sout{5}
+    \item \textbf{Conflict}: \sout{R9}
+    \item \textbf{Planned Date}: \sout{November \textcolor{blue}{February 20}, 2022}
+\end{itemize}
+
+\item[R\refstepcounter{reqnum}\thereqnum
+\label{R_Inputs_1}:] \plt{The system shall identify activity locations \textbf{for each trace} based on the episode attributes \sout{of the route to the stop} \textcolor{blue}{from the start point to the end} point.}
+\begin{itemize}
+    \item \textbf{Requirement Type}: Functional
+    \item \textbf{Rationale}: The system needs location types for land use and road network analysis.
+    \item \textbf{Fit Criterion}: The system successfully identifies \textcolor{blue}{available activity locations} \sout{a high activity locations and low activity locations}. 
+    \item \textbf{Priority}: 5
+    \item \textbf{Event}: UC5,7
+    \item \textbf{Customer Satisfaction}: 5
+    \item \textbf{Customer Dissatisfaction}: 5
+    \item \textbf{Conflict}: R6,7,\textcolor{blue}{19}
+    \item \textbf{Planned Date}: \sout{November} \textcolor{blue}{February} 14, 2022
+\end{itemize}
+
+\item[R\refstepcounter{reqnum}\thereqnum
+\label{R_Inputs_1}:] \plt{The system shall generate \sout{RCA} \textcolor{blue}{EBA} variables \sout{based on trip trajectory} \textcolor{blue}{after the episode segment generation.}}
+\begin{itemize}
+    \item \textbf{Requirement Type}: Functional
+    \item \textbf{Rationale}: The system needs to define \sout{route choice behaviour} a data set \textcolor{blue}{to describe the object's movement}.
+    \item \textbf{Fit Criterion}: The system successfully defines variables to describe the \sout{route} \textcolor{blue}{object's movement} from position A to position B.
+    \item \textbf{Priority}: 5
+    \item \textbf{Event}: UC4,6
+    \item \textbf{Customer Satisfaction}: 5
+    \item \textbf{Customer Dissatisfaction}: 4
+    \item \textbf{Conflict}: R10,\textcolor{blue}{19}
+    \item \textbf{Planned Date}: \sout{November} \textcolor{blue}{February} 14, 2022
+\end{itemize}
+
+
+\item[R\refstepcounter{reqnum}\thereqnum
+\label{R_Inputs_1}:] \plt{The system shall store \sout{RCA} \textcolor{blue}{EBA} data set.}
+\begin{itemize}
+    \item \textbf{Requirement Type}: Data
+    \item \textbf{Rationale}: The system needs to track the \sout{RCA for descriptive route} \textcolor{blue}{EBA variables for descriptive movement} analysis. 
+    \item \textbf{Fit Criterion}: System successfully stored multiple instances of \sout{RCA} \textcolor{blue}{EBA} variables. 
+    \item \textbf{Priority}: 4
+    \item \textbf{Event}: UC4,6
+    \item \textbf{Customer Satisfaction}: 5
+    \item \textbf{Customer Dissatisfaction}: 4
+    \item \textbf{Conflict}: R12
+    \item \textbf{Planned Date}: \sout{November} \textcolor{blue}{February} 14, 2022
+\end{itemize}
+
+\item[R\refstepcounter{reqnum}\thereqnum
+\label{R_Inputs_1}:] \plt{The system shall automate routes from position A to position B based on \sout{RCA} \textcolor{blue}{EBA} set for each extracted trace \textcolor{blue}{or episode along with input customization to handle input analysis.}}
+\begin{itemize}
+    \item \textbf{Requirement Type}: Functional
+    \item \textbf{Rationale}: The user wants to request routes from position A to position B.
+    \item \textbf{Fit Criterion}: The system produce a mapped route from position A to position B.
+    \item \textbf{Priority}: 4
+    \item \textbf{Event}: UC6
+    \item \textbf{Customer Satisfaction}: 5
+    \item \textbf{Customer Dissatisfaction}: 4
+    \item \textbf{Conflict}: R13,\textcolor{blue}{19}
+    \item \textbf{Planned Date}: \sout{November} \textcolor{blue}{February} 14, 2022
+\end{itemize}
+
+\item[R\refstepcounter{reqnum}\thereqnum
+\label{R_Inputs_1}:] \plt{The system shall \sout{allow users to select} \textcolor{blue}{output alternative routes to the user upon their request of bike} \sout{options for} automated route \sout{requests}. \textcolor{blue}{System shall accept customized options that include shortest route by distance and shortest route by time.}}
+\begin{itemize}
+    \item \textbf{Requirement Type}: Functional
+    \item \textbf{Rationale}: The user needs the option to \textcolor{blue}{request an alternative} route. 
+    \item \textbf{Fit Criterion}: The system successfully maps an \textcolor{blue}{alternative} route with selected options such as shortest distance. 
+    \item \textbf{Priority}: 4
+    \item \textbf{Event}: UC6
+    \item \textbf{Customer Satisfaction}: 4
+    \item \textbf{Customer Dissatisfaction}: 4
+    \item \textbf{Conflict}: R13,\textcolor{blue}{19}
+    \item \textbf{Planned Date}: \sout{November} \textcolor{blue}{February} 14, 2022
+\end{itemize}
+
+\item[R\refstepcounter{reqnum}\thereqnum
+\label{R_Inputs_1}:] \plt{The system shall store activity location \sout{identifications} \textcolor{blue}{descriptions}.}
+\begin{itemize}
+    \item \textbf{Requirement Type}: Data
+    \item \textbf{Rationale}: The user needs to search \sout{for specific type of} \textcolor{blue}{through the} activity location \textcolor{blue}{information to analyze land use}.
+    \item \textbf{Fit Criterion}: The system successfully stores data and notifies user. 
+    \item \textbf{Priority}:4
+    \item \textbf{Event}: UC5,7
+    \item \textbf{Customer Satisfaction}: 4
+    \item \textbf{Customer Dissatisfaction}: 2
+    \item \textbf{Conflict}: R11
+    \item \textbf{Planned Date}: \sout{November} \textcolor{blue}{February 20}, 2022
+\end{itemize}
+
+\item[\sout{R14}
+\label{R_Inputs_1}:] \plt{\sout{The system shall classify \sout{RCA patterns by route} \textcolor{blue}{trace episodes by} \sout{purpose} \textcolor{blue}{by movement behaviour; which includes details on peak times, peak locations, and stop behaviour}. } }
+\begin{itemize}
+    \item \textbf{Requirement Type}: \sout{Functional}
+    \item \textbf{Rationale}: \sout{The system needs to define trip purpose \textcolor{blue}{ behaviour attributes}}. 
+    \item \textbf{Fit Criterion}: \sout{The system successfully defines purpose of a route from position A to position B.}
+    \item \textbf{Priority}: \sout{2}
+    \item \textbf{Event}: \sout{UC4,6}
+    \item \textbf{Customer Satisfaction}: \sout{5}
+    \item \textbf{Customer Dissatisfaction}: \sout{2}
+    \item \textbf{Conflict}: \sout{R16,13,\textcolor{blue}{19}}
+    \item \textbf{Planned Date}: \sout{November \textcolor{blue}{February 20}, 2022}
+\end{itemize}
+
+\item[R\refstepcounter{reqnum}\thereqnum
+\label{R_Inputs_1}:] \plt{The system shall \sout{allows requests} \textcolor{blue}{output files} for activity location description \sout{by filtering} \textcolor{blue}{to the user upon their request}.}
+\begin{itemize}
+    \item \textbf{Requirement Type}: Functional
+    \item \textbf{Rationale}: The user needs the options to search \sout{for specific type of} \textcolor{blue}{through the} activity location \textcolor{blue}{information}.
+    \item \textbf{Fit Criterion}: The system successfully outputs relevant \sout{types of} activity locations to what the user requested. 
+    \item \textbf{Priority}:4
+    \item \textbf{Event}: UC5,7
+    \item \textbf{Customer Satisfaction}: 4
+    \item \textbf{Customer Dissatisfaction}: 2
+    \item \textbf{Conflict}: R16
+    \item \textbf{Planned Date}: \sout{November} \textcolor{blue}{February} 14, 2022
+\end{itemize}
+
+\item[R\refstepcounter{reqnum}\thereqnum
+\label{R_Inputs_1}:] \plt{The system shall \sout{allow users to request} \textcolor{blue}{output csv file for} trip segments' description for a given GPS data set \textcolor{blue}{to the user upon their request}.}
+\begin{itemize}
+    \item \textbf{Requirement Type}: Functional
+    \item \textbf{Rationale}: The user needs to review intermediate analysis steps. 
+    \item \textbf{Fit Criterion}: The system successfully produce trip segment reports. 
+    \item \textbf{Priority}: 5
+    \item \textbf{Event}: UC3
+    \item \textbf{Customer Satisfaction}: 5
+    \item \textbf{Customer Dissatisfaction}: 5
+    \item \textbf{Conflict}: R9
+    \item \textbf{Planned Date}: \sout{November} \textcolor{blue}{February} 14, 2022
+\end{itemize}
+
+\item[R\refstepcounter{reqnum}\thereqnum
+\label{R_Inputs_1}:] \plt{The system shall \sout{allow users to request} \textcolor{blue}{output csv file for} episode descriptions of GPS inputs \textcolor{blue}{to the user upon their request}.}
+\begin{itemize}
+    \item \textbf{Requirement Type}: Functional
+    \item \textbf{Rationale}: The user needs to access intermediate details about episode attributes.
+    \item \textbf{Fit Criterion}: The system successfully produces a \sout{standard output} \textcolor{blue}{CSV} file with the requested details.
+    \item \textbf{Priority}: 5
+    \item \textbf{Event}: UC2
+    \item \textbf{Customer Satisfaction}: 5
+    \item \textbf{Customer Dissatisfaction}: 5
+    \item \textbf{Conflict}: R6-8
+    \item \textbf{Planned Date}: \sout{November} \textcolor{blue}{February} 14, 2022
+\end{itemize}
+
+\item[R\refstepcounter{reqnum}\thereqnum
+\label{R_Inputs_1}:] \plt{\textcolor{blue}{The system shall identify different traces from GPS data set}.}
+\begin{itemize}
+    \item \textbf{Requirement Type}: \textcolor{blue}{Functional}
+    \item \textbf{Rationale}: \textcolor{blue}{The user needs to be able to analyze multiple traces for each input GPS file.}
+    \item \textbf{Fit Criterion}: \textcolor{blue}{The system successfully produces identification number for each trace.}
+    \item \textbf{Priority}: \textcolor{blue}{5}
+    \item \textbf{Event}: \textcolor{blue}{UC1}
+    \item \textbf{Customer Satisfaction}: \textcolor{blue}{5}
+    \item \textbf{Customer Dissatisfaction}: \textcolor{blue}{5}
+    \item \textbf{Conflict}: \textcolor{blue}{R2-4}
+    \item \textbf{Planned Date}: \textcolor{blue}{February 14, 2022}
+\end{itemize}
+
+\item[R\refstepcounter{reqnum}\thereqnum
+\label{R_Inputs_1}:] \plt{\textcolor{blue}{The system shall be utilized as single package}.}
+\begin{itemize}
+    \item \textbf{Requirement Type}: \textcolor{blue}{Functional}
+    \item \textbf{Rationale}: \textcolor{blue}{The user needs to be able to use and access the toolbox functionalities from a single use function call.}
+    \item \textbf{Fit Criterion}: \textcolor{blue}{The system is successfully stored as a package.}
+    \item \textbf{Priority}: \textcolor{blue}{3}
+    \item \textbf{Event}: \textcolor{blue}{UC1-7}
+    \item \textbf{Customer Satisfaction}: \textcolor{blue}{5}
+    \item \textbf{Customer Dissatisfaction}: \textcolor{blue}{2}
+    \item \textbf{Conflict}: \textcolor{blue}{R1-17}
+    \item \textbf{Planned Date}: \textcolor{blue}{March 10, 2022}
+\end{itemize}
+
+\end{itemize}
+
+
+\section{Non-functional Requirements}
+
+\subsection{Look and Feel Requirements}
+
+
+\subsubsection{Appearance Requirements}
+\begin{itemize}
+\item[NFR\refstepcounter{freqnum}\thefreqnum
+\label{NFR}:] \plt{The system shall be responsive on all \textcolor{blue}{desktop or laptop} devices it is run on. }
+\begin{itemize}
+    \item \textbf{Rationale}: The system needs to be fully visible and functional for a range of screen widths and heights\sout{ like an iPad vs a computer}.
+    \item \textbf{Fit Criterion}: The system's primary functionality as depicted by the user interface is not skewed based on the device it is run on.
+    \item \textbf{Priority}: 5
+    \item \textbf{Event}: UC1-7 %usecase it relates to
+    \item \textbf{Customer Satisfaction}: 5
+    \item \textbf{Customer Dissatisfaction}: 5
+    \item \textbf{Conflict}: \textcolor{blue}{NFR14,15; R3,14,15,16}
+\end{itemize}
+\item[NFR\refstepcounter{freqnum}\thefreqnum
+\label{NFR}:] \plt{The system shall display \sout{episodes through} informative descriptions \textcolor{blue}{on the interactive maps}.}
+\begin{itemize}
+    \item \textbf{Rationale}: \textcolor{blue}{The user needs to understand the icons and information presented on the maps.}
+    \item \textbf{Fit Criterion}: The system is successful if it shows appropriate images of the travel along with appropriate descriptions of its objects on its route.
+    \item \textbf{Priority}: 5
+    \item \textbf{Event}: UC1 %usecase it relates to
+    \item \textbf{Customer Satisfaction}: 5
+    \item \textbf{Customer Dissatisfaction}: 5
+    \item \textbf{Conflict}: NFR3,4,\sout{6} \textcolor{blue}{26}; \sout{R8}\textcolor{blue}{R3,12}
+\end{itemize}
+
+\subsubsection{Style Requirements}
+\item[NFR\refstepcounter{freqnum}\thefreqnum
+\label{NFR}:] \plt{The system shall display \textcolor{blue}{text in font size not less than 10pt} \sout{a modern design templates for its user interface}. }
+\begin{itemize}
+    \item \textbf{Rationale}: The system needs to be catered for different \textcolor{blue}{user groups with different sight abilities.} \sout{age groups. Considering typical ages 18 onwards, a modern aesthetic would be more appealing}.
+    \item \textbf{Fit Criterion}:The system is successful if it\textcolor{blue}{s text clear to read 60cm from the display screen} \sout{incorporates modern design frameworks for design of its GUI}.
+    \item \textbf{Priority}: \sout{5} \textcolor{blue}{4}
+    \item \textbf{Event}: UC1-7 %usecase it relates to
+    \item \textbf{Customer Satisfaction}: 5
+    \item \textbf{Customer Dissatisfaction}: \sout{5} \textcolor{blue}{4}
+    \item \textbf{Conflict}: NFR2,\sout{4,6}\textcolor{blue}{26}; \sout{R8}\textcolor{blue}{R3}
+\end{itemize}
+\subsection{Usability and Humanity Requirements}
+
+\subsubsection{Ease of Use Requirements}
+
+\item[NFR\refstepcounter{freqnum}\thefreqnum
+\label{NFR}:] \plt{The system must be intuitive in terms of its design.}
+\begin{itemize}
+    \item \textbf{Rationale}: The system must be designed such that its layout of selecting various options \sout{(like adding more stops)} and position of header descriptions are understandable without a need of additional help.
+    \item \textbf{Fit Criterion}: The system is successful if the user is able to interact with the system \textcolor{blue}{using one function} without customer support.
+    \item \textbf{Priority}: \sout{5} \textcolor{blue}{3}
+    \item \textbf{Event}: UC1-7%usecase it relates to
+    \item \textbf{Customer Satisfaction}: 5
+    \item \textbf{Customer Dissatisfaction}: 5
+    \item \textbf{Conflict}: NFR2,\sout{3,6} \textcolor{blue}{24,25}; \sout{R8}\textcolor{blue}{R1-18}
+\end{itemize}
+\subsubsection{Personalization and Internalization Requirements}
+
+\item[NFR\refstepcounter{freqnum}\thefreqnum
+\label{NFR}:] \plt{\sout{The system shall provide a feedback option.} }
+\begin{itemize}
+    \item \textbf{Rationale}: \sout{The system needs to be updated based on user demand and suggestions.}
+    \item \textbf{Fit Criterion}: \sout{The system is successful if it provides a feedback option for users and protects the anonymity of the user for their feedback.}
+    \item \textbf{Priority}: \sout{5} \textcolor{blue}{\sout{1}}
+    \item \textbf{Event}: \sout{UC3-7}%usecase it relates to
+    \item \textbf{Customer Satisfaction}: \sout{5}
+    \item \textbf{Customer Dissatisfaction}: \sout{5}
+    \item \textbf{Conflict}: \sout{None}
+\end{itemize}
+\subsubsection{Learning Requirements}
+
+\item[NFR\refstepcounter{freqnum}\thefreqnum
+\label{NFR}:] \plt{The system's functionality must be easy to understand with inbuilt product descriptions. }
+\begin{itemize}
+    \item \textbf{Rationale}: The system must be easy to understand for any user on their first use as long as they fall under the appropriate age group of 18\textcolor{blue}{+} years \sout{onwards and follow the instructions presented during use}.
+    \item \textbf{Fit Criterion}: The system provides information dialogues for complex components of the system \textcolor{blue}{that users are able to follow the instructions presented during use}.
+    \item \textbf{Priority}: 5
+    \item \textbf{Event}: UC1-7 %usecase it relates to
+    \item \textbf{Customer Satisfaction}: \sout{5} \textcolor{blue}{4}
+    \item \textbf{Customer Dissatisfaction}: 5
+    \item \textbf{Conflict}: \sout{NFR2,3,4; R8}\textcolor{blue}{R3,8,10,11,12,14-17}
+\end{itemize}
+\subsubsection{Understandability and Politeness Requirements}
+\item[NFR\refstepcounter{freqnum}\thefreqnum
+\label{NFR}:] \plt{\sout{The system's must provide a respectful session to the user with salutation greetings.  }}
+\begin{itemize}
+    \item \textbf{Rationale}: In the case of first time users, the system must display more dialogues for showing the spatial arrangements of icons. \sout{After more use of the system, the system must greet the on return}.
+    \item \textbf{Fit Criterion}: The system should display dialogues near icons on first use of the software\sout{ and allow these icon dialogues to be clickable for future uses}. 
+    \item \textbf{Priority}: \sout{5} \textcolor{blue}{1}
+    \item \textbf{Event}: UC1-7%usecase it relates to
+    \item \textbf{Customer Satisfaction}: 5
+    \item \textbf{Customer Dissatisfaction}: 5
+    \item \textbf{Conflict}: None
+\end{itemize}
+\subsubsection{Accessibility Requirements}
+\item[NFR\refstepcounter{freqnum}\thefreqnum
+\label{NFR}:] \plt{The system's functionality must allow the user to track their progress. }
+\begin{itemize}
+    \item \textbf{Rationale}: The \sout{system must} \textcolor{blue}{user must be able to} store previously requested GPS points that could be used for future \sout{episodes} \textcolor{blue}{uses}.
+    \item \textbf{Fit Criterion}: The system is able to process a request using previously requested GPS data \textcolor{blue}{upon user's request}.
+    \item \textbf{Priority}: \sout{5} \textcolor{blue}{1}
+    \item \textbf{Event}: UC3-7%usecase it relates to
+    \item \textbf{Customer Satisfaction}: 5
+    \item \textbf{Customer Dissatisfaction}: 5
+    \item \textbf{Conflict}: \textcolor{blue}{NFR4}
+\end{itemize}
+\subsection{Performance Requirements}
+
+\subsubsection{Speed and Latency Requirements}
+\item[NFR\refstepcounter{freqnum}\thefreqnum
+\label{NFR}:] \plt{The system must render the require information within 6000 seconds upon request.}
+\begin{itemize}
+    \item \textbf{Rationale}: The \textcolor{blue}{system} must process GPS data and display the required episode or stops within a reasonable time. \textcolor{blue}{The selected reasonable time of 6000 seconds is just enough time before a device goes into sleep mode after being idle. This is under the assumption that users are not using the device for anything else and are waiting on the software. }
+    \item \textbf{Fit Criterion}: The system takes the GPS data and provides the user with the requested information before 6000 seconds elapses.
+    \item \textbf{Priority}: 5
+    \item \textbf{Event}: UC7 %usecase it relates to
+    \item \textbf{Customer Satisfaction}: 5
+    \item \textbf{Customer Dissatisfaction}: 5
+    \item \textbf{Conflict}: NFR12\sout{,13}; \sout{R2,4,6,7,8,12} \textcolor{blue}{R3,8,10,11,12,14-17}
+\end{itemize}
+\subsubsection{Safety Critical Requirements}
+\item[NFR\refstepcounter{freqnum}\thefreqnum
+\label{NFR}:] \plt{\sout{The system must not make the user's location public.}}
+\begin{itemize}
+    \item \textbf{Rationale}: \sout{The user's personal information centers around their GPS location. Hence, the system must not make it accessible by the public.}
+    \item \textbf{Fit Criterion}: \sout{The system allows the user to only access their location within their individual session.}
+    \item \textbf{Priority}: \sout{5}
+    \item \textbf{Event}: \sout{UC2-7}%usecase it relates to
+    \item \textbf{Customer Satisfaction}: \sout{5}
+    \item \textbf{Customer Dissatisfaction}: \sout{5}
+    \item \textbf{Conflict}: \sout{None}
+\end{itemize}
+\subsubsection{Precision of Accuracy Requirements}
+\item[NFR\refstepcounter{freqnum}\thefreqnum
+\label{NFR}:] \plt{The system must render the route \sout{accurately} matching the GPS data points provided \textcolor{blue}{with an accuracy of 80\%}.}
+\begin{itemize}
+    \item \textbf{Rationale}: The route or episode displayed must align with the data points provided to display a relevant and accessible route.
+    \item \textbf{Fit Criterion}: The GPS data points requested match the GPS points in the rendered episode.
+    \item \textbf{Priority}: 5
+    \item \textbf{Event}: UC3-7%usecase it relates to
+    \item \textbf{Customer Satisfaction}: 5
+    \item \textbf{Customer Dissatisfaction}: 5
+    \item \textbf{Conflict}:\sout{NFR12; R1-20}. \textcolor{blue}{R3}
+\end{itemize}
+\subsubsection{Robustness or Fault Tolerance Requirements}
+N/A
+\subsubsection{Capacity Requirements}
+\item[NFR\refstepcounter{freqnum}\thefreqnum
+\label{NFR}:] \plt{The system must be able to process \sout{47.3 million} \textcolor{blue}{more than 5000} points of GPS data.}
+\begin{itemize}
+    \item \textbf{Rationale}: The route to be generated must be rendered while incorporating precise GPS data. Since, accommodating for more data points would result in an accurate route, the system should process \sout{about a} \textcolor{blue}{5000} data points.
+    \item \textbf{Fit Criterion}: The system successfully parses an edge case test with \sout{47.3 million}\textcolor{blue}{more than 5000} GPS data points requested.
+    \item \textbf{Priority}: 5
+    \item \textbf{Event}: UC4-7 %usecase it relates to
+    \item \textbf{Customer Satisfaction}: 5
+    \item \textbf{Customer Dissatisfaction}: 5
+    \item \textbf{Conflict}: NFR9; \sout{R2,4,6,7,8,12}\textcolor{blue}{R1,2,3,17}
+\end{itemize}
+\subsubsection{Scalability Requirements}
+\textcolor{blue}{N/A}
+\item[NFR\refstepcounter{freqnum}\thefreqnum
+\label{NFR}:] \plt{\sout{The system shall be used by multiple users at a time.}}
+\begin{itemize}
+    \item \textbf{Rationale}: \sout{The system will allow multiple users to request for GPS data within their own session at the same time.}
+    \item \textbf{Fit Criterion}: \sout{Two or more users have succesfully rendered their requested GPS data at the same time.}
+    \item \textbf{Priority}: \sout{5}
+    \item \textbf{Event}: \sout{UC1-7}%usecase it relates to
+    \item \textbf{Customer Satisfaction}: \sout{5}
+    \item \textbf{Customer Dissatisfaction}: \sout{5}
+    \item \textbf{Conflict}: \sout{NFR17,18}
+\end{itemize}
+\subsubsection{Longevity Requirements}
+\textcolor{blue}{N/A}
+\item[\sout{NFR14}
+\label{NFR}:] \plt{\sout{The system must be independent of the version of Python.}}
+\begin{itemize}
+    \item \textbf{Rationale}: \sout{The system must be upgradable using version updates to the open source software it uses like Python.}
+    \item \textbf{Fit Criterion}:\sout{The system successfully renders the required GPS data independent of the Python version.}
+    \item \textbf{Priority}: \sout{5}
+    \item \textbf{Event}: \sout{UC1-7}%usecase it relates to
+    \item \textbf{Customer Satisfaction}: \sout{5}
+    \item \textbf{Customer Dissatisfaction}: \sout{5}
+    \item \textbf{Conflict}: \sout{None}
+\end{itemize}
+\subsection{Operational and Environmental Requirements}
+
+\subsubsection{Expected Physical Environment}
+\item[NFR\refstepcounter{freqnum}\thefreqnum
+\label{NFR}:] \plt{The system shall be able to run on personal laptops and desktops that uses \textcolor{blue}{2018-2022 versions of} Linux, Windows, and MacOS operating system with Python \textcolor{blue}{3} pre-installed. }
+\begin{itemize}
+    \item \textbf{Rationale}: Since it is an open source toolbox, the system only depends on having a valid OS with Python installed.
+    \item \textbf{Fit Criterion}: The systems renders the requested GPS data on a valid environment with the stated prerequisites.
+    \item \textbf{Priority}: 5
+    \item \textbf{Event}: UC1-7%usecase it relates to
+    \item \textbf{Customer Satisfaction}: 5
+    \item \textbf{Customer Dissatisfaction}: 5
+    \item \textbf{Conflict}: NFR1\sout{6}, \textcolor{blue}{R18}
+\end{itemize}
+\subsubsection{Requirements for Interfacing with Adjacent Systems}
+N/A
+\subsubsection{Productization Requirements}
+N/A
+\subsubsection{Release Requirements}
+N/A
+\subsection{Maintainability and Support Requirements}
+
+\subsubsection{Maintenance Requirements}
+\textcolor{blue}{N/A}
+\subsubsection{Supportability Requirements}
+N/A
+\subsubsection{Adaptability Requirements}
+\item[NFR\refstepcounter{freqnum}\thefreqnum
+\label{NFR}:] \plt{The system must be functional on Linux, Windows, and MacOS operating systems.  }
+\begin{itemize}
+    \item \textbf{Rationale}: The system must be functional on a valid OS.
+    \item \textbf{Fit Criterion}: The systems renders the requested GPS data on a valid environment with the stated prerequisites.
+    \item \textbf{Priority}: 5
+    \item \textbf{Event}: UC1-7%usecase it relates to
+    \item \textbf{Customer Satisfaction}: 5
+    \item \textbf{Customer Dissatisfaction}: 5
+    \item \textbf{Conflict}: NFR\sout{15}\textcolor{blue}{14; R18}
+\end{itemize}
+\subsection{Security Requirements}
+
+\subsubsection{Access Requirements}
+\item[\sout{NFR17}
+\label{NFR}:] \plt{\sout{The system must ensure that the user session is password protected.} }
+\begin{itemize}
+    \item \textbf{Rationale}: \sout{The user session stores private data of the user and hence, the system must protect it by validating the user through an appropriate password.}
+    \item \textbf{Fit Criterion}: \sout{A user with a password that does not match the stored password can not log into that session.}
+    \item \textbf{Priority}: \sout{5}
+    \item \textbf{Event}: \sout{UC1-7}%usecase it relates to
+    \item \textbf{Customer Satisfaction}: \sout{5}
+    \item \textbf{Customer Dissatisfaction}: \sout{5}
+    \item \textbf{Conflict}: \sout{NFR13,18; R16}
+\end{itemize}
+\textcolor{blue}{
+\item[NFR\refstepcounter{freqnum}\thefreqnum
+\label{NFR}:] \plt{The system must allow users to have access to read and modify the data they've uploaded }
+\begin{itemize}
+    \item \textbf{Rationale}: This would allow users to edit inputted data and make any necessary changes. If a problem occurs, the user should be able to retrieve their data instead of having to restart the process or software which would be time consuming
+    \item \textbf{Fit Criterion}: N/A
+    \item \textbf{Priority}: 5
+    \item \textbf{Event}: UC1-11%usecase it relates to
+    \item \textbf{Customer Satisfaction}: 5
+    \item \textbf{Customer Dissatisfaction}: 5
+    \item \textbf{Conflict}: \sout{NFR13,18; R16}
+\end{itemize}
+}
+\textcolor{blue}{
+\item[NFR\refstepcounter{freqnum}\thefreqnum
+\label{NFR}:] \plt{The system shall allow access to all system services and data outputs. }
+\begin{itemize}
+    \item \textbf{Rationale}: This is the main objective to the application to satisfy user goals. If a problem occurs, the system will be completely ineffective and not workable. 
+    \item \textbf{Fit Criterion}: N/A
+    \item \textbf{Priority}: 5
+    \item \textbf{Event}: UC1-12%usecase it relates to
+    \item \textbf{Customer Satisfaction}: 5
+    \item \textbf{Customer Dissatisfaction}: 5
+    \item \textbf{Conflict}: \textcolor{blue}{R3,8,10,11,12,14-17}
+\end{itemize}
+}
+
+\subsubsection{Integrity Requirements}
+\item[\sout{NFR19}
+\label{NFR}:] \plt{\sout{The system shall encrypt user information. }}
+\begin{itemize}
+    \item \textbf{Rationale}: \sout{The system must store information to validate a user for accessing their session. Hence, the system must encrypt such information to maintain integrity of their user.}
+    \item \textbf{Fit Criterion}: \sout{The system stores user's personal data using encryption libraries.}
+    \item \textbf{Priority}: \sout{5}
+    \item \textbf{Event}: \sout{UC1-7}%usecase it relates to
+    \item \textbf{Customer Satisfaction}: \sout{5}
+    \item \textbf{Customer Dissatisfaction}: \sout{5}
+    \item \textbf{Conflict}: \sout{NFR13,17}
+\end{itemize}
+\textcolor{blue}{
+\item[NFR\refstepcounter{freqnum}\thefreqnum
+\label{NFR}:] \plt{The system shall output correct calculated or modified data}
+\begin{itemize}
+    \item \textbf{Rationale}: The user should not have to question the accuracy of the data outputted. If the data is not accurate or correctly calculated it is contrary to the goal of the system.
+    \item \textbf{Fit Criterion}: The system will test along side a reliable computing software such as Matlab. 
+    \item \textbf{Priority}: 5
+    \item \textbf{Event}: UC1-13%usecase it relates to
+    \item \textbf{Customer Satisfaction}: 5
+    \item \textbf{Customer Dissatisfaction}: 5
+    \item \textbf{Conflict}: \textcolor{blue}{R5-12}
+\end{itemize}
+}
+
+\textcolor{blue}{
+\item[NFR\refstepcounter{freqnum}\thefreqnum
+\label{NFR}:] \plt{The system will only modify necessary data}
+\begin{itemize}
+    \item \textbf{Rationale}: The system would be wasting resources and time if any other modification or unnecessary calculations occur. It would also be unethical to use the data in a way that the user is unaware of and has not consented to. 
+    \item \textbf{Fit Criterion}: The user is aware at all times of the system modifications. 
+    \item \textbf{Priority}: 3
+    \item \textbf{Event}: UC1-13%usecase it relates to
+    \item \textbf{Customer Satisfaction}: 2
+    \item \textbf{Customer Dissatisfaction}: 1
+    \item \textbf{Conflict}: \textcolor{blue}{R1,2,4}
+\end{itemize}
+}
+
+\textcolor{blue}{
+\item[NFR\refstepcounter{freqnum}\thefreqnum
+\label{NFR}:] \plt{The system shall produce accuracy of 80\% when graphing location data points on a map. }
+\begin{itemize}
+    \item \textbf{Rationale}: The graphics produced to the system should be consistent to produce valuable information to be reused. When the graphic points deviate from the actual location the system will
+be counterproductive and user will be alarmed
+    \item \textbf{Fit Criterion}: The system mapping outputs will be compared to a known mapping software such as Google Maps. 
+    \item \textbf{Priority}: 3
+    \item \textbf{Event}: UC1-8%usecase it relates to
+    \item \textbf{Customer Satisfaction}: 5
+    \item \textbf{Customer Dissatisfaction}: 3
+    \item \textbf{Conflict}: \textcolor{blue}{NFR11; R3}
+\end{itemize}
+}
+\textcolor{blue}{
+\item[NFR\refstepcounter{freqnum}\thefreqnum
+\label{NFR}:] \plt{The system shall provide warning log messages of improper or unexpected system uses. }
+\begin{itemize}
+    \item \textbf{Rationale}: The system should provide helpful information when navigating around the system.
+This ensures a mitigation response to unexpected user activity.
+    \item \textbf{Fit Criterion}: The system is able to predict common misused function call with warning messages with tips on how to fix the problem.
+    \item \textbf{Priority}: 3
+    \item \textbf{Event}: UC1-8%usecase it relates to
+    \item \textbf{Customer Satisfaction}: 5
+    \item \textbf{Customer Dissatisfaction}: 4
+    \item \textbf{Conflict}: \textcolor{blue}{NFR26; R1,5-12,17}
+\end{itemize}
+}
+\textcolor{blue}{
+\item[NFR\refstepcounter{freqnum}\thefreqnum
+\label{NFR}:] \plt{The system shall confirm upload and output files are not larger than 1GB. }
+\begin{itemize}
+    \item \textbf{Rationale}: The system needs to provide secure methods of handling system files. This ensures
+safe saving and uploading of files.
+    \item \textbf{Fit Criterion}: The system does not process files larger than 1GB and throws an error message. 
+    \item \textbf{Priority}: 5
+    \item \textbf{Event}: UC1-8%usecase it relates to
+    \item \textbf{Customer Satisfaction}: 5
+    \item \textbf{Customer Dissatisfaction}: 5
+    \item \textbf{Conflict}: \textcolor{blue}{R1,5-12,17}
+\end{itemize}
+}
+
+\subsubsection{Privacy Requirements}
+\item[NFR\refstepcounter{freqnum}\thefreqnum
+\label{NFR}:] \plt{The system shall not leak sensitive user data. }
+\begin{itemize}
+    \item \textbf{Rationale}: Since the user's requested locations are stored, the system must only allow valid users to access their session's requested locations.
+    \item \textbf{Fit Criterion}: The systems does not allow users from another session to access GPS data outside their session.
+    \item \textbf{Priority}: 5
+    \item \textbf{Event}: UC1-7%usecase it relates to
+    \item \textbf{Customer Satisfaction}: 5
+    \item \textbf{Customer Dissatisfaction}: 5
+    \item \textbf{Conflict}: \sout{NFR13,17,18;} \textcolor{blue}{R18}
+\end{itemize}
+
+\textcolor{blue}{
+\item[NFR\refstepcounter{freqnum}\thefreqnum
+\label{NFR}:] \plt{The system shall keep all the data locally. }
+\begin{itemize}
+    \item \textbf{Rationale}: Since the system is running on user's computer locally, the system must make sure that all the data are kept on the machine only to satisfy the privacy requirement.
+    \item \textbf{Fit Criterion}: The system only keeps the executed data on the machine locally.
+    \item \textbf{Priority}: 5
+    \item \textbf{Event}: UC1-8%usecase it relates to
+    \item \textbf{Customer Satisfaction}: 5
+    \item \textbf{Customer Dissatisfaction}: 5
+    \item \textbf{Conflict}: \textcolor{blue}{NFR14,15; R3,8,10,11,12,14-17}
+\end{itemize}
+}
+
+\subsubsection{Audit Requirements}
+\textcolor{blue}{
+\item[NFR\refstepcounter{freqnum}\thefreqnum
+\label{NFR}:] \plt{The system should be verifiable against the requirements and MIS}
+\begin{itemize}
+    \item \textbf{Rationale}: The system must be verified with logical and deductible methods. Failure to meet the requirement results with poor demonstration of requirements.
+    \item \textbf{Fit Criterion}: All requirements and design elements are presented in the system. 
+    \item \textbf{Priority}: 5
+    \item \textbf{Event}: UC1-8%usecase it relates to
+    \item \textbf{Customer Satisfaction}: 5
+    \item \textbf{Customer Dissatisfaction}: 5
+    \item \textbf{Conflict}: \textcolor{blue}{NFR4}
+\end{itemize}
+}
+\subsubsection{Immunity Requirements}
+N/A
+\subsection{Cultural and Political Requirements}
+
+\subsubsection{Cultural Requirements}
+\textcolor{blue}{
+\item[NFR\refstepcounter{freqnum}\thefreqnum
+\label{NFR}:] \plt{The system shall display proper language. }
+\begin{itemize}
+    \item \textbf{Rationale}: Since the users of the system have different backgrounds, we must make sure that the words the system displays do not offend them.
+    \item \textbf{Fit Criterion}: The words the interface displays to the users are proper, with no violate words.
+    \item \textbf{Priority}: 5
+    \item \textbf{Event}: UC1-9%usecase it relates to
+    \item \textbf{Customer Satisfaction}: 5
+    \item \textbf{Customer Dissatisfaction}: 5
+    \item \textbf{Conflict}: \textcolor{blue}{NFR2,21}
+\end{itemize}
+}
+
+\subsubsection{Political Requirements}
+N/A
+\subsection{Legal Requirements}
+
+\subsubsection{Compliance Requirements}
+N/A
+\subsubsection{Standards Requirements}
+N/A
+\subsection{Health and Safety Requirements}
+\textcolor{blue}{
+\item[NFR\refstepcounter{freqnum}\thefreqnum
+\label{NFR}:] \plt{The system shall generate safe or reasonable outputs. }
+\begin{itemize}
+    \item \textbf{Rationale}: Since some of the data points are lacked of accuracy when the users collected them \sout{(e.g. the points in the water or the points that cross the border of the country)}, the system must ignore those points when processing the data.
+    \item \textbf{Fit Criterion}: The system should ignore unreasonable data points when generating the outputs.
+    \item \textbf{Priority}: 5
+    \item \textbf{Event}: UC1-10%usecase it relates to
+    \item \textbf{Customer Satisfaction}: 5
+    \item \textbf{Customer Dissatisfaction}: 5
+    \item \textbf{Conflict}: \textcolor{blue}{NFR11; R1,17}
+\end{itemize}
+}
+
+
+\end{itemize}
+\section{Likely Changes}
+
+Automate routes using RCA
+\begin{itemize}
+\item Using RCA may require extra supporting requirements for functionality and could take more time given. It may not be possible to add this feature into the project.
+\end{itemize}
+\\
+Time Use Diaries
+\begin{itemize}
+\item Currently users are able to input TUD episodes to generate trip segments. This might require extra supporting requirements in order to accomplish. However, based on time constraints and as it is not one of the main requirements for this project it may not be possible to add this functionality into the final product.
+\end{itemize}
+\\
+\textcolor{blue}{GUI for open source GIS software
+\begin{itemize}
+\item This was mentioned as a stretch goal when the project was started. However, after getting the supervisor's, Dr. Paez, feedback, the team realized it was not appropriate to include this point part of a potential change. The open source software needs to be interactive from command-line and guided instructions of the intended uses will be provided. 
+\end{itemize}
+}
+\section{Unlikely Changes}
+
+Python as Primary Language
+\begin{itemize}
+\item Python has many libraries to facilitate mapping and analysing geospatial data which will be integral to creating this software. 
+\end{itemize}
+\\
+GPS Coordinates as Inputs
+\begin{itemize}
+\item Map matching and extracting episode is dependant on GPS data gathered by the user. 
+\end{itemize}
+\\
+GPS Episodes as Outputs 
+\begin{itemize}
+\item As the main requirements of the project depends on the usuage of GPS episodes the output is unlikely to change.
+\end{itemize}
+
+\newpage
+\begin{landscape}
+
+\section{Traceability Matrix}
+\begin{table}[H]
+\centering
+\scalebox{0.5}{
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+\hline        
+ & NFR1 & NFR2 & NFR3 & NFR4 & NFR6 & NFR8 & NFR9 & NFR11 & NFR12 & NFR14 & NFR15 & NFR16 & NFR17 & NFR18 & NFR19 & NFR20 & NFR21 & NFR22 & NFR23 & NFR24 & NFR25 & NFR26 & NFR27\\ 
+ \hline
+R1  & & & &X& & & & &X& & & & & &X& &X&X& & & & &X\\ 
+\hline
+R2  & & & &X& & & & &X& & & & & &X& & & & & & & & \\ 
+\hline
+R3  &X&X&X&X&X& &X&X&X& & & &X& & &X& & & &X& & & \\ 
+\hline
+R4  & & & &X& & & & & & & & & & &X& & & & & & & & \\
+\hline
+R5  & & & &X& & & & & & & & & &X& & &X&X& & & & & \\ 
+\hline
+R6  & & & &X& & & & & & & & & &X& & &X&X& & & & & \\ 
+\hline
+R7  & & & &X& & & & & & & & & &X& & &X&X& & & & & \\ 
+\hline
+R8  & & & &X&X& &X& & & & & &X&X& & &X&X& &X& & & \\ 
+\hline
+R9  & & & &X& & & & & & & & & &X& & &X&X& & & & & \\ 
+\hline
+R10 &X& & &X&X& &X& & & & & &X&X& & &X&X& &X& & & \\ 
+\hline
+R11 & & & &X&X& &X& & & & & &X&X& & &X&X& &X& & & \\ 
+\hline
+R12 & &X& &X&X& &X& & & & & &X&X& & &X&X& &X& & & \\ 
+\hline
+R13 & & & &X& & & & & & & & & & & & & & & & & & & \\ 
+\hline
+R14 &X& & &X&X& &X& & & & & &X& & & & & & &X& & & \\ 
+\hline
+R15 &X& & &X&X& &X& & & & & &X& & & & & & &X& & & \\ 
+\hline
+R16 &X& & &X&X& &X& & & & & &X& & & & & & &X& & & \\ 
+\hline
+R17 & & & &X&X& &X& &X& & & &X& & & &X&X& &X& & &X\\ 
+\hline
+R18 & &X& &X& & & & & &X&X& & & & & & & &X& & & & \\ 
+\hline
+\end{tabular}
+}
+\caption{Traceability Matrix Showing the Connections Between Functional Requirements and Non Functional Requirements}
+\label{Table:trace}
+\end{table}
+\end{landscape}
+
+\section{Project Issues}
+
+\subsection{Open Issues}
+\begin{itemize}
+    \item Understanding the ArcGIS Architecture 
+    \item Researching Similar Open Source software to ArcGIS
+\end{itemize}
+
+\subsection{Off-the-Shelf Solutions}
+The GERT toolbox is the current solution for map matching software. However, it comes with limited functionality and specific data requirements for usage. It is also not open source and expensive to licence. 
+\subsection{New Problems}
+The software being created is a reworking of the original GERT toolbox and will not interfere with the original toolbox as it is designed separately from it.
+\subsection{Tasks}
+\begin{itemize}
+    \item Hazard Analysis 0
+    \item V&V Plan Revision 0
+    \item Proof of Concept Demonstration
+    \item Design Document Revision 0
+    \item Revision 0 Demonstration
+    \item V&V Report Revision 0
+    \item Final Demonstration
+    \item Expo Demonstration
+    \item Final Documentation
+\end{itemize}
+\subsection{Migration to the New Product}
+\textcolor{blue}{The design architecture for the program(e.g. modular design) can ensure that it can be added with new features/function easily.}
+
+\subsection{Risks}
+\textcolor{blue}{
+One potential risks is that when the user is trying to run the program in new platforms(i.e. new operation system,) he/she
+may have compatibility issues.}
+\subsection{Costs}
+There will be no cost towards making this  toolbox as it is being created completely open source and free from proprietary software.
+\subsection{User Documentation and Training}
+Documentation will be made \textcolor{blue}{as a document and Wiki page on github} \sout{using Quarto which is open-source scientific and technical publishing system}. This will allow us to put snippets of code within the documentation and will behave as a training manual for users wanting to work with the software. 
+\subsection{Waiting Room}
+The current plan to for project is a complete re engineering of the GERT toolbox. Once this is completed extra functionality will be added, these include: 
+\begin{itemize}
+    \item The use of route choice analysis for trip generation 
+    \item Using time use diaries for route validation 
+\end{itemize}
+\subsection{Ideas for Solutions}
+\sout{At this point in time we are still actively researching different libraries and frameworks to use for this project and they will be added into this section in later revisions of this document.} \textcolor{blue}{After researching open source Python libraries that help with geospatial analysis the team decided to move forward with implementation a library with a service oriented software architecture. This allows user to interact with the library directly and in the same format as interacting with any Python library. Also, the team decided to publish the library on PIP making the solution accessible. } 
+
+\newpage
+
+\section{Appendix}
+This section has been added to the Volere template.  This is where you can place
+additional information.
+
+\subsection{Symbolic Parameters}
+
+N/A
+
+\subsection{Reflections}
+
+To successfully complete this project \textcolor{blue}{and gain a complete understanding of the project's domain}, the team must acquire knowledge related to the content of the toolbox including but not limited to: route choice variables/models, travel episode verification and categorization, trip trajectory generation, GIS software tooling, and understanding various GPS data types. Each member of the team will be responsible for acquiring knowledge on each module of the toolbox. Smita and Moksha will be responsible for route choice variables/models. Longwei will be responsible for trip trajectory generation. Niyatha will be responsible for travel episode verification and categorization. Abeer will be responsible for GIS tooling. Nicholas will be responsible for understanding the GPS data types.\\
+
+\noident To approach this, we meet with domain-specialists including the project's Supervisor, Dr. Paez, past developers of the toolbox, and potential toolbox users. Through interviewing these stakeholders we will learn about the goals of models we are implementing, what is lacking in current tooling, standard GIS software usage, domain specific knowledge regarding trips/routes, and how this information will be used to derive insights. We will also be reading published papers to gain insight on standard GPS data processing algorithms and help discover optimizations for our toolbox.\\
+
+\noindent Another skill our team has to acquire is team management \textcolor{blue}{to increase the productivity of the project}. As a group project, a successful team management strategy will help members complete their tasks more efficiently. We have already established a team communication strategy and methodology for pushing/reviewing content (code, docs, etc.), to complement this, we will routinely schedule retrospectives regarding management strategies to update processes and maximize efficiency. These retrospectives will often consist of identifying productivity blockers, researching better methods, and implementing them into our tooling. \\
+
+\noindent Another skill our team has to acquire is writing and presentation skills \textcolor{blue}{to help structure our project demonstration and supervisor's meetings}. Since every member of the team has different writing experiences, our method of writing varies drastically from person to person. Learning how to write as a team, create formal documentation that is thoroughly consistent with one another will be a challenge. Therefore we will investigate formal writing conventions and ensure that each member of the team is aware and actively uses the predetermined methods. Similarly for the end of the year capstone presentations, the team will have to work together to come up with a method of presentation that will fit all of us as well as be consistent with formal presentation styles. This will require more investigation and practise as a team.\\
+
+\bibliographystyle{IEEEtran}
+\bibliography{SRS}
+
 \end{document}
